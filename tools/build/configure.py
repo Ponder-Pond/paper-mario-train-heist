@@ -410,13 +410,13 @@ class Configure:
         if code:
             modes.extend(["code", "c", "data", "rodata"])
 
-        splat_files = [str(self.version_path / "splat.yaml")]
+        # Fixed code
+        splat_files = [Path(self.version_path / "splat.yaml")]
         if debug:
-            splat_files += [str(self.version_path / "splat-debug.yaml")]
+            splat_files += [Path(self.version_path / "splat-debug.yaml")]
 
         if shift:
-            splat_files += [str(self.version_path / "splat-shift.yaml")]
-
+            splat_files += [Path(self.version_path / "splat-shift.yaml")]
         split.main(
             splat_files,
             modes,
