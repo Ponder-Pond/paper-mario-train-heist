@@ -2960,6 +2960,7 @@ enum Areas {
     AREA_MAC,
     AREA_END,
     AREA_GV,
+    AREA_SMB,
     AREA_NET,
     AREA_TRP,
 };

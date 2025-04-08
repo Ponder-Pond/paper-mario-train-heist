@@ -29,8 +29,6 @@ void fio_serialize_state() {
     saveData->debugUnused1 = gGameStatus.debugUnused1;
     saveData->debugUnused2 = gGameStatus.debugUnused2;
     saveData->musicEnabled = gGameStatus.musicEnabled;
-    saveData->character = gGameStatus.character;
-    saveData->bestTrait = gGameStatus.bestTrait;
 }
 
 /// Load game data from gCurrentSaveFile
@@ -74,9 +72,6 @@ void ver_deserialize_standard() {
     gGameStatus.savedPos.x = saveData->savePos.x;
     gGameStatus.savedPos.y = saveData->savePos.y;
     gGameStatus.savedPos.z = saveData->savePos.z;
-
-    // always load to net_00 regardless of what the save file says
-    get_map_IDs_by_name_checked("net_00", &gGameStatus.areaID, &gGameStatus.mapID);
 
     // copy saved enemy defeat flags
     for (i = 0; i < ARRAY_COUNT(gCurrentEncounter.defeatFlags[0]); i++) {

@@ -7,7 +7,6 @@
 #include "game_modes.h"
 #include "dx/profiling.h"
 #include "dx/debug_menu.h"
-#include "online/online.h"
 #include "ship.h"
 
 s32 gOverrideFlags;
@@ -87,8 +86,6 @@ void step_game_loop(void) {
         }
     }
 
-    online_begin_step_game_loop();
-
     mdl_reset_transform_flags();
     update_workers();
     profiler_update(PROFILER_TIME_WORKERS, 0);
@@ -165,8 +162,6 @@ void step_game_loop(void) {
     } else {
         gOverrideFlags &= ~GLOBAL_OVERRIDES_PREV_800;
     }
-
-    online_end_step_game_loop();
 
     // Unused rand_int used to advance the global random seed each visual frame
     rand_int(1);
@@ -297,7 +292,6 @@ void load_engine_data(void) {
     DMA_COPY_SEGMENT(entity);
     DMA_COPY_SEGMENT(engine2);
     DMA_COPY_SEGMENT(font_width);
-    DMA_COPY_SEGMENT(online);
 
     gOverrideFlags = 0;
     gGameStatusPtr->unk_79 = 0;

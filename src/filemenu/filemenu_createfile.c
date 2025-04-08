@@ -1,10 +1,6 @@
 #include "common.h"
-#include "enums.h"
 #include "filemenu.h"
 #include "hud_element.h"
-#include "macros.h"
-#include "message_ids.h"
-#include "msg.h"
 
 extern HudScript HES_FilenameCaret;
 extern HudScript HES_FilenameSpace;
@@ -34,8 +30,8 @@ MenuWindowBP filemenu_createfile_windowBPs[] = {
     {
         .windowID = WIN_FILES_INPUT_FIELD,
         .unk_01 = 0,
-        .pos = { .x = 12, .y = WINDOW_1_Y },
-        .width = 262,
+        .pos = { .x = 68, .y = WINDOW_1_Y },
+        .width = 164,
         .height = 46,
         .priority = WINDOW_PRIORITY_64,
         .fpDrawContents = &filemenu_draw_contents_file_create_header,
@@ -136,10 +132,10 @@ void filemenu_draw_contents_file_create_header(
     s32 i;
 
     filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_ENTER_A_FILE_NAME), baseX + 10, baseY + 6, 255, 0, 0);
-    filemenu_draw_file_name(filemenu_filename, 16, baseX + 36, baseY + 22, 255, 0, 0, 11);
+    filemenu_draw_file_name(filemenu_filename, 8, baseX + 36, baseY + 22, 255, 0, 0, 11);
     xOffset = 41;
 
-    for (i = 0; i < ARRAY_COUNT(filemenu_filename) - 1; i++) {
+    for (i = 0; i < ARRAY_COUNT(filemenu_filename); i++) {
         hud_element_set_render_pos(filemenu_createfile_HIDs[1], baseX + 42 + (i * 11), baseY + xOffset);
         if (i == 0) {
             hud_element_draw_without_clipping(filemenu_createfile_HIDs[1]);
@@ -148,8 +144,12 @@ void filemenu_draw_contents_file_create_header(
         }
     }
 
-    if (filemenu_currentMenu == FILE_MENU_INPUT_NAME && filemenu_filename_pos < ARRAY_COUNT(filemenu_filename) - 1) {
-        s32 phi_v0 = (filemenu_filename_pos * 11) + 45;
+    if (filemenu_currentMenu == FILE_MENU_INPUT_NAME) {
+        s32 phi_v0 = 122;
+
+        if (filemenu_filename_pos != 8) {
+            phi_v0 = (filemenu_filename_pos * 11) + 45;
+        }
         hud_element_set_render_pos(filemenu_createfile_HIDs[0], baseX + phi_v0, baseY + 45);
         hud_element_draw_next(filemenu_createfile_HIDs[0]);
     }
@@ -430,13 +430,13 @@ void filemenu_choose_name_handle_input(MenuPanel* menu) {
         switch (menu->selected) {
             case MSG_CHAR_MENU_SPACE:
                 sfx_play_sound(SOUND_CREATE_FILE_SET_CHARACTER);
-                if (filemenu_filename_pos == ARRAY_COUNT(filemenu_filename) - 1) {
-                    filemenu_filename_pos = ARRAY_COUNT(filemenu_filename) - 2;
+                if (filemenu_filename_pos == ARRAY_COUNT(filemenu_filename)) {
+                    filemenu_filename_pos = ARRAY_COUNT(filemenu_filename) - 1;
                 }
                 filemenu_filename[filemenu_filename_pos] = MSG_CHAR_READ_SPACE;
                 filemenu_filename_pos++;
-                if (filemenu_filename_pos > ARRAY_COUNT(filemenu_filename) - 1) {
-                    filemenu_filename_pos = ARRAY_COUNT(filemenu_filename) - 1;
+                if (filemenu_filename_pos > ARRAY_COUNT(filemenu_filename)) {
+                    filemenu_filename_pos = ARRAY_COUNT(filemenu_filename);
                 }
                 break;
             case MSG_CHAR_MENU_USE_CHARSET_B:
@@ -459,17 +459,45 @@ void filemenu_choose_name_handle_input(MenuPanel* menu) {
                 // handled later to combine with B-input detection
                 break;
             case MSG_CHAR_MENU_END:
-                // handled later to combine with START-input detection
-                break;
+                for (i = 0; i < ARRAY_COUNT(filemenu_filename); i++) {
+                    if (filemenu_filename[i] != MSG_CHAR_READ_SPACE) {
+                        break;
+                    }
+                }
+                if (i == ARRAY_COUNT(filemenu_filename)) {
+                    sfx_play_sound(SOUND_MENU_ERROR);
+                    break;
+                }
+
+                sfx_play_sound(SOUND_MENU_NEXT);
+                set_window_update(WIN_FILES_CONFIRM_OPTIONS, (s32) filemenu_update_show_name_confirm);
+                gWindows[WIN_FILES_CONFIRM_OPTIONS].width = 69;
+                gWindows[WIN_FILES_CONFIRM_OPTIONS].height = 44;
+                gWindows[WIN_FILES_CONFIRM_OPTIONS].pos.x = CENTER_WINDOW_X(WIN_FILES_CONFIRM_OPTIONS);
+                gWindows[WIN_FILES_CONFIRM_OPTIONS].pos.y = 121;
+
+#if VERSION_PAL
+                gWindows[WIN_FILES_CONFIRM_PROMPT].width = D_filemenu_80250960[gCurrentLanguage];
+#else
+                gWindows[WIN_FILES_CONFIRM_PROMPT].width = 164;
+#endif
+                gWindows[WIN_FILES_CONFIRM_PROMPT].height = 62;
+                gWindows[WIN_FILES_CONFIRM_PROMPT].pos.x = CENTER_WINDOW_X(WIN_FILES_CONFIRM_PROMPT);
+                gWindows[WIN_FILES_CONFIRM_PROMPT].pos.y = -70;
+
+                filemenu_currentMenu = FILE_MENU_CONFIRM;
+                filemenu_menus[filemenu_currentMenu]->state = FM_CONFIRM_CREATE;
+                filemenu_set_selected(filemenu_menus[filemenu_currentMenu], 0, 0);
+                return;
             default:
                 sfx_play_sound(SOUND_CREATE_FILE_SET_CHARACTER);
-                if (filemenu_filename_pos == ARRAY_COUNT(filemenu_filename) - 1) {
-                    filemenu_filename[ARRAY_COUNT(filemenu_filename) - 2] = menu->selected;
+                if (filemenu_filename_pos == ARRAY_COUNT(filemenu_filename)) {
+                    filemenu_filename[7] = menu->selected;
                 } else {
                     filemenu_filename[filemenu_filename_pos] = menu->selected;
                     filemenu_filename_pos++;
-                    if (filemenu_filename_pos > ARRAY_COUNT(filemenu_filename) - 1) {
-                        filemenu_filename_pos = ARRAY_COUNT(filemenu_filename) - 1;
+                    if (filemenu_filename_pos > ARRAY_COUNT(filemenu_filename)) {
+                        filemenu_filename_pos = ARRAY_COUNT(filemenu_filename);
                     }
                 }
                 break;
@@ -478,7 +506,7 @@ void filemenu_choose_name_handle_input(MenuPanel* menu) {
         if (menu->selected != MSG_CHAR_MENU_USE_CHARSET_A
             && menu->selected != MSG_CHAR_MENU_USE_CHARSET_B
             && menu->selected != MSG_CHAR_MENU_BACK
-            && filemenu_filename_pos == ARRAY_COUNT(filemenu_filename) - 1
+            && filemenu_filename_pos == ARRAY_COUNT(filemenu_filename)
         ) {
             filemenu_set_selected(menu, menu->numCols - 3, menu->numRows - 1);
         }
@@ -507,71 +535,20 @@ void filemenu_choose_name_handle_input(MenuPanel* menu) {
         }
 
         for (i = filemenu_filename_pos; i < ARRAY_COUNT(filemenu_filename); i++) {
-            filemenu_filename[i] = MSG_CHAR_READ_END;
+            filemenu_filename[i] = MSG_CHAR_READ_SPACE;
         }
     }
 
-    if ((filemenu_pressedButtons & BUTTON_START) || ((filemenu_pressedButtons & BUTTON_A) && menu->selected == MSG_CHAR_MENU_END)) {
-        // Combine contiguous spaces
-        for (i = 0; i < ARRAY_COUNT(filemenu_filename) - 1; i++) {
-            if (filemenu_filename[i] == MSG_CHAR_READ_SPACE && filemenu_filename[i + 1] == MSG_CHAR_READ_SPACE) {
-                s32 index;
-                for (index = i + 1; index < ARRAY_COUNT(filemenu_filename) - 1; index++) {
-                    filemenu_filename[index] = filemenu_filename[index + 1];
-                }
-                filemenu_filename[index] = MSG_CHAR_READ_END;
-                filemenu_filename_pos--;
-                i--; // Recheck the current position
-            }
-        }
-
-        // Remove leading space
-        if (filemenu_filename[0] == MSG_CHAR_READ_SPACE) {
-            for (i = 0; i < ARRAY_COUNT(filemenu_filename) - 1; i++) {
-                filemenu_filename[i] = filemenu_filename[i + 1];
-            }
-            filemenu_filename_pos--;
-        }
-
-        // Remove trailing space
-        if (filemenu_filename[filemenu_filename_pos - 1] == MSG_CHAR_READ_SPACE) {
-            filemenu_filename[filemenu_filename_pos - 1] = MSG_CHAR_READ_END;
-            filemenu_filename_pos--;
-        }
-
-        // Check name isn't empty
+    if (filemenu_pressedButtons & BUTTON_START) {
         for (i = 0; i < ARRAY_COUNT(filemenu_filename); i++) {
-            if (filemenu_filename[i] != MSG_CHAR_READ_END) {
+            if (filemenu_filename[i] != MSG_CHAR_READ_SPACE) {
                 break;
             }
         }
         if (i == ARRAY_COUNT(filemenu_filename)) {
             sfx_play_sound(SOUND_MENU_ERROR);
             return;
-        }
 
-        // Check name isn't exactly "Captain" since that's the default name
-        if (filemenu_filename[0] == MSG_CHAR_UPPER_C
-            && filemenu_filename[1] == MSG_CHAR_LOWER_A
-            && filemenu_filename[2] == MSG_CHAR_LOWER_P
-            && filemenu_filename[3] == MSG_CHAR_LOWER_T
-            && filemenu_filename[4] == MSG_CHAR_LOWER_A
-            && filemenu_filename[5] == MSG_CHAR_LOWER_I
-            && filemenu_filename[6] == MSG_CHAR_LOWER_N
-            && filemenu_filename[7] == MSG_CHAR_READ_END
-        ) {
-            sfx_play_sound(SOUND_MENU_ERROR);
-            return;
-        }
-
-        // Strip everything after the terminator
-        for (i = 0; i < ARRAY_COUNT(filemenu_filename) - 1; i++) {
-            if (filemenu_filename[i] == MSG_CHAR_READ_END) {
-                break;
-            }
-        }
-        for (; i < ARRAY_COUNT(filemenu_filename); i++) {
-            filemenu_filename[i] = MSG_CHAR_READ_END;
         }
 
         sfx_play_sound(SOUND_MENU_NEXT);
@@ -585,7 +562,7 @@ void filemenu_choose_name_handle_input(MenuPanel* menu) {
 #if VERSION_PAL
         gWindows[WIN_FILES_CONFIRM_PROMPT].width = D_filemenu_80250960[gCurrentLanguage];
 #else
-        gWindows[WIN_FILES_CONFIRM_PROMPT].width = 262;
+        gWindows[WIN_FILES_CONFIRM_PROMPT].width = 164;
 #endif
         gWindows[WIN_FILES_CONFIRM_PROMPT].height = 62;
         gWindows[WIN_FILES_CONFIRM_PROMPT].pos.x = CENTER_WINDOW_X(WIN_FILES_CONFIRM_PROMPT);

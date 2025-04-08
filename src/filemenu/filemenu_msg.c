@@ -1,5 +1,4 @@
 #include "common.h"
-#include "enums.h"
 #include "filemenu.h"
 #include "ld_addrs.h"
 
@@ -276,22 +275,10 @@ u8 filemenu_msg_39[] = {0x14, 0xFD};
 u8 filemenu_createfile_gridData[] = {0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x61, 0x66, 0x6A, 0x6D, 0x6F, 0x73, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F, 0x81, 0x82, 0x84, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x10, 0x0E, 0x0D, 0xF7, 0x00, 0x90, 0x91, 0x20, 0xF7, 0xF7, 0xF7, 0xC9, 0xF7, 0xF7, 0xCA, 0xF7, 0xF7};
 
 #else
-u8 filemenu_msg_01[] = {
-    // Pick yer pirate![End]
-    MSG_CHAR_UPPER_P, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_C, MSG_CHAR_LOWER_K, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_R, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_P, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_E,
-    MSG_CHAR_EXCLAMTION,
-    MSG_CHAR_READ_END,
-};
-u8 filemenu_msg_02[] = {
-    // Who walks the plank?[End]
-    MSG_CHAR_UPPER_W, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_O, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_W, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_K, MSG_CHAR_LOWER_S, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_P, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_N, MSG_CHAR_LOWER_K, MSG_CHAR_QUESTION,
-    MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_01[] = { 0x33, 0x45, 0x4C, 0x45, 0x43, 0x54, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0xF7, 0x54, 0x4F, 0xF7, 0x53,
+                    0x54, 0x41, 0x52, 0x54, 0x1A, 0xFD };
+u8 filemenu_msg_02[] = { 0x33, 0x45, 0x4C, 0x45, 0x43, 0x54, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0xF7, 0x54, 0x4F, 0xF7, 0x44,
+                    0x45, 0x4C, 0x45, 0x54, 0x45, 0x1A, 0xFD };
 u8 filemenu_msg_03[] = { 0x33, 0x45, 0x4C, 0x45, 0x43, 0x54, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0xF7, 0x54, 0x4F, 0xF7, 0x53,
                     0x41, 0x56, 0x45, 0xFD };
 u8 filemenu_msg_04[] = { 0x23, 0x4F, 0x50, 0x59, 0xF7, 0x57, 0x48, 0x49, 0x43, 0x48, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0x1F,
@@ -301,85 +288,36 @@ u8 filemenu_msg_05[] = { 0x23, 0x4F, 0x50, 0x59, 0xF7, 0x54, 0x4F, 0xF7, 0x57, 0
 u8 filemenu_msg_06[] = { 0x2E, 0x25, 0x37, 0xFD };
 u8 filemenu_msg_07[] = { 0x2C, 0x45, 0x56, 0x45, 0x4C, 0xFD };
 u8 filemenu_msg_08[] = { 0x30, 0x4C, 0x41, 0x59, 0xF7, 0x34, 0x49, 0x4D, 0x45, 0xFD };
-u8 filemenu_msg_09[] = {
-    // Send to Davy Jones[End]
-    MSG_CHAR_UPPER_S, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_N, MSG_CHAR_LOWER_D, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_O, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_UPPER_D, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_V, MSG_CHAR_LOWER_Y, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_UPPER_J, MSG_CHAR_LOWER_O, MSG_CHAR_LOWER_N, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_S,
-    MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_09[] = { 0x24, 0x45, 0x4C, 0x45, 0x54, 0x45, 0xF7, 0x26, 0x49, 0x4C, 0x45, 0xFD };
 u8 filemenu_msg_10[] = { 0x23, 0x41, 0x4E, 0x43, 0x45, 0x4C, 0xFD };
 u8 filemenu_msg_11[] = { 0x23, 0x4F, 0x50, 0x59, 0xF7, 0x26, 0x49, 0x4C, 0x45, 0xFD };
 u8 filemenu_msg_12[] = { 0x26, 0x49, 0x52, 0x53, 0x54, 0xF7, 0x30, 0x4C, 0x41, 0x59, 0xFD };
 u8 filemenu_msg_13[] = { 0x0E, 0xFD };
-u8 filemenu_msg_14[] = {
-    // Aye[End]
-    MSG_CHAR_UPPER_A, MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_E, MSG_CHAR_READ_END,
-};
-u8 filemenu_msg_15[] = {
-    // Nay[End]
-    MSG_CHAR_UPPER_N, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_Y, MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_14[] = { 0x39, 0x45, 0x53, 0xFD };
+u8 filemenu_msg_15[] = { 0x2E, 0x4F, 0xFD };
 u8 filemenu_msg_16[] = { 0x24, 0x45, 0x4C, 0x45, 0x54, 0x45, 0xFD };
 u8 filemenu_msg_17[] = { 0x2F, 0x56, 0x45, 0x52, 0x52, 0x49, 0x44, 0x45, 0xF7, 0x54, 0x4F, 0xF7, 0x2E, 0x45, 0x57, 0xF7,
                     0x24, 0x41, 0x54, 0x41, 0xFD };
 u8 filemenu_msg_18[] = { 0x33, 0x41, 0x56, 0x45, 0xF7, 0x2F, 0x2B, 0x1F, 0xFD };
-u8 filemenu_msg_19[] = {
-    // So, yer name be:[End]
-    MSG_CHAR_UPPER_S, MSG_CHAR_LOWER_O, MSG_CHAR_COMMA, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_R, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_N, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_M, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_B, MSG_CHAR_LOWER_E, MSG_CHAR_COLON, MSG_CHAR_READ_END,
-};
-u8 filemenu_msg_20[] = { MSG_CHAR_READ_END };
-u8 filemenu_msg_21[] = {
-    // Be that the truth?[End]
-    MSG_CHAR_UPPER_B, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_T, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_U, MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_QUESTION,
-    MSG_CHAR_READ_END,
- };
-u8 filemenu_msg_22[] = {
-    // Record[End]
-    MSG_CHAR_UPPER_R, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_C, MSG_CHAR_LOWER_O, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_D, MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_19[] = { 0x26, 0x49, 0x4C, 0x45, 0xF7, 0x4E, 0x41, 0x4D, 0x45, 0xF7, 0x49, 0x53, 0xF7, 0x1A, 0xFD };
+u8 filemenu_msg_20[] = { 0x0E, 0xFD };
+u8 filemenu_msg_21[] = { 0x2F, 0x2B, 0x1F, 0xFD };
+u8 filemenu_msg_22[] = { 0x26, 0x49, 0x4C, 0x45, 0xFD };
 u8 filemenu_msg_23[] = { 0x57, 0x49, 0x4C, 0x4C, 0xF7, 0x42, 0x45, 0xF7, 0x44, 0x45, 0x4C, 0x45, 0x54, 0x45, 0x44, 0x0E,
                     0xFD };
 u8 filemenu_msg_24[] = { 0x2F, 0x2B, 0xF7, 0x54, 0x4F, 0xF7, 0x43, 0x4F, 0x50, 0x59, 0xF7, 0x54, 0x4F, 0xF7, 0x54, 0x48,
                     0x49, 0x53, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0x1F, 0xFD };
-u8 filemenu_msg_25[] = {
-    // Off to sea as this scallywag?[End]
-    MSG_CHAR_UPPER_O, MSG_CHAR_LOWER_F, MSG_CHAR_LOWER_F, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_O, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_S, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_A, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_S, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_S, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_S, MSG_CHAR_LOWER_C, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_W, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_G, MSG_CHAR_QUESTION,
-    MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_25[] = { 0x33, 0x54, 0x41, 0x52, 0x54, 0xF7, 0x47, 0x41, 0x4D, 0x45, 0xF7, 0x57, 0x49, 0x54, 0x48, 0xFD };
 u8 filemenu_msg_26[] = { 0x26, 0x49, 0x4C, 0x45, 0xFD };
-u8 filemenu_msg_27[] = {
-    // They've been buried at sea.[End]
-    MSG_CHAR_UPPER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_Y, MSG_CHAR_APOSTROPHE, MSG_CHAR_LOWER_V, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_B, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_N, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_B, MSG_CHAR_LOWER_U, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_D, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_T, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_S, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_A, MSG_CHAR_PERIOD,
-    MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_27[] = { 0x48, 0x41, 0x53, 0xF7, 0x42, 0x45, 0x45, 0x4E, 0xF7, 0x44, 0x45, 0x4C, 0x45, 0x54, 0x45, 0x44,
+                    0x0E, 0xFD };
 u8 filemenu_msg_28[] = { 0xFD };
 u8 filemenu_msg_29[] = { 0x23, 0x4F, 0x50, 0x59, 0xF7, 0x46, 0x52, 0x4F, 0x4D, 0xFD };
 u8 filemenu_msg_30[] = { 0x54, 0x4F, 0xFD };
-u8 filemenu_msg_31[] = {
-    // New pirate aboard![End]
-    MSG_CHAR_UPPER_N, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_W, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_P, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-    MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_B, MSG_CHAR_LOWER_O, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_D, MSG_CHAR_EXCLAMTION,
-    MSG_CHAR_READ_END,
-};
-u8 filemenu_msg_32[] = {
-    // What be ye called upon the seas?[End]
-    MSG_CHAR_UPPER_W, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_T, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_B, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_C, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_L, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_D, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_U, MSG_CHAR_LOWER_P, MSG_CHAR_LOWER_O, MSG_CHAR_LOWER_N, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_H, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE, MSG_CHAR_LOWER_S, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_S, MSG_CHAR_QUESTION, MSG_CHAR_READ_END,
-};
+u8 filemenu_msg_31[] = { 0x48, 0x41, 0x53, 0xF7, 0x42, 0x45, 0x45, 0x4E, 0xF7, 0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x44,
+                    0x0E, 0xFD };
+u8 filemenu_msg_32[] = { 0x25, 0x4E, 0x54, 0x45, 0x52, 0xF7, 0x41, 0xF7, 0x46, 0x49, 0x4C, 0x45, 0xF7, 0x4E, 0x41, 0x4D,
+                    0x45, 0x01, 0xFD };
 u8 filemenu_createfile_gridData[] = { 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D,
                                   0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A,
                                   0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D,
@@ -410,7 +348,7 @@ s32 gFileMenuMessages[] = {
     (s32)filemenu_msg_15, (s32)filemenu_msg_16, (s32)filemenu_msg_17, (s32)filemenu_msg_18, (s32)filemenu_msg_19,
     (s32)filemenu_msg_20, (s32)filemenu_msg_21, (s32)filemenu_msg_22, (s32)filemenu_msg_23, (s32)filemenu_msg_24,
     (s32)filemenu_msg_25, (s32)filemenu_msg_26, (s32)filemenu_msg_27, (s32)filemenu_msg_28, (s32)filemenu_msg_29,
-    (s32)filemenu_msg_30, (s32)filemenu_msg_31, (s32)filemenu_msg_32, (s32)filemenu_msg_33, (s32)filemenu_msg_34,
+    (s32)filemenu_msg_30, (s32)filemenu_msg_31, (s32)filemenu_msg_32, (s32)filemenu_msg_33, (s32)filemenu_msg_34
 };
 #endif
 
@@ -550,10 +488,6 @@ u8 **gFileMenuMessages_intl[] = {
     D_filemenu_80251158,
 };
 #endif
-
-s32 filemenu_get_message_width(u8* message) {
-    return get_msg_width((s32)message, 0);
-}
 
 s32 filemenu_draw_char(s32 c, s32 x, s32 y, s32 flag1, s32 color, s32 flag2) {
     MessageCharset* charset;

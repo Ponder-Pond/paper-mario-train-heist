@@ -1,5 +1,5 @@
-- mac_05_shape
-- mac_05_hit
+# - mac_05_shape
+# - mac_05_hit
 - end_00_shape
 - end_00_hit
 - end_01_shape
@@ -186,26 +186,28 @@
 - kkj_bt01_hit
 - kkj_bt02_shape
 - kkj_bt02_hit
-- net_00_shape
-- net_00_hit
-- net_01_shape
-- net_01_hit
-- prt_00_shape
-- prt_00_hit
+# - net_00_shape
+# - net_00_hit
+# - net_01_shape
+# - net_01_hit
+# - prt_00_shape
+# - prt_00_hit
 - trp_00_shape
 - trp_00_hit
-- trp_01_shape
-- trp_01_hit
-- grs_01_shape
-- grs_01_hit
-- dst_00_shape
-- dst_00_hit
-- dst_01_shape
-- dst_01_hit
-- dst_05_shape
-- dst_05_hit
-- net_bt00_shape
-- net_bt00_hit
+# - trp_01_shape
+# - trp_01_hit
+# - grs_01_shape
+# - grs_01_hit
+# - dst_00_shape
+# - dst_00_hit
+# - dst_01_shape
+# - dst_01_hit
+# - dst_05_shape
+# - dst_05_hit
+- smb_bt00_shape
+- smb_bt00_hit
+# - net_bt00_shape
+# - net_bt00_hit
 - mac_tex
 - tik_tex
 - kgr_tex
@@ -234,10 +236,11 @@
 - end_tex
 - mgm_tex
 - gv__tex
-- net_tex
+- smb_tex
+# - net_tex
 - trp_tex
-- grs_tex
-- dst_tex
+# - grs_tex
+# - dst_tex
 - kmr_bg
 - nok_bg
 - name: sbk_bg

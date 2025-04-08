@@ -6,9 +6,6 @@
 #include "fio.h"
 #include "dx/config.h"
 #include "dx/versioning.h"
-#include "dx/debug_menu.h"
-#include "ld_addrs.h"
-#include "online/piracy.png.h"
 
 #if VERSION_JP
 #define TITLE_WIDTH 272
@@ -23,7 +20,7 @@
 #define TITLE_HEIGHT 112 // Height of the texture
 #define TITLE_TILE_HEIGHT 2 // Height of an individually loaded tile in the texture
 #define TITLE_POS_LEFT ((SCREEN_WIDTH - TITLE_WIDTH) / 2) // Left edge of the texture on screen
-#define TITLE_POS_TOP 105 // Top edge of the texture on screen (with no offset)
+#define TITLE_POS_TOP 15 // Top edge of the texture on screen (with no offset)
 #define FILENAME_ERROR "ERROR\xf7\xf7\xf7"
 #endif
 
@@ -198,8 +195,7 @@ void state_init_title_screen(void) {
     set_game_mode_render_frontUI(appendGfx_title_screen);
     load_map_bg("title_bg");
     set_background(&gBackgroundImage);
-    enable_background_wave();
-    bgm_set_song(0, SONG_MONTY_MOLE_ASSAULT, 0, 500, 8);
+    bgm_set_song(0, SONG_MAIN_THEME, 0, 500, 8);
     TitleScreen_TimeLeft = 480;
 }
 
@@ -214,13 +210,10 @@ void state_step_title_screen(void) {
         TitleScreen_TimeLeft--;
     }
 
-    static s8 isFirst = TRUE;
-
     switch (gGameStatusPtr->startupState) {
         case TITLE_STATE_INIT:
-            TitleScreen_AppearDelay = isFirst ? 210 : 3;
-            isFirst = FALSE;
-            //gOverrideFlags |= GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME; // we want background wave to update
+            TitleScreen_AppearDelay = 3;
+            gOverrideFlags |= GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME;
             gGameStatusPtr->titleScreenDismissTime = 20;
             gGameStatusPtr->titleScreenTimer = gGameStatusPtr->titleScreenDismissTime;
             gGameStatusPtr->startupState++;
@@ -283,7 +276,7 @@ void state_step_title_screen(void) {
                 gGameStatusPtr->startupState = TITLE_STATE_BEGIN_DISMISS;
                 TitleScreenNextState = NEXT_STATE_FILE_SELECT;
                 sfx_play_sound(SOUND_FILE_MENU_IN);
-                //bgm_set_song(0, SONG_FILE_SELECT, 0, 500, 8);
+                bgm_set_song(0, SONG_FILE_SELECT, 0, 500, 8);
                 return;
             }
             break;
@@ -352,8 +345,8 @@ void state_step_title_screen(void) {
                     set_game_mode(GAME_MODE_DEMO);
                     break;
                 case NEXT_STATE_FILE_SELECT:
-                    gGameStatusPtr->areaID = AREA_NET;
-                    gGameStatusPtr->mapID = 0;
+                    gGameStatusPtr->areaID = AREA_SMB;
+                    gGameStatusPtr->mapID = 0x0;
                     gGameStatusPtr->entryID = 0;
                     set_game_mode(GAME_MODE_FILE_SELECT);
                     break;
@@ -438,14 +431,9 @@ void appendGfx_title_screen(void) {
 }
 
 void title_screen_draw_images(f32 logoMoveAlpha, f32 copyrightMoveAlpha) {
-    title_screen_draw_copyright(copyrightMoveAlpha);
     title_screen_draw_logo(logoMoveAlpha);
+    title_screen_draw_copyright(copyrightMoveAlpha);
 }
-
-s32 draw_tiled_image(IMG_PTR raster, u32 width, u32 height, u8 fmt, u8 bitDepth,
-    s16 posX, s16 posY,
-    u16 clipX, u16 clipY, u16 clipWidth, u16 clipHeight,
-    f32 scaleX, f32 scaleY);
 
 void title_screen_draw_logo(f32 moveAlpha) {
     s32 yOffset;
@@ -453,7 +441,7 @@ void title_screen_draw_logo(f32 moveAlpha) {
 
     gSPDisplayList(gMainGfxPos++, TitleSetupGfx);
     gDPPipeSync(gMainGfxPos++);
-    yOffset = 150 * moveAlpha;
+    yOffset = -100 * moveAlpha;
 
     for (i = 0; i < TITLE_NUM_TILES; i++) {
         // Load a tile from the logo texture
@@ -474,45 +462,6 @@ void title_screen_draw_logo(f32 moveAlpha) {
     }
 
     gDPPipeSync(gMainGfxPos++);
-
-    static u32 time = 80;
-    if (yOffset == 0 && time < 200) time += 5;
-    if (time == 190) sfx_play_sound(SOUND_JAN_RAPHAEL_POUND);
-    if (time > 100) {
-        f32 scale = /* go from 5.0f to 1.0f */ 4.0f * (1.0f - (time - 100) / 100.0f) + 1.0f;
-        f32 opacity = /* go from 0 to 255 */ 255 * (time - 100) / 100;
-
-        f32 logoCenterX = TITLE_POS_LEFT + TITLE_WIDTH / 2;
-        f32 logoCenterY = TITLE_POS_TOP + TITLE_HEIGHT / 2 + yOffset;
-
-        f32 scaleX = scale * 2.0f; // Image is squished 2x on the x axis to fit texture
-        f32 scaleY = scale;
-
-        // Top-left corner of piracy image
-        f32 piracyX = logoCenterX - (online_piracy_png_width * scaleX) / 2;
-        f32 piracyY = logoCenterY + 20 + - (online_piracy_png_height * scaleY) / 2;
-
-        gDPSetCycleType(gMainGfxPos++, G_CYC_1CYCLE);
-        gDPSetTextureFilter(gMainGfxPos++, G_TF_POINT);
-        gDPSetTexturePersp(gMainGfxPos++, G_TP_NONE);
-
-        gDPSetRenderMode(gMainGfxPos++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetCombineMode(gMainGfxPos++, PM_CC_02, PM_CC_02);
-        gDPSetPrimColor(gMainGfxPos++, 0, 0, 0, 0, 0, opacity);
-
-        gDPSetTextureLUT(gMainGfxPos++, G_TT_RGBA16);
-        gDPLoadTLUT_pal16(gMainGfxPos++, 0, online_piracy_pal);
-
-        draw_tiled_image(
-            (IMG_PTR)online_piracy_png,
-            online_piracy_png_width, online_piracy_png_height,
-            G_IM_FMT_CI, G_IM_SIZ_4b,
-            piracyX, piracyY,
-            0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-            scaleX, scaleY
-        );
-        gDPPipeSync(gMainGfxPos++);
-    }
 }
 
 #if VERSION_IQUE
@@ -570,8 +519,8 @@ void title_screen_draw_press_start(void) {
 #define LTT_LRT 9
 #else
 #define RECT_SIZE 0x40
-#define YL_BASE 764 + 60
-#define YH_BASE 828 + 60
+#define YL_BASE 764
+#define YH_BASE 828
 #define COPYRIGHT_TEX_CHUNKS 2
 #define COPYRIGHT_IMG(k, i) &TitleScreen_ImgList_Copyright[16 * i]
 #define LTT_LRT 15

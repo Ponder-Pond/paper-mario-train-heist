@@ -310,13 +310,6 @@ s32 map_init_mac_tex(void) {
     return FALSE;
 }
 
-
-/// Toad Town
-#include "area_mac/mac.h"
-MapConfig mac_maps[] = {
-    { MAP(mac_05), .bgName = "nok_bg" },
-};
-
 /// Credits
 #include "area_end/end.h"
 MapConfig end_maps[] = {
@@ -330,48 +323,22 @@ MapConfig gv_maps[] = {
     { MAP(gv_01) },
 };
 
-/// Networking
-#include "area_net/net.h"
-MapConfig net_maps[] = {
-    { MAP_WITH_INIT(net_00), .bgName = "sam_bg" },
-    { MAP(net_01), .bgName = "net_bg" },
-};
-
-/// Port
-#include "area_prt/prt.h"
-MapConfig prt_maps[] = {
-    { MAP_WITH_INIT(prt_00), .bgName = "net_bg" },
+/// Super Mario Bros
+#include "area_smb/smb.h"
+MapConfig smb_maps[] = {
+    { MAP(smb_00) },
 };
 
 /// Tropical
 #include "area_trp/trp.h"
 MapConfig trp_maps[] = {
     { MAP_WITH_INIT(trp_00), .bgName = "net_bg" },
-    { MAP_WITH_INIT(trp_01), .bgName = "net_bg" },
-};
-
-/// Grass
-#include "area_grs/grs.h"
-MapConfig grs_maps[] = {
-    { MAP_WITH_INIT(grs_01), .bgName = "net_bg" },
-};
-
-/// Desert
-#include "area_dst/dst.h"
-MapConfig dst_maps[] = {
-    { MAP_WITH_INIT(dst_00), .bgName = "net_bg" },
-    { MAP_WITH_INIT(dst_01), .bgName = "net_bg" },
-    { MAP(dst_05) },
 };
 
 AreaConfig gAreas[] = {
-    AREA(mac, "まち"),  // machi [town, Toad Town]
     AREA(end, "エンディング"),  // endingu [Ending]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
-    AREA(net, "Networking"),
-    AREA(prt, "Port"),
+    AREA(smb, "Super Mario Bros"),
     AREA(trp, "Tropical"),
-    AREA(grs, "Grass"),
-    AREA(dst, "Desert"),
     {},
 };

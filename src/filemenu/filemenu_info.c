@@ -100,10 +100,11 @@ void filemenu_info_draw_message_contents(
             break;
     }
 #else
-    s32 centerX = baseX + (width / 2);
     switch (menu->state) {
         case FM_MESSAGE_DELETED:
-            filemenu_draw_message_centered(filemenu_get_menu_message(FILE_MESSAGE_HAS_BEEN_DELETED), centerX, baseY + 4, 255, 0, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_26), baseX + 10, baseY + 4, 255, 0, 0);
+            draw_number(filemenu_menus[FILE_MENU_MAIN]->selected + 1, baseX + 48, baseY + 6 + NUMBER_OFFSET_Y, DRAW_NUMBER_CHARSET_NORMAL, MSG_PAL_WHITE, 255, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_HAS_BEEN_DELETED), baseX + 49, baseY + 4, 255, 0, 0);
             break;
         case FM_MESSAGE_COPIED:
 #if VERSION_IQUE
@@ -125,7 +126,9 @@ void filemenu_info_draw_message_contents(
 #endif
             break;
         case FM_MESSAGE_CREATED:
-            filemenu_draw_message_centered(filemenu_get_menu_message(FILE_MESSAGE_HAS_BEEN_CREATED), centerX, baseY + 4, 255, 0, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_26), baseX + 10, baseY + 4, 255, 0, 0);
+            draw_number(filemenu_menus[FILE_MENU_MAIN]->selected + 1, baseX + CREATE_SUCCESS_NUMBER_X, baseY + 6 + NUMBER_OFFSET_Y, DRAW_NUMBER_CHARSET_NORMAL, MSG_PAL_WHITE, 255, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_HAS_BEEN_CREATED), baseX + 49, baseY + 4, 255, 0, 0);
             break;
     }
 #endif
@@ -172,4 +175,3 @@ void filemenu_info_update(MenuPanel* menu) {
 
 void filemenu_info_cleanup(MenuPanel* menu) {
 }
-

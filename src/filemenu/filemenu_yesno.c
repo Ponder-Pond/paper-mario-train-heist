@@ -1,8 +1,6 @@
 #include "common.h"
-#include "enums.h"
 #include "filemenu.h"
 #include "fio.h"
-#include "functions.h"
 #include "game_modes.h"
 #include "dx/config.h"
 #include "gcc/string.h"
@@ -148,19 +146,15 @@ void filemenu_yesno_draw_prompt_contents(
 ) {
     s32 selectedFile;
     s32 msgColor;
-    s32 centerX = baseX + (width / 2);
-
-    // Be ye certain?[End]
-    static u8 confirmDeleteMsg[] = {
-        MSG_CHAR_UPPER_B, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-        MSG_CHAR_LOWER_Y, MSG_CHAR_LOWER_E, MSG_CHAR_READ_SPACE,
-        MSG_CHAR_LOWER_C, MSG_CHAR_LOWER_E, MSG_CHAR_LOWER_R, MSG_CHAR_LOWER_T, MSG_CHAR_LOWER_A, MSG_CHAR_LOWER_I, MSG_CHAR_LOWER_N, MSG_CHAR_QUESTION,
-        MSG_CHAR_READ_END,
-    };
+    s32 xOffset;
+    s32 i;
 
     switch (menu->state) {
         case FM_CONFIRM_DELETE:
-            filemenu_draw_message_centered(confirmDeleteMsg, centerX, baseY + 4, 0xFF, 0, 0);          break;
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_DELETE), baseX + DELETE_FILE_DELETE_X, baseY + 4, 0xFF, 0, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_22), baseX + DELETE_FILE_FILE_X, baseY + 4, 0xFF, 0, 0);
+            draw_number(filemenu_menus[FILE_MENU_MAIN]->selected + 1, baseX + DELETE_FILE_NUMBER_X, baseY + 6 + NUMBER_OFFSET_Y, DRAW_NUMBER_CHARSET_NORMAL, MSG_PAL_WHITE, 0xFF, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_QUESTION), baseX + DELETE_FILE_QMARK_X, baseY + 4, 0xFF, 0, 0);            break;
         case FM_CONFIRM_COPY:
             filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_22), baseX + 10, baseY + 4, 0xFF, 0, 0);
             draw_number(filemenu_menus[FILE_MENU_MAIN]->selected + 1, baseX + COPY_FILE_NUMBER_X, baseY + 6 + NUMBER_OFFSET_Y, DRAW_NUMBER_CHARSET_NORMAL, MSG_PAL_WHITE, 0xFF, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
@@ -168,9 +162,19 @@ void filemenu_yesno_draw_prompt_contents(
             filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_OK_TO_COPY_TO_THIS_FILE), baseX + 10, baseY + 18, 0xFF, 0, 0);
             break;
         case FM_CONFIRM_CREATE:
-            filemenu_draw_message_centered(filemenu_get_menu_message(FILE_MESSAGE_FILE_NAME_IS), centerX, baseY + 6, 0xFF, 0, 0);
-            filemenu_draw_message_centered(filemenu_filename, centerX, baseY + 22, 0xFF, 1, 0);
-            filemenu_draw_message_centered(filemenu_get_menu_message(FILE_MESSAGE_OK), centerX, baseY + 38, 0xFF, 0, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_NAME_IS), baseX + 10, baseY + 6, 0xFF, 0, 0);
+
+            for (i = ARRAY_COUNT(filemenu_filename) - 1; i >= 0; i--) {
+                if (filemenu_filename[i] != MSG_CHAR_READ_SPACE) {
+                    break;
+                }
+            }
+
+            xOffset = (147 - (i * 11)) / 2;
+            filemenu_draw_file_name(filemenu_filename, i + 1, baseX + xOffset, baseY + 22, 0xFF, 0, 8, 0xB);
+            xOffset += (i + 1) * 11;
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_PERIOD_20), baseX + xOffset, baseY + 22, 0xFF, 0, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_OK), baseX + 70, baseY + 38, 0xFF, 0, 0);
             break;
         case FM_CONFIRM_START:
             selectedFile = filemenu_menus[FILE_MENU_MAIN]->selected;
@@ -179,7 +183,10 @@ void filemenu_yesno_draw_prompt_contents(
             } else {
                 msgColor = MSG_PAL_RED;
             }
-            filemenu_draw_message_centered(filemenu_get_menu_message(FILE_MESSAGE_START_GAME_WITH), centerX, baseY + 4, 255, msgColor, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_START_GAME_WITH), baseX + START_GAME_START_WITH_X, baseY + 4, 255, msgColor, 0);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_FILE_22), baseX + START_GAME_FILE_X, baseY + 4, 255, msgColor, 0);
+            draw_number(filemenu_menus[FILE_MENU_MAIN]->selected + 1, baseX + START_GAME_NUMBER_X, baseY + 6 + NUMBER_OFFSET_Y, DRAW_NUMBER_CHARSET_NORMAL, msgColor, 255, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+            filemenu_draw_message(filemenu_get_menu_message(FILE_MESSAGE_QUESTION), baseX + START_GAME_QMARK_X, baseY + 4, 255, msgColor, 0);
             break;
     }
 }
@@ -235,7 +242,7 @@ void filemenu_yesno_handle_input(MenuPanel* menu) {
                     case FM_CONFIRM_DELETE:
                         filemenu_currentMenu = FILE_MENU_MESSAGE;
                         filemenu_menus[FILE_MENU_MESSAGE]->state = FM_MESSAGE_DELETED;
-                        gWindows[WIN_FILES_MESSAGE].width = 220;
+                        gWindows[WIN_FILES_MESSAGE].width = 182;
                         gWindows[WIN_FILES_MESSAGE].height = 25;
                         gWindows[WIN_FILES_MESSAGE].pos.x = CENTER_WINDOW_X(WIN_FILES_MESSAGE);
                         gWindows[WIN_FILES_MESSAGE].pos.y = CENTER_WINDOW_Y(WIN_FILES_MESSAGE);
@@ -244,7 +251,7 @@ void filemenu_yesno_handle_input(MenuPanel* menu) {
 
                         selected = filemenu_menus[FILE_MENU_MAIN]->selected;
                         for (i = 0; i < ARRAY_COUNT(gSaveSlotSummary->filename); i++) {
-                            gSaveSlotSummary[selected].filename[i] = MSG_CHAR_READ_END;
+                            gSaveSlotSummary[selected].filename[i] = MSG_CHAR_READ_SPACE;
                         }
                         gSaveSlotSummary[selected].level = 0;
                         gSaveSlotSummary[selected].timePlayed = 0;

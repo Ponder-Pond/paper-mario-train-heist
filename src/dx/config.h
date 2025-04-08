@@ -4,7 +4,7 @@
 /// Creates the version string that appears on the file select menu.
 /// Also used to sign save files created with this mod.
 /// WARNING: name must not exceed 27 characters!
-#define DX_MOD_NAME "Paper Piracy"
+#define DX_MOD_NAME "1-4"
 #define DX_MOD_VER_MAJOR 0 /// Increase this when you make breaking changes to the savefile format (like reordering items)
 #define DX_MOD_VER_MINOR 0 /// Increase this when adding new features or other enchancements
 #define DX_MOD_VER_PATCH 0 /// Increase this when fixing bugs

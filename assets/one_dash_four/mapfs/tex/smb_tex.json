@@ -1,0 +1,167 @@
+[
+    {
+        "name": "lava",
+        "main": {
+            "format": "RGBA16",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "aux": {
+            "format": "Shared",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavaflow",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlebrick",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlepattern",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castletile",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castletrim",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlewall",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlefloor",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "bowserstatue",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "pillar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavaflow",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "pillar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavawave",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "bridge",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "chain",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "axe",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    }
+]

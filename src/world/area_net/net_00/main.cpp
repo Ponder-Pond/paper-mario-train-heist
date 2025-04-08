@@ -1,8 +1,6 @@
 #include "net_00.hpp"
-#include "online/character.h"
 #include "effects.h"
 #include "dx/debug_menu.h"
-#include "online/online.h"
 
 namespace net_00 {
 
@@ -23,92 +21,6 @@ EvtScript EVS_TexPan = {
     Return
     End
 };
-
-typedef s8 Weights[NUM_TRAITS];
-
-Weights characterToWeights[] = {
-    [CHARACTER_GOOMBA] = {2, 0, 1, -1, 0, 0, 0, 0, 0, 0},
-    [CHARACTER_KOOPA] = {0, 0, 0, -1, 2, 1, 0, 0, 0, 0},
-    [CHARACTER_BOBOMB] = {0, 1, 2, 0, 0, 0, 0, -1, 0, 0},
-    [CHARACTER_PARAKOOPA] = {-1, 0, 0, 0, 0, 2, 1, 0, 0, 0},
-    [CHARACTER_BOO] = {0, 0, 0, 0, -1, 0, 2, 0, 1, 0},
-    [CHARACTER_LAKITU] = {0, 1, 0, 0, 0, 0, 0, 2, 0, -1},
-    [CHARACTER_CHEEP_CHEEP] = {0, 0, 0, 2, 0, 1, 0, -1, 0, 0},
-    [CHARACTER_BANDIT] = {0, 0, 0, 0, 0, 0, -1, 0, 1, 2},
-    [CHARACTER_DRY_BONES] = {0, 2, -1, 0, 1, 0, 0, 0, 0, 0},
-    [CHARACTER_FUZZY] = {1, 0, 0, 0, 0, 0, 0, 0, 2, -1},
-};
-
-Weights quizWeights = {0};
-
-u32 manhattan_distance(s8 a[], s8 b[]) {
-    u32 sum = 0;
-    for (int i = 0; i < NUM_TRAITS; i++) {
-        if (a[i] != 0 || b[i] != 0) { // Ignore traits that are 0 in both
-            sum += abs((s32)a[i] - (s32)b[i]);
-        }
-    }
-    return sum;
-}
-
-PlayerCharacter find_closest_character() {
-    u32 minDist = 0xFFFFFFFF;
-    PlayerCharacter best = CHARACTER_GOOMBA;
-
-    for (int i = 0; i < NUM_CHARACTERS; i++) {
-        u32 dist = manhattan_distance(quizWeights, characterToWeights[i]);
-        if (dist < minDist) {
-            minDist = dist;
-            best = (PlayerCharacter) i;
-        }
-    }
-    return best;
-}
-
-PlayerTrait defining_trait_of_character(PlayerCharacter character) {
-    s8 max = -128;
-    PlayerTrait trait = OPPORTUNISTIC;
-    s8* weights = characterToWeights[character];
-
-    for (int i = 0; i < NUM_TRAITS; i++) {
-        if (weights[i] > max) {
-            max = weights[i];
-            trait = (PlayerTrait) i;
-        }
-    }
-    return trait;
-}
-
-/// Finds the highest quizWeights trait, ignoring the trait that is dominant in the character.
-/// e.g. will never return OPPORTUNISTIC for Goomba
-PlayerTrait best_non_character_trait(PlayerCharacter character) {
-    s8* characterWeights = characterToWeights[character];
-    PlayerTrait bestTrait = OPPORTUNISTIC;
-    s8 bestWeight = -1;
-
-    for (int i = 0; i < NUM_TRAITS; i++) {
-        if (characterWeights[i] == 0 && quizWeights[i] > bestWeight) {
-            bestWeight = quizWeights[i];
-            bestTrait = (PlayerTrait) i;
-        }
-    }
-    return bestTrait;
-}
-
-API_CALLABLE(ChangeTraitWeight) {
-    Bytecode* args = script->ptrReadPos;
-    PlayerTrait trait = (PlayerTrait) evt_get_variable(script, *args++);
-    s32 value = evt_get_variable(script, *args++);
-    quizWeights[trait] += value;
-    return ApiStatus_DONE2;
-}
-
-API_CALLABLE(EndQuiz) {
-    PlayerCharacter character = find_closest_character();
-    gGameStatus.bestTrait = best_non_character_trait(character);
-    change_player_character(character);
-    return ApiStatus_DONE2;
-}
 
 #include "world/common/npc/StarSpirit.inc.c"
 
@@ -196,243 +108,12 @@ EvtScript EVS_Muskular_Depart = {
     End
 };
 
-/// Set LVar0 to next question index, or -1 if all questions have been asked
-API_CALLABLE(GetNextQuestion) {
-    static bool questionAsked[NUM_TRAITS] = {0};
-
-    // Check that there is an unasked question
-    s32 i;
-    for (i = 0; i < NUM_TRAITS; i++) {
-        if (!questionAsked[i]) {
-            break;
-        }
-    }
-    if (i == NUM_TRAITS) {
-        script->varTable[0] = -1;
-        return ApiStatus_DONE2;
-    }
-
-    // Pick random question that hasn't been asked yet
-    s32 question = rand_int(NUM_TRAITS - 1);
-    while (questionAsked[question]) {
-        question = rand_int(NUM_TRAITS - 1);
-    }
-    questionAsked[question] = TRUE;
-    script->varTable[0] = question;
-    return ApiStatus_DONE2;
-}
-
-EvtScript EVS_Muskular_Quiz = {
-    Call(SpeakToPlayer, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Start)
-    Loop(0)
-        Call(GetNextQuestion)
-        Switch(LVar0)
-            CaseEq(-1)
-                BreakLoop
-            CaseEq(OPPORTUNISTIC)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Opportunistic)
-                Call(ShowChoice, MSG_Personality_Choice_Opportunistic)
-                Switch(LVar0)
-                    CaseEq(0) // better offer
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, 3)
-                        Call(ChangeTraitWeight, IMPULSIVE, 1)
-                    CaseEq(1) // convince them it's junk
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 1)
-                    CaseEq(2) // walk away
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, -1)
-                        Call(ChangeTraitWeight, GREEDY, -1)
-                EndSwitch
-            CaseEq(TENACIOUS)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Tenacious)
-                Call(ShowChoice, MSG_Personality_Choice_Tenacious)
-                Switch(LVar0)
-                    CaseEq(0) // scared them off
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                        Call(ChangeTraitWeight, TENACIOUS, 1)
-                    CaseEq(1) // they ran out of supplies
-                        Call(ChangeTraitWeight, TENACIOUS, 3)
-                        Call(ChangeTraitWeight, RESILIENT, 1)
-                    CaseEq(2) // could be a trap
-                        Call(ChangeTraitWeight, CREATIVE, 1)
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                        Call(ChangeTraitWeight, IMPULSIVE, -2)
-                EndSwitch
-            // TODO: IMPULSIVE
-            CaseEq(PRECISE)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Precise)
-                Call(ShowChoice, MSG_Personality_Choice_Precise)
-                Switch(LVar0)
-                    CaseEq(0) // yes
-                        Call(ChangeTraitWeight, PRECISE, 3)
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                    CaseEq(1) // no
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, 1)
-                        Call(ChangeTraitWeight, METHODICAL, 1)
-                    CaseEq(2) // whatever
-                        Call(ChangeTraitWeight, TENACIOUS, -1)
-                EndSwitch
-            CaseEq(RESILIENT)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Resilient)
-                Call(ShowChoice, MSG_Personality_Choice_Resilient)
-                Switch(LVar0)
-                    CaseEq(0) // patch it quickly
-                        Call(ChangeTraitWeight, RESILIENT, 3)
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, 1)
-                        Call(ChangeTraitWeight, PRECISE, -1)
-                    CaseEq(1) // take time to repair it
-                        Call(ChangeTraitWeight, METHODICAL, 2)
-                        Call(ChangeTraitWeight, PRECISE, 1)
-                        Call(ChangeTraitWeight, IMPULSIVE, -1)
-                    CaseEq(2) // convince someone else
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 2)
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                        Call(ChangeTraitWeight, TENACIOUS, -1)
-                    CaseEq(3) // do other tasks first
-                        Call(ChangeTraitWeight, STRATEGIC, 2)
-                        Call(ChangeTraitWeight, METHODICAL, -1)
-                        Call(ChangeTraitWeight, RESILIENT, -1)
-                EndSwitch
-            CaseEq(METHODICAL)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Methodical)
-                Call(ShowChoice, MSG_Personality_Choice_Methodical)
-                Switch(LVar0)
-                    CaseEq(0) // good
-                        Call(ChangeTraitWeight, PRECISE, -1)
-                    CaseEq(1) // amazing
-                        Call(ChangeTraitWeight, METHODICAL, 3)
-                        Call(ChangeTraitWeight, RESILIENT, 1)
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 1) // joke answer
-                EndSwitch
-            CaseEq(STRATEGIC)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Strategic)
-                Call(ShowChoice, MSG_Personality_Choice_Strategic)
-                Switch(LVar0)
-                    CaseEq(0) // ignore it
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, -1)
-                        Call(ChangeTraitWeight, IMPULSIVE, -1)
-                        Call(ChangeTraitWeight, RESILIENT, 1)
-                    CaseEq(1) // think carefully
-                        Call(ChangeTraitWeight, STRATEGIC, 3)
-                        Call(ChangeTraitWeight, PRECISE, 1)
-                    CaseEq(2) // monsters!
-                        Call(ChangeTraitWeight, IMPULSIVE, 1)
-                        Call(ChangeTraitWeight, TENACIOUS, 1)
-                EndSwitch
-            CaseEq(CREATIVE)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Creative)
-                Call(ShowChoice, MSG_Personality_Choice_Creative)
-                Switch(LVar0)
-                    CaseEq(0) // exact
-                        Call(ChangeTraitWeight, CREATIVE, -1)
-                        Call(ChangeTraitWeight, METHODICAL, 3)
-                    CaseEq(1) // tweak
-                        Call(ChangeTraitWeight, STRATEGIC, 2)
-                    CaseEq(2) // different
-                        Call(ChangeTraitWeight, CREATIVE, 3)
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 1)
-                EndSwitch
-            CaseEq(MISCHIEVOUS)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Mischievous)
-                Call(ShowChoice, MSG_Personality_Choice_Mischievous)
-                Switch(LVar0)
-                    CaseEq(0) // haha
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 4)
-                    CaseEq(1) // save them
-                        Call(ChangeTraitWeight, OPPORTUNISTIC, 1)
-                    CaseEq(2) // let them die
-                        Call(ChangeTraitWeight, STRATEGIC, 1)
-                        Call(ChangeTraitWeight, MISCHIEVOUS, 1)
-                EndSwitch
-            CaseEq(GREEDY)
-                Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_Question_Greedy)
-                Call(ShowChoice, MSG_Personality_Choice_Greedy)
-                Switch(LVar0)
-                    CaseEq(0) // yes
-                        Call(ChangeTraitWeight, GREEDY, 3)
-                    CaseEq(1) // never
-                        Call(ChangeTraitWeight, GREEDY, -2)
-                    CaseEq(2) // gave it back
-                        Call(ChangeTraitWeight, IMPULSIVE, 1)
-                EndSwitch
-            CaseDefault
-                DebugPrintf("Unknown question: %d", LVar0)
-        EndSwitch
-    EndLoop
-    Return
-    End
-};
-
-API_CALLABLE(GetPersonalityResultMessage) {
-    s32 messages[] = {
-        MSG_Personality_Result_Opportunistic,
-        MSG_Personality_Result_Tenacious,
-        MSG_Personality_Result_Impulsive,
-        MSG_Personality_Result_Precise,
-        MSG_Personality_Result_Resilient,
-        MSG_Personality_Result_Methodical,
-        MSG_Personality_Result_Strategic,
-        MSG_Personality_Result_Creative,
-        MSG_Personality_Result_Mischievous,
-        MSG_Personality_Result_Greedy,
-    };
-    script->varTable[0] = messages[defining_trait_of_character(find_closest_character())];
-    return ApiStatus_DONE2;
-}
-
-API_CALLABLE(GetPersonalityCharacterResultMessage) {
-    s32 messages[] = {
-        MSG_Personality_CharacterResult_Goomba,
-        MSG_Personality_CharacterResult_Koopa,
-        MSG_Personality_CharacterResult_BobOmb,
-        MSG_Personality_CharacterResult_Parakoopa,
-        MSG_Personality_CharacterResult_Boo,
-        MSG_Personality_CharacterResult_Lakitu,
-        MSG_Personality_CharacterResult_CheepCheep,
-        MSG_Personality_CharacterResult_Bandit,
-        MSG_Personality_CharacterResult_DryBones,
-        MSG_Personality_CharacterResult_Fuzzy,
-    };
-    script->varTable[0] = messages[find_closest_character()];
-    return ApiStatus_DONE2;
-}
-
 EvtScript EVS_NpcInit_Muskular = {
     Return // TEMP
     Thread
         ExecWait(EVS_Muskular_Appear)
-        ExecWait(EVS_Muskular_Quiz)
-
-        WaitSecs(1)
-
-        Call(EndQuiz)
 
         Call(FadeOutMusic, 0, 5000)
-
-        // "A $trait person like you would be..."
-        Call(GetPersonalityResultMessage)
-        Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, LVar0)
-
-        WaitSecs(1)
-
-        Call(PlaySound, SOUND_STAR_SPIRIT_CAST_A)
-        PlayEffect(EFFECT_SPARKLES, 0, 0, -50, 200, 10)
-        PlayEffect(EFFECT_STARS_SHIMMER, 3, 0, -50, 200, 42, 48, 15, 60, 0)
-        PlayEffect(EFFECT_RADIAL_SHIMMER, 9, 0, -50, 200, Float(1.0), 100)
-        Call(SetPlayerPos, 0, -50, 200)
-
-        Call(SetMusicTrack, 0, SONG_KOOPA_BROS_THEME, 0, 8)
-
-        // "A $character!"
-        Call(GetPersonalityCharacterResultMessage)
-        Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, LVar0)
-
-        // TODO: naming
-
-        /*
-        Call(ContinueSpeech, NPC_SELF, ANIM_WorldMuskular_Talk, ANIM_WorldMuskular_Still, 0, MSG_Personality_End)
-        // TODO: name prompt
-        Call(EndSpeech, NPC_SELF)*/
 
         WaitSecs(2)
         ExecWait(EVS_Muskular_Depart)
@@ -461,45 +142,6 @@ NpcGroupList DefaultNPCs = {
     {},
 };
 
-API_CALLABLE(AwaitConnectToBridge) {
-    if (online::is_connected_to_bridge()) {
-        online::connect_to_room("paperpiracy_v1");
-        return ApiStatus_DONE2;
-    } else {
-        return ApiStatus_BLOCK;
-    }
-}
-
-API_CALLABLE(AwaitConnectToRoom) {
-    if (online::is_connected_to_room()) {
-        script->varTable[0] = 0;
-        return ApiStatus_DONE2;
-    } else if (!online::is_connected_to_bridge()) {
-        script->varTable[0] = 1;
-        return ApiStatus_DONE2;
-    } else {
-        return ApiStatus_BLOCK;
-    }
-}
-
-EvtScript EVS_Connect = {
-    Call(ShowMessageAtScreenPos, MSG_Online_SearchingForBridgeFirst, 160, 40)
-    Label(0)
-    Call(AwaitConnectToBridge)
-    Call(SwitchMessage, MSG_Online_ConnectingToRoom)
-    Call(AwaitConnectToRoom)
-    IfTrue(LVar0)
-        Call(SwitchMessage, MSG_Online_SearchingForBridgeNext)
-        Goto(0)
-    EndIf
-    Call(SwitchMessage, MSG_Online_Connected)
-    Wait(15)
-    Call(CloseMessage)
-    Call(GotoMap, Ref("mac_05"), 0)
-    Return
-    End
-};
-
 EvtScript EVS_Main = {
     Call(SetSpriteShading, SHADING_NONE)
     EVT_SETUP_CAMERA_NO_LEAD(0, 0, 0)
@@ -508,7 +150,6 @@ EvtScript EVS_Main = {
     Call(DisablePlayerInput, TRUE)
     Call(DisablePlayerPhysics, TRUE)
     Call(MakeNpcs, TRUE, Ref(DefaultNPCs))
-    Exec(EVS_Connect)
     Return
     End
 };

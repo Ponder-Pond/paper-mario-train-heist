@@ -487,6 +487,16 @@ void entity_HugeBlueSwitch_init(Entity* entity) {
     data->baseScale.z = 3.0f;
 }
 
+EntityScript Entity_AxeSwitch_Script = {
+    es_SetCallback(entity_small_switch_idle, 0)
+    es_PlaySound(SOUND_ACTIVATE_SWITCH)
+    es_Call(entity_base_switch_start_bound_script)
+    es_Call(entity_base_switch_anim_init)
+    es_SetCallback(entity_RedSwitch_animate_scale, 0)
+    es_SetFlags(ENTITY_FLAG_PENDING_INSTANCE_DELETE)
+    es_End
+};
+
 EntityScript Entity_RedSwitch_Script = {
     es_SetCallback(entity_small_switch_idle, 0)
     es_PlaySound(SOUND_ACTIVATE_SWITCH)
@@ -534,6 +544,19 @@ EntityModelScript Entity_HugeBlueSwitch_RenderScript = STANDARD_ENTITY_MODEL_SCR
 EntityModelScript Entity_RedSwitch_RenderScript = STANDARD_ENTITY_MODEL_SCRIPT(Entity_RedSwitch_Render, RENDER_MODE_SURFACE_XLU_LAYER1);
 
 EntityModelScript Entity_GreenStompSwitch_RenderScript = STANDARD_ENTITY_MODEL_SCRIPT(Entity_GreenStompSwitch_Render, RENDER_MODE_SURFACE_OPA);
+
+EntityBlueprint Entity_AxeSwitch = {
+    .flags = ENTITY_FLAG_8000 | ENTITY_FLAG_ALWAYS_FACE_CAMERA,
+    .typeDataSize = sizeof(SwitchData),
+    .renderCommandList = Entity_RedSwitch_RenderScript,
+    .modelAnimationNodes = 0,
+    .fpInit = entity_base_switch_init,
+    .updateEntityScript = Entity_AxeSwitch_Script,
+    .fpHandleCollision = NULL,
+    { .dma = ENTITY_ROM(RedSwitch) },
+    .entityType = ENTITY_TYPE_RED_SWITCH,
+    .aabbSize = {22, 23, 22}
+};
 
 EntityBlueprint Entity_RedSwitch = {
     .flags = ENTITY_FLAG_8000 | ENTITY_FLAG_ALWAYS_FACE_CAMERA,

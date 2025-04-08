@@ -136,8 +136,8 @@ typedef struct SaveFileSummary {
     /* 0x04 */ u8 spiritsRescued;
     /* 0x05 */ unsigned char unused_05[1];
     /* 0x06 */ s8 level;
-    /* 0x07 */ u8 filename[16];
-    /* 0x0F */ unsigned char unused_0F;
+    /* 0x07 */ char filename[8];
+    /* 0x0F */ unsigned char unused_0F[9];
 } SaveFileSummary; // size = 0x18
 
 typedef struct SaveData {
@@ -165,8 +165,7 @@ typedef struct SaveData {
     /* 0x12E0 */ b8 debugUnused1;
     /* 0x12E0 */ b8 debugUnused2;
     /* 0x12E0 */ b8 musicEnabled;
-    /* 0x12E4 */ s8 bestTrait;
-    /* 0x12E5 */ s8 character;
+    /* 0x12E4 */ unsigned char unk_12E4[0x2];
     /* 0x12E6 */ Vec3s savePos;
     /* 0x12EC */ SaveFileSummary summary;
     /* 0x1304 */ unsigned char unk_1304[0x7C];

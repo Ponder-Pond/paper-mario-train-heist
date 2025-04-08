@@ -5,7 +5,6 @@
 #include "dx/profiling.h"
 #include "dx/debug_menu.h"
 #include "ship.h"
-#include "online/seachart.hpp"
 
 void state_world_draw_aux_ui(void);
 
@@ -39,10 +38,6 @@ void state_drawUI_world(void) {
     draw_status_ui();
     draw_encounter_ui();
     imgfx_update_cache();
-
-    // TODO: generate this in a better place and propagate to other clients
-    // paperpiracy::Seachart seachart(12345);
-    // seachart.appendGfx();
 }
 
 void state_world_draw_aux_ui(void) {

@@ -6,7 +6,6 @@
 #include "world/partners.h"
 #include "sprite/npc/WorldWatt.h"
 #include "dx/debug_menu.h"
-#include "online/online.h"
 
 s16 gNpcCount;
 static NpcList gWorldNpcList;
@@ -73,8 +72,6 @@ void clear_npcs(void) {
 
     gNpcCount = 0;
     gNpcPlayerCollisionsEnabled = TRUE;
-
-    online_on_clear_npcs();
 }
 
 void init_npc_list(void) {

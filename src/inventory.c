@@ -2,7 +2,6 @@
 #include "hud_element.h"
 #include "dx/config.h"
 #include "dx/debug_menu.h"
-#include "online/character.h"
 
 #define FULLY_EXTENDED_Y  18
 #define FULLY_RETRACTED_Y -100
@@ -60,14 +59,14 @@ void clear_player_data(void) {
     ShowingCoinCounter = FALSE;
     HidingCoinCounter = FALSE;
 
-    playerData->curHP = 15;
-    playerData->curMaxHP = 15;
-    playerData->hardMaxHP = 15;
+    playerData->curHP = 10;
+    playerData->curMaxHP = 10;
+    playerData->hardMaxHP = 10;
     playerData->curFP = 5;
     playerData->curMaxFP = 5;
     playerData->hardMaxFP = 5;
     playerData->maxBP = 3;
-    playerData->level = 2;
+    playerData->level = 1;
     playerData->bootsLevel = 0;
     playerData->hammerLevel = 0;
     playerData->hasActionCommands = TRUE;
@@ -150,9 +149,6 @@ void clear_player_data(void) {
     playerData->smashGamePlays = 0;
     playerData->smashGameTotal = 0;
     playerData->smashGameRecord = 0;
-
-    gGameStatus.character = CHARACTER_GOOMBA;
-    gGameStatus.bestTrait = OPPORTUNISTIC;
 }
 
 s32 add_item(s32 itemID) {

@@ -64,7 +64,7 @@ extern HudElemID filemenu_cursorHIDs[1];
 extern s32 filemenu_8024C0A4[3];
 extern HudElemID filemenu_mainHIDs[20];
 extern HudElemID filemenu_createfile_HIDs[4];
-extern u8 filemenu_filename[16];
+extern u8 filemenu_filename[8];
 
 #if VERSION_PAL
 extern HudElemID PauseLanguageHIDs[1];
@@ -147,12 +147,6 @@ void filemenu_choose_name_cleanup(MenuPanel*);
 
 void filemenu_draw_message(u8*, s32, s32, s32, s32, u32);
 void filemenu_draw_rect(s32 ulx, s32 uly, s32 lrx, s32 lry, s32 tileIdx, s32 uls, s32 ult, s32 dsdx, s32 dtdy);
-s32 filemenu_get_message_width(u8* message);
-
-static inline void filemenu_draw_message_centered(u8* message, s32 x, s32 y, s32 alpha, s32 color, u32 flags) {
-    s32 width = filemenu_get_message_width(message);
-    filemenu_draw_message(message, x - (width / 2), y, alpha, color, flags);
-}
 
 extern WindowStyleCustom filemenu_windowStyles[];
 extern u8 filemenu_createfile_gridData[];

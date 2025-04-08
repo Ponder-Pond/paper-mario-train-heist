@@ -75,7 +75,6 @@ EvtScript N(EVS_Main) = {
             Exec(N(EVS_UpdateTexturePan))
         EndThread
     EndIf
-    Exec(N(EVS_EstablishOnlineConnection))
     Return
     End
 };

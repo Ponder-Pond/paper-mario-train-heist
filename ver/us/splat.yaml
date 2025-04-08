@@ -74,9 +74,8 @@ vram_classes:
   - [entity_model_anim, 0x00000000]
   - { name: dgb_01_smash_bridges, vram: 0x80200000, vram_symbol: D_80200000 }
 
-  - { name: online, vram: 0x80700000 }
 asset_stack:
-  - online
+  - one_dash_four
   - dx
   - us
 segments:
@@ -6055,11 +6054,7 @@ segments:
     subalign: 8
     subsegments:
     - [auto, cpp, area]
-    - [auto, cpp, stage/kmr_bt04]
-    - [auto, cpp, stage/net_bt00]
-    - [auto, cpp, stage/nok_bt01]
-    - [auto, cpp, stage/sbk_bt02]
-    - [auto, cpp, stage/jan_bt00]
+    - [auto, cpp, stage/smb_bt00]
   - dir: battle/area/kmr_part_2
     type: code
     start: 0x439A90
@@ -8070,20 +8065,20 @@ segments:
 ############
 ### maps ###
 ############
-  - name: mac_05
-    dir: world/area_mac/mac_05
-    type: code
-    start: 0x852170
-    vram_class: map
-    subsegments:
-    - [auto, c, settings]
-    - [auto, c, music]
-    - [auto, c, entity]
-    - [auto, c, main]
-    - [auto, c, npc]
-    - [auto, c, whale]
-    - [auto, c, rooms]
-    - [auto, c, club64_sign]
+  # - name: mac_05
+  #   dir: world/area_mac/mac_05
+  #   type: code
+  #   start: 0x852170
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, c, settings]
+  #   - [auto, c, music]
+  #   - [auto, c, entity]
+  #   - [auto, c, main]
+  #   - [auto, c, npc]
+  #   - [auto, c, whale]
+  #   - [auto, c, rooms]
+  #   - [auto, c, club64_sign]
   - name: end_00
     dir: world/area_end/end_00
     type: code
@@ -8124,27 +8119,34 @@ segments:
     subsegments:
     - [auto, c, settings]
     - [auto, c, main]
-  - name: net_00
-    dir: world/area_net/net_00
+  - name: smb_00
+    dir: world/area_smb/smb_00
     type: code
     start: auto
     vram_class: map
     subsegments:
     - [auto, cpp, main]
-  - name: net_01
-    dir: world/area_net/net_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-  - name: prt_00
-    dir: world/area_prt/prt_00
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
+  # - name: net_00
+  #   dir: world/area_net/net_00
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  # - name: net_01
+  #   dir: world/area_net/net_01
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  # - name: prt_00
+  #   dir: world/area_prt/prt_00
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
   - name: trp_00
     dir: world/area_trp/trp_00
     type: code
@@ -8154,49 +8156,49 @@ segments:
     - [auto, cpp, main]
     - [auto, cpp, foliage]
     - [auto, cpp, entity]
-  - name: trp_01
-    dir: world/area_trp/trp_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-    - [auto, cpp, foliage]
-    - [auto, cpp, entity]
-  - name: grs_01
-    dir: world/area_grs/grs_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-    - [auto, cpp, foliage]
-    - [auto, cpp, entity]
-  - name: dst_00
-    dir: world/area_dst/dst_00
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-    - [auto, cpp, foliage]
-    - [auto, cpp, entity]
-  - name: dst_01
-    dir: world/area_dst/dst_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-    - [auto, cpp, foliage]
-    - [auto, cpp, entity]
-  - name: dst_05
-    dir: world/area_dst/dst_05
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
+  # - name: trp_01
+  #   dir: world/area_trp/trp_01
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  #   - [auto, cpp, foliage]
+  #   - [auto, cpp, entity]
+  # - name: grs_01
+  #   dir: world/area_grs/grs_01
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  #   - [auto, cpp, foliage]
+  #   - [auto, cpp, entity]
+  # - name: dst_00
+  #   dir: world/area_dst/dst_00
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  #   - [auto, cpp, foliage]
+  #   - [auto, cpp, entity]
+  # - name: dst_01
+  #   dir: world/area_dst/dst_01
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
+  #   - [auto, cpp, foliage]
+  #   - [auto, cpp, entity]
+  # - name: dst_05
+  #   dir: world/area_dst/dst_05
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, cpp, main]
   - name: heaps2
     type: code
     start: 0xE20110
@@ -9611,24 +9613,8 @@ segments:
       - 2C_QuizQuestions
       - 2D_QuizChoices
       - 2E_Credits
-      - 2F_Online
+      - 2F_Mod
   - [0x1C84D30, bin, unk_1C84D30] # junk(?)
   - [0x1E00000, bin, copy_1E00000] # copy of 0x1943000 - 0x1983000
   - [0x1E40000, pm_map_data, mapfs]
-  - dir: online
-    type: code
-    start: auto
-    vram_class: online
-    subsegments:
-    - [auto, cpp, online]
-    - [auto, c, character]
-    - [auto, cpp, seachart]
-    - [auto, ci8, seachart/background, 320, 240]
-    - [auto, palette, seachart/background]
-    - [auto, ci4, seachart/islands, 16, 16]
-    - [auto, palette, seachart/islands]
-    - [auto, ci4, seachart/hub, 32, 32]
-    - [auto, palette, seachart/hub]
-    - [auto, ci4, piracy, 200, 64]
-    - [auto, palette, piracy]
   - [0x2800000]

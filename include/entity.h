@@ -390,6 +390,7 @@ extern ShadowBlueprint CircularShadowA;
 extern ShadowBlueprint CircularShadowB;
 extern ShadowBlueprint SquareShadow;
 extern EntityBlueprint Entity_SavePoint;
+extern EntityBlueprint Entity_AxeSwitch;
 extern EntityBlueprint Entity_RedSwitch;
 extern EntityBlueprint Entity_BlueSwitch;
 extern EntityBlueprint Entity_HugeBlueSwitch;
