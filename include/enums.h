@@ -2356,6 +2356,7 @@ enum Locations {
     LOCATION_STARBORN_VALLEY            = 0x2A,
     LOCATION_SHIVER_MOUNTAIN            = 0x2B,
     LOCATION_MARIOS_HOUSE               = 0x2C,
+    LOCATION_TRAIN                      = 0x2D,
 };
 
 typedef enum ScreenTransition {
@@ -3120,6 +3121,7 @@ enum PopupType {
     POPUP_MENU_READ_POSTCARD        = 0xB,
     POPUP_MENU_USEKEY               = 0xC,
     POPUP_MENU_POST_OFFICE          = 0xD,
+    POPUP_MENU_BUY_ITEM             = 0xE,
     POPUP_MENU_DOUBLE_DIP           = 100,
     POPUP_MENU_TRIPLE_DIP           = 200,
 };

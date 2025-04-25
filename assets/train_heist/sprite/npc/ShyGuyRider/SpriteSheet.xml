@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Dino.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="IdleRide1" palette="0" src="IdleRide1.png"/>
+		<Raster id="1" name="IdleRide2" palette="0" src="IdleRide2.png"/>
+		<Raster id="2" name="IdleRide3" palette="0" src="IdleRide3.png"/>
+		<Raster id="3" name="IdleRide4" palette="0" src="IdleRide4.png"/>
+		<Raster id="4" name="Panic1" palette="0" src="Panic1.png"/>
+		<Raster id="5" name="Panic2" palette="0" src="Panic2.png"/>
+		<Raster id="6" name="Panic3" palette="0" src="Panic3.png"/>
+		<Raster id="7" name="Panic4" palette="0" src="Panic4.png"/>
+		<Raster id="8" name="ShootArrow1" palette="0" src="ShootArrow1.png"/>
+		<Raster id="9" name="ShootArrow2" palette="0" src="ShootArrow2.png"/>
+		<Raster id="A" name="ShootArrow3" palette="0" src="ShootArrow3.png"/>
+		<Raster id="B" name="ShootArrow4" palette="0" src="ShootArrow4.png"/>
+		<Raster id="C" name="ShootArrow5" palette="0" src="ShootArrow5.png"/>
+		<Raster id="D" name="Arrow1" palette="0" src="Arrow1.png"/>
+		<Raster id="E" name="Arrow2" palette="0" src="Arrow2.png"/>
+		<Raster id="F" name="Run1" palette="1" src="Run1.png"/>
+		<Raster id="10" name="Run2" palette="1" src="Run2.png"/>
+		<Raster id="11" name="Run3" palette="1" src="Run3.png"/>
+		<Raster id="12" name="Run4" palette="1" src="Run4.png"/>
+		<Raster id="13" name="Pain1" palette="1" src="Pain1.png"/>
+		<Raster id="14" name="Pain2" palette="1" src="Pain2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Idle">
+			<Component name="Dino" xyz="0,0,0">
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="1010"/>
+				<Command val="4"/>
+				<Command val="1011"/>
+				<Command val="4"/>
+				<Command val="1012"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Rider" xyz="0,59,-1">
+				<Command val="1001"/>
+				<Command val="3000"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1002"/>
+				<Command val="4"/>
+				<Command val="1003"/>
+				<Command val="3000"/>
+				<Command val="1"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1000"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShootArrow">
+			<Component name="Movement" xyz="0,0,0">
+				<Command val="3000"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="1"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Dino" xyz="0,0,0">
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="1010"/>
+				<Command val="4"/>
+				<Command val="1011"/>
+				<Command val="4"/>
+				<Command val="1012"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Rider" xyz="0,59,-1">
+				<Command val="8100"/>
+				<Command val="1008"/>
+				<Command val="8"/>
+				<Command val="1009"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="6"/>
+				<Command val="100A"/>
+				<Command val="6"/>
+				<Command val="100B"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="1"/>
+				<Command val="0"/>
+				<Command val="18"/>
+				<Command val="100C"/>
+				<Command val="8"/>
+				<Command val="2011"/>
+			</Component>
+			<Component name="Arrow" xyz="-24,63,-1">
+				<Command val="100D"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="2D"/>
+				<Command val="3000"/>
+				<Command val="20"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="5000"/>
+				<Command val="50"/>
+				<Command val="8"/>
+				<Command val="100D"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="6"/>
+				<Command val="100D"/>
+				<Command val="3000"/>
+				<Command val="7"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="6"/>
+				<Command val="100D"/>
+				<Command val="3000"/>
+				<Command val="7"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="18"/>
+				<Command val="100D"/>
+				<Command val="3000"/>
+				<Command val="2"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="2"/>
+				<Command val="1FFF"/>
+				<Command val="8"/>
+				<Command val="2023"/>
+			</Component>
+		</Animation>
+		<Animation name="Arrow">
+			<Component name="Movement" xyz="0,0,0">
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="2"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="2"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="1"/>
+				<Command val="0"/>
+				<Command val="2"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Arrow" xyz="0,0,1">
+				<Command val="8100"/>
+				<Command val="100D"/>
+				<Command val="4"/>
+				<Command val="100E"/>
+				<Command val="6"/>
+				<Command val="2001"/>
+			</Component>
+		</Animation>
+		<Animation name="Panic">
+			<Component name="Dino" xyz="2,0,0">
+				<Command val="1013"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="6"/>
+				<Command val="1014"/>
+				<Command val="4"/>
+				<Command val="1013"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="6"/>
+				<Command val="1014"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Rider" xyz="-1,57,-1">
+				<Command val="1004"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFF6"/>
+				<Command val="3000"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1005"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFF6"/>
+				<Command val="4"/>
+				<Command val="1006"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFF6"/>
+				<Command val="3000"/>
+				<Command val="1"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFF6"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="RunAway">
+			<Component name="Dino" xyz="0,0,0">
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="1010"/>
+				<Command val="4"/>
+				<Command val="1014"/>
+				<Command val="4"/>
+				<Command val="1012"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Rider" xyz="11,54,-1">
+				<Command val="1004"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5"/>
+				<Command val="3000"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1005"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1006"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5"/>
+				<Command val="3000"/>
+				<Command val="1"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

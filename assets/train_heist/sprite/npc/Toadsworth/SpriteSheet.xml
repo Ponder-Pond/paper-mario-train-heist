@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="5">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Blue.png"/>
+		<Palette id="2" src="Green.png"/>
+		<Palette id="3" src="Red.png"/>
+		<Palette id="4" src="Yellow.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Blink" palette="0" src="Blink.png"/>
+		<Raster id="1" name="FranticPush1" palette="0" src="FranticPush1.png"/>
+		<Raster id="2" name="FranticPush2" palette="0" src="FranticPush2.png"/>
+		<Raster id="3" name="FranticPush3" palette="0" src="FranticPush3.png"/>
+		<Raster id="4" name="Idle1" palette="0" src="Idle1.png"/>
+		<Raster id="5" name="Idle2" palette="0" src="Idle2.png"/>
+		<Raster id="6" name="Idle3" palette="0" src="Idle3.png"/>
+		<Raster id="7" name="Idle4" palette="0" src="Idle4.png"/>
+		<Raster id="8" name="Idle5" palette="0" src="Idle5.png"/>
+		<Raster id="9" name="Panic" palette="0" src="Panic.png"/>
+		<Raster id="A" name="Panic2" palette="0" src="Panic2.png"/>
+		<Raster id="B" name="Panic3" palette="0" src="Panic3.png"/>
+		<Raster id="C" name="Talk" palette="0" src="Talk.png"/>
+		<Raster id="D" name="Thinking1" palette="0" src="Thinking1.png"/>
+		<Raster id="E" name="Thinking2" palette="0" src="Thinking2.png"/>
+		<Raster id="F" name="Thinking3" palette="0" src="Thinking3.png"/>
+		<Raster id="10" name="Walk1" palette="0" src="Walk1.png"/>
+		<Raster id="11" name="Walk2" palette="0" src="Walk2.png"/>
+		<Raster id="12" name="Walk3" palette="0" src="Walk3.png"/>
+		<Raster id="13" name="Laugh1" palette="0" src="Laugh1.png"/>
+		<Raster id="14" name="Laugh2" palette="0" src="Laugh2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1004"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1004"/>
+				<Command val="6"/>
+				<Command val="1005"/>
+				<Command val="8"/>
+				<Command val="1006"/>
+				<Command val="A"/>
+				<Command val="1007"/>
+				<Command val="8"/>
+				<Command val="1008"/>
+				<Command val="C"/>
+				<Command val="7000"/>
+				<Command val="4"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="1000"/>
+				<Command val="4"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="1000"/>
+				<Command val="6"/>
+				<Command val="1004"/>
+				<Command val="A"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Walk">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1010"/>
+				<Command val="8"/>
+				<Command val="1011"/>
+				<Command val="6"/>
+				<Command val="1012"/>
+				<Command val="4"/>
+				<Command val="1011"/>
+				<Command val="6"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Run">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1010"/>
+				<Command val="6"/>
+				<Command val="1011"/>
+				<Command val="4"/>
+				<Command val="1012"/>
+				<Command val="2"/>
+				<Command val="1011"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Talk">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1004"/>
+				<Command val="6"/>
+				<Command val="100C"/>
+				<Command val="6"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Laugh">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1013"/>
+				<Command val="6"/>
+				<Command val="1014"/>
+				<Command val="6"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Think">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1004"/>
+				<Command val="6"/>
+				<Command val="100D"/>
+				<Command val="6"/>
+				<Command val="100E"/>
+				<Command val="6"/>
+				<Command val="100F"/>
+				<Command val="1E"/>
+				<Command val="2006"/>
+				<Command val="1"/>
+			</Component>
+		</Animation>
+		<Animation name="Panic">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1009"/>
+				<Command val="2"/>
+				<Command val="100A"/>
+				<Command val="2"/>
+				<Command val="100B"/>
+				<Command val="6"/>
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Pushing">
+			<Component name="Comp_00" xyz="0,0,0">
+				<Command val="1001"/>
+				<Command val="2"/>
+				<Command val="1002"/>
+				<Command val="4"/>
+				<Command val="1003"/>
+				<Command val="2"/>
+				<Command val="1002"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="3" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Idle1" palette="0" src="Idle1.png"/>
+		<Raster id="1" name="Idle2" palette="0" src="Idle2.png"/>
+		<Raster id="2" name="Idle3" palette="0" src="Idle3.png"/>
+		<Raster id="3" name="Mouth1" palette="0" src="Mouth1.png"/>
+		<Raster id="4" name="Mouth2" palette="0" src="Mouth2.png"/>
+		<Raster id="5" name="Talk1" palette="0" src="Talk1.png"/>
+		<Raster id="6" name="Talk2" palette="0" src="Talk2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Body" xyz="-9,-3,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="Body" xyz="-9,-3,0">
+				<Command val="1000"/>
+				<Command val="C"/>
+				<Command val="1001"/>
+				<Command val="6"/>
+				<Command val="1002"/>
+				<Command val="C"/>
+				<Command val="1001"/>
+				<Command val="6"/>
+				<Command val="7000"/>
+				<Command val="6"/>
+				<Command val="1000"/>
+				<Command val="7D"/>
+				<Command val="1003"/>
+				<Command val="6"/>
+				<Command val="1000"/>
+				<Command val="6"/>
+				<Command val="1004"/>
+				<Command val="6"/>
+				<Command val="1000"/>
+				<Command val="700C"/>
+				<Command val="6"/>
+				<Command val="1000"/>
+				<Command val="7D"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Talk">
+			<Component name="Body" xyz="-9,-3,0">
+				<Command val="1005"/>
+				<Command val="6"/>
+				<Command val="1006"/>
+				<Command val="6"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

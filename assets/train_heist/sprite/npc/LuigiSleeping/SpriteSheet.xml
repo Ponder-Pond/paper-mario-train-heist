@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="2" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="LuigiNap1" palette="0" src="LuigiNap1.png"/>
+		<Raster id="1" name="LuigiNap2" palette="0" src="LuigiNap2.png"/>
+		<Raster id="2" name="LuigiNap3" palette="0" src="LuigiNap3.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="LuigiSleep">
+			<Component name="Comp_00" xyz="0,-8,0">
+				<Command val="1000"/>
+				<Command val="14"/>
+				<Command val="1001"/>
+				<Command val="12"/>
+				<Command val="1002"/>
+				<Command val="46"/>
+				<Command val="1001"/>
+				<Command val="16"/>
+				<Command val="1000"/>
+				<Command val="14"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

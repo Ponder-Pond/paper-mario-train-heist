@@ -4,7 +4,7 @@
 /// Creates the version string that appears on the file select menu.
 /// Also used to sign save files created with this mod.
 /// WARNING: name must not exceed 27 characters!
-#define DX_MOD_NAME "1-4"
+#define DX_MOD_NAME "Train Heist"
 #define DX_MOD_VER_MAJOR 0 /// Increase this when you make breaking changes to the savefile format (like reordering items)
 #define DX_MOD_VER_MINOR 0 /// Increase this when adding new features or other enchancements
 #define DX_MOD_VER_PATCH 0 /// Increase this when fixing bugs
@@ -40,6 +40,8 @@
 /// Enables the profiler, which shows lots of performance info on screen.
 /// Press L + D-Pad Up to show/hide the profiler.
 #define USE_PROFILER 0
+
+#define GIVE_ALL_PARTNERS 1
 
 /// Skip laggy blur operations when opening the pause menu on emulator
 #define DX_PAUSE_LAG_FIX 1

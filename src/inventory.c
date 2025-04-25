@@ -59,19 +59,19 @@ void clear_player_data(void) {
     ShowingCoinCounter = FALSE;
     HidingCoinCounter = FALSE;
 
-    playerData->curHP = 10;
-    playerData->curMaxHP = 10;
-    playerData->hardMaxHP = 10;
-    playerData->curFP = 5;
-    playerData->curMaxFP = 5;
-    playerData->hardMaxFP = 5;
-    playerData->maxBP = 3;
-    playerData->level = 1;
-    playerData->bootsLevel = 0;
-    playerData->hammerLevel = 0;
+    playerData->curHP = 50;
+    playerData->curMaxHP = 50;
+    playerData->hardMaxHP = 50;
+    playerData->curFP = 50;
+    playerData->curMaxFP = 50;
+    playerData->hardMaxFP = 50;
+    playerData->maxBP = 30;
+    playerData->level = 27;
+    playerData->bootsLevel = 2;
+    playerData->hammerLevel = 2;
     playerData->hasActionCommands = TRUE;
-    playerData->coins = 0;
-    playerData->starPieces = 0;
+    playerData->coins = 100;
+    playerData->starPieces = 50;
     playerData->starPoints = 0;
     playerData->unused_011 = 0;
     playerData->unused_288 = 0;
@@ -84,14 +84,26 @@ void clear_player_data(void) {
     playerData->starPower = 0;
     playerData->starBeamLevel = 0;
 
-    playerData->curPartner = PARTNER_NONE;
+    playerData->curPartner = PARTNER_GOOMBARIO;
+
+    // for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
+    //     playerData->partners[i].enabled = FALSE;
+    //     playerData->partners[i].level = PARTNER_RANK_NORMAL;
+    //     playerData->partners[i].unk_02[0] = 0;
+    //     playerData->partners[i].unk_02[1] = 0;
+    //     playerData->partners[i].unk_02[2] = 0;
+    // }
 
     for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
-        playerData->partners[i].enabled = FALSE;
+        if (i == PARTNER_GOOMPA || i == PARTNER_WATT || i == PARTNER_SUSHIE || i == PARTNER_LAKILESTER || i == PARTNER_BOW || i == PARTNER_GOOMBARIA || i == PARTNER_TWINK) {
+            continue;
+        }
+        #if GIVE_ALL_PARTNERS == 1
+            playerData->partners[i].enabled = TRUE;
+        #else
+            playerData->partners[i].enabled = FALSE;
+        #endif
         playerData->partners[i].level = PARTNER_RANK_NORMAL;
-        playerData->partners[i].unk_02[0] = 0;
-        playerData->partners[i].unk_02[1] = 0;
-        playerData->partners[i].unk_02[2] = 0;
     }
 
     for (i = 0; i < ARRAY_COUNT(playerData->keyItems); i++) {
@@ -103,12 +115,12 @@ void clear_player_data(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(playerData->invItems); i++) {
-        playerData->invItems[0] = ITEM_SUPER_SHROOM;
-        // playerData->invItems[i] = ITEM_NONE;
+        // playerData->invItems[0] = ITEM_SUPER_SHROOM;
+        playerData->invItems[i] = ITEM_NONE;
     }
 
     for (i = 0; i < ARRAY_COUNT(playerData->equippedBadges); i++) {
-        playerData->equippedBadges[0] = ITEM_DODGE_MASTER;
+        playerData->equippedBadges[0] = ITEM_PEEKABOO;
         // playerData->equippedBadges[i] = ITEM_NONE;
     }
 

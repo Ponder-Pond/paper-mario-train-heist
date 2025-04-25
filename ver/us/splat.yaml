@@ -75,7 +75,7 @@ vram_classes:
   - { name: dgb_01_smash_bridges, vram: 0x80200000, vram_symbol: D_80200000 }
 
 asset_stack:
-  - one_dash_four
+  - train_heist
   - dx
   - us
 segments:
@@ -6054,7 +6054,7 @@ segments:
     subalign: 8
     subsegments:
     - [auto, cpp, area]
-    - [auto, cpp, stage/smb_bt00]
+    - [auto, cpp, stage/trn_bt00]
   - dir: battle/area/kmr_part_2
     type: code
     start: 0x439A90
@@ -8119,34 +8119,14 @@ segments:
     subsegments:
     - [auto, c, settings]
     - [auto, c, main]
-  - name: smb_00
-    dir: world/area_smb/smb_00
+  - name: trn_01
+    dir: world/area_trn/trn_01
     type: code
     start: auto
     vram_class: map
     subsegments:
     - [auto, cpp, main]
-  # - name: net_00
-  #   dir: world/area_net/net_00
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  # - name: net_01
-  #   dir: world/area_net/net_01
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  # - name: prt_00
-  #   dir: world/area_prt/prt_00
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
+    - [auto, cpp, npc]
   - name: trp_00
     dir: world/area_trp/trp_00
     type: code

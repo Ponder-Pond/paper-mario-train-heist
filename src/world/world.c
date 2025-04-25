@@ -323,10 +323,10 @@ MapConfig gv_maps[] = {
     { MAP(gv_01) },
 };
 
-/// Super Mario Bros
-#include "area_smb/smb.h"
-MapConfig smb_maps[] = {
-    { MAP(smb_00) },
+/// Train
+#include "area_trn/trn.h"
+MapConfig trn_maps[] = {
+    { MAP(trn_01) },
 };
 
 /// Tropical
@@ -338,7 +338,7 @@ MapConfig trp_maps[] = {
 AreaConfig gAreas[] = {
     AREA(end, "エンディング"),  // endingu [Ending]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
-    AREA(smb, "Super Mario Bros"),
+    AREA(trn, "Train"),
     AREA(trp, "Tropical"),
     {},
 };
