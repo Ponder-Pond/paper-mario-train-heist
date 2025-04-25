@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="9" paletteGroups="2">
 	<PaletteList>
-		<Palette id="0" src="HeadHat.pal.png"/>
-		<Palette id="1" src="ClownCarNeutral.pal.png"/>
-		<Palette id="2" src="BodySuit.pal.png"/>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="ClownCar.png"/>
+		<Palette id="2" src="BodySuit.png"/>
 		<Palette id="3" src="BigSteely.png"/>
 	</PaletteList>
 	<RasterList>
