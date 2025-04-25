@@ -503,8 +503,8 @@ EvtScript EVS_Attack_SniperShot = {
 
 ActorBlueprint BlackBanditKoopa = {
     .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
-    .type = THIS_ACTOR_TYPE,
-    .level = THIS_LEVEL,
+    .type = black_bandit_koopa::THIS_ACTOR_TYPE,
+    .level = black_bandit_koopa::THIS_LEVEL,
     .maxHP = black_bandit_koopa::hp,
     .partCount = ARRAY_COUNT(black_bandit_koopa::ActorParts),
     .partsData = black_bandit_koopa::ActorParts,

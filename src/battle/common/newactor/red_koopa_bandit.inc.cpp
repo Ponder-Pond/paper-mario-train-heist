@@ -395,7 +395,7 @@ EvtScript EVS_Defeat = {
 Vec3i BowsertheKidSpawnPos = { 80, 45, 20 };
 
 Formation SpawnKoopatheKid = {
-    ACTOR_BY_POS(KoopaTheKid BowsertheKidSpawnPos, 75),
+    ACTOR_BY_POS(KoopaTheKid, BowsertheKidSpawnPos, 75),
 };
 
 Vec3i KoopaGangSpawnPos = { 20, 0, 20 };
@@ -758,6 +758,7 @@ EvtScript EVS_TakeTurn = {
 #define GetPosX() LVar0
 #define SetPosX(value) Set(LVar0, value)
 #define AddPosX(value) Add(LVar0, value)
+
 EvtScript EVS_Attack_LitBomb = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
@@ -869,6 +870,8 @@ EvtScript EVS_Attack_LitBomb = {
     Return
     End
 };
+
+// Undefine macros
 #undef GetPosX
 #undef SetPosX
 #undef AddPosX
@@ -1249,8 +1252,8 @@ EvtScript EVS_Attack_Pokey = {
 
 ActorBlueprint RedBanditKoopa = {
     .flags = ACTOR_FLAG_NO_SHADOW, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
-    .type = THIS_ACTOR_TYPE,
-    .level = THIS_LEVEL,
+    .type = red_bandit_koopa::THIS_ACTOR_TYPE,
+    .level = red_bandit_koopa::THIS_LEVEL,
     .maxHP = red_bandit_koopa::hp,
     .partCount = ARRAY_COUNT(red_bandit_koopa::ActorParts),
     .partsData = red_bandit_koopa::ActorParts,
