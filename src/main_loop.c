@@ -7,7 +7,6 @@
 #include "game_modes.h"
 #include "dx/profiling.h"
 #include "dx/debug_menu.h"
-#include "ship.h"
 
 s32 gOverrideFlags;
 s32 gTimeFreezeMode;
@@ -325,7 +324,6 @@ void load_engine_data(void) {
     clear_printers();
     clear_game_mode();
     clear_npcs();
-    clear_ships();
     hud_element_clear_cache();
     clear_trigger_data();
     clear_entity_data(FALSE);

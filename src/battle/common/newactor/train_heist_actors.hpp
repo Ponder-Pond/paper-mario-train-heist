@@ -12,7 +12,7 @@ extern ActorBlueprint GiantChainChomp;
 extern ActorBlueprint YellowHammerBro;
 extern ActorBlueprint BlackBanditKoopa;
 extern ActorBlueprint Crate;
-extern ActorBlueprint DynamiteCrate;
+extern ActorBlueprint DyanmiteCrate;
 extern ActorBlueprint ShyGuyRider;
 extern ActorBlueprint RedBanditKoopa;
 extern ActorBlueprint PyroGuy;

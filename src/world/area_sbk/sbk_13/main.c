@@ -1,5 +1,4 @@
 #include "sbk_13.h"
-#include "ship.h"
 
 extern EvtScript N(EVS_Main);
 extern NpcGroupList N(DefaultNPCs);
@@ -54,7 +53,6 @@ EvtScript N(EVS_Main) = {
     EVT_SETUP_CAMERA_NO_LEAD(0, 0, 0)
     //Call(MakeNpcs, FALSE, Ref(N(DefaultNPCs)))
     Call(N(SpawnSunEffect))
-    Call(RegisterShip, MODEL_sail, MODEL_mast, MODEL_hull)
     Call(N(SetFog))
     //Call(SetMusicTrack, 0, SONG_DRY_DRY_DESERT, 0, 8)
     Call(PlayAmbientSounds, AMBIENT_SEA)

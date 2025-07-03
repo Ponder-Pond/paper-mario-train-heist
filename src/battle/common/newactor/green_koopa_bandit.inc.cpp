@@ -47,9 +47,9 @@ extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_ManageFirstPhase;
 extern EvtScript EVS_Defeat;
 extern EvtScript EVS_SecondPhaseTransition;
-extern ActorBlueprint YellowBanditKoopa;
-extern ActorBlueprint GiantChainChomp;
-extern ActorBlueprint YellowHammerBro;
+// extern ActorBlueprint YellowBanditKoopa;
+// extern ActorBlueprint GiantChainChomp;
+// extern ActorBlueprint YellowHammerBro;
 extern EvtScript EVS_Attack_BulletBiff_Fast;
 extern EvtScript EVS_Attack_BulletBiff_Slow;
 
@@ -876,6 +876,7 @@ EvtScript EVS_SecondPhaseTransition = {
                 Call(SummonEnemy, Ref(SpawnYellowHammerBro), FALSE)
                 Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
                 Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, TRUE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_Phase, AVAL_YellowPhase)
             EndIf
         EndIf
         Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
@@ -942,15 +943,27 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
             // Sub(LVar0, 15)
             // Add(LVar1, 48)
             // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+            Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, 0)
             Call(SetPartFlagBits, ACTOR_SELF, PRT_BIFF, ACTOR_PART_FLAG_INVISIBLE, FALSE)
             // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(8.5))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(7.5))
             Call(SetGoalToTarget, ACTOR_SELF)
             // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+            Thread
+                Call(MakeLerp, 0, Float(47.5), 20, EASING_QUADRATIC_OUT)
+                Label(0)
+                Call(UpdateLerp)
+                Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, LVar0)
+                Wait(1)
+                IfEq(LVar1, 1)
+                    Goto(0)
+                EndIf
+            EndThread
+            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
+            // Wait(5)
             Wait(2)
             IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
@@ -967,6 +980,7 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
     // Sub(LVar0, 15)
     // Add(LVar1, 48)
     // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+    Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, 0)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_BIFF, ACTOR_PART_FLAG_INVISIBLE, FALSE)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -974,10 +988,21 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
     Add(LVar1, 25)
     Add(LVar2, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(8.5))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(7.5))
     Call(SetGoalToTarget, ACTOR_SELF)
     // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+    Thread
+        Call(MakeLerp, 0, Float(47.5), 20, EASING_QUADRATIC_OUT)
+        Label(0)
+        Call(UpdateLerp)
+        Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, LVar0)
+        Wait(1)
+        IfEq(LVar1, 1)
+            Goto(0)
+        EndIf
+    EndThread
+    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
+    // Wait(5)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgSlowImpact, BS_FLAGS1_TRIGGER_EVENTS)
@@ -1026,15 +1051,27 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
             // Sub(LVar0, 15)
             // Add(LVar1, 48)
             // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+            Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, 0)
             Call(SetPartFlagBits, ACTOR_SELF, PRT_BIFF, ACTOR_PART_FLAG_INVISIBLE, FALSE)
             // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(19.5))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(15.0))
             Call(SetGoalToTarget, ACTOR_SELF)
             // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+            Thread
+                Call(MakeLerp, 0, Float(47.5), 20, EASING_QUADRATIC_OUT)
+                Label(0)
+                Call(UpdateLerp)
+                Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, LVar0)
+                Wait(1)
+                IfEq(LVar1, 1)
+                    Goto(0)
+                EndIf
+            EndThread
+            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            // Wait(5)
             Wait(2)
             IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
@@ -1051,6 +1088,7 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
     // Sub(LVar0, 15)
     // Add(LVar1, 48)
     // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+    Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, 0)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_BIFF, ACTOR_PART_FLAG_INVISIBLE, FALSE)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -1058,10 +1096,21 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
     Add(LVar1, 25)
     Add(LVar2, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(19.5))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(15.0))
     Call(SetGoalToTarget, ACTOR_SELF)
     // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+    Thread
+        Call(MakeLerp, 0, Float(47.5), 20, EASING_QUADRATIC_OUT)
+        Label(0)
+        Call(UpdateLerp)
+        Call(SetPartRotation, ACTOR_SELF, PRT_BIFF, 0, 0, LVar0)
+        Wait(1)
+        IfEq(LVar1, 1)
+            Goto(0)
+        EndIf
+    EndThread
+    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    // Wait(5)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgFastImpact, BS_FLAGS1_TRIGGER_EVENTS)

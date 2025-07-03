@@ -389,35 +389,36 @@ EvtScript EVS_Defeat = {
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
-    Switch(LVar0)
-        CaseEq(AVAL_KoopaGang_TowerState_None)
-            Label(LBL_FORMTOWER)
-                ExecWait(EVS_Move_FormTower)
-            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-            Goto(LBL_ENDTURN)
-        CaseEq(AVAL_KoopaGang_TowerState_Stable)
-            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-            Goto(LBL_ENDTURN)
-        CaseEq(AVAL_KoopaGang_TowerState_Unstable)
-            ExecWait(EVS_Move_Spin)
-            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-            Goto(LBL_ENDTURN)
-        CaseEq(AVAL_KoopaGang_TowerState_Toppled)
-            Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
-            Switch(LVar0)
-                CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-                    // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-                    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
-                CaseEq(AVAL_KoopaGang_ToppleTurnZero)
-                    Goto(LBL_FORMTOWER)
-            EndSwitch
-    EndSwitch
-    Label(LBL_ENDTURN)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    // Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
+    // Switch(LVar0)
+    //     CaseEq(AVAL_KoopaGang_TowerState_None)
+    //         Label(LBL_FORMTOWER)
+    //             ExecWait(EVS_Move_FormTower)
+    //         // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         Goto(LBL_ENDTURN)
+    //     CaseEq(AVAL_KoopaGang_TowerState_Stable)
+    //         // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         Goto(LBL_ENDTURN)
+    //     CaseEq(AVAL_KoopaGang_TowerState_Unstable)
+    //         ExecWait(EVS_Move_Spin)
+    //         // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         Goto(LBL_ENDTURN)
+    //     CaseEq(AVAL_KoopaGang_TowerState_Toppled)
+    //         Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
+    //         Switch(LVar0)
+    //             CaseEq(AVAL_KoopaGang_ToppleTurnOne)
+    //                 // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
+    //             CaseEq(AVAL_KoopaGang_ToppleTurnZero)
+    //                 Goto(LBL_FORMTOWER)
+    //         EndSwitch
+    // EndSwitch
+    // Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
@@ -480,10 +481,10 @@ EvtScript EVS_HandlePhase = {
 }; // namespace koopa_gang
 
 ActorBlueprint KoopaGang = {
-    .flags = ACTOR_FLAG_NO_DMG_POPUP | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
+    .flags = ACTOR_FLAG_NO_DMG_POPUP | ACTOR_FLAG_NO_HEALTH_BAR,
+    .maxHP = koopa_gang::hp,
     .type = ACTOR_TYPE_KOOPA_GANG,
     .level = ACTOR_LEVEL_KOOPA_GANG,
-    .maxHP = koopa_gang::hp,
     .partCount = ARRAY_COUNT(koopa_gang::ActorParts),
     .partsData = koopa_gang::ActorParts,
     .initScript = &koopa_gang::EVS_Init,

@@ -203,9 +203,9 @@ EvtScript EVS_Attack_ArrowShot = {
 
 ActorBlueprint ShyGuyRider = {
     .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_NO_HEALTH_BAR,
+    .maxHP = shy_guy_rider::hp,
     .type = ACTOR_TYPE_SHY_GUY_RIDER,
     .level = ACTOR_LEVEL_SHY_GUY_RIDER,
-    .maxHP = shy_guy_rider::hp,
     .partCount = ARRAY_COUNT(shy_guy_rider::ActorParts),
     .partsData = shy_guy_rider::ActorParts,
     .initScript = &shy_guy_rider::EVS_Init,

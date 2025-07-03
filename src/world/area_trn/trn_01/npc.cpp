@@ -12,7 +12,7 @@ extern IconHudScriptPair gItemHudScripts[];
 namespace trn_01 {
 
 EvtScript EVS_NpcInteract_Toadsworth = {
-    Call(SpeakToPlayer, NPC_Toadsworth, ANIM_Toadsworth_Talk, ANIM_Toadsworth_Idle, 0, MSG_TRN01_ToadsworthInteract)
+    Call(SpeakToPlayer, NPC_Toadsworth, ANIM_Toadsworth_Talk, ANIM_Toadsworth_Idle, 0, MSG_TrainLobby_ToadsworthInteract)
     Return
     End
 };
@@ -24,7 +24,7 @@ EvtScript EVS_NpcInit_Toadsworth = {
 };
 
 EvtScript EVS_NpcInteract_ToadMinister = {
-    Call(SpeakToPlayer, NPC_ToadMinister, ANIM_ToadMinister_Talk, ANIM_ToadMinister_Idle, 0, MSG_TRN01_ToadMinisterInteract)
+    Call(SpeakToPlayer, NPC_ToadMinister, ANIM_ToadMinister_Talk, ANIM_ToadMinister_Idle, 0, MSG_TrainLobby_ToadMinisterInteract)
     Return
     End
 };
@@ -36,7 +36,7 @@ EvtScript EVS_NpcInit_ToadMinister = {
 };
 
 EvtScript EVS_NpcInteract_Bubba = {
-    Call(SpeakToPlayer, NPC_Bubba, ANIM_BigBubba_Talk, ANIM_BigBubba_Idle, 0, MSG_TRN01_BubbaInteract)
+    Call(SpeakToPlayer, NPC_Bubba, ANIM_BigBubba_Talk, ANIM_BigBubba_Idle, 0, MSG_TrainLobby_BubbaInteract)
     Return
     End
 };
@@ -49,8 +49,8 @@ EvtScript EVS_NpcInit_Bubba = {
 
 EvtScript EVS_NpcInteract_Luigi = {
     Call(DisablePlayerInput, TRUE)
-    Call(ShowMessageAtScreenPos, MSG_TRN01_LuigiInteract, 160, 40)
-    // Call(SpeakToPlayer, NPC_Luigi, ANIM_LuigiSleeping_LuigiSleep, ANIM_LuigiSleeping_LuigiSleep, 0, MSG_TRN01_LuigiInteract)
+    Call(ShowMessageAtScreenPos, MSG_TrainLobby_LuigiInteract, 160, 40)
+    // Call(SpeakToPlayer, NPC_Luigi, ANIM_LuigiSleeping_LuigiSleep, ANIM_LuigiSleeping_LuigiSleep, 0, MSG_TrainLobby_LuigiInteract)
     Call(DisablePlayerInput, FALSE)
     Return
     End
@@ -63,7 +63,7 @@ EvtScript EVS_NpcInit_Luigi = {
 };
 
 EvtScript EVS_NpcInteract_Kammy = {
-    Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TRN01_KammyInteract)
+    Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TrainLobby_KammyInteract)
     Return
     End
 };
@@ -75,7 +75,7 @@ EvtScript EVS_NpcInit_Kammy = {
 };
 
 EvtScript EVS_NpcInteract_Peach = {
-    Call(SpeakToPlayer, NPC_Peach, ANIM_ParadePeach_Talk, ANIM_ParadePeach_IdleRaisedArms, 0, MSG_TRN01_PeachInteract)
+    Call(SpeakToPlayer, NPC_Peach, ANIM_ParadePeach_Talk, ANIM_ParadePeach_IdleRaisedArms, 0, MSG_TrainLobby_PeachInteract)
     Return
     End
 };
@@ -178,49 +178,49 @@ API_CALLABLE((TayceT_ShopItemsPopup)) {
 
 EvtScript EVS_NpcInteract_TayceT = {
     IfGe(GB_TRN01_TayceT_PurchaseCount, TAYCE_T_ITEM_COUNT)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT6)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT6)
         Return
     EndIf
     IfEq(MF_PurchasedItem, TRUE)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT3)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT3)
     Else
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT1)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT1)
     EndIf
     Call(ShowChoice, MSG_Choice_0014)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT4)
+        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT4)
         Return
     EndIf
     Call((TayceT_GetPlayerCoins), LVar0)
     IfEq(LVar0, 0)
-        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT5)
+        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT5)
         Return
     EndIf
-    Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT7)
+    Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT7)
     Label(0)
     Call((TayceT_ShopItemsPopup))
     Wait(10)
     IfEq(LVar0, -1)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT8)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT8)
         Return
     EndIf
     Call((TayceT_GetPlayerCoins), LVar3)
     IfLt(LVar3, LVar1)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT8)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT8)
         Goto(0)
     EndIf
     Call(SetMessageText, LVar4, 0)
     Call(SetMessageValue, LVar1, 1)
     Call(SetMessageValue, LVar5, 2)
     IfEq(LVar1, 1)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT2)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT2)
     Else
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT9)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT9)
     EndIf
     Set(LVar3, LVar0)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT10)
+        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT10)
         Goto(0)
     EndIf
     Call(CloseMessage)
@@ -237,18 +237,18 @@ EvtScript EVS_NpcInteract_TayceT = {
     // EVT_GIVE_REWARD(LVar3)
     // #define NAME_SUFFIX
     IfGe(GB_TRN01_TayceT_PurchaseCount, TAYCE_T_ITEM_COUNT)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT11)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT11)
         Return
     EndIf
     Call((TayceT_GetPlayerCoins), LVar0)
     IfLe(LVar0, 0)
-        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT11)
+        Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT11)
         Return
     EndIf
-    Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT12)
+    Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT12)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TRN01_BuyTayceT13)
+        Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT13)
         Return
     EndIf
     Call(CloseMessage)
@@ -368,49 +368,49 @@ API_CALLABLE((Toad_ShopBadgesPopup)) {
 
 EvtScript EVS_NpcInteract_Toad = {
     IfGe(GB_TRN01_Toad_PurchaseCount, TOAD_BADGE_COUNT)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad6)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad6)
         Return
     EndIf
     IfEq(MF_PurchasedBadge, TRUE)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad3)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad3)
     Else
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad1)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad1)
     EndIf
     Call(ShowChoice, MSG_Choice_0014)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad4)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad4)
         Return
     EndIf
     Call((Toad_GetPlayerStarPieces), LVar0)
     IfEq(LVar0, 0)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad5)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad5)
         Return
     EndIf
-    Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad7)
+    Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad7)
     Label(0)
     Call((Toad_ShopBadgesPopup))
     Wait(10)
     IfEq(LVar0, -1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad8)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad8)
         Return
     EndIf
     Call((Toad_GetPlayerStarPieces), LVar3)
     IfLt(LVar3, LVar1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad8)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad8)
         Goto(0)
     EndIf
     Call(SetMessageText, LVar4, 0)
     Call(SetMessageValue, LVar1, 1)
     Call(SetMessageValue, LVar5, 2)
     IfEq(LVar1, 1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad2)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad2)
     Else
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad9)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad9)
     EndIf
     Set(LVar3, LVar0)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad10)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad10)
         Goto(0)
     EndIf
     Call(CloseMessage)
@@ -427,18 +427,18 @@ EvtScript EVS_NpcInteract_Toad = {
     // EVT_GIVE_REWARD(LVar3)
     // #define NAME_SUFFIX
     IfGe(GB_TRN01_Toad_PurchaseCount, TOAD_BADGE_COUNT)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad11)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad11)
         Return
     EndIf
     Call((Toad_GetPlayerStarPieces), LVar0)
     IfLe(LVar0, 0)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad11)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad11)
         Return
     EndIf
-    Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad12)
+    Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad12)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TRN01_BorrowToad13)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad13)
         Return
     EndIf
     Call(CloseMessage)
@@ -464,7 +464,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_TOADSWORTH_DIR,
         .drops = NO_DROPS,
         .animations = TOADSWORTH_ANIMS, // Change to Toadsworth Animations
-        .tattle = MSG_TRN01_ToadsworthTattle,
+        .tattle = MSG_TrainLobby_ToadsworthTattle,
     },
     {
         .id = NPC_ToadMinister,
@@ -475,7 +475,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_TOAD_MINISTER_DIR,
         .drops = NO_DROPS,
         .animations = TOAD_MINISTER_ANIMS,
-        .tattle = MSG_TRN01_ToadMinisterTattle,
+        .tattle = MSG_TrainLobby_ToadMinisterTattle,
     },
     {
         .id = NPC_Bubba,
@@ -486,7 +486,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_BUBBA_DIR,
         .drops = NO_DROPS,
         .animations = BUBBA_ANIMS,
-        .tattle = MSG_TRN01_BigBubbaTattle,
+        .tattle = MSG_TrainLobby_BigBubbaTattle,
     },
     {
         .id = NPC_Luigi,
@@ -497,7 +497,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_LUIGI_DIR,
         .drops = NO_DROPS,
         .animations = LUIGI_SLEEPING_ANIMS,
-        .tattle = MSG_TRN01_LuigiTattle,
+        .tattle = MSG_TrainLobby_LuigiTattle,
     },
     {
         .id = NPC_CalamityKammy,
@@ -508,7 +508,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_CALAMITY_KAMMY_DIR,
         .drops = NO_DROPS,
         .animations = CALAMITY_KAMMY_ANIMS,
-        .tattle = MSG_TRN01_CalamityKammyTattle,
+        .tattle = MSG_TrainLobby_CalamityKammyTattle,
     },
     {
         .id = NPC_Peach,
@@ -519,7 +519,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_PEACH_DIR,
         .drops = NO_DROPS,
         .animations = PEACH_NPC_ANIMS,
-        .tattle = MSG_TRN01_PeachTattle,
+        .tattle = MSG_TrainLobby_PeachTattle,
     },
     {
         .id = NPC_TayceT,
@@ -530,7 +530,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_TAYCE_T_DIR,
         .drops = NO_DROPS,
         .animations = TAYCE_T_ANIMS,
-        .tattle = MSG_TRN01_TayceTTattle,
+        .tattle = MSG_TrainLobby_TayceTTattle,
     },
     {
         .id = NPC_Toad,
@@ -541,7 +541,7 @@ NpcData NpcData_Characters[] = {
         .yaw = GEN_TOAD_DIR,
         .drops = NO_DROPS,
         .animations = TOAD_RED_ANIMS,
-        .tattle = MSG_TRN01_ToadTattle,
+        .tattle = MSG_TrainLobby_ToadTattle,
     },
 };
 

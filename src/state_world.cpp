@@ -4,7 +4,6 @@
 #include "dx/config.h"
 #include "dx/profiling.h"
 #include "dx/debug_menu.h"
-#include "ship.h"
 
 void state_world_draw_aux_ui(void);
 
@@ -20,7 +19,6 @@ void state_init_world(void) {
 
 void state_step_world(void) {
     update_encounters();
-    update_ships();
     profiler_update(PROFILE_TIME_WORLD_ENCOUNTERS, 0);
     update_npcs();
     profiler_update(PROFILE_TIME_WORLD_NPCS, 0);

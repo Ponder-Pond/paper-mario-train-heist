@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map stage="true" background="trn_bg" textures="trn_tex">
 	<Editor>
-		<Camera pos="-43.618729,122.053917,195.330185" pitch="15.200012" yaw="2.880571"/>
+		<Camera pos="-33.606190,51.520782,241.924545" pitch="11.039986" yaw="353.920441"/>
 		<Camera pos="101.772491,65536.000000,23.650030"/>
 		<Camera pos="65536.000000,0.000000,0.000000"/>
 		<Camera pos="117.469170,20.411375,65536.000000"/>
@@ -134,7 +134,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BarrelRed" id="36" hidden="true"/>
+			<MapObject name="BarrelRed" id="36"/>
 			<ShapeMesh ver="3" texture="railway">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -444,7 +444,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BombPile" id="35" hidden="true"/>
+			<MapObject name="BombPile" id="35"/>
 			<ShapeMesh ver="3" texture="bombs">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -634,7 +634,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BombBox" id="34" hidden="true"/>
+			<MapObject name="BombBox" id="34"/>
 			<ShapeMesh ver="3" texture="crate">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -2766,7 +2766,7 @@
 			<HitObject type="GROUP"/>
 		</Collider>
 		<Collider ver="0" flags="0" surface="0">
-			<MapObject name="yuka" id="0" hidden="true" dumped="true" fileOffset="58"/>
+			<MapObject name="yuka" id="0" dumped="true" fileOffset="58"/>
 			<HitObject type="HIT"/>
 			<HitMesh ver="0">
 				<TriangleBatch ver="0">

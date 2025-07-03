@@ -9,7 +9,7 @@ enum BossCommon {
     ACTOR_BRIGADER_BONES                = ACTOR_ENEMY2,
     ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY1,
     ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY2,
-    ACTOR_YELLOW_HAMMER_BRO                = ACTOR_ENEMY3,
+    ACTOR_YELLOW_HAMMER_BRO             = ACTOR_ENEMY3,
     ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY0,
     ACTOR_CRATE                         = ACTOR_ENEMY1,
     ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY3,
@@ -20,7 +20,7 @@ enum BossCommon {
     ACTOR_BOB_OMB                       = ACTOR_ENEMY0,
     ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
     ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
-    ACTOR_GREEN_HAMMER_BRO                    = ACTOR_ENEMY2,
+    ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY2,
     // // Green Phase Actors
     // ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
     // ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,
@@ -28,7 +28,7 @@ enum BossCommon {
     // // Yellow Phase Actors
     // ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY0,
     // ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY1,
-    // ACTOR_YELLOW_HAMMER_BRO                = ACTOR_ENEMY2,
+    // ACTOR_YELLOW_HAMMER_BRO             = ACTOR_ENEMY2,
     // // Black Phase Actors
     // ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY0,
     // ACTOR_CRATE                         = ACTOR_ENEMY1,
@@ -39,10 +39,10 @@ enum BossCommon {
     // ACTOR_RED_BANDIT                    = ACTOR_ENEMY0,
     // ACTOR_PYRO_GUY                      = ACTOR_ENEMY1,
     // ACTOR_BOB_OMB                       = ACTOR_ENEMY2,
-    // Bowser Phase Actors
+    // // Bowser Phase Actors
     // ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
     // ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
-    // ACTOR_GREEN_HAMMER_BRO                    = ACTOR_ENEMY2,
+    // ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY2,
     // Phase Actor Vars
     AVAR_Phase                          = 0,
     AVAL_IntroPhase                     = 0,

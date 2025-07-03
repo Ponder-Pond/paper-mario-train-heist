@@ -690,7 +690,7 @@ EvtScript EVS_Attack_SteelyDrop = {
     Add(LVar1, 24)
     Call(SetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(GetActorRotation, ACTOR_SELF, LVar3, LVar4, LVar5)
-    Call(MakeLerp, 0, 180, 20, EASING_COS_FAST_OVERSHOOT)
+    Call(MakeLerp, 0, 180, 15, EASING_COS_FAST_OVERSHOOT)
     Loop(0)
         Call(UpdateLerp)
         SetF(LVar5, LVar0)
@@ -701,31 +701,51 @@ EvtScript EVS_Attack_SteelyDrop = {
         EndIf
     EndLoop
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    // Add(LVar0, 0)
     Sub(LVar1, 10)
     Set(LVar2, 25)
     Call(SetPartPos, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2)
-    // Add(LVar0, 5)
     Set(LVar1, 0)
     Set(LVar2, 25)
     Call(SetPartJumpGravity, ACTOR_SELF, PRT_STEELY, Float(2.0))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_STEELY, Float(4.0))
     Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, FALSE)
     Call(SetAnimation, ACTOR_SELF, PRT_STEELY, ANIM_KoopaTheKid_BigSteely)
     Set(LVar1, 0)
     Set(LVar2, 25)
-    Call(FallPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 10)
-    Add(LVar0, -20)
+    Call(FallPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 8)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 5, Float(2.0))
+    EndThread
+    Sub(LVar0, 30)
     Set(LVar2, 25)
-    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, 10, LVar2, 16, FALSE)
-    Call(LandJumpPart, ACTOR_SELF, PRT_STEELY)
-    Add(LVar0, -40)
+    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 10, TRUE)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.5))
+    EndThread
+    Sub(LVar0, 30)
     Set(LVar2, 25)
-    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, 5, LVar2, 16, FALSE)
-    Call(LandJumpPart, ACTOR_SELF, PRT_STEELY)
+    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 8, TRUE)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.0))
+    EndThread
+    Call(FallPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 8)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.5))
+    EndThread
     Call(GetActorPos, ACTOR_PARTNER, LVar0, LVar1, LVar2)
-    Sub(LVar0, 10)
+    Add(LVar0, 40)
     Set(LVar2, 25)
     Call(SetPartMoveSpeed, ACTOR_SELF, PRT_STEELY, Float(4.0))
+    Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Wait(2)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, SUPPRESS_EVENT_ALL, 0, dmgSteelyDrop, BS_FLAGS1_TRIGGER_EVENTS)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_PARTNER)
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Set(LVar2, 25)
+    Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
+    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
     Call(SetGoalToTarget, ACTOR_SELF)
     Wait(2)
@@ -733,21 +753,29 @@ EvtScript EVS_Attack_SteelyDrop = {
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Sub(LVar0, 30)
+            Set(LVar2, 25)
+            Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
             Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, TRUE)
             Wait(10)
-            Call(GetActorRotation, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Loop(10)
-                Add(LVar2, 18)
-                Call(SetActorRotation, ACTOR_SELF, LVar0, LVar1, LVar2)
-                // Call(GetActorPos, ACTOR_SELF, LVar3, LVar4, LVar5)
-                // Sub(LVar4, 5)
-                // Call(SetActorPos, ACTOR_SELF, LVar3, LVar4, LVar5)
+            Call(GetActorRotation, ACTOR_SELF, LVar3, LVar4, LVar5)
+            Call(MakeLerp, 180, 0, 15, EASING_COS_FAST_OVERSHOOT)
+            Loop(0)
+                Call(UpdateLerp)
+                SetF(LVar5, LVar0)
+                Call(SetActorRotation, ACTOR_SELF, LVar3, LVar4, LVar5)
                 Wait(1)
+                IfEq(LVar1, 0)
+                    BreakLoop
+                EndIf
             EndLoop
-            // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            // Sub(LVar0, 10)
-            // Sub(LVar1, 33)
-            // Call(SetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Add(LVar0, 6)
+            Sub(LVar1, 24)
+            Call(SetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
@@ -760,10 +788,10 @@ EvtScript EVS_Attack_SteelyDrop = {
 }; // namespace koopa_the_kid
 
 ActorBlueprint KoopaTheKid = {
-    .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
+    .flags = ACTOR_FLAG_FLYING,
+    .maxHP = koopa_the_kid::hp,
     .type = ACTOR_TYPE_KOOPA_THE_KID,
     .level = ACTOR_LEVEL_KOOPA_THE_KID,
-    .maxHP = koopa_the_kid::hp,
     .partCount = ARRAY_COUNT(koopa_the_kid::ActorParts),
     .partsData = koopa_the_kid::ActorParts,
     .initScript = &koopa_the_kid::EVS_Init,

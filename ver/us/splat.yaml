@@ -136,7 +136,6 @@ segments:
     - [auto, c, state_title_screen]
     - [auto, c, state_demo]
     - [auto, c, npc]
-    - [auto, cpp, ship]
     - [auto, c, encounter]
     - [auto, c, encounter_api]
     - [auto, c, status_icons]
@@ -8065,20 +8064,6 @@ segments:
 ############
 ### maps ###
 ############
-  # - name: mac_05
-  #   dir: world/area_mac/mac_05
-  #   type: code
-  #   start: 0x852170
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, c, settings]
-  #   - [auto, c, music]
-  #   - [auto, c, entity]
-  #   - [auto, c, main]
-  #   - [auto, c, npc]
-  #   - [auto, c, whale]
-  #   - [auto, c, rooms]
-  #   - [auto, c, club64_sign]
   - name: end_00
     dir: world/area_end/end_00
     type: code
@@ -8127,58 +8112,6 @@ segments:
     subsegments:
     - [auto, cpp, main]
     - [auto, cpp, npc]
-  - name: trp_00
-    dir: world/area_trp/trp_00
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, cpp, main]
-    - [auto, cpp, foliage]
-    - [auto, cpp, entity]
-  # - name: trp_01
-  #   dir: world/area_trp/trp_01
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  #   - [auto, cpp, foliage]
-  #   - [auto, cpp, entity]
-  # - name: grs_01
-  #   dir: world/area_grs/grs_01
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  #   - [auto, cpp, foliage]
-  #   - [auto, cpp, entity]
-  # - name: dst_00
-  #   dir: world/area_dst/dst_00
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  #   - [auto, cpp, foliage]
-  #   - [auto, cpp, entity]
-  # - name: dst_01
-  #   dir: world/area_dst/dst_01
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
-  #   - [auto, cpp, foliage]
-  #   - [auto, cpp, entity]
-  # - name: dst_05
-  #   dir: world/area_dst/dst_05
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, cpp, main]
   - name: heaps2
     type: code
     start: 0xE20110

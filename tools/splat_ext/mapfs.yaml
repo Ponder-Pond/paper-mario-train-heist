@@ -1,5 +1,3 @@
-# - mac_05_shape
-# - mac_05_hit
 - end_00_shape
 - end_00_hit
 - end_01_shape
@@ -186,11 +184,6 @@
 - kkj_bt01_hit
 - kkj_bt02_shape
 - kkj_bt02_hit
-- trp_00_shape
-- trp_00_hit
-
-- smb_bt00_shape
-- smb_bt00_hit
 
 - trn_01_shape
 - trn_01_hit
@@ -227,10 +220,6 @@
 - mgm_tex
 - gv__tex
 
-- trp_tex
-
-- smb_tex
-
 - trn_tex
 
 - kmr_bg
@@ -257,7 +246,6 @@
   - [0x10,   ia8,    copyright,   144, 32]
   - [0x1210, ia8,    press_start, 128, 32]
   - [0x2210, rgba32, logotype,    200, 112]
-- net_bg
 - trn_bg
 - party_kurio
 - party_kameki

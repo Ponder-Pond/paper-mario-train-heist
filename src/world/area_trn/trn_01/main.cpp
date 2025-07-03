@@ -72,5 +72,5 @@ MapSettings trn_01_settings = {
     .main = &trn_01::EVS_Main,
     .entryList = &trn_01::Entrances,
     .entryCount = ENTRY_COUNT(trn_01::Entrances),
-    .tattle = { MSG_TRN01_MapTattle },
+    .tattle = { MSG_TrainLobby_MapTattle },
 };

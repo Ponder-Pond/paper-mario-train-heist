@@ -449,7 +449,7 @@ EvtScript EVS_Attack_SniperShot = {
     Switch(LVar0)
         CaseEq(HIT_RESULT_MISS)
         CaseEq(HIT_RESULT_LUCKY)
-            // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackIdle)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackIdle)
             Call(PlaySoundAtPart, ACTOR_SELF, PRT_PARABEETLE, SOUND_TOSS)
             Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
             Call(SetGoalToTarget, ACTOR_SELF)
@@ -473,7 +473,7 @@ EvtScript EVS_Attack_SniperShot = {
             Call(UseIdleAnimation, ACTOR_SELF, TRUE)
             Return
     EndSwitch
-    // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackIdle)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackIdle)
     Call(PlaySoundAtPart, ACTOR_SELF, PRT_PARABEETLE, SOUND_TOSS)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar0, 15)
@@ -503,9 +503,9 @@ EvtScript EVS_Attack_SniperShot = {
 
 ActorBlueprint BlackBanditKoopa = {
     .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
+    .maxHP = black_bandit_koopa::hp,
     .type = black_bandit_koopa::THIS_ACTOR_TYPE,
     .level = black_bandit_koopa::THIS_LEVEL,
-    .maxHP = black_bandit_koopa::hp,
     .partCount = ARRAY_COUNT(black_bandit_koopa::ActorParts),
     .partsData = black_bandit_koopa::ActorParts,
     .initScript = &black_bandit_koopa::EVS_Init,

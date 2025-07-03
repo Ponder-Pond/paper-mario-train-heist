@@ -1,17 +1,17 @@
-#message:2F:(TRN01_CutsceneTest) {
+#message:2F:(TrainLobby_CutsceneTest) {
 	[Style Right]
 	Test.[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadsworthInteract) {
+#message:2F:(TrainLobby_ToadsworthInteract) {
 	[Style Right]
 	Have you made your[BR]
 	preparations, Master Mario?[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadsworthInteractNo) {
+#message:2F:(TrainLobby_ToadsworthInteractNo) {
 	[Style Right]
 	You must hurry Master Mario![BR]
 	Every moment the princess[BR]
@@ -19,21 +19,21 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadsworthInteractYes) {
+#message:2F:(TrainLobby_ToadsworthInteractYes) {
 	[Style Right]
 	Excellent! Make haste[BR]
 	and venture forth![BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadsworthStartBoss) {
+#message:2F:(TrainLobby_ToadsworthStartBoss) {
 	[Style Right]
 	Quickly now! Tally-ho! Early[BR]
 	buzzard gets the spoils! You've[BR]got this! Protect the princess![BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BubbaInteract) {
+#message:2F:(TrainLobby_BubbaInteract) {
 	[Style Right]
 	She told me that I would be in[BR]
 	the pan 10 minutes ago![BR]
@@ -42,7 +42,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadMinisterInteract) {
+#message:2F:(TrainLobby_ToadMinisterInteract) {
 	[Style Right]
 	I have faith in you Mario,[BR]
 	oust those ne'er-do-wells![BR]
@@ -52,14 +52,14 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_LuigiInteract) {
+#message:2F:(TrainLobby_LuigiInteract) {
 	[Style Inspect]
 	He's in a deep sleep, not even[BR]
 	the dead could wake him.[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_KammyInteract) {
+#message:2F:(TrainLobby_KammyInteract) {
 	[Style Right]
 	Nyeah heh heh... not so fast![BR]
 	[Pause 5]Turn around nice and slowly...[BR]
@@ -69,13 +69,13 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_PeachInteract) {
+#message:2F:(TrainLobby_PeachInteract) {
 	[Style Right]
 	Hi Mario how can I help you?[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_MapTattle) {
+#message:2F:(TrainLobby_MapTattle) {
 	[Style tattle]
 	[EnableCDownNext]I can't believe they found us here,[BR]
 	I guess even a trip on Steamer[BR]
@@ -87,7 +87,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_TayceTTattle) {
+#message:2F:(TrainLobby_TayceTTattle) {
 	[Style tattle]
 	[EnableCDownNext]She's Tayce T., by far the[BR]
 	greatest cook around.[BR]
@@ -98,7 +98,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_CalamityKammyTattle) {
+#message:2F:(TrainLobby_CalamityKammyTattle) {
 	[Style tattle]
 	[EnableCDownNext]That's Calamity Kammy, the nastiest[BR]
 	sharpshooter in the Koopa Gang![BR]
@@ -111,7 +111,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BigBubbaTattle) {
+#message:2F:(TrainLobby_BigBubbaTattle) {
 	[Style tattle]
 	[EnableCDownNext]That's a.. Big Bubba?! [BR]
 	What's he doing all the way out here?[BR]
@@ -122,7 +122,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadMinisterTattle) {
+#message:2F:(TrainLobby_ToadMinisterTattle) {
 	[Style tattle]
 	[EnableCDownNext]This is the Toad Minister.[BR]
 	[Wait][Next]
@@ -134,7 +134,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_LuigiTattle) {
+#message:2F:(TrainLobby_LuigiTattle) {
 	[Style tattle]
 	[EnableCDownNext]He's Luigi.[BR]
 	[Pause 5]I don't have to say anything[BR]
@@ -146,7 +146,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_PeachTattle) {
+#message:2F:(TrainLobby_PeachTattle) {
 	[Style tattle]
 	[EnableCDownNext]Come on Mario, you know who[BR]
 	Princess Peach is![BR]
@@ -160,7 +160,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadTattle) {
+#message:2F:(TrainLobby_ToadTattle) {
 	[Style tattle]
 	[EnableCDownNext]That's Toad, he's been traveling[BR]
 	with the princess for a while now. [BR]
@@ -173,7 +173,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_ToadsworthTattle) {
+#message:2F:(TrainLobby_ToadsworthTattle) {
 	[Style tattle]
 	[EnableCDownNext]That's Toadsworth, he's been with[BR]
 	the princess for years as[BR]
@@ -193,7 +193,7 @@
 	Buy which one?[End]
 }
 
-#message:2F:(TRN01_BorrowToad1) {
+#message:2F:(TrainLobby_BorrowToad1) {
 	[Style right]
 	Mario! Are you really going out[BR]
 	there? You should take some of[BR]
@@ -209,7 +209,7 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BorrowToad2) {
+#message:2F:(TrainLobby_BorrowToad2) {
 	[Style right]
 	You want to take[BR]
 	"[Var 0]" for[BR]
@@ -219,20 +219,20 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BorrowToad3) {
+#message:2F:(TrainLobby_BorrowToad3) {
 	[Style right]
 	Do you want to borrow more?[BR]
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BorrowToad4) {
+#message:2F:(TrainLobby_BorrowToad4) {
 	[Next]
 	Good luck! Don't forget to equip[BR]
 	any badges you have![BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad5) {
+#message:2F:(TrainLobby_BorrowToad5) {
 	[Next]
 	Sorry Mario...[BR]
 	[Pause 10]You don't have any Star Pieces.[BR]
@@ -241,7 +241,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad6) {
+#message:2F:(TrainLobby_BorrowToad6) {
 	[Style right]
 	Sorry Mario.[BR]
 	[Wait][Next]
@@ -251,21 +251,21 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad7) {
+#message:2F:(TrainLobby_BorrowToad7) {
 	[Next]
 	Which Badges do you want to[BR]
 	borrow?[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad8) {
+#message:2F:(TrainLobby_BorrowToad8) {
 	[Style right]
 	Changed your mind eh?[BR]
 	[Pause 10]No problem![BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad9) {
+#message:2F:(TrainLobby_BorrowToad9) {
 	[Style right]
 	You want to borrow[BR]
 	"[Var 0]" for[BR]
@@ -275,7 +275,7 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BorrowToad10) {
+#message:2F:(TrainLobby_BorrowToad10) {
 	[Next]
 	Changed your mind huh?[BR]
 	[Pause 10]Take your time.[BR]
@@ -285,13 +285,13 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad11) {
+#message:2F:(TrainLobby_BorrowToad11) {
 	[Style right]
 	Good choice Mario![BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BorrowToad12) {
+#message:2F:(TrainLobby_BorrowToad12) {
 	[Style right]
 	Mario.[BR]
 	[Pause 10]I still have some Badges.[BR]
@@ -299,7 +299,7 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BorrowToad13) {
+#message:2F:(TrainLobby_BorrowToad13) {
 	[Next]
 	You don't want to borrow more[BR]
 	Badges?[BR]
@@ -312,7 +312,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT1) {
+#message:2F:(TrainLobby_BuyTayceT1) {
 	[Style right]
 	Oh, hi there Mario! [HEART][BR]
 	[Wait][Next]
@@ -325,7 +325,7 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BuyTayceT2) {
+#message:2F:(TrainLobby_BuyTayceT2) {
 	[Style right]
 	You want to take[BR]
 	"[Var 0]" for[BR]
@@ -336,13 +336,13 @@
 }
 
 
-#message:2F:(TRN01_BuyTayceT3) {
+#message:2F:(TrainLobby_BuyTayceT3) {
 	[Style right]
 	Do you want to buy more?[BR]
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BuyTayceT4)
+#message:2F:(TrainLobby_BuyTayceT4)
 {
 	[Next]
 	Goodbye! Be careful and eat[BR]
@@ -350,7 +350,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT5) {
+#message:2F:(TrainLobby_BuyTayceT5) {
 	[Next]
 	Sorry Mario...[BR]
 	[Pause 10]You don't have any Coins.[BR]
@@ -359,7 +359,7 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT6) {
+#message:2F:(TrainLobby_BuyTayceT6) {
 	[Style right]
 	I'm sorry Mario![BR]
 	[Wait][Next]
@@ -369,21 +369,21 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT7) {
+#message:2F:(TrainLobby_BuyTayceT7) {
 	[Next]
 	Which leftovers do you want to[BR]
 	take?[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT8) {
+#message:2F:(TrainLobby_BuyTayceT8) {
 	[Style right]
 	Not your taste huh?[BR]
 	[Pause 10]It's okay I understand.[BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT9) {
+#message:2F:(TrainLobby_BuyTayceT9) {
 	[Style right]
 	You want to buy[BR]
 	"[Var 0]" for[BR]
@@ -393,7 +393,7 @@
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BuyTayceT10) {
+#message:2F:(TrainLobby_BuyTayceT10) {
 	[Next]
 	Changed your mind huh?[BR]
 	[Pause 10]Take your time.[BR]
@@ -403,21 +403,21 @@
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT11) {
+#message:2F:(TrainLobby_BuyTayceT11) {
 	[Style right]
 	Thanks for shopping here[BR]
 	Mario! [HEART][BR]
 	[Wait][End]
 }
 
-#message:2F:(TRN01_BuyTayceT12) {
+#message:2F:(TrainLobby_BuyTayceT12) {
 	[Style right]
 	Oh Mario![BR]
 	[Pause 10]I still have some leftovers.[BR]
 	[Yield][End]
 }
 
-#message:2F:(TRN01_BuyTayceT13) {
+#message:2F:(TrainLobby_BuyTayceT13) {
 	[Next]
 	You don't want anymore[BR]
 	leftovers?[BR]

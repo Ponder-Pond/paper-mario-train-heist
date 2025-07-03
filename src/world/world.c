@@ -8,7 +8,6 @@
 #include "gcc/string.h"
 #include "dx/debug_menu.h"
 #include "world/surfaces.h"
-#include "ship.h"
 
 #ifdef SHIFT
 #define ASSET_TABLE_ROM_START (s32) mapfs_ROM_START
@@ -156,7 +155,6 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     clear_animator_list();
     clear_entity_models();
     clear_npcs();
-    notify_ships_map_load();
     hud_element_clear_cache();
     clear_trigger_data();
     clear_model_data();
@@ -329,16 +327,10 @@ MapConfig trn_maps[] = {
     { MAP(trn_01) },
 };
 
-/// Tropical
-#include "area_trp/trp.h"
-MapConfig trp_maps[] = {
-    { MAP_WITH_INIT(trp_00), .bgName = "net_bg" },
-};
 
 AreaConfig gAreas[] = {
     AREA(end, "エンディング"),  // endingu [Ending]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     AREA(trn, "Train"),
-    AREA(trp, "Tropical"),
     {},
 };
