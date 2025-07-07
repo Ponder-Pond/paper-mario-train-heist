@@ -19,6 +19,10 @@ extern ActorBlueprint PyroGuy;
 extern ActorBlueprint BobOmb;
 extern ActorBlueprint KoopaTheKid;
 extern ActorBlueprint KoopaGang;
+extern ActorBlueprint GreenBanditTower;
+extern ActorBlueprint YellowBanditTower;
+extern ActorBlueprint BlackBanditTower;
+extern ActorBlueprint RedBanditTower;
 extern ActorBlueprint GreenHammerBro;
 
 }; // namespace battle::actor

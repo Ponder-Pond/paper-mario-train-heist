@@ -805,7 +805,7 @@ EvtScript EVS_TakeTurn = {
 }; // namespace yellow_hammer_bro
 
 ActorBlueprint GreenHammerBro = {
-    .flags = 0,
+    .flags = ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_ATTACK, //0,
     .maxHP = green_hammer_bro::hp,
     .type = ACTOR_TYPE_GREEN_HAMMER_BROS,
     .level = ACTOR_LEVEL_GREEN_HAMMER_BROS,

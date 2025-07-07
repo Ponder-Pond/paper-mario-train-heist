@@ -15,7 +15,7 @@
 #include "battle/common/newactor/red_koopa_bandit.inc.cpp"
 #include "battle/common/newactor/pyro_guy.inc.cpp"
 #include "battle/common/newactor/koopa_the_kid.inc.cpp"
-#include "battle/common/newactor/koopa_gang.inc.cpp"
+#include "battle/common/newactor/bandit_tower.inc.cpp"
 
 using namespace battle::actor;
 
@@ -36,6 +36,10 @@ Vec3i BrigaderBonesPos = { 23, 0, 30 };
 // Vec3i PyroGuyPos = { 150, 54, 10 };
 Vec3i KoopaTheKidPos = { 100, 35, 20 };
 Vec3i KoopaGangPos = { 60, 0, 20 };
+Vec3i GreenTowerPos = { 60, 0, 20 };
+Vec3i YellowTowerPos = { 70, 0, 20 };
+Vec3i BlackTowerPos = { 80, 0, 20 };
+Vec3i RedTowerPos = { 90, 0, 20 };
 Vec3i GreenHammerBroPos = { 20, 0, 20 };
 
 
@@ -121,6 +125,10 @@ Formation Formation_RedPhase = {
 Formation Formation_BowserPhase = {
     ACTOR_BY_POS(KoopaTheKid, KoopaTheKidPos, 8),
     ACTOR_BY_POS(KoopaGang, KoopaGangPos, 9),
+    ACTOR_BY_POS(GreenBanditTower, GreenTowerPos, 9),
+    ACTOR_BY_POS(YellowBanditTower, YellowTowerPos, 9),
+    ACTOR_BY_POS(BlackBanditTower, BlackTowerPos, 9),
+    ACTOR_BY_POS(RedBanditTower, RedTowerPos, 9),
     ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
 };
 

@@ -20,7 +20,11 @@ enum BossCommon {
     ACTOR_BOB_OMB                       = ACTOR_ENEMY0,
     ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
     ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
-    ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY2,
+    GREEN_ACTOR                         = ACTOR_ENEMY2,
+    YELLOW_ACTOR                        = ACTOR_ENEMY3,
+    BLACK_ACTOR                         = ACTOR_ENEMY4,
+    RED_ACTOR                           = ACTOR_ENEMY5,
+    ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY6,
     // // Green Phase Actors
     // ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
     // ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,

@@ -4,6 +4,7 @@
 #include "script_api/battle.h"
 #include "sprite/npc/KoopaTheKid.h"
 #include "sprite/npc/KoopaGang.h"
+#include "sprite/npc/KoopaGang2.h"
 #include "sprite/npc/HammerBrosSMB3.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
@@ -146,41 +147,6 @@ ActorPartBlueprint ActorParts[] = {
 };
 
 #include "common/StartRumbleWithParams.inc.c"
-
-API_CALLABLE(N(FadeScreenToBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 0;
-    }
-
-    script->functionTemp[1] += 16;
-
-    if (script->functionTemp[1] > 255) {
-        script->functionTemp[1] = 255;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-
-    if (script->functionTemp[1] == 255) {
-        return ApiStatus_DONE2;
-    }
-
-    return ApiStatus_BLOCK;
-}
-
-API_CALLABLE(N(FadeScreenFromBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 255;
-    }
-
-    script->functionTemp[1] -= 16;
-    if (script->functionTemp[1] <= 0) {
-        script->functionTemp[1] = 0;
-        return ApiStatus_DONE2;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-    return ApiStatus_BLOCK;
-}
 
 EvtScript EVS_Init = {
     Call(SetActorVar, ACTOR_SELF, AVAR_TurnCount, 0)
@@ -788,7 +754,7 @@ EvtScript EVS_Attack_SteelyDrop = {
 }; // namespace koopa_the_kid
 
 ActorBlueprint KoopaTheKid = {
-    .flags = ACTOR_FLAG_FLYING,
+    .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_ATTACK,
     .maxHP = koopa_the_kid::hp,
     .type = ACTOR_TYPE_KOOPA_THE_KID,
     .level = ACTOR_LEVEL_KOOPA_THE_KID,
@@ -809,5 +775,28 @@ ActorBlueprint KoopaTheKid = {
     .statusIconOffset = { -40, 67 },
     .statusTextOffset = { 10, 60 },
 };
+
+// ActorBlueprint KoopaGang = {
+//     .flags = ACTOR_FLAG_NO_DMG_POPUP | ACTOR_FLAG_NO_HEALTH_BAR,
+//     .maxHP = koopa_gang::hp,
+//     .type = ACTOR_TYPE_KOOPA_GANG,
+//     .level = ACTOR_LEVEL_KOOPA_GANG,
+//     .partCount = ARRAY_COUNT(koopa_gang::ActorParts),
+//     .partsData = koopa_gang::ActorParts,
+//     .initScript = &koopa_gang::EVS_Init,
+//     .statusTable = koopa_gang::StatusTable,
+//     .escapeChance = 0,
+//     .airLiftChance = 0,
+//     .hurricaneChance = 0,
+//     .spookChance = 0,
+//     .upAndAwayChance = 0,
+//     .spinSmashReq = 0,
+//     .powerBounceChance = 70,
+//     .coinReward = 0,
+//     .size = { 38, 42 },
+//     .healthBarOffset = { 0, 0 },
+//     .statusIconOffset = { -10, 20 },
+//     .statusTextOffset = { 10, 20 },
+// };
 
 }; // namespace battle::actor
