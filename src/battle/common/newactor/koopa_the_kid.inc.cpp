@@ -154,12 +154,15 @@ EvtScript EVS_Init = {
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
-    Exec(EVS_TestPhase)
+    ExecWait(EVS_TestPhase)
     Return
     End
 };
 
 EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Koopa Kid Actor ID: (%d)\n", LVar9)
+    Wait(30)
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
     // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
 

@@ -18,10 +18,11 @@ extern EvtScript EVS_HandleEvent;
 extern EvtScript EVS_HandlePhase;
 extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_HandleCommand;
+extern EvtScript EVS_TestPhase;
 
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
-    THIS_ACTOR_ID               = ACTOR_ENEMY0,
+    THIS_ACTOR_ID               = GREEN_ACTOR,
     THIS_ANIM_IDLE              = ANIM_KoopaBros_Green_Idle,
     THIS_ANIM_STILL             = ANIM_KoopaBros_Green_Still,
     THIS_ANIM_SLEEP             = ANIM_KoopaBros_Green_Sleep,
@@ -721,7 +722,7 @@ EvtScript EVS_HandleCommand = {
     //                 Wait(30)
     //             EndCaseGroup
     //         EndSwitch
-    // EndSwitch
+    EndSwitch
     Return
     End
 };
@@ -733,6 +734,23 @@ EvtScript EVS_Init = {
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    ExecWait(EVS_TestPhase)
+    Return
+    End
+};
+
+EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Green Actor ID: (%d)\n", LVar9)
+    Wait(30)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
     Return
     End
 };
@@ -876,9 +894,10 @@ extern EvtScript EVS_HandleEvent;
 extern EvtScript EVS_HandlePhase;
 extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_HandleCommand;
+extern EvtScript EVS_TestPhase;
 
 enum ThisBanditsParams {
-    THIS_ACTOR_ID               = ACTOR_ENEMY0,
+    THIS_ACTOR_ID               = YELLOW_ACTOR,
     THIS_ANIM_IDLE              = ANIM_KoopaBros_Yellow_Idle,
     THIS_ANIM_STILL             = ANIM_KoopaBros_Yellow_Still,
     THIS_ANIM_SLEEP             = ANIM_KoopaBros_Yellow_Sleep,
@@ -1590,6 +1609,23 @@ EvtScript EVS_Init = {
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    ExecWait(EVS_TestPhase)
+    Return
+    End
+};
+
+EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Yellow Actor ID: (%d)\n", LVar9)
+    Wait(30)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
     Return
     End
 };
@@ -1733,10 +1769,11 @@ extern EvtScript EVS_HandleEvent;
 extern EvtScript EVS_HandlePhase;
 extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_HandleCommand;
+extern EvtScript EVS_TestPhase;
 
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
-    THIS_ACTOR_ID               = ACTOR_ENEMY0,
+    THIS_ACTOR_ID               = BLACK_ACTOR,
     THIS_ANIM_IDLE              = ANIM_KoopaBros_Black_Idle,
     THIS_ANIM_STILL             = ANIM_KoopaBros_Black_Still,
     THIS_ANIM_SLEEP             = ANIM_KoopaBros_Black_Sleep,
@@ -2448,6 +2485,23 @@ EvtScript EVS_Init = {
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    ExecWait(EVS_TestPhase)
+    Return
+    End
+};
+
+EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Black Actor ID: (%d)\n", LVar9)
+    Wait(30)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
     Return
     End
 };
@@ -2591,10 +2645,11 @@ extern EvtScript EVS_HandleEvent;
 extern EvtScript EVS_HandlePhase;
 extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_HandleCommand;
+extern EvtScript EVS_TestPhase;
 
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
-    THIS_ACTOR_ID               = ACTOR_ENEMY0,
+    THIS_ACTOR_ID               = RED_ACTOR,
     THIS_ANIM_IDLE              = ANIM_KoopaBros_Red_Idle,
     THIS_ANIM_STILL             = ANIM_KoopaBros_Red_Still,
     THIS_ANIM_SLEEP             = ANIM_KoopaBros_Red_Sleep,
@@ -3306,6 +3361,23 @@ EvtScript EVS_Init = {
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    ExecWait(EVS_TestPhase)
+    Return
+    End
+};
+
+EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Red Actor ID: (%d)\n", LVar9)
+    Wait(30)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
     Return
     End
 };
@@ -3447,6 +3519,7 @@ extern EvtScript EVS_Idle;
 extern EvtScript EVS_HandleEvent;
 extern EvtScript EVS_HandlePhase;
 extern EvtScript EVS_TakeTurn;
+extern EvtScript EVS_TestPhase;
 
 // extern EvtScript N(EVS_KoopaBrosEnter);
 extern EvtScript EVS_TryFormingTower;
@@ -3521,10 +3594,26 @@ EvtScript EVS_Init = {
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(ForceHomePos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_TARGET_NO_DAMAGE, TRUE)
+    ExecWait(EVS_TestPhase)
     Return
     End
 };
 
+EvtScript EVS_TestPhase = {
+    Call(GetOwnerID, LVar9)
+    DebugPrintf("Koopa Gang Actor ID: (%d)\n", LVar9)
+    Wait(30)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Return
+    End
+};
 
 // API_CALLABLE((PlayKoopaBrosSong)) {
 //     bgm_set_battle_song(SONG_KOOPA_BROS_BATTLE, 0);
@@ -4500,9 +4589,9 @@ EvtScript EVS_Broadcast_ToppleHit = {
     Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
     BitwiseAndConst(LVar0, ~AFLAG_Boss_TowerUnstable)
     Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    BitwiseAndConst(LVar0, ~AFLAG_Boss_Dialogue_WereGoingOver)
-    Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+    // Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+    // BitwiseAndConst(LVar0, ~AFLAG_Boss_Dialogue_WereGoingOver)
+    // Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
     Return
     End
 };
@@ -4890,9 +4979,9 @@ EvtScript EVS_TakeTurn = {
             Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             BitwiseAndConst(LVar0, ~AFLAG_Boss_TowerUnstable)
             Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-            Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-            BitwiseAndConst(LVar0, ~AFLAG_Boss_Dialogue_WereGoingOver)
-            Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+            // Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+            // BitwiseAndConst(LVar0, ~AFLAG_Boss_Dialogue_WereGoingOver)
+            // Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerHeight, LVarA)
             Set(LVar0, LVarA)
             Mul(LVar0, 18)
@@ -5010,10 +5099,10 @@ EvtScript EVS_HandlePhase = {
 }; // namespace koopa_gang
 
 ActorBlueprint KoopaGang = {
-    .flags = ACTOR_FLAG_NO_SHADOW,
+    .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_SHADOW,
     .maxHP = koopa_gang::hp,
-    .type = ACTOR_TYPE_FAKE_BOWSER,
-    .level = ACTOR_LEVEL_FAKE_BOWSER,
+    .type = ACTOR_TYPE_KOOPA_GANG,
+    .level = ACTOR_LEVEL_KOOPA_GANG,
     .partCount = ARRAY_COUNT(koopa_gang::ActorParts),
     .partsData = koopa_gang::ActorParts,
     .initScript = &koopa_gang::EVS_Init,
