@@ -279,14 +279,6 @@ ActorPartBlueprint ActorParts[] = {
 // #define CHOMP_CHAIN_UPDATE_Z        TRUE
 // #include "common/battle/ChompChainSupport.inc.c"
 
-API_CALLABLE(func_8021866C_4EFB0C) {
-    Bytecode* args = script->ptrReadPos;
-    s32 var1 = *args++;
-
-    evt_get_variable(script, *args++);
-    return ApiStatus_DONE2;
-}
-
 EvtScript EVS_Init = {
     // Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
     Call(SetActorScale, ACTOR_SELF, Float(2.0), Float(2.0), Float(1.0))

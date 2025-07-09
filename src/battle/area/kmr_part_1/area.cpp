@@ -34,13 +34,13 @@ Vec3i BrigaderBonesPos = { 23, 0, 30 };
 // Vec3i Rider2Pos = { -25, -25, -50};
 // Vec3i RedPos = { 115, 22, 10 };
 // Vec3i PyroGuyPos = { 150, 54, 10 };
-Vec3i KoopaTheKidPos = { 100, 35, 20 };
-Vec3i KoopaGangPos = { 60, 0, 20 };
-Vec3i GreenTowerPos = { 60, 0, 20 };
-Vec3i YellowTowerPos = { 70, 0, 20 };
-Vec3i BlackTowerPos = { 80, 0, 20 };
-Vec3i RedTowerPos = { 90, 0, 20 };
-Vec3i GreenHammerBroPos = { 20, 0, 20 };
+Vec3i KoopaTheKidPos = { 140, 35, 0 };
+Vec3i KoopaGangPos = { 40, 0, 20 };
+Vec3i GreenTowerPos = { 40, 0, 5 };
+Vec3i YellowTowerPos = { 60, 0, 10 };
+Vec3i BlackTowerPos = { 80, 0, 15 };
+Vec3i RedTowerPos = { 100, 0, 20 };
+Vec3i GreenHammerBroPos = { 0, 0, 0 };
 
 
 

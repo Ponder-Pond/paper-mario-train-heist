@@ -59,6 +59,7 @@ enum {
     AVAL_Boss_TowerState_Stable         = 1,
     AVAL_Boss_TowerState_Unstable       = 2,
     AVAL_Boss_TowerState_Toppled        = 3, // also init value to prevent first-turn tower attack
+    AVAL_Boss_TowerState_ShellSpin      = 4, // tower shell spin state
 
     // actor vars for each koopa
     AVAR_Koopa_State            = 1,
@@ -67,10 +68,11 @@ enum {
     AVAL_Koopa_State_Ready      = 0,
     AVAL_Koopa_State_Toppled    = 1,
     AVAL_Koopa_State_GotUp      = 2,
-    AVAL_Koopa_State_PosA       = 3, // top position
-    AVAL_Koopa_State_PosD       = 4, // above posC
-    AVAL_Koopa_State_PosC       = 5, // above posB
-    AVAL_Koopa_State_PosB       = 6, // bottom position
+    AVAL_Koopa_State_ShellSpin  = 3, // shell spin state
+    AVAL_Koopa_State_PosA       = 4, // top position
+    AVAL_Koopa_State_PosD       = 5, // above posC
+    AVAL_Koopa_State_PosC       = 6, // above posB
+    AVAL_Koopa_State_PosB       = 7, // bottom position
 
     // position in the koopa bros tower
     TOWER_TOP       = 0,
@@ -86,8 +88,7 @@ enum {
     BOSS_CMD_NO_DAMAGE_HIT      = 4,
     BOSS_CMD_TOPPLE_HIT         = 5,
     BOSS_CMD_TOPPLE_BURN_HIT    = 6,
-    BOSS_CMD_SPIN_ATTACK        = 7,
-    BOSS_CMD_SOLO_ATTACK        = 8,
-    BOSS_CMD_TRY_GET_UP         = 9,
-    BOSS_CMD_GET_READY          = 10,
+    BOSS_CMD_TRY_GET_UP         = 7,
+    BOSS_CMD_GET_READY          = 8,
+    BOSS_CMD_SHELL_SPIN         = 9,
 };
