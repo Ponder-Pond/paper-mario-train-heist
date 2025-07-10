@@ -163,8 +163,8 @@ s32 BasicToppledAnims[] = {
     STATUS_END,
 };
 
-s32 ShellAnims[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
+s32 ShellSpinAnims[] = {
+    STATUS_KEY_NORMAL,    THIS_ANIM_SHELL_SPIN,
     STATUS_END,
 };
 
@@ -566,10 +566,21 @@ EvtScript EVS_HandleCommand = {
             // if koopa is ready, change its state to shell spin
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_Ready)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_ShellSpin)
+                CaseEq(AVAL_Koopa_State_PosA)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellAnims))
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                CaseOrEq(AVAL_Koopa_State_PosD)
+                CaseOrEq(AVAL_Koopa_State_PosC)
+                CaseOrEq(AVAL_Koopa_State_PosB)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -879,8 +890,8 @@ s32 BasicToppledAnims[] = {
     STATUS_END,
 };
 
-s32 ShellAnims[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
+s32 ShellSpinAnims[] = {
+    STATUS_KEY_NORMAL,    THIS_ANIM_SHELL_SPIN,
     STATUS_END,
 };
 
@@ -1282,10 +1293,21 @@ EvtScript EVS_HandleCommand = {
             // if koopa is ready, change its state to shell spin
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_Ready)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_ShellSpin)
+                CaseEq(AVAL_Koopa_State_PosA)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellAnims))
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                CaseOrEq(AVAL_Koopa_State_PosD)
+                CaseOrEq(AVAL_Koopa_State_PosC)
+                CaseOrEq(AVAL_Koopa_State_PosB)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -1596,8 +1618,8 @@ s32 BasicToppledAnims[] = {
     STATUS_END,
 };
 
-s32 ShellAnims[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
+s32 ShellSpinAnims[] = {
+    STATUS_KEY_NORMAL,    THIS_ANIM_SHELL_SPIN,
     STATUS_END,
 };
 
@@ -1999,10 +2021,21 @@ EvtScript EVS_HandleCommand = {
             // if koopa is ready, change its state to shell spin
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_Ready)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_ShellSpin)
+                CaseEq(AVAL_Koopa_State_PosA)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellAnims))
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                CaseOrEq(AVAL_Koopa_State_PosD)
+                CaseOrEq(AVAL_Koopa_State_PosC)
+                CaseOrEq(AVAL_Koopa_State_PosB)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -2313,8 +2346,8 @@ s32 BasicToppledAnims[] = {
     STATUS_END,
 };
 
-s32 ShellAnims[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
+s32 ShellSpinAnims[] = {
+    STATUS_KEY_NORMAL,    THIS_ANIM_SHELL_SPIN,
     STATUS_END,
 };
 
@@ -2716,10 +2749,21 @@ EvtScript EVS_HandleCommand = {
             // if koopa is ready, change its state to shell spin
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_Ready)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_ShellSpin)
+                CaseEq(AVAL_Koopa_State_PosA)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellAnims))
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                CaseOrEq(AVAL_Koopa_State_PosD)
+                CaseOrEq(AVAL_Koopa_State_PosC)
+                CaseOrEq(AVAL_Koopa_State_PosB)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
+                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -3149,10 +3193,10 @@ EvtScript EVS_TryFormingTower = {
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, FALSE)
 
     Set(LVar0, 92)
-    Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, 36)
+    Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
 
-    Call(GetActorPos, RED_ACTOR, LVar2, LVar3, LVar4)
+    Call(GetActorPos, GREEN_ACTOR, LVar2, LVar3, LVar4)
     Call(SetActorPos, ACTOR_SELF, LVar2, LVar3, LVar4)
 
     Set(LVarA, BOSS_CMD_STABLE)
@@ -3177,8 +3221,8 @@ EvtScript EVS_Broadcast_TowerUnstable = {
     Set(LVarA, BOSS_CMD_UNSTABLE)
     ExecWait(EVS_BroadcastToKoopaBandits)
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerHeight, LVarA)
-    Set(LVar0, 92)
-    Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, 23)
+    Set(LVar0, 79) // Was 92
+    Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 23
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
     Return
     End
@@ -3569,14 +3613,19 @@ EvtScript EVS_TakeTurn = {
     DebugPrintf("Black Pos: (%d, %d, %d)\n", LVar0, LVar1, LVar2)
     Call(GetActorPos, RED_ACTOR, LVar0, LVar1, LVar2)
     DebugPrintf("Red Pos: (%d, %d, %d)\n", LVar0, LVar1, LVar2)
-    // reform stable tower if tipping
+    // Reform stable tower if tipping
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     Switch(LVar0)
         CaseEq(AVAL_Boss_TowerState_None)
         CaseEq(AVAL_Boss_TowerState_Stable)
+            DebugPrintf("AVAL_Boss_TowerState_Stable\n")
+            Wait(30)
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_ShellSpin)
             Set(LVarA, BOSS_CMD_SHELL_SPIN)
             ExecWait(EVS_BroadcastToKoopaBandits)
+            Set(LVar0, 79) // Was 92
+            Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
+            Call(SetActorSize, ACTOR_SELF, LVar0, 45)
         CaseEq(AVAL_Boss_TowerState_Unstable)
             Wait(30)
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
@@ -3586,17 +3635,19 @@ EvtScript EVS_TakeTurn = {
             BitwiseAndConst(LVar0, ~AFLAG_Boss_TowerUnstable)
             Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             Set(LVar0, 92)
-            Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, 36)
+            Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
             Call(SetActorSize, ACTOR_SELF, LVar0, 45)
         CaseEq(AVAL_Boss_TowerState_Toppled)
         CaseEq(AVAL_Boss_TowerState_ShellSpin)
+            // Skip if the tower is actively spinning
+            Return
     EndSwitch
-    // find if any koopa bros are toppled
+    // Find if any koopa bros are toppled
     Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
     IfEq(LVar0, AVAL_Koopa_State_Toppled)
         Set(LFlag0, TRUE)
     EndIf
-    // zoom in to show the toppled koopa bros and have them try to get up
+    // Zoom in to show the toppled koopa bros and have them try to get up
     IfEq(LFlag0, TRUE)
         Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
         Call(SetBattleCamTarget, 40, 0, 0)
@@ -3607,7 +3658,7 @@ EvtScript EVS_TakeTurn = {
     EndIf
     Set(LVarA, BOSS_CMD_TRY_GET_UP)
     ExecWait(EVS_BroadcastToKoopaBandits)
-    // try tower operations
+    // Try tower operations
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfNe(LVar0, AVAL_Boss_TowerState_Stable)
         ExecWait(EVS_TryFormingTower)
@@ -3619,7 +3670,10 @@ EvtScript EVS_TakeTurn = {
     IfEq(LVar0, AVAL_Boss_TowerState_Toppled)
         Return
     EndIf
-    Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
+    Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
+    IfNe(LVar0, AVAL_Boss_TowerState_ShellSpin)
+        Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
+    EndIf
     Return
     End
 };
