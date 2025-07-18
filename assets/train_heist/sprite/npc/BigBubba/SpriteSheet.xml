@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="1" paletteGroups="1">
 	<PaletteList>
-		<Palette id="0" src="Default.png"/>
-		<Palette id="1" src="Glasses.png"/>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="Glasses" src="Glasses.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="BubbaBody" palette="0" src="BubbaBody.png"/>
@@ -18,383 +18,305 @@
 	<AnimationList>
 		<Animation name="Still">
 			<Component name="Body" xyz="-5,0,0">
-				<Command val="1000"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Glasses" xyz="-20,27,1">
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Glasses" xyz="-20,27,2">
+				<Label name="Start"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Lips" xyz="-25,-7,2">
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Lips" xyz="-25,-7,4">
+				<Label name="Start"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinFront" xyz="15,-3,1">
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinFront" xyz="15,-3,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinTail" xyz="28,4,-1">
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinTail" xyz="28,4,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Idle">
 			<Component name="Body" xyz="-5,0,0">
-				<Command val="1000"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="5F"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="95"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Glasses" xyz="-20,27,1">
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="7000"/>
-				<Command val="4"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Glasses" xyz="-20,27,2">
+				<Label name="Start"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="4"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Lips" xyz="-25,-7,2">
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="7000"/>
-				<Command val="4"/>
-				<Command val="1006"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Lips" xyz="-25,-7,4">
+				<Label name="Start"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="4"/>
+				<SetRaster index="6"/>
+				<SetScale mode="y" percent="95"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<SetScale mode="y" percent="95"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinFront" xyz="15,-3,1">
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1002"/>
-				<Command val="8"/>
-				<Command val="1002"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinFront" xyz="15,-3,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="2"/>
+				<Wait duration="8"/>
+				<SetRaster index="2"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinTail" xyz="28,4,-1">
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="3C"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinTail" xyz="28,4,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="60"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Talk">
 			<Component name="Body" xyz="-5,0,0">
-				<Command val="1000"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="5F"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="95"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Glasses" xyz="-20,27,1">
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Glasses" xyz="-20,27,2">
+				<Label name="Start"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Lips" xyz="-25,-7,2">
-				<Command val="1007"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="1007"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Lips" xyz="-25,-7,4">
+				<Label name="Start"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinFront" xyz="15,-3,1">
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1002"/>
-				<Command val="8"/>
-				<Command val="1002"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinFront" xyz="15,-3,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="2"/>
+				<Wait duration="8"/>
+				<SetRaster index="2"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinTail" xyz="28,4,-1">
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="3C"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinTail" xyz="28,4,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="60"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="MouthOpenMove">
 			<Component name="Body" xyz="-5,0,0">
-				<Command val="1000"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="5F"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="5001"/>
-				<Command val="62"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="95"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="x" percent="98"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Glasses" xyz="-19,29,1">
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1005"/>
-				<Command val="6001"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="69"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Glasses" xyz="-19,29,2">
+				<Label name="Start"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="1,3,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<SetPalette index="1"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<SetScale mode="y" percent="105"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Lips" xyz="-24,-7,2">
-				<Command val="1008"/>
-				<Command val="6"/>
-				<Command val="1008"/>
-				<Command val="5002"/>
-				<Command val="69"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Lips" xyz="-24,-7,4">
+				<Label name="Start"/>
+				<SetRaster index="8"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<SetScale mode="y" percent="105"/>
+				<SetPos flag="0" xyz="-1,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinFront" xyz="15,-3,1">
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="14"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1003"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="14"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1002"/>
-				<Command val="2"/>
-				<Command val="1002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="3000"/>
-				<Command val="FFF8"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="FinFront" xyz="15,-3,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,20"/>
+				<SetPos flag="0" xyz="8,4,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="3"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,20"/>
+				<SetPos flag="0" xyz="8,4,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetPos flag="0" xyz="-8,-2,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="FinTail" xyz="28,4,-1">
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="3C"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="5001"/>
-				<Command val="50"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="FinTail" xyz="28,4,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="60"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<SetScale mode="x" percent="80"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 	</AnimationList>

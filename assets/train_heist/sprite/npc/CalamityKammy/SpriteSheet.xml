@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="3" paletteGroups="1">
 	<PaletteList>
-		<Palette id="0" src="Default.png"/>
+		<Palette id="0" name="Default" src="Default.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="Idle1" palette="0" src="Idle1.png"/>
@@ -15,46 +15,48 @@
 	<AnimationList>
 		<Animation name="Still">
 			<Component name="Body" xyz="-9,-3,0">
-				<Command val="1000"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Idle">
 			<Component name="Body" xyz="-9,-3,0">
-				<Command val="1000"/>
-				<Command val="C"/>
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="1002"/>
-				<Command val="C"/>
-				<Command val="1001"/>
-				<Command val="6"/>
-				<Command val="7000"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="7D"/>
-				<Command val="1003"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="6"/>
-				<Command val="1004"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="700C"/>
-				<Command val="6"/>
-				<Command val="1000"/>
-				<Command val="7D"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="12"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<Wait duration="12"/>
+				<SetRaster index="1"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="6"/>
+				<SetRaster index="0"/>
+				<Wait duration="125"/>
+				<Label name="Mouth"/>
+				<SetRaster index="3"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<Loop dest="Mouth" count="6"/>
+				<SetRaster index="0"/>
+				<Wait duration="125"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Talk">
 			<Component name="Body" xyz="-9,-3,0">
-				<Command val="1005"/>
-				<Command val="6"/>
-				<Command val="1006"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="5"/>
+				<Wait duration="6"/>
+				<SetRaster index="6"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 	</AnimationList>

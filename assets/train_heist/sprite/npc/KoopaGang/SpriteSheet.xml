@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="1" paletteGroups="4">
 	<PaletteList>
-		<Palette id="0" src="Black.png"/>
-		<Palette id="1" src="Red.png"/>
-		<Palette id="2" src="Yellow.png"/>
-		<Palette id="3" src="Green.png"/>
-		<Palette id="4" src="Burnt.png"/>
-		<Palette id="5" src="Cannon.png"/>
-		<Palette id="6" src="ParaBeetle.png"/>
-		<Palette id="7" src="BulletBiff.png"/>
+		<Palette id="0" name="Black" src="Black.png"/>
+		<Palette id="1" name="Red" src="Red.png"/>
+		<Palette id="2" name="Yellow" src="Yellow.png"/>
+		<Palette id="3" name="Green" src="Green.png"/>
+		<Palette id="4" name="Burnt" src="Burnt.png"/>
+		<Palette id="5" name="Cannon" src="Cannon.png"/>
+		<Palette id="6" name="ParaBeetle" src="ParaBeetle.png"/>
+		<Palette id="7" name="BulletBiff" src="BulletBiff.png"/>
 		<Palette id="8" name="Bomb" src="Bomb.png"/>
 		<Palette id="9" name="Flame" src="Flame.png"/>
 		<Palette id="A" name="Pokey" src="Pokey.png"/>
@@ -104,3884 +104,953 @@
 	</RasterList>
 	<AnimationList>
 		<Animation name="Still">
-			<Component xyz="0,0,0">
-				<Command val="1000"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Run">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1007"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1006"/>
-				<Command val="2"/>
-				<Command val="1007"/>
-				<Command val="2"/>
-				<Command val="1008"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="7"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="8,0,0"/>
+				<SetRaster index="6"/>
+				<Wait duration="2"/>
+				<SetRaster index="7"/>
+				<Wait duration="2"/>
+				<SetRaster index="8"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Idle">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1001"/>
-				<Command val="8"/>
-				<Command val="1000"/>
-				<Command val="8"/>
-				<Command val="1002"/>
-				<Command val="8"/>
-				<Command val="1000"/>
-				<Command val="8"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="8"/>
+				<SetRaster index="0"/>
+				<Wait duration="8"/>
+				<SetRaster index="2"/>
+				<Wait duration="8"/>
+				<SetRaster index="0"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="ShellStill">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Shell" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="ShellSpin">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Shell" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="0,0,0"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="-2,0,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="8,0,0"/>
+				<SetRaster index="B"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="8,0,0"/>
+				<SetRaster index="C"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="0,0,0"/>
+				<SetRaster index="D"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="6,0,0"/>
+				<SetRaster index="E"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="TopEnterShell">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1022"/>
-				<Command val="6"/>
-				<Command val="3001"/>
-				<Command val="B"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="1021"/>
-				<Command val="4"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="A"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="11"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="D"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="20"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="3001"/>
-				<Command val="9"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2078"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetPos flag="1" xyz="7,0,0"/>
+				<SetRaster index="22"/>
+				<Wait duration="6"/>
+				<SetPos flag="1" xyz="11,7,0"/>
+				<SetRaster index="21"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="8,7,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="10,1,0"/>
+				<SetRot xyz="0,0,17"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="13,2,0"/>
+				<SetRot xyz="0,0,32"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,10"/>
+				<SetPos flag="1" xyz="9,1,0"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="1" xyz="-2,1,0"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRot xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="TopExitShell">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="20"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="11"/>
-				<Command val="3001"/>
-				<Command val="4"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="2"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="4"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="1021"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1022"/>
-				<Command val="2"/>
-				<Command val="1000"/>
-				<Command val="2"/>
-				<Command val="2054"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRot xyz="0,0,32"/>
+				<SetPos flag="1" xyz="8,2,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRot xyz="0,0,17"/>
+				<SetPos flag="1" xyz="4,1,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="2,7,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="4,7,0"/>
+				<SetRaster index="21"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="6,0,0"/>
+				<SetRaster index="22"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="HurtStill">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="100F"/>
-				<Command val="6"/>
-				<Command val="3001"/>
-				<Command val="3"/>
-				<Command val="FFF6"/>
-				<Command val="0"/>
-				<Command val="1010"/>
-				<Command val="4"/>
-				<Command val="2004"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="F"/>
+				<Wait duration="6"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="3,-10,0"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="Hurt">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1011"/>
-				<Command val="8"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="1012"/>
-				<Command val="8"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="3,0,0"/>
+				<SetRaster index="11"/>
+				<Wait duration="8"/>
+				<SetPos flag="1" xyz="6,-8,0"/>
+				<SetRaster index="12"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Talk">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1015"/>
-				<Command val="6"/>
-				<Command val="1016"/>
-				<Command val="6"/>
-				<Command val="1017"/>
-				<Command val="6"/>
-				<Command val="1016"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="15"/>
+				<Wait duration="6"/>
+				<SetRaster index="16"/>
+				<Wait duration="6"/>
+				<SetRaster index="17"/>
+				<Wait duration="6"/>
+				<SetRaster index="16"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="ThumbsUp">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="102B"/>
-				<Command val="4"/>
-				<Command val="102C"/>
-				<Command val="6"/>
-				<Command val="102D"/>
-				<Command val="2"/>
-				<Command val="2008"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="2B"/>
+				<Wait duration="4"/>
+				<SetRaster index="2C"/>
+				<Wait duration="6"/>
+				<Label name="End"/>
+				<SetRaster index="2D"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="PointForward">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="102A"/>
-				<Command val="4"/>
-				<Command val="1029"/>
-				<Command val="2"/>
-				<Command val="2004"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="2A"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRaster index="29"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="EnterShell">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1022"/>
-				<Command val="6"/>
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="5"/>
-				<Command val="0"/>
-				<Command val="1021"/>
-				<Command val="4"/>
-				<Command val="3001"/>
-				<Command val="5"/>
-				<Command val="5"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="D"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="11"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="10"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="20"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="3001"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2074"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetPos flag="1" xyz="12,0,0"/>
+				<SetRaster index="22"/>
+				<Wait duration="6"/>
+				<SetPos flag="1" xyz="7,5,0"/>
+				<SetRaster index="21"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="5,5,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="13,0,0"/>
+				<SetRot xyz="0,0,17"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="16,1,0"/>
+				<SetRot xyz="0,0,32"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,10"/>
+				<SetPos flag="1" xyz="2,0,0"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="1" xyz="-2,1,0"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRot xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="ExitShell">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="2A"/>
-				<Command val="3001"/>
-				<Command val="17"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="5000"/>
-				<Command val="6A"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="1E"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="12"/>
-				<Command val="3001"/>
-				<Command val="10"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="1020"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="1E"/>
-				<Command val="3001"/>
-				<Command val="15"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="1021"/>
-				<Command val="2"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="28"/>
-				<Command val="3001"/>
-				<Command val="15"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="1022"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1018"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1003"/>
-				<Command val="2"/>
-				<Command val="2072"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRot xyz="0,0,42"/>
+				<SetPos flag="1" xyz="23,2,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetScale mode="uniform" percent="106"/>
+				<SetRot xyz="0,0,30"/>
+				<SetPos flag="1" xyz="20,1,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,18"/>
+				<SetPos flag="1" xyz="16,6,0"/>
+				<SetRaster index="20"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,30"/>
+				<SetPos flag="1" xyz="21,6,0"/>
+				<SetRaster index="21"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,40"/>
+				<SetPos flag="1" xyz="21,6,0"/>
+				<SetRaster index="22"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="-8,0,0"/>
+				<SetRaster index="18"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-8,0,0"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="Digging">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1031"/>
-				<Command val="18"/>
-				<Command val="1031"/>
-				<Command val="4"/>
-				<Command val="1032"/>
-				<Command val="6"/>
-				<Command val="1031"/>
-				<Command val="C"/>
-				<Command val="7000"/>
-				<Command val="3"/>
-				<Command val="1033"/>
-				<Command val="6"/>
-				<Command val="1034"/>
-				<Command val="8"/>
-				<Command val="700A"/>
-				<Command val="1"/>
-				<Command val="1033"/>
-				<Command val="20"/>
-				<Command val="1033"/>
-				<Command val="6"/>
-				<Command val="1034"/>
-				<Command val="8"/>
-				<Command val="7012"/>
-				<Command val="1"/>
-				<Command val="1033"/>
-				<Command val="20"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="31"/>
+				<Wait duration="24"/>
+				<SetRaster index="31"/>
+				<Wait duration="4"/>
+				<SetRaster index="32"/>
+				<Wait duration="6"/>
+				<SetRaster index="31"/>
+				<Wait duration="12"/>
+				<Loop dest="Start" count="3"/>
+				<Label name="DigPart2"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<Loop dest="DigPart2" count="1"/>
+				<SetRaster index="33"/>
+				<Wait duration="32"/>
+				<Label name="DigPart3"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<Loop dest="DigPart3" count="1"/>
+				<SetRaster index="33"/>
+				<Wait duration="32"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="CannonSit">
-			<Component name="Comp_00" xyz="0,-8,0">
-				<Command val="1035"/>
-				<Command val="6"/>
-				<Command val="1036"/>
-				<Command val="6"/>
-				<Command val="1037"/>
-				<Command val="6"/>
-				<Command val="1036"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="0,-8,0">
+				<Label name="Start"/>
+				<SetRaster index="35"/>
+				<Wait duration="6"/>
+				<SetRaster index="36"/>
+				<Wait duration="6"/>
+				<SetRaster index="37"/>
+				<Wait duration="6"/>
+				<SetRaster index="36"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="CannonSitFire">
-			<Component name="Comp_00" xyz="0,-8,0">
-				<Command val="1038"/>
-				<Command val="6"/>
-				<Command val="1038"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1038"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1038"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="0,-8,0">
+				<Label name="Start"/>
+				<SetRaster index="38"/>
+				<Wait duration="6"/>
+				<SetRaster index="38"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="38"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="38"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="CannonIdle">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
-				<Command val="1041"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="41"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Cannon" xyz="-33,27,1">
-				<Command val="8100"/>
-				<Command val="1042"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Cannon" xyz="-33,27,2">
+				<Label name="Start"/>
+				<SetParent index="0"/>
+				<SetRaster index="42"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearTop" xyz="7,13,2">
-				<Command val="1043"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearTop" xyz="7,13,4">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearBottom" xyz="26,-9,-1">
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearBottom" xyz="26,-9,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="CannonSlowDown">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="7000"/>
-				<Command val="4"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="200C"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="4"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="10"/>
+				<Goto dest="End"/>
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
-				<Command val="1041"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="41"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Cannon" xyz="-33,27,1">
-				<Command val="8100"/>
-				<Command val="1042"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Cannon" xyz="-33,27,2">
+				<Label name="Start"/>
+				<SetParent index="0"/>
+				<SetRaster index="42"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearTop" xyz="7,13,2">
-				<Command val="1043"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearTop" xyz="7,13,4">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="43"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="#0"/>
 			</Component>
-			<Component name="GearBottom" xyz="26,-9,-1">
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="7000"/>
-				<Command val="5"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="4"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="4"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="8"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="C"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="203E"/>
+			<Component name="GearBottom" xyz="26,-9,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Loop dest="Start" count="5"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="4"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="4"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="8"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="12"/>
+				<Label name="End"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="CannonIdleSlow">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="10"/>
+				<Goto dest="Start"/>
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
-				<Command val="1041"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="41"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Cannon" xyz="-33,27,1">
-				<Command val="8100"/>
-				<Command val="1042"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Cannon" xyz="-33,27,2">
+				<Label name="Start"/>
+				<SetParent index="0"/>
+				<SetRaster index="42"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearTop" xyz="7,13,2">
-				<Command val="1043"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearTop" xyz="7,13,4">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearBottom" xyz="26,-9,-1">
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearBottom" xyz="26,-9,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Shot">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
-				<Command val="1041"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="41"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Cannon" xyz="-33,27,1">
-				<Command val="8100"/>
-				<Command val="1045"/>
-				<Command val="4"/>
-				<Command val="1046"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="14"/>
-				<Command val="1047"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1048"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1049"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1045"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="5"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="203C"/>
+			<Component name="Cannon" xyz="-33,27,2">
+				<SetParent index="0"/>
+				<SetRaster index="45"/>
+				<Wait duration="4"/>
+				<SetRaster index="46"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="20"/>
+				<SetRaster index="47"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="48"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="49"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="45"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<Label name="End"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="End"/>
 			</Component>
-			<Component name="GearTop" xyz="7,13,2">
-				<Command val="1043"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearTop" xyz="7,13,4">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearBottom" xyz="26,-9,-1">
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearBottom" xyz="26,-9,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<SetPos flag="0" xyz="7,1,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="ShotSlow">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="A"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="10"/>
+				<Goto dest="Start"/>
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
-				<Command val="1041"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="41"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Cannon" xyz="-33,27,1">
-				<Command val="8100"/>
-				<Command val="1045"/>
-				<Command val="4"/>
-				<Command val="1046"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="14"/>
-				<Command val="1047"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1048"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1049"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1045"/>
-				<Command val="5000"/>
-				<Command val="6E"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="5"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1045"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="203C"/>
+			<Component name="Cannon" xyz="-33,27,2">
+				<SetParent index="0"/>
+				<SetRaster index="45"/>
+				<Wait duration="4"/>
+				<SetRaster index="46"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="20"/>
+				<SetRaster index="47"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="48"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="49"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="45"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<Label name="End"/>
+				<SetRaster index="45"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="End"/>
 			</Component>
-			<Component name="GearTop" xyz="7,13,2">
-				<Command val="1043"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="1044"/>
-				<Command val="2"/>
-				<Command val="1043"/>
-				<Command val="3000"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="F"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearTop" xyz="7,13,4">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="44"/>
+				<Wait duration="2"/>
+				<SetRaster index="43"/>
+				<SetPos flag="0" xyz="8,2,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="GearBottom" xyz="26,-9,-1">
-				<Command val="1043"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="GearBottom" xyz="26,-9,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="BulletBiff">
-			<Component name="Comp_0" xyz="0,-12,0">
-				<Command val="104A"/>
-				<Command val="5000"/>
-				<Command val="5F"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="104B"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Biff" xyz="0,-12,0">
+				<Label name="Start"/>
+				<SetRaster index="4A"/>
+				<SetScale mode="uniform" percent="95"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4B"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="BlackIdle">
 			<Component name="Body" xyz="0,15,0">
-				<Command val="1039"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="103B"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="7000"/>
-				<Command val="3"/>
-				<Command val="1039"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="6"/>
-				<Command val="103B"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="39"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="3B"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="3"/>
+				<SetRaster index="39"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<Wait duration="6"/>
+				<SetRaster index="3B"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Gun" xyz="-29,21,-1">
-				<Command val="1040"/>
-				<Command val="18"/>
-				<Command val="7000"/>
-				<Command val="3"/>
-				<Command val="1040"/>
-				<Command val="6"/>
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Gun" xyz="-29,21,-2">
+				<Label name="Start"/>
+				<SetRaster index="40"/>
+				<Wait duration="24"/>
+				<Loop dest="Start" count="3"/>
+				<SetRaster index="40"/>
+				<Wait duration="6"/>
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="BlackAim">
 			<Component name="Body" xyz="0,15,0">
-				<Command val="1039"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="103B"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="103A"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="39"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="3B"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Gun" xyz="-29,21,-1">
-				<Command val="1040"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Gun" xyz="-29,21,-2">
+				<Label name="Start"/>
+				<SetRaster index="40"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="BlackFire">
 			<Component name="Body" xyz="0,15,0">
-				<Command val="103C"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="18"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="3C"/>
+				<SetPos flag="0" xyz="-3,0,0"/>
+				<Wait duration="24"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Gun" xyz="-29,22,-1">
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="FFFA"/>
-				<Command val="C"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD3"/>
-				<Command val="2"/>
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="E"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFCE"/>
-				<Command val="2"/>
-				<Command val="1040"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="E"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFC9"/>
-				<Command val="14"/>
-				<Command val="2012"/>
+			<Component name="Gun" xyz="-29,22,-2">
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="-6,12,0"/>
+				<SetRot xyz="0,0,-45"/>
+				<Wait duration="2"/>
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="-4,14,0"/>
+				<SetRot xyz="0,0,-50"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="40"/>
+				<SetPos flag="0" xyz="-4,14,0"/>
+				<SetRot xyz="0,0,-55"/>
+				<Wait duration="20"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="ParaBeetle">
-			<Component name="Comp_0" xyz="0,-12,0">
-				<Command val="103F"/>
-				<Command val="4"/>
-				<Command val="103E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="103E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="103F"/>
-				<Command val="4"/>
-				<Command val="103F"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-				<Command val="5000"/>
-				<Command val="5F"/>
+			<Component name="ParaBeetle" xyz="0,-12,0">
+				<Label name="Start"/>
+				<SetRaster index="3F"/>
+				<Wait duration="4"/>
+				<SetRaster index="3E"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="3E"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="3F"/>
+				<Wait duration="4"/>
+				<SetRaster index="3F"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="2"/>
+				<SetScale mode="uniform" percent="95"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="DigIdle">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1031"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="31"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="RedPickup">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1031"/>
-				<Command val="18"/>
-				<Command val="1031"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF1"/>
-				<Command val="2"/>
-				<Command val="104D"/>
-				<Command val="2"/>
-				<Command val="104D"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104C"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104C"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104C"/>
-				<Command val="18"/>
-				<Command val="201F"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="31"/>
+				<Wait duration="24"/>
+				<SetRaster index="31"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="4D"/>
+				<Wait duration="2"/>
+				<SetRaster index="4D"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4C"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4C"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="4C"/>
+				<Wait duration="24"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="RedThrow">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="104C"/>
-				<Command val="2"/>
-				<Command val="104C"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104F"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104F"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="5"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104F"/>
-				<Command val="2"/>
-				<Command val="2017"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="4C"/>
+				<Wait duration="2"/>
+				<SetRaster index="4C"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4F"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4F"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="2,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="4F"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="RedPickupPokey">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="1031"/>
-				<Command val="18"/>
-				<Command val="1031"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF1"/>
-				<Command val="2"/>
-				<Command val="104D"/>
-				<Command val="2"/>
-				<Command val="104E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="104E"/>
-				<Command val="4"/>
-				<Command val="104E"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="201F"/>
+			<Component name="Body" xyz="-4,0,0">
+				<SetRaster index="31"/>
+				<Wait duration="24"/>
+				<SetRaster index="31"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="4D"/>
+				<Wait duration="2"/>
+				<SetRaster index="4E"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4E"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4E"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="4E"/>
+				<Wait duration="4"/>
+				<SetRaster index="4E"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="4"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="Pokey">
-			<Component name="Comp_0" xyz="0,0,0">
-				<Command val="1054"/>
-				<Command val="6"/>
-				<Command val="1055"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1056"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+			<Component name="Pokey" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="54"/>
+				<Wait duration="6"/>
+				<SetRaster index="55"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="56"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Bomb">
 			<Component name="Bomb" xyz="0,0,0">
-				<Command val="1050"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="50"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="BombLit">
 			<Component name="Bomb" xyz="0,0,0">
-				<Command val="1050"/>
-				<Command val="6"/>
-				<Command val="1050"/>
-				<Command val="5000"/>
-				<Command val="66"/>
-				<Command val="6"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="50"/>
+				<Wait duration="6"/>
+				<SetRaster index="50"/>
+				<SetScale mode="uniform" percent="102"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Spark" xyz="1,22,1">
-				<Command val="1051"/>
-				<Command val="2"/>
-				<Command val="1052"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1053"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Spark" xyz="1,22,2">
+				<Label name="Start"/>
+				<SetRaster index="51"/>
+				<Wait duration="2"/>
+				<SetRaster index="52"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="53"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="RedHold">
-			<Component name="Comp_0" xyz="-4,0,0">
-				<Command val="104D"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellTowerSpin4">
-			<Component name="Move1" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Move2" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Move3" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Red" xyz="-4,75,0">
-				<Command val="8102"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Black" xyz="-4,50,0">
-				<Command val="8101"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Yellow" xyz="-4,25,0">
-				<Command val="8100"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Green" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellSpinTower3">
-			<Component name="Move1" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Move2" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Black" xyz="-4,50,0">
-				<Command val="8101"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Yellow" xyz="-4,25,0">
-				<Command val="8100"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Green" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellSpinTower2">
-			<Component name="Move1" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Yellow" xyz="-4,25,0">
-				<Command val="8100"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Green" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellSpinTower1">
-			<Component name="Move1" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFC"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Move2" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Move3" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="FFFD"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="3"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="Green" xyz="-4,0,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellAirRed">
-			<Component name="Green" xyz="-4,-5,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6001"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellAirBlack">
-			<Component name="Green" xyz="-4,-5,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6000"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellAirYellow">
-			<Component name="Green" xyz="-4,-5,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6002"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ShellAirGreen">
-			<Component name="Green" xyz="-4,-5,0">
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="1009"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="FFFE"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100A"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="4"/>
-				<Command val="0"/>
-				<Command val="100B"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="8"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="100C"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="100D"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="3001"/>
-				<Command val="6"/>
-				<Command val="FFFE"/>
-				<Command val="0"/>
-				<Command val="100E"/>
-				<Command val="5002"/>
-				<Command val="50"/>
-				<Command val="6003"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="Topple">
-			<Component name="Red" xyz="0,75,0">
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="C"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="4"/>
-				<Command val="1011"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFE2"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="F"/>
-				<Command val="FFF9"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFDD"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="11"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="19"/>
-				<Command val="FFF5"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1E"/>
-				<Command val="FFEA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="20"/>
-				<Command val="FFD4"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="24"/>
-				<Command val="FFBE"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="28"/>
-				<Command val="FFBA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1014"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="36"/>
-				<Command val="FFB1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="32"/>
-				<Command val="FFB3"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5A"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="39"/>
-				<Command val="FFB6"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="3F"/>
-				<Command val="FFB2"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="42"/>
-				<Command val="FFAD"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="42"/>
-				<Command val="FFAD"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="62"/>
-				<Command val="C"/>
-				<Command val="2092"/>
-			</Component>
-			<Component name="BlackFall" xyz="-3,50,1">
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="C"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="4"/>
-				<Command val="1011"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFE2"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="F"/>
-				<Command val="FFF9"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFDD"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="11"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="19"/>
-				<Command val="FFF5"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1E"/>
-				<Command val="FFEA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="20"/>
-				<Command val="FFD4"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1014"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="38"/>
-				<Command val="FFC9"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="32"/>
-				<Command val="FFC7"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5A"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="32"/>
-				<Command val="FFCA"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="37"/>
-				<Command val="FFC6"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="39"/>
-				<Command val="FFC6"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1023"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="39"/>
-				<Command val="FFC6"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="62"/>
-				<Command val="C"/>
-				<Command val="207E"/>
-			</Component>
-			<Component name="YellowFall" xyz="0,25,2">
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="C"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFE2"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="F"/>
-				<Command val="FFF9"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFDD"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="11"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="19"/>
-				<Command val="FFF5"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1E"/>
-				<Command val="FFEA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1014"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="36"/>
-				<Command val="FFE3"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="2F"/>
-				<Command val="FFE5"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5A"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="2F"/>
-				<Command val="FFE8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="36"/>
-				<Command val="FFE4"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="3C"/>
-				<Command val="FFE7"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1023"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="3C"/>
-				<Command val="FFE7"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="62"/>
-				<Command val="C"/>
-				<Command val="2074"/>
-			</Component>
-			<Component name="GreenFall" xyz="0,0,3">
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="7"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="C"/>
-				<Command val="FFFA"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="2"/>
-				<Command val="1011"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFEC"/>
-				<Command val="4"/>
-				<Command val="1011"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFE2"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="F"/>
-				<Command val="FFF9"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFDD"/>
-				<Command val="2"/>
-				<Command val="1010"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="11"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD8"/>
-				<Command val="2"/>
-				<Command val="1014"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="28"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="27"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5A"/>
-				<Command val="2"/>
-				<Command val="1013"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="28"/>
-				<Command val="FFFC"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="5F"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1023"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1023"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="62"/>
-				<Command val="C"/>
-				<Command val="2060"/>
-			</Component>
-		</Animation>
-		<Animation name="Reform">
-			<Component name="GreenUp" xyz="0,0,3">
-				<Command val="1023"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1013"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="25"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="61"/>
-				<Command val="C"/>
-				<Command val="7000"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6003"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFA6"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="B"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFB5"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD3"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2037"/>
-			</Component>
-			<Component name="YellowUp" xyz="15,8,2">
-				<Command val="1013"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="25"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="61"/>
-				<Command val="C"/>
-				<Command val="1023"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="7000"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6002"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFA6"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="B"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFB5"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD3"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFFB"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2037"/>
-			</Component>
-			<Component name="BlackUp" xyz="9,0,1">
-				<Command val="1023"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1013"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="25"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="61"/>
-				<Command val="C"/>
-				<Command val="7000"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6000"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFA6"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="B"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFB5"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD3"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="6"/>
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="2037"/>
-			</Component>
-			<Component name="RedUp" xyz="21,0,0">
-				<Command val="1023"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="2D"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="C"/>
-				<Command val="1013"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="25"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="5002"/>
-				<Command val="61"/>
-				<Command val="C"/>
-				<Command val="7000"/>
-				<Command val="2"/>
-				<Command val="1021"/>
-				<Command val="6001"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFA6"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="B"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1020"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFB5"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFD3"/>
-				<Command val="2"/>
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2037"/>
-			</Component>
-		</Animation>
-		<Animation name="ReformLine4">
-			<Component name="GreenUp" xyz="0,0,3">
-				<Command val="1009"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6003"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="YellowUp" xyz="15,8,2">
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="BlackUp" xyz="9,0,1">
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="RedUp" xyz="21,0,0">
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ReformLine3">
-			<Component name="YellowUp" xyz="15,8,2">
-				<Command val="1009"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6002"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="FFF8"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="BlackUp" xyz="9,0,1">
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="RedUp" xyz="21,0,0">
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ReformLine2">
-			<Component name="BlackUp" xyz="9,0,1">
-				<Command val="1009"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6000"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-			<Component name="RedUp" xyz="21,0,0">
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
-			</Component>
-		</Animation>
-		<Animation name="ReformLine1">
-			<Component name="RedUp" xyz="21,0,0">
-				<Command val="1009"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100A"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="12"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100B"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100C"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1C"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100D"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="14"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="100E"/>
-				<Command val="6001"/>
-				<Command val="3001"/>
-				<Command val="1A"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="4D"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 	</AnimationList>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="1" paletteGroups="1">
 	<PaletteList>
-		<Palette id="0" src="Default.png"/>
-		<Palette id="1" src="Dino.png"/>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="Dino" src="Dino.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="IdleRide1" palette="0" src="IdleRide1.png"/>
@@ -30,265 +30,186 @@
 	<AnimationList>
 		<Animation name="Idle">
 			<Component name="Dino" xyz="0,0,0">
-				<Command val="100F"/>
-				<Command val="4"/>
-				<Command val="1010"/>
-				<Command val="4"/>
-				<Command val="1011"/>
-				<Command val="4"/>
-				<Command val="1012"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Rider" xyz="0,59,-1">
-				<Command val="1001"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1002"/>
-				<Command val="4"/>
-				<Command val="1003"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1000"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Rider" xyz="0,59,-2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="2"/>
+				<Wait duration="4"/>
+				<SetRaster index="3"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="ShootArrow">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 			<Component name="Dino" xyz="0,0,0">
-				<Command val="100F"/>
-				<Command val="4"/>
-				<Command val="1010"/>
-				<Command val="4"/>
-				<Command val="1011"/>
-				<Command val="4"/>
-				<Command val="1012"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Rider" xyz="0,59,-1">
-				<Command val="8100"/>
-				<Command val="1008"/>
-				<Command val="8"/>
-				<Command val="1009"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="100A"/>
-				<Command val="6"/>
-				<Command val="100B"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="18"/>
-				<Command val="100C"/>
-				<Command val="8"/>
-				<Command val="2011"/>
+			<Component name="Rider" xyz="0,59,-2">
+				<SetParent index="0"/>
+				<SetRaster index="8"/>
+				<Wait duration="8"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="A"/>
+				<Wait duration="6"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="24"/>
+				<Label name="End"/>
+				<SetRaster index="C"/>
+				<Wait duration="8"/>
+				<Goto dest="End"/>
 			</Component>
-			<Component name="Arrow" xyz="-24,63,-1">
-				<Command val="100D"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="2D"/>
-				<Command val="3000"/>
-				<Command val="20"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="5000"/>
-				<Command val="50"/>
-				<Command val="8"/>
-				<Command val="100D"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="100D"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="100D"/>
-				<Command val="3000"/>
-				<Command val="7"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="18"/>
-				<Command val="100D"/>
-				<Command val="3000"/>
-				<Command val="2"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="1FFF"/>
-				<Command val="8"/>
-				<Command val="2023"/>
+			<Component name="Arrow" xyz="-24,63,-2">
+				<SetRaster index="D"/>
+				<SetRot xyz="0,0,45"/>
+				<SetPos flag="0" xyz="32,0,0"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="8"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="7,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<Wait duration="24"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="2,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="8"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="Arrow">
 			<Component name="Movement" xyz="0,0,0">
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="1"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="2"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Arrow" xyz="0,0,1">
-				<Command val="8100"/>
-				<Command val="100D"/>
-				<Command val="4"/>
-				<Command val="100E"/>
-				<Command val="6"/>
-				<Command val="2001"/>
+			<Component name="Arrow" xyz="0,0,0">
+				<SetParent index="0"/>
+				<Label name="Start"/>
+				<SetRaster index="D"/>
+				<Wait duration="4"/>
+				<SetRaster index="E"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="Panic">
 			<Component name="Dino" xyz="2,0,0">
-				<Command val="1013"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1014"/>
-				<Command val="4"/>
-				<Command val="1013"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="6"/>
-				<Command val="1014"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="13"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<Wait duration="4"/>
+				<SetRaster index="13"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Rider" xyz="-1,57,-1">
-				<Command val="1004"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1005"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="4"/>
-				<Command val="1006"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1007"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="FFF6"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Rider" xyz="-1,57,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="5"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="4"/>
+				<SetRaster index="6"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="RunAway">
 			<Component name="Dino" xyz="0,0,0">
-				<Command val="100F"/>
-				<Command val="4"/>
-				<Command val="1010"/>
-				<Command val="4"/>
-				<Command val="1014"/>
-				<Command val="4"/>
-				<Command val="1012"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
-			<Component name="Rider" xyz="11,54,-1">
-				<Command val="1004"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="5"/>
-				<Command val="3000"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1005"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="5"/>
-				<Command val="3000"/>
-				<Command val="0"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1006"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="5"/>
-				<Command val="3000"/>
-				<Command val="1"/>
-				<Command val="FFFF"/>
-				<Command val="0"/>
-				<Command val="4"/>
-				<Command val="1007"/>
-				<Command val="4000"/>
-				<Command val="0"/>
-				<Command val="5"/>
-				<Command val="4"/>
-				<Command val="2000"/>
+			<Component name="Rider" xyz="11,54,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="5"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="6"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetRot xyz="0,0,5"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 	</AnimationList>

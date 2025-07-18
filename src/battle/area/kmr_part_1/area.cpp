@@ -34,13 +34,13 @@ Vec3i BrigaderBonesPos = { 23, 0, 30 };
 // Vec3i Rider2Pos = { -25, -25, -50};
 // Vec3i RedPos = { 115, 22, 10 };
 // Vec3i PyroGuyPos = { 150, 54, 10 };
-Vec3i KoopaTheKidPos = { 140, 35, 0 };
-Vec3i KoopaGangPos = { 40, 0, 20 };
-Vec3i GreenTowerPos = { 40, 0, 5 };
+Vec3i KoopaTheKidPos = { 105, 45, 0 };
+Vec3i KoopaGangPos = { 30, 0, 20 };
+Vec3i GreenTowerPos = { 30, 0, 5 };
 Vec3i YellowTowerPos = { 60, 0, 10 };
-Vec3i BlackTowerPos = { 80, 0, 15 };
-Vec3i RedTowerPos = { 100, 0, 20 };
-Vec3i GreenHammerBroPos = { 0, 0, 0 };
+Vec3i BlackTowerPos = { 90, 0, 15 };
+Vec3i RedTowerPos = { 120, 0, 20 };
+// Vec3i GreenHammerBroPos = { 0, 0, 0 };
 
 
 
@@ -123,13 +123,13 @@ Formation Formation_RedPhase = {
 };
 
 Formation Formation_BowserPhase = {
-    ACTOR_BY_POS(KoopaTheKid, KoopaTheKidPos, 8),
-    ACTOR_BY_POS(KoopaGang, KoopaGangPos, 9),
-    ACTOR_BY_POS(GreenBanditTower, GreenTowerPos, 9),
-    ACTOR_BY_POS(YellowBanditTower, YellowTowerPos, 9),
-    ACTOR_BY_POS(BlackBanditTower, BlackTowerPos, 9),
-    ACTOR_BY_POS(RedBanditTower, RedTowerPos, 9),
-    ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
+    ACTOR_BY_POS(KoopaTheKid, KoopaTheKidPos, 9),
+    ACTOR_BY_POS(KoopaGang, KoopaGangPos, 10),
+    ACTOR_BY_POS(GreenBanditTower, GreenTowerPos, 10),
+    ACTOR_BY_POS(YellowBanditTower, YellowTowerPos, 10),
+    ACTOR_BY_POS(BlackBanditTower, BlackTowerPos, 10),
+    ACTOR_BY_POS(RedBanditTower, RedTowerPos, 10),
+    // ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
 };
 
 BattleList Battles = {

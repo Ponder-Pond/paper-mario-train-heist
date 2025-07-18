@@ -4,7 +4,7 @@
 #include "script_api/battle.h"
 #include "koopa_gang_tower.hpp"
 #include "train_heist_actors.hpp"
-#include "sprite/npc/KoopaBros.h" //TODO: Change to KoopaGang2.h
+#include "sprite/npc/KoopaGang2.h"
 #include "dx/debug_menu.h"
 
 namespace battle::actor {
@@ -23,27 +23,24 @@ extern EvtScript EVS_TestPhase;
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
     THIS_ACTOR_ID               = GREEN_ACTOR,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Green_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Green_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Green_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Green_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Green_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Green_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Green_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Green_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Green_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Green_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Green_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Green_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Green_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Green_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Green_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Green_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Green_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Green_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Green_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Green_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Green_PointForward,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang2_Green_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang2_Green_Still,
+    THIS_ANIM_RUN               = ANIM_KoopaGang2_Green_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang2_Green_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang2_Green_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang2_Green_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang2_Green_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang2_Green_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang2_Green_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang2_Green_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang2_Green_StillToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang2_Green_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang2_Green_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang2_Green_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang2_Green_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang2_Green_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang2_Green_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang2_Green_PointForward,
 };
 
 enum ActorPartIDs {
@@ -106,14 +103,11 @@ ActorPartBlueprint ActorParts[] = {
 s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_IDLE,
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_SLEEP,
     STATUS_KEY_POISON,    THIS_ANIM_STILL,
     STATUS_KEY_STOP,      THIS_ANIM_STILL,
     STATUS_KEY_STATIC,    THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
     STATUS_END,
 };
 
@@ -148,8 +142,6 @@ s32 ToppledAnims[] = {
     STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
     STATUS_END,
 };
 
@@ -348,13 +340,19 @@ EvtScript EVS_HandleCommand = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 CaseOrEq(AVAL_Koopa_State_PosD)
                 CaseOrEq(AVAL_Koopa_State_PosC)
                 CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TowerAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOWER_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 EndCaseGroup
             EndSwitch
         CaseEq(BOSS_CMD_UNSTABLE)
@@ -561,26 +559,6 @@ EvtScript EVS_HandleCommand = {
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_GotUp)
                     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
-            EndSwitch
-        CaseEq(BOSS_CMD_SHELL_SPIN)
-            // if koopa is ready, change its state to shell spin
-            Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
-            Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                CaseOrEq(AVAL_Koopa_State_PosD)
-                CaseOrEq(AVAL_Koopa_State_PosC)
-                CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -750,27 +728,24 @@ extern EvtScript EVS_TestPhase;
 
 enum ThisBanditsParams {
     THIS_ACTOR_ID               = YELLOW_ACTOR,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Yellow_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Yellow_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Yellow_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Yellow_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Yellow_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Yellow_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Yellow_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Yellow_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Yellow_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Yellow_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Yellow_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Yellow_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Yellow_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Yellow_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Yellow_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Yellow_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Yellow_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Yellow_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Yellow_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Yellow_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Yellow_PointForward,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang2_Yellow_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang2_Yellow_Still,
+    THIS_ANIM_RUN               = ANIM_KoopaGang2_Yellow_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang2_Yellow_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang2_Yellow_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang2_Yellow_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang2_Yellow_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang2_Yellow_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang2_Yellow_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang2_Yellow_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang2_Yellow_StillToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang2_Yellow_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang2_Yellow_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang2_Yellow_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang2_Yellow_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang2_Yellow_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang2_Yellow_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang2_Yellow_PointForward,
 };
 
 enum ActorPartIDs {
@@ -833,14 +808,11 @@ ActorPartBlueprint ActorParts[] = {
 s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_IDLE,
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_SLEEP,
     STATUS_KEY_POISON,    THIS_ANIM_STILL,
     STATUS_KEY_STOP,      THIS_ANIM_STILL,
     STATUS_KEY_STATIC,    THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
     STATUS_END,
 };
 
@@ -875,8 +847,6 @@ s32 ToppledAnims[] = {
     STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
     STATUS_END,
 };
 
@@ -1075,13 +1045,19 @@ EvtScript EVS_HandleCommand = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 CaseOrEq(AVAL_Koopa_State_PosD)
                 CaseOrEq(AVAL_Koopa_State_PosC)
                 CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TowerAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOWER_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 EndCaseGroup
             EndSwitch
         CaseEq(BOSS_CMD_UNSTABLE)
@@ -1288,26 +1264,6 @@ EvtScript EVS_HandleCommand = {
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_GotUp)
                     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
-            EndSwitch
-        CaseEq(BOSS_CMD_SHELL_SPIN)
-            // if koopa is ready, change its state to shell spin
-            Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
-            Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                CaseOrEq(AVAL_Koopa_State_PosD)
-                CaseOrEq(AVAL_Koopa_State_PosC)
-                CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -1478,27 +1434,24 @@ extern EvtScript EVS_TestPhase;
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
     THIS_ACTOR_ID               = BLACK_ACTOR,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Black_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Black_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Black_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Black_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Black_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Black_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Black_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Black_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Black_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Black_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Black_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Black_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Black_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Black_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Black_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Black_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Black_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Black_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Black_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Black_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Black_PointForward,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang2_Black_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang2_Black_Still,
+    THIS_ANIM_RUN               = ANIM_KoopaGang2_Black_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang2_Black_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang2_Black_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang2_Black_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang2_Black_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang2_Black_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang2_Black_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang2_Black_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang2_Black_StillToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang2_Black_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang2_Black_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang2_Black_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang2_Black_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang2_Black_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang2_Black_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang2_Black_PointForward,
 };
 
 enum ActorPartIDs {
@@ -1561,14 +1514,11 @@ ActorPartBlueprint ActorParts[] = {
 s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_IDLE,
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_SLEEP,
     STATUS_KEY_POISON,    THIS_ANIM_STILL,
     STATUS_KEY_STOP,      THIS_ANIM_STILL,
     STATUS_KEY_STATIC,    THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
     STATUS_END,
 };
 
@@ -1603,8 +1553,6 @@ s32 ToppledAnims[] = {
     STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
     STATUS_END,
 };
 
@@ -1803,13 +1751,19 @@ EvtScript EVS_HandleCommand = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 CaseOrEq(AVAL_Koopa_State_PosD)
                 CaseOrEq(AVAL_Koopa_State_PosC)
                 CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TowerAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOWER_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 EndCaseGroup
             EndSwitch
         CaseEq(BOSS_CMD_UNSTABLE)
@@ -2016,26 +1970,6 @@ EvtScript EVS_HandleCommand = {
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_GotUp)
                     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
-            EndSwitch
-        CaseEq(BOSS_CMD_SHELL_SPIN)
-            // if koopa is ready, change its state to shell spin
-            Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
-            Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                CaseOrEq(AVAL_Koopa_State_PosD)
-                CaseOrEq(AVAL_Koopa_State_PosC)
-                CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -2206,27 +2140,24 @@ extern EvtScript EVS_TestPhase;
 // these are the only parameters that vary among koopa bros actors
 enum ThisBanditsParams {
     THIS_ACTOR_ID               = RED_ACTOR,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Red_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Red_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Red_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Red_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Red_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Red_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Red_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Red_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Red_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Red_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Red_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Red_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Red_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Red_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Red_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Red_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Red_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Red_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Red_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Red_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Red_PointForward,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang2_Red_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang2_Red_Still,
+    THIS_ANIM_RUN               = ANIM_KoopaGang2_Red_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang2_Red_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang2_Red_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang2_Red_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang2_Red_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang2_Red_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang2_Red_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang2_Red_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang2_Red_StillToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang2_Red_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang2_Red_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang2_Red_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang2_Red_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang2_Red_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang2_Red_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang2_Red_PointForward,
 };
 
 enum ActorPartIDs {
@@ -2289,14 +2220,11 @@ ActorPartBlueprint ActorParts[] = {
 s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_IDLE,
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_SLEEP,
     STATUS_KEY_POISON,    THIS_ANIM_STILL,
     STATUS_KEY_STOP,      THIS_ANIM_STILL,
     STATUS_KEY_STATIC,    THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
     STATUS_END,
 };
 
@@ -2331,8 +2259,6 @@ s32 ToppledAnims[] = {
     STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
     STATUS_END,
 };
 
@@ -2531,13 +2457,19 @@ EvtScript EVS_HandleCommand = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 CaseOrEq(AVAL_Koopa_State_PosD)
                 CaseOrEq(AVAL_Koopa_State_PosC)
                 CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TowerAnims))
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOWER_IDLE)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
+                    Wait(10)
+                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
+                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
                 EndCaseGroup
             EndSwitch
         CaseEq(BOSS_CMD_UNSTABLE)
@@ -2744,26 +2676,6 @@ EvtScript EVS_HandleCommand = {
             Switch(LVar0)
                 CaseEq(AVAL_Koopa_State_GotUp)
                     Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
-            EndSwitch
-        CaseEq(BOSS_CMD_SHELL_SPIN)
-            // if koopa is ready, change its state to shell spin
-            Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
-            Switch(LVar0)
-                CaseEq(AVAL_Koopa_State_PosA)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                CaseOrEq(AVAL_Koopa_State_PosD)
-                CaseOrEq(AVAL_Koopa_State_PosC)
-                CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_ENTER_SHELL)
-                    Wait(10)
-                    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
-                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
-                    Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(ShellSpinAnims))
-                EndCaseGroup
             EndSwitch
     EndSwitch
     Return
@@ -3036,7 +2948,7 @@ EvtScript EVS_BuildTowerWithKoopa = {
     Call(UseIdleAnimation, LVar0, FALSE)
     Switch(LVar0)
         CaseEq(RED_ACTOR)
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_PointForward)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_PointForward)
             Call(SetActorYaw, RED_ACTOR, 0)
             Call(GetActorPos, RED_ACTOR, LVar0, LVar1, LVar2)
             Sub(LVar0, 22)
@@ -3054,7 +2966,7 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(GetHomePos, GREEN_ACTOR, LVar2, LVar3, LVar4)
             Set(LVar4, 15)
             Call(SetGoalPos, RED_ACTOR, LVar2, LVar3, LVar4)
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Run)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Run)
             Call(GetGoalPos, RED_ACTOR, LVar0, LVar1, LVar2)
             Call(GetActorPos, RED_ACTOR, LVar3, LVar4, LVar5)
             IfLt(LVar0, LVar3)
@@ -3062,7 +2974,7 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Else
                 Call(SetActorYaw, RED_ACTOR, 180)
             EndIf
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Leap)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Leap)
             Wait(5)
             Call(GetHomePos, GREEN_ACTOR, LVar2, LVar3, LVar4)
             Set(LVar4, 15)
@@ -3071,9 +2983,9 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(AddGoalPos, RED_ACTOR, 15, LVar0, -10)
             Thread
                 Wait(10)
-                Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Land)
+                Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Land)
             EndThread
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Midair)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Midair)
             Call(SetActorJumpGravity, RED_ACTOR, Float(1.6))
             Call(JumpToGoal, RED_ACTOR, 20, FALSE, FALSE, FALSE)
             Call((PlayLandOnTowerFX), RED_ACTOR)
@@ -3081,10 +2993,10 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(GetActorPos, RED_ACTOR, LVar3, LVar4, LVar5)
             Sub(LVar3, 15)
             Call(SetActorPos, RED_ACTOR, LVar3, LVar4, LVar5)
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Idle)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Idle)
             Wait(5)
             Call(SetActorYaw, RED_ACTOR, 0)
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_PointForward)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_PointForward)
             Call(PlaySoundAtActor, RED_ACTOR, SOUND_SMALL_LENS_FLARE)
             Call(GetActorPos, RED_ACTOR, LVar0, LVar1, LVar2)
             Sub(LVar0, 22)
@@ -3092,34 +3004,34 @@ EvtScript EVS_BuildTowerWithKoopa = {
             PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
             Wait(20)
             Wait(10)
-            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_Idle)
+            Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaGang2_Red_Idle)
             Call(SetActorVar, RED_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosA)
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
         CaseEq(GREEN_ACTOR)
-            Call(SetAnimation, LVarA, 1, ANIM_KoopaBros_Green_IdleCrouch)
+            Call(SetAnimation, LVarA, 1, ANIM_KoopaGang2_Green_IdleCrouch)
             Wait(50)
             Call(GetHomePos, GREEN_ACTOR, LVar2, LVar3, LVar4)
                 Set(LVar4, 15)
                 Call(SetGoalPos, GREEN_ACTOR, LVar2, LVar3, LVar4)
-                Call(SetAnimation, GREEN_ACTOR, 1, ANIM_KoopaBros_Green_Run)
+                Call(SetAnimation, GREEN_ACTOR, 1, ANIM_KoopaGang2_Green_Run)
                 Call(RunToGoal, GREEN_ACTOR, 10, FALSE)
-                Call(SetAnimation, GREEN_ACTOR, 1, ANIM_KoopaBros_Green_IdleCrouch)
+                Call(SetAnimation, GREEN_ACTOR, 1, ANIM_KoopaGang2_Green_IdleCrouch)
                 Call(SetActorVar, GREEN_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosB)
         CaseEq(YELLOW_ACTOR)
-            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaBros_Yellow_IdleCrouch)
+            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaGang2_Yellow_IdleCrouch)
             Wait(60)
             Call(GetHomePos, GREEN_ACTOR, LVar2, LVar3, LVar4)
             Set(LVar4, 15)
             Call(SetGoalPos, YELLOW_ACTOR, LVar2, LVar3, LVar4)
             Call(AddGoalPos, YELLOW_ACTOR, 0, 18, -4)
-            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaBros_Yellow_Leap)
+            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaGang2_Yellow_Leap)
             Wait(5)
             Call(AddGoalPos, YELLOW_ACTOR, 15, 0, 0)
             Thread
                 Wait(10)
-                Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaBros_Yellow_Land)
+                Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaGang2_Yellow_Land)
             EndThread
-            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaBros_Yellow_Midair)
+            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaGang2_Yellow_Midair)
             Call(SetActorJumpGravity, YELLOW_ACTOR, Float(1.6))
             Call(JumpToGoal, YELLOW_ACTOR, 20, FALSE, FALSE, FALSE)
             Call((PlayLandOnTowerFX), YELLOW_ACTOR)
@@ -3127,23 +3039,23 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(GetActorPos, YELLOW_ACTOR, LVar3, LVar4, LVar5)
             Sub(LVar3, 15)
             Call(SetActorPos, YELLOW_ACTOR, LVar3, LVar4, LVar5)
-            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaBros_Yellow_IdleCrouch)
+            Call(SetAnimation, YELLOW_ACTOR, 1, ANIM_KoopaGang2_Yellow_IdleCrouch)
             Call(SetActorVar, YELLOW_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosC)
         CaseEq(BLACK_ACTOR)
-            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaBros_Black_IdleCrouch)
+            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_IdleCrouch)
             Wait(80)
             Call(GetHomePos, GREEN_ACTOR, LVar2, LVar3, LVar4)
             Set(LVar4, 15)
             Call(SetGoalPos, BLACK_ACTOR, LVar2, LVar3, LVar4)
             Call(AddGoalPos, BLACK_ACTOR, 0, 36, -7)
-            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaBros_Black_Leap)
+            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_Leap)
             Wait(5)
             Call(AddGoalPos, BLACK_ACTOR, 15, 0, 0)
             Thread
                 Wait(10)
-                Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaBros_Black_Land)
+                Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_Land)
             EndThread
-            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaBros_Black_Midair)
+            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_Midair)
             Call(SetActorJumpGravity, BLACK_ACTOR, Float(1.6))
             Call(JumpToGoal, BLACK_ACTOR, 20, FALSE, FALSE, FALSE)
             Call((PlayLandOnTowerFX), BLACK_ACTOR)
@@ -3151,7 +3063,7 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(GetActorPos, BLACK_ACTOR, LVar3, LVar4, LVar5)
             Sub(LVar3, 15)
             Call(SetActorPos, BLACK_ACTOR, LVar3, LVar4, LVar5)
-            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaBros_Black_IdleCrouch)
+            Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_IdleCrouch)
             Call(SetActorVar, BLACK_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosD)
     EndSwitch
     Return
@@ -3192,7 +3104,7 @@ EvtScript EVS_TryFormingTower = {
     Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_DMG_POPUP, TRUE)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, FALSE)
 
-    Set(LVar0, 92)
+    Set(LVar0, 68)
     Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
 
@@ -3618,12 +3530,10 @@ EvtScript EVS_TakeTurn = {
     Switch(LVar0)
         CaseEq(AVAL_Boss_TowerState_None)
         CaseEq(AVAL_Boss_TowerState_Stable)
-            DebugPrintf("AVAL_Boss_TowerState_Stable\n")
-            Wait(30)
+            // DebugPrintf("AVAL_Boss_TowerState_Stable\n")
+            // Wait(30)
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_ShellSpin)
-            Set(LVarA, BOSS_CMD_SHELL_SPIN)
-            ExecWait(EVS_BroadcastToKoopaBandits)
-            Set(LVar0, 79) // Was 92
+            Set(LVar0, 68) // Was 92
             Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
             Call(SetActorSize, ACTOR_SELF, LVar0, 45)
         CaseEq(AVAL_Boss_TowerState_Unstable)
@@ -3634,7 +3544,7 @@ EvtScript EVS_TakeTurn = {
             Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             BitwiseAndConst(LVar0, ~AFLAG_Boss_TowerUnstable)
             Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-            Set(LVar0, 92)
+            Set(LVar0, 68)
             Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
             Call(SetActorSize, ACTOR_SELF, LVar0, 45)
         CaseEq(AVAL_Boss_TowerState_Toppled)
@@ -3666,13 +3576,19 @@ EvtScript EVS_TakeTurn = {
     Set(LVarA, BOSS_CMD_GET_READY)
     ExecWait(EVS_BroadcastToKoopaBandits)
     Wait(5)
+    // Try tower operations again
+    Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
+    IfNe(LVar0, AVAL_Boss_TowerState_Stable)
+        ExecWait(EVS_TryFormingTower)
+    EndIf
+    // Return if unable to make tower
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfEq(LVar0, AVAL_Boss_TowerState_Toppled)
         Return
     EndIf
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfNe(LVar0, AVAL_Boss_TowerState_ShellSpin)
-        Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
+        Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_ShellSpin)
     EndIf
     Return
     End

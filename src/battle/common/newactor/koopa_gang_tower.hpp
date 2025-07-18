@@ -90,5 +90,4 @@ enum {
     BOSS_CMD_TOPPLE_BURN_HIT    = 6,
     BOSS_CMD_TRY_GET_UP         = 7,
     BOSS_CMD_GET_READY          = 8,
-    BOSS_CMD_SHELL_SPIN         = 9,
 };
