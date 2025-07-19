@@ -52,6 +52,7 @@ enum ActorPartIDs {
 // Actor Stats
 constexpr s32 hp = 1;
 constexpr s32 dmgShellToss = 2;
+constexpr s32 maxAttackBoost = 3;
 constexpr s32 amtAttackBoost = 1;
 
 s32 DefaultDefense[] = {
@@ -113,56 +114,21 @@ s32 DefaultAnims[] = {
 
 #include "common/StartRumbleWithParams.inc.c"
 
-BSS PlayerStatus N(DummyPlayerStatus);
+BSS PlayerStatus DummyPlayerStatus;
 
-API_CALLABLE((SpawnSpinEffect)) {
+API_CALLABLE(SpawnSpinEffect) {
     Bytecode* args = script->ptrReadPos;
     s32 posX = evt_get_variable(script, *args++);
     s32 posY = evt_get_variable(script, *args++);
     s32 posZ = evt_get_variable(script, *args++);
     s32 duration = evt_get_variable(script, *args++);
 
-    N(DummyPlayerStatus).pos.x = posX;
-    N(DummyPlayerStatus).pos.y = posY - 10.0f;
-    N(DummyPlayerStatus).pos.z = posZ;
+    DummyPlayerStatus.pos.x = posX;
+    DummyPlayerStatus.pos.y = posY - 10.0f;
+    DummyPlayerStatus.pos.z = posZ;
 
-    fx_effect_46(6, &N(DummyPlayerStatus), 1.0f, duration);
+    fx_effect_46(6, &DummyPlayerStatus, 1.0f, duration);
     return ApiStatus_DONE2;
-}
-
-API_CALLABLE(N(FadeScreenToBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 0;
-    }
-
-    script->functionTemp[1] += 16;
-
-    if (script->functionTemp[1] > 255) {
-        script->functionTemp[1] = 255;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-
-    if (script->functionTemp[1] == 255) {
-        return ApiStatus_DONE2;
-    }
-
-    return ApiStatus_BLOCK;
-}
-
-API_CALLABLE(N(FadeScreenFromBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 255;
-    }
-
-    script->functionTemp[1] -= 16;
-    if (script->functionTemp[1] <= 0) {
-        script->functionTemp[1] = 0;
-        return ApiStatus_DONE2;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-    return ApiStatus_BLOCK;
 }
 
 EvtScript EVS_Init = {
@@ -177,7 +143,7 @@ EvtScript EVS_Init = {
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
-    // Call(N(FadeScreenFromBlack))
+    Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_YellowPhase)
     Call(SetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, FALSE)
     Return
     End
@@ -394,7 +360,12 @@ EvtScript EVS_TakeTurn = {
     IfEq(LVar0, TRUE)
         Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
         IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
-            ExecWait(EVS_Move_Cheer)
+            Call(GetActorAttackBoost, ACTOR_YELLOW_HAMMER_BRO, LVar3)
+            IfLt(LVar3, maxAttackBoost)
+                ExecWait(EVS_Move_Cheer)
+            Else
+                ExecWait(EVS_Attack_ShellToss)
+            EndIf
         Else
             ExecWait(EVS_Attack_ShellToss)
         EndIf
@@ -465,7 +436,7 @@ EvtScript EVS_Attack_ShellToss = {
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_SPINUP)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_SHELL_SPIN)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call((SpawnSpinEffect), LVar0, LVar1, LVar2, 30)
+    Call(SpawnSpinEffect, LVar0, LVar1, LVar2, 30)
     Wait(30)
     Thread
         Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_IGNORE_DEFENSE, 0, 0, BS_FLAGS1_INCLUDE_POWER_UPS)
@@ -515,7 +486,7 @@ EvtScript EVS_Attack_ShellToss = {
     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.5))
     Call(JumpToGoal, ACTOR_SELF, 40, FALSE, TRUE, FALSE)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call((SpawnSpinEffect), LVar0, LVar1, LVar2, 30)
+    Call(SpawnSpinEffect, LVar0, LVar1, LVar2, 30)
     Wait(30)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_EXIT_SHELL)
     Wait(10)
@@ -538,10 +509,30 @@ EvtScript EVS_Attack_ShellToss = {
 };
 
 EvtScript EVS_HandlePhase = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(GetBattlePhase, LVar0)
+    Switch(LVar0)
+        CaseEq(PHASE_PLAYER_BEGIN)
+            Call(GetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, LVar0)
+            IfEq(LVar0, AVAL_Scene_YellowPhase)
+                Call(EnableBattleStatusBar, false)
+                Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
+                Call(SetBattleCamTarget, 105, 15, 20)
+                Call(SetBattleCamDist, 250)
+                Call(SetBattleCamYaw, 0)
+                Call(SetBattleCamOffsetY, 15)
+                Call(MoveBattleCamOver, 20)
+                Wait(20)
+                Call(ActorSpeak, MSG_TrainHeist_YellowBattleStart, ACTOR_YELLOW_BANDIT, PRT_MAIN, ANIM_KoopaGang_Yellow_Talk, ANIM_KoopaGang_Yellow_Idle)
+                Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_BlackPhase)
+                Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+                Wait(20)
+                Call(EnableBattleStatusBar, true)
+            EndIf
+    EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

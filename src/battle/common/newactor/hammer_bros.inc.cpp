@@ -474,8 +474,8 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 6;
-constexpr s32 dmgHammerThrow = 4;
+constexpr s32 hp = 4;
+constexpr s32 dmgHammerThrow = 2;
 
 s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,    ANIM_HammerBrosSMB3_Alt_Anim_02,

@@ -1894,6 +1894,16 @@ void btl_cam_use_preset_impl(s32 id) {
             BattleCam_MoveTimeLeft = 4;
             preset = &EVS_BattleCam_FocusMidpointA;
             break;
+        case BTL_CAM_ACTOR_PART_CLOSE:
+            BattleCam_AdjustTargetXMode = BTL_CAM_XADJ_AVG;
+            BattleCam_AdjustTargetYMode = BTL_CAM_YADJ_AVG;
+            BattleCam_BoomLength = 200;
+            BattleCam_BoomPitch = 8;
+            BattleCam_BoomYaw = 0;
+            BattleCam_BoomOffsetY = 15;
+            BattleCam_MoveTimeLeft = 20;
+            preset = &EVS_BattleCam_FocusActorPart;
+            break;
     }
 
     BattleCam_CurrentPresetID = id;

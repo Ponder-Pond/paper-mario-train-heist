@@ -128,58 +128,6 @@ s32 ParaBeetleAnims[] = {
 
 #include "common/StartRumbleWithParams.inc.c"
 
-BSS PlayerStatus DummyPlayerStatus;
-
-API_CALLABLE((SpawnSpinEffect)) {
-    Bytecode* args = script->ptrReadPos;
-    s32 posX = evt_get_variable(script, *args++);
-    s32 posY = evt_get_variable(script, *args++);
-    s32 posZ = evt_get_variable(script, *args++);
-    s32 duration = evt_get_variable(script, *args++);
-
-    DummyPlayerStatus.pos.x = posX;
-    DummyPlayerStatus.pos.y = posY - 10.0f;
-    DummyPlayerStatus.pos.z = posZ;
-
-    fx_effect_46(6, &DummyPlayerStatus, 1.0f, duration);
-    return ApiStatus_DONE2;
-}
-
-API_CALLABLE((FadeScreenToBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 0;
-    }
-
-    script->functionTemp[1] += 16;
-
-    if (script->functionTemp[1] > 255) {
-        script->functionTemp[1] = 255;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-
-    if (script->functionTemp[1] == 255) {
-        return ApiStatus_DONE2;
-    }
-
-    return ApiStatus_BLOCK;
-}
-
-API_CALLABLE((FadeScreenFromBlack)) {
-    if (isInitialCall) {
-        script->functionTemp[1] = 255;
-    }
-
-    script->functionTemp[1] -= 16;
-    if (script->functionTemp[1] <= 0) {
-        script->functionTemp[1] = 0;
-        return ApiStatus_DONE2;
-    }
-
-    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
-    return ApiStatus_BLOCK;
-}
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -192,6 +140,7 @@ EvtScript EVS_Init = {
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_BlackPhase)
     Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, FALSE)
     Exec(EVS_ManageThirdPhase)
     Return
@@ -199,23 +148,13 @@ EvtScript EVS_Init = {
 };
 
 EvtScript EVS_ManageThirdPhase = {
-    // Call(EnableModel, MODEL_SnipingCrate, TRUE)
-    // Call(EnableModel, MODEL_BarrelBlack, TRUE)
-    // Call((FadeScreenFromBlack))
+    Call(EnableModel, MODEL_SnipingCrate, TRUE)
+    Call(EnableModel, MODEL_BarrelBlack, TRUE)
     Return
     End
 };
 
 EvtScript EVS_Idle = {
-    Return
-    End
-};
-
-EvtScript EVS_HandlePhase = {
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
     End
 };
@@ -495,6 +434,35 @@ EvtScript EVS_Attack_SniperShot = {
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript EVS_HandlePhase = {
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(GetBattlePhase, LVar0)
+    Switch(LVar0)
+        CaseEq(PHASE_PLAYER_BEGIN)
+            Call(GetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, LVar0)
+            IfEq(LVar0, AVAL_Scene_BlackPhase)
+                Call(EnableBattleStatusBar, false)
+                Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
+                Call(SetBattleCamTarget, 115, 20, 20)
+                Call(SetBattleCamDist, 250)
+                Call(SetBattleCamYaw, 0)
+                Call(SetBattleCamOffsetY, 15)
+                Call(MoveBattleCamOver, 20)
+                Wait(20)
+                Call(ActorSpeak, MSG_TrainHeist_BlackBattleStart, ACTOR_BLACK_BANDIT, PRT_MAIN, ANIM_KoopaGang_Black_Talk, ANIM_KoopaGang_Black_BlackIdle)
+                Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_RedPhase)
+                Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+                Wait(20)
+                Call(EnableBattleStatusBar, true)
+            EndIf
+    EndSwitch
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

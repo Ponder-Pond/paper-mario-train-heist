@@ -1258,15 +1258,6 @@
     actionTip: BTL_MSG_ACTION_TIP_HOLD_LEFT_TIMED
     costFP: 0
     costBP: 0
-- PowerShell:
-    nameMsg: MSG_PartnerMoveName_PowerShell
-    fullDescMsg: MSG_PartnerDesc_Kooper_Pause_PowerShell
-    shortDescMsg: MSG_PartnerDesc_Kooper_Battle_PowerShell
-    flags: [ TARGET_FLAG_GROUND, TARGET_FLAG_PRIMARY_ONLY ]
-    category: MOVE_TYPE_PARTNER
-    actionTip: BTL_MSG_ACTION_TIP_HOLD_LEFT_TIMED
-    costFP: 3
-    costBP: 0
 - DizzyShell:
     nameMsg: MSG_PartnerMoveName_DizzyShell
     fullDescMsg: MSG_PartnerDesc_Kooper_Pause_DizzyShell
@@ -1275,6 +1266,15 @@
     category: MOVE_TYPE_PARTNER
     actionTip: BTL_MSG_ACTION_TIP_MASH_BUTTON
     costFP: 4
+    costBP: 0
+- PowerShell:
+    nameMsg: MSG_PartnerMoveName_PowerShell
+    fullDescMsg: MSG_PartnerDesc_Kooper_Pause_PowerShell
+    shortDescMsg: MSG_PartnerDesc_Kooper_Battle_PowerShell
+    flags: [ TARGET_FLAG_GROUND, TARGET_FLAG_PRIMARY_ONLY ]
+    category: MOVE_TYPE_PARTNER
+    actionTip: BTL_MSG_ACTION_TIP_HOLD_LEFT_TIMED
+    costFP: 3
     costBP: 0
 - FireShell:
     nameMsg: MSG_PartnerMoveName_FireShell

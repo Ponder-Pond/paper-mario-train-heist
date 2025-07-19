@@ -4872,6 +4872,7 @@ enum BattleCamPreset {
     BTL_CAM_PRESET_UNUSED_47                = 0x47, // unused
     BTL_CAM_PRESET_UNUSED_48                = 0x48, // unused
     BTL_CAM_STAR_SPIRIT                     = 0x49,
+    BTL_CAM_ACTOR_PART_CLOSE                = 0x4A, // focus on a targeted actor's part
 };
 
 enum BattleCamTargetAdjustX {

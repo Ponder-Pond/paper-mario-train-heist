@@ -1096,8 +1096,8 @@ ActorBlueprint GiantChainChomp = {
     .coinReward = 0,
     .size = { 56, 40 },
     .healthBarOffset = { 0, 0 },
-    .statusIconOffset = { -10, 20 },
-    .statusTextOffset = { 10, 20 },
+    .statusIconOffset = { -30, 40 },
+    .statusTextOffset = { 10, 40 },
 };
 
 }; // namespace battle::actor

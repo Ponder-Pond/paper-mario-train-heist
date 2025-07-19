@@ -266,8 +266,6 @@
 				<SetRot xyz="0,0,-45"/>
 				<SetRaster index="2"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
-				<SetNotify value="1"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Torso" xyz="0,7,0">
@@ -279,7 +277,6 @@
 				<SetRot xyz="0,0,-20"/>
 				<SetRaster index="8"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="RHand" xyz="11,22,0">
@@ -291,7 +288,6 @@
 				<SetRot xyz="0,0,-63"/>
 				<SetRaster index="F"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="LHand" xyz="-20,18,0">
@@ -303,7 +299,6 @@
 				<SetRot xyz="0,0,49"/>
 				<SetRaster index="E"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="RFoot" xyz="12,-1,0">
@@ -315,7 +310,6 @@
 				<SetRot xyz="0,0,12"/>
 				<SetRaster index="12"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="LFoot" xyz="-16,-1,0">
@@ -327,7 +321,6 @@
 				<SetRot xyz="0,0,-20"/>
 				<SetRaster index="11"/>
 				<Wait duration="4"/>
-				<Loop dest="Start" count="8"/>
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>

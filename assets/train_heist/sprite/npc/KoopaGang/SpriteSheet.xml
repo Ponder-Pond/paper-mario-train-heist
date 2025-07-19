@@ -382,20 +382,20 @@
 				<SetRaster index="31"/>
 				<Wait duration="12"/>
 				<Loop dest="Start" count="3"/>
-				<Label name="DigPart2"/>
+				<Label name="Pos_2"/>
 				<SetRaster index="33"/>
 				<Wait duration="6"/>
 				<SetRaster index="34"/>
 				<Wait duration="8"/>
-				<Loop dest="DigPart2" count="1"/>
+				<Loop dest="Pos_2" count="1"/>
 				<SetRaster index="33"/>
 				<Wait duration="32"/>
-				<Label name="DigPart3"/>
+				<Label name="Pos_3"/>
 				<SetRaster index="33"/>
 				<Wait duration="6"/>
 				<SetRaster index="34"/>
 				<Wait duration="8"/>
-				<Loop dest="DigPart3" count="1"/>
+				<Loop dest="Pos_3" count="1"/>
 				<SetRaster index="33"/>
 				<Wait duration="32"/>
 				<Goto dest="Start"/>
