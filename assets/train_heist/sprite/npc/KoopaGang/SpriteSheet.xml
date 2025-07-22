@@ -370,37 +370,6 @@
 				<Goto dest="End"/>
 			</Component>
 		</Animation>
-		<Animation name="Digging">
-			<Component name="Body" xyz="-4,0,0">
-				<Label name="Start"/>
-				<SetRaster index="31"/>
-				<Wait duration="24"/>
-				<SetRaster index="31"/>
-				<Wait duration="4"/>
-				<SetRaster index="32"/>
-				<Wait duration="6"/>
-				<SetRaster index="31"/>
-				<Wait duration="12"/>
-				<Loop dest="Start" count="3"/>
-				<Label name="Pos_2"/>
-				<SetRaster index="33"/>
-				<Wait duration="6"/>
-				<SetRaster index="34"/>
-				<Wait duration="8"/>
-				<Loop dest="Pos_2" count="1"/>
-				<SetRaster index="33"/>
-				<Wait duration="32"/>
-				<Label name="Pos_3"/>
-				<SetRaster index="33"/>
-				<Wait duration="6"/>
-				<SetRaster index="34"/>
-				<Wait duration="8"/>
-				<Loop dest="Pos_3" count="1"/>
-				<SetRaster index="33"/>
-				<Wait duration="32"/>
-				<Goto dest="Start"/>
-			</Component>
-		</Animation>
 		<Animation name="CannonSit">
 			<Component name="Body" xyz="0,-8,0">
 				<Label name="Start"/>
@@ -920,11 +889,47 @@
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>
-		<Animation name="DigIdle">
+		<Animation name="Digging">
 			<Component name="Body" xyz="-4,0,0">
 				<Label name="Start"/>
 				<SetRaster index="31"/>
+				<Wait duration="28"/>
+				<SetRaster index="32"/>
 				<Wait duration="6"/>
+				<SetRaster index="31"/>
+				<Wait duration="12"/>
+				<SetRaster index="31"/>
+				<Wait duration="28"/>
+				<SetRaster index="32"/>
+				<Wait duration="6"/>
+				<SetRaster index="31"/>
+				<Wait duration="12"/>
+				<SetRaster index="31"/>
+				<Wait duration="28"/>
+				<SetRaster index="32"/>
+				<Wait duration="6"/>
+				<SetRaster index="31"/>
+				<Wait duration="12"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<SetRaster index="33"/>
+				<Wait duration="32"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<SetRaster index="33"/>
+				<Wait duration="6"/>
+				<SetRaster index="34"/>
+				<Wait duration="8"/>
+				<SetRaster index="33"/>
+				<Wait duration="32"/>
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>
@@ -951,6 +956,14 @@
 				<SetRaster index="4C"/>
 				<Wait duration="24"/>
 				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="RedHold">
+			<Component name="Body" xyz="-4,0,0">
+				<Label name="Start"/>
+				<SetRaster index="4D"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="RedThrow">
@@ -1041,14 +1054,6 @@
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="2"/>
 				<SetRaster index="53"/>
-				<Wait duration="2"/>
-				<Goto dest="Start"/>
-			</Component>
-		</Animation>
-		<Animation name="RedHold">
-			<Component name="Body" xyz="-4,0,0">
-				<Label name="Start"/>
-				<SetRaster index="4D"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
