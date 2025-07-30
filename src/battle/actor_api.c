@@ -3949,3 +3949,41 @@ API_CALLABLE(CopyBuffs) {
 
     return ApiStatus_DONE2;
 }
+
+API_CALLABLE(ExecOnActor_impl) {
+    Bytecode* args = script->ptrReadPos;
+    s32 actorID = evt_get_variable(script, *args++);
+    if (actorID == ACTOR_SELF) actorID = script->owner1.actorID;
+    EvtScript* data = (EvtScript*)evt_get_variable(script, *args++);
+
+    Evt* newScript = start_script_in_group(data, script->priority, 0, script->groupFlags);
+
+    newScript->owner1.actorID = actorID;
+    newScript->owner2 = script->owner2;
+
+    for (s32 i = 0; i < ARRAY_COUNT(script->varTable); i++) {
+        newScript->varTable[i] = script->varTable[i];
+    }
+
+    for (s32 i = 0; i < ARRAY_COUNT(script->varFlags); i++) {
+        newScript->varFlags[i] = script->varFlags[i];
+    }
+
+    newScript->array = script->array;
+    newScript->flagArray = script->flagArray;
+
+    return ApiStatus_DONE2;
+}
+
+API_CALLABLE(ExecWaitOnActor_impl) {
+    Bytecode* args = script->ptrReadPos;
+    s32 actorID = evt_get_variable(script, *args++);
+    if (actorID == ACTOR_SELF) actorID = script->owner1.actorID;
+    EvtScript* data = (EvtScript*)evt_get_variable(script, *args++);
+
+    Evt* newScript = start_child_script(script, data, 0);
+    newScript->owner1.actorID = actorID;
+
+    script->curOpcode = EVT_OP_INTERNAL_FETCH;
+    return ApiStatus_FINISH;
+}

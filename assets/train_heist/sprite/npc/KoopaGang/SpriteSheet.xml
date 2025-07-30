@@ -63,44 +63,47 @@
 		<Raster id="2E" name="Hammer1" palette="0" src="Hammer1.png"/>
 		<Raster id="2F" name="Hammer2" palette="0" src="Hammer2.png"/>
 		<Raster id="30" name="Blink" palette="0" src="Blink.png"/>
-		<Raster id="31" name="Dig1" palette="0" src="Dig1.png"/>
-		<Raster id="32" name="Dig2" palette="0" src="Dig2.png"/>
-		<Raster id="33" name="Dig3" palette="0" src="Dig3.png"/>
-		<Raster id="34" name="Dig4" palette="0" src="Dig4.png"/>
-		<Raster id="35" name="GreenSit1" palette="0" src="GreenSit1.png"/>
-		<Raster id="36" name="GreenSit2" palette="0" src="GreenSit2.png"/>
-		<Raster id="37" name="GreenSit3" palette="0" src="GreenSit3.png"/>
-		<Raster id="38" name="GreenSit4" palette="0" src="GreenSit4.png"/>
-		<Raster id="39" name="Sniper1" palette="0" src="Sniper1.png"/>
-		<Raster id="3A" name="Sniper2" palette="0" src="Sniper2.png"/>
-		<Raster id="3B" name="Sniper3" palette="0" src="Sniper3.png"/>
-		<Raster id="3C" name="Sniper4" palette="0" src="Sniper4.png"/>
-		<Raster id="3D" name="Sniper5" palette="0" src="Sniper5.png"/>
-		<Raster id="3E" name="ParaBeetle1" palette="6" src="ParaBeetle1.png"/>
-		<Raster id="3F" name="ParaBeetle2" palette="6" src="ParaBeetle2.png"/>
-		<Raster id="40" name="Blaster" palette="5" src="Blaster.png"/>
-		<Raster id="41" name="CannonBase" palette="5" src="CannonBase.png"/>
-		<Raster id="42" name="CannonBlaster" palette="5" src="CannonBlaster.png"/>
-		<Raster id="43" name="Gear1" palette="5" src="Gear1.png"/>
-		<Raster id="44" name="Gear2" palette="5" src="Gear2.png"/>
-		<Raster id="45" name="CannonBlaster1" palette="5" src="CannonBlaster1.png"/>
-		<Raster id="46" name="CannonBlaster2" palette="5" src="CannonBlaster2.png"/>
-		<Raster id="47" name="CannonBlaster3" palette="5" src="CannonBlaster3.png"/>
-		<Raster id="48" name="CannonBlaster4" palette="5" src="CannonBlaster4.png"/>
-		<Raster id="49" name="CannonBlaster5" palette="5" src="CannonBlaster5.png"/>
-		<Raster id="4A" name="BulletBiff1" palette="7" src="BulletBiff1.png"/>
-		<Raster id="4B" name="BulletBiff2" palette="7" src="BulletBiff2.png"/>
-		<Raster id="4C" name="RedHold" palette="0" src="RedHold.png"/>
-		<Raster id="4D" name="RedPickup" palette="0" src="RedPickup.png"/>
-		<Raster id="4E" name="RedPricked" palette="0" src="RedPricked.png"/>
-		<Raster id="4F" name="RedThrow" palette="0" src="RedThrow.png"/>
-		<Raster id="50" name="Bomb1" palette="8" src="Bomb1.png"/>
-		<Raster id="51" name="FlameRed" palette="9" src="FlameRed.png"/>
-		<Raster id="52" name="FlameWhite" palette="9" src="FlameWhite.png"/>
-		<Raster id="53" name="FlameYellow" palette="9" src="FlameYellow.png"/>
-		<Raster id="54" name="Pokey1" palette="A" src="Pokey1.png"/>
-		<Raster id="55" name="Pokey2" palette="A" src="Pokey2.png"/>
-		<Raster id="56" name="Pokey3" palette="A" src="Pokey3.png"/>
+		<Raster id="31" name="Dig1" palette="1" src="Dig1.png"/>
+		<Raster id="32" name="Dig2" palette="1" src="Dig2.png"/>
+		<Raster id="33" name="Dig3" palette="1" src="Dig3.png"/>
+		<Raster id="34" name="Dig4" palette="1" src="Dig4.png"/>
+		<Raster id="35" name="GreenSit1" palette="3" src="GreenSit1.png"/>
+		<Raster id="36" name="GreenSit2" palette="3" src="GreenSit2.png"/>
+		<Raster id="37" name="GreenSit3" palette="3" src="GreenSit3.png"/>
+		<Raster id="38" name="GreenSit4" palette="3" src="GreenSit4.png"/>
+		<Raster id="39" name="GreenTalk1" palette="3" src="GreenTalk1.png"/>
+		<Raster id="3A" name="GreenTalk2" palette="3" src="GreenTalk2.png"/>
+		<Raster id="3B" name="GreenTalk3" palette="3" src="GreenTalk3.png"/>
+		<Raster id="3C" name="Sniper1" palette="0" src="Sniper1.png"/>
+		<Raster id="3D" name="Sniper2" palette="0" src="Sniper2.png"/>
+		<Raster id="3E" name="Sniper3" palette="0" src="Sniper3.png"/>
+		<Raster id="3F" name="Sniper4" palette="0" src="Sniper4.png"/>
+		<Raster id="40" name="Sniper5" palette="0" src="Sniper5.png"/>
+		<Raster id="41" name="ParaBeetle1" palette="6" src="ParaBeetle1.png"/>
+		<Raster id="42" name="ParaBeetle2" palette="6" src="ParaBeetle2.png"/>
+		<Raster id="43" name="Blaster" palette="5" src="Blaster.png"/>
+		<Raster id="44" name="CannonBase" palette="5" src="CannonBase.png"/>
+		<Raster id="45" name="CannonBlaster" palette="5" src="CannonBlaster.png"/>
+		<Raster id="46" name="Gear1" palette="5" src="Gear1.png"/>
+		<Raster id="47" name="Gear2" palette="5" src="Gear2.png"/>
+		<Raster id="48" name="CannonBlaster1" palette="5" src="CannonBlaster1.png"/>
+		<Raster id="49" name="CannonBlaster2" palette="5" src="CannonBlaster2.png"/>
+		<Raster id="4A" name="CannonBlaster3" palette="5" src="CannonBlaster3.png"/>
+		<Raster id="4B" name="CannonBlaster4" palette="5" src="CannonBlaster4.png"/>
+		<Raster id="4C" name="CannonBlaster5" palette="5" src="CannonBlaster5.png"/>
+		<Raster id="4D" name="BulletBiff1" palette="7" src="BulletBiff1.png"/>
+		<Raster id="4E" name="BulletBiff2" palette="7" src="BulletBiff2.png"/>
+		<Raster id="4F" name="RedHold" palette="1" src="RedHold.png"/>
+		<Raster id="50" name="RedPickup" palette="1" src="RedPickup.png"/>
+		<Raster id="51" name="RedPricked" palette="1" src="RedPricked.png"/>
+		<Raster id="52" name="RedThrow" palette="1" src="RedThrow.png"/>
+		<Raster id="53" name="Bomb1" palette="8" src="Bomb1.png"/>
+		<Raster id="54" name="FlameRed" palette="9" src="FlameRed.png"/>
+		<Raster id="55" name="FlameWhite" palette="9" src="FlameWhite.png"/>
+		<Raster id="56" name="FlameYellow" palette="9" src="FlameYellow.png"/>
+		<Raster id="57" name="Pokey1" palette="A" src="Pokey1.png"/>
+		<Raster id="58" name="Pokey2" palette="A" src="Pokey2.png"/>
+		<Raster id="59" name="Pokey3" palette="A" src="Pokey3.png"/>
 	</RasterList>
 	<AnimationList>
 		<Animation name="Still">
@@ -384,6 +387,20 @@
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>
+		<Animation name="CannonTalk">
+			<Component name="Body" xyz="0,-8,0">
+				<Label name="Start"/>
+				<SetRaster index="39"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<Wait duration="6"/>
+				<SetRaster index="3B"/>
+				<Wait duration="6"/>
+				<SetRaster index="3A"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
 		<Animation name="CannonSitFire">
 			<Component name="Body" xyz="0,-8,0">
 				<Label name="Start"/>
@@ -412,29 +429,29 @@
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
 				<Label name="Start"/>
-				<SetRaster index="41"/>
+				<SetRaster index="44"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Cannon" xyz="-33,27,2">
 				<Label name="Start"/>
 				<SetParent index="0"/>
-				<SetRaster index="42"/>
+				<SetRaster index="45"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="GearTop" xyz="7,13,4">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
@@ -442,18 +459,18 @@
 			</Component>
 			<Component name="GearBottom" xyz="26,-9,-2">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
@@ -478,14 +495,14 @@
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
 				<Label name="Start"/>
-				<SetRaster index="41"/>
+				<SetRaster index="44"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Cannon" xyz="-33,27,2">
 				<Label name="Start"/>
 				<SetParent index="0"/>
-				<SetRaster index="42"/>
+				<SetRaster index="45"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="Start"/>
@@ -493,15 +510,15 @@
 			<Component name="GearTop" xyz="7,13,4">
 				<Label name="Start"/>
 				<Label name="#0"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
@@ -509,41 +526,41 @@
 			</Component>
 			<Component name="GearBottom" xyz="26,-9,-2">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
 				<Loop dest="Start" count="5"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="4"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="4"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="8"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="12"/>
 				<Label name="End"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
 				<Goto dest="End"/>
@@ -560,29 +577,29 @@
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
 				<Label name="Start"/>
-				<SetRaster index="41"/>
+				<SetRaster index="44"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Cannon" xyz="-33,27,2">
 				<Label name="Start"/>
 				<SetParent index="0"/>
-				<SetRaster index="42"/>
+				<SetRaster index="45"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="GearTop" xyz="7,13,4">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
@@ -590,7 +607,7 @@
 			</Component>
 			<Component name="GearBottom" xyz="26,-9,-2">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
@@ -607,59 +624,59 @@
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
 				<Label name="Start"/>
-				<SetRaster index="41"/>
+				<SetRaster index="44"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Cannon" xyz="-33,27,2">
 				<SetParent index="0"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<Wait duration="4"/>
-				<SetRaster index="46"/>
+				<SetRaster index="49"/>
 				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="0,-2,0"/>
 				<Wait duration="20"/>
-				<SetRaster index="47"/>
+				<SetRaster index="4A"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4B"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4C"/>
 				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="0,-2,0"/>
 				<Wait duration="4"/>
 				<SetRaster index="48"/>
 				<SetScale mode="uniform" percent="110"/>
-				<SetPos flag="0" xyz="0,-2,0"/>
-				<Wait duration="4"/>
-				<SetRaster index="49"/>
-				<SetScale mode="uniform" percent="110"/>
-				<SetPos flag="0" xyz="0,-2,0"/>
-				<Wait duration="4"/>
-				<SetRaster index="45"/>
-				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="8,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="7,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="5,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="3,0,0"/>
 				<Label name="End"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="End"/>
 			</Component>
 			<Component name="GearTop" xyz="7,13,4">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
@@ -667,18 +684,18 @@
 			</Component>
 			<Component name="GearBottom" xyz="26,-9,-2">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<SetPos flag="0" xyz="7,1,0"/>
 				<SetRot xyz="0,0,15"/>
@@ -697,59 +714,59 @@
 			</Component>
 			<Component name="Base" xyz="0,-7,0">
 				<Label name="Start"/>
-				<SetRaster index="41"/>
+				<SetRaster index="44"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Cannon" xyz="-33,27,2">
 				<SetParent index="0"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<Wait duration="4"/>
-				<SetRaster index="46"/>
+				<SetRaster index="49"/>
 				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="0,-2,0"/>
 				<Wait duration="20"/>
-				<SetRaster index="47"/>
+				<SetRaster index="4A"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4B"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4C"/>
 				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="0,-2,0"/>
 				<Wait duration="4"/>
 				<SetRaster index="48"/>
 				<SetScale mode="uniform" percent="110"/>
-				<SetPos flag="0" xyz="0,-2,0"/>
-				<Wait duration="4"/>
-				<SetRaster index="49"/>
-				<SetScale mode="uniform" percent="110"/>
-				<SetPos flag="0" xyz="0,-2,0"/>
-				<Wait duration="4"/>
-				<SetRaster index="45"/>
-				<SetScale mode="uniform" percent="110"/>
 				<SetPos flag="0" xyz="8,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="7,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="5,0,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="3,0,0"/>
 				<Label name="End"/>
-				<SetRaster index="45"/>
+				<SetRaster index="48"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="End"/>
 			</Component>
 			<Component name="GearTop" xyz="7,13,4">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
-				<SetRaster index="44"/>
+				<SetRaster index="47"/>
 				<Wait duration="2"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetPos flag="0" xyz="8,2,0"/>
 				<SetRot xyz="0,0,15"/>
 				<Wait duration="2"/>
@@ -757,7 +774,7 @@
 			</Component>
 			<Component name="GearBottom" xyz="26,-9,-2">
 				<Label name="Start"/>
-				<SetRaster index="43"/>
+				<SetRaster index="46"/>
 				<SetScale mode="uniform" percent="80"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
@@ -766,11 +783,11 @@
 		<Animation name="BulletBiff">
 			<Component name="Biff" xyz="0,-12,0">
 				<Label name="Start"/>
-				<SetRaster index="4A"/>
+				<SetRaster index="4D"/>
 				<SetScale mode="uniform" percent="95"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="4"/>
-				<SetRaster index="4B"/>
+				<SetRaster index="4E"/>
 				<Wait duration="4"/>
 				<Goto dest="Start"/>
 			</Component>
@@ -778,42 +795,42 @@
 		<Animation name="BlackIdle">
 			<Component name="Body" xyz="0,15,0">
 				<Label name="Start"/>
-				<SetRaster index="39"/>
+				<SetRaster index="3C"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="3B"/>
+				<SetRaster index="3E"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="6"/>
 				<Loop dest="Start" count="3"/>
-				<SetRaster index="39"/>
+				<SetRaster index="3C"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<Wait duration="6"/>
-				<SetRaster index="3B"/>
+				<SetRaster index="3E"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Gun" xyz="-29,21,-2">
 				<Label name="Start"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<Wait duration="24"/>
 				<Loop dest="Start" count="3"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<Wait duration="6"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="0,-2,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
@@ -822,22 +839,43 @@
 		<Animation name="BlackAim">
 			<Component name="Body" xyz="0,15,0">
 				<Label name="Start"/>
-				<SetRaster index="39"/>
+				<SetRaster index="3C"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="3B"/>
+				<SetRaster index="3E"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="6"/>
-				<SetRaster index="3A"/>
+				<SetRaster index="3D"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Gun" xyz="-29,21,-2">
 				<Label name="Start"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="BlackTalk">
+			<Component name="Body" xyz="0,-3,0">
+				<Label name="Start"/>
+				<SetRaster index="15"/>
+				<Wait duration="6"/>
+				<SetRaster index="16"/>
+				<Wait duration="6"/>
+				<SetRaster index="17"/>
+				<Wait duration="6"/>
+				<SetRaster index="16"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Gun" xyz="-29,17,-2">
+				<Label name="Start"/>
+				<SetRaster index="43"/>
+				<SetRot xyz="0,0,-15"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
 			</Component>
@@ -845,22 +883,22 @@
 		<Animation name="BlackFire">
 			<Component name="Body" xyz="0,15,0">
 				<Label name="Start"/>
-				<SetRaster index="3C"/>
+				<SetRaster index="3F"/>
 				<SetPos flag="0" xyz="-3,0,0"/>
 				<Wait duration="24"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Gun" xyz="-29,22,-2">
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="-6,12,0"/>
 				<SetRot xyz="0,0,-45"/>
 				<Wait duration="2"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="-4,14,0"/>
 				<SetRot xyz="0,0,-50"/>
 				<Wait duration="2"/>
 				<Label name="End"/>
-				<SetRaster index="40"/>
+				<SetRaster index="43"/>
 				<SetPos flag="0" xyz="-4,14,0"/>
 				<SetRot xyz="0,0,-55"/>
 				<Wait duration="20"/>
@@ -870,19 +908,19 @@
 		<Animation name="ParaBeetle">
 			<Component name="ParaBeetle" xyz="0,-12,0">
 				<Label name="Start"/>
-				<SetRaster index="3F"/>
+				<SetRaster index="42"/>
 				<Wait duration="4"/>
-				<SetRaster index="3E"/>
+				<SetRaster index="41"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="3E"/>
+				<SetRaster index="41"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="4"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="3F"/>
+				<SetRaster index="42"/>
 				<Wait duration="4"/>
-				<SetRaster index="3F"/>
+				<SetRaster index="42"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="2"/>
 				<SetScale mode="uniform" percent="95"/>
@@ -941,19 +979,19 @@
 				<SetPos flag="0" xyz="-3,1,0"/>
 				<SetRot xyz="0,0,-15"/>
 				<Wait duration="2"/>
-				<SetRaster index="4D"/>
+				<SetRaster index="50"/>
 				<Wait duration="2"/>
-				<SetRaster index="4D"/>
+				<SetRaster index="50"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4C"/>
+				<SetRaster index="4F"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4C"/>
+				<SetRaster index="4F"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
 				<Label name="End"/>
-				<SetRaster index="4C"/>
+				<SetRaster index="4F"/>
 				<Wait duration="24"/>
 				<Goto dest="End"/>
 			</Component>
@@ -961,27 +999,27 @@
 		<Animation name="RedHold">
 			<Component name="Body" xyz="-4,0,0">
 				<Label name="Start"/>
-				<SetRaster index="4D"/>
+				<SetRaster index="50"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>
 		<Animation name="RedThrow">
 			<Component name="Body" xyz="-4,0,0">
-				<SetRaster index="4C"/>
+				<SetRaster index="4F"/>
 				<Wait duration="2"/>
-				<SetRaster index="4C"/>
+				<SetRaster index="4F"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4F"/>
+				<SetRaster index="52"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4F"/>
+				<SetRaster index="52"/>
 				<SetRot xyz="0,0,5"/>
 				<SetPos flag="0" xyz="2,0,0"/>
 				<Wait duration="2"/>
 				<Label name="End"/>
-				<SetRaster index="4F"/>
+				<SetRaster index="52"/>
 				<Wait duration="2"/>
 				<Goto dest="End"/>
 			</Component>
@@ -994,21 +1032,21 @@
 				<SetPos flag="0" xyz="-3,1,0"/>
 				<SetRot xyz="0,0,-15"/>
 				<Wait duration="2"/>
-				<SetRaster index="4D"/>
+				<SetRaster index="50"/>
 				<Wait duration="2"/>
-				<SetRaster index="4E"/>
+				<SetRaster index="51"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4E"/>
+				<SetRaster index="51"/>
 				<SetPos flag="0" xyz="0,2,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="4E"/>
+				<SetRaster index="51"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
 				<Label name="End"/>
-				<SetRaster index="4E"/>
+				<SetRaster index="51"/>
 				<Wait duration="4"/>
-				<SetRaster index="4E"/>
+				<SetRaster index="51"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="4"/>
 				<Goto dest="End"/>
@@ -1017,12 +1055,12 @@
 		<Animation name="Pokey">
 			<Component name="Pokey" xyz="0,0,0">
 				<Label name="Start"/>
-				<SetRaster index="54"/>
+				<SetRaster index="57"/>
 				<Wait duration="6"/>
-				<SetRaster index="55"/>
+				<SetRaster index="58"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="56"/>
+				<SetRaster index="59"/>
 				<SetPos flag="0" xyz="0,1,0"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
@@ -1031,7 +1069,7 @@
 		<Animation name="Bomb">
 			<Component name="Bomb" xyz="0,0,0">
 				<Label name="Start"/>
-				<SetRaster index="50"/>
+				<SetRaster index="53"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
 			</Component>
@@ -1039,21 +1077,21 @@
 		<Animation name="BombLit">
 			<Component name="Bomb" xyz="0,0,0">
 				<Label name="Start"/>
-				<SetRaster index="50"/>
+				<SetRaster index="53"/>
 				<Wait duration="6"/>
-				<SetRaster index="50"/>
+				<SetRaster index="53"/>
 				<SetScale mode="uniform" percent="102"/>
 				<Wait duration="6"/>
 				<Goto dest="Start"/>
 			</Component>
 			<Component name="Spark" xyz="1,22,2">
 				<Label name="Start"/>
-				<SetRaster index="51"/>
+				<SetRaster index="54"/>
 				<Wait duration="2"/>
-				<SetRaster index="52"/>
+				<SetRaster index="55"/>
 				<SetPos flag="0" xyz="0,-1,0"/>
 				<Wait duration="2"/>
-				<SetRaster index="53"/>
+				<SetRaster index="56"/>
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>

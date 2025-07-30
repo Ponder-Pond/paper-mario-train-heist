@@ -143,10 +143,10 @@
 //     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
 //     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
 //     // Call(HPBarToHome, ACTOR_SELF)
-//     // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-//     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+//     // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+//     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
 //     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-//     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+//     Call(UseIdleAnimation, ACTOR_SELF, true)
 //     Return
 //     End
 // };
@@ -170,7 +170,7 @@
 // s32 N(FlipPosOffsets)[] = { 7, 13, 17, 21, 23, 24, 23, 21, 17, 13, 7, 0,  4,  7,  6,  4,  0,  2,  0 };
 
 // EvtScript N(EVS_HandleEvent) = {
-//     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+//     Call(UseIdleAnimation, ACTOR_SELF, false)
 //     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
 //     Call(GetLastEvent, ACTOR_SELF, LVar0)
 //     Switch(LVar0)
@@ -229,7 +229,7 @@
 //             Call(SetActorVar, ACTOR_SELF, AVAR_ToppleTurns, AVAL_ToppleTurnOne)
 //             Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(ToppledDefense)))
 //             Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(ToppledAnims)))
-//             Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLIPPED, TRUE)
+//             Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLIPPED, true)
 //             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BuzzyBeetle_Anim07)
 //             Call(SetActorRotationOffset, ACTOR_SELF, 0, 12, 0)
 //             Thread
@@ -392,13 +392,13 @@
 //         CaseDefault
 //     EndSwitch
 //     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-//     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+//     Call(UseIdleAnimation, ACTOR_SELF, true)
 //     Return
 //     End
 // };
 
 // EvtScript N(EVS_TakeTurn) = {
-//     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+//     Call(UseIdleAnimation, ACTOR_SELF, false)
 //     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
 //     Call(GetActorVar, ACTOR_SELF, AVAR_ToppleState, LVar3)
 //     IfEq(LVar3, AVAL_State_Toppled)
@@ -411,7 +411,7 @@
 //                 Wait(30)
 //                 Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 0)
 //                 Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-//                 Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, FALSE)
+//                 Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, false)
 //             CaseEq(AVAL_ToppleTurnZero)
 //                 Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(1.0))
 //                 Call(AddActorDecoration, ACTOR_SELF, PRT_MAIN, 0, ACTOR_DECORATION_SWEAT)
@@ -425,18 +425,18 @@
 //                 Call(SetActorVar, ACTOR_SELF, AVAR_ToppleState, AVAL_State_Ground)
 //                 Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(UprightDefense)))
 //                 Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(GroundAnims)))
-//                 Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLIPPED, FALSE)
-//                 Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, FALSE)
+//                 Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLIPPED, false)
+//                 Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, false)
 //         EndSwitch
 //     Else
-//         Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, TRUE)
+//         Call(SetActorVar, ACTOR_GREEN_BANDIT, AVAR_GreenPhase_CannonAttacks, true)
 //         Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SHELL_SPIN)
 //         Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(4.0))
 //         Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BuzzyBeetle_Anim05)
 //         Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultAnims)))
 //     EndIf
 //     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-//     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+//     Call(UseIdleAnimation, ACTOR_SELF, true)
 //     Return
 //     End
 // };

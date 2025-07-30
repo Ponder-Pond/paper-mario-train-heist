@@ -1641,7 +1641,7 @@ EvtScript EVS_MerleeAttackBonus = {
     Call(SetAnimation, ACTOR_SELF, 0, ANIM_Mario1_Idle)
     Call(ShowMessageBox, BTL_MSG_MERLEE_ATK_UP, 60)
     Call(WaitForMessageBoxDone)
-    ExecWait(EVS_MerleeRunOut)
+    // ExecWait(EVS_MerleeRunOut)
     Return
     End
 };

@@ -2965,7 +2965,7 @@
 	peeved.[Wait][End]
 }
 
-#message:2F:(EnemyTattle_GreenBandit) {
+#message:1C:(EnemyTattle_GreenBandit) {
 	[Style right]
 	This is Green Banditkoopa.[BR]
 	[Pause 10]This guy's sitting on a massive[BR]
@@ -2984,7 +2984,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_BuzzyBeetleGreenPhase) {
+#message:1C:(EnemyTattle_BuzzyBeetleGreenPhase) {
 	[Style right]
 	This is a Buzzy Beetle.[BR]
 	[Pause 10]Buzzy Beetles are cute--[BR]
@@ -3004,7 +3004,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_BrigaderBones) {
+#message:1C:(EnemyTattle_BrigaderBones) {
 	[Style right]
 	This is a Brigader Bones.[BR]
 	[Pause 10]These guys are skeletal[BR]
@@ -3024,7 +3024,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_YellowBandit) {
+#message:1C:(EnemyTattle_YellowBandit) {
 	[Style right]
 	This is Yellow Banditkoopa.[BR]
 	[Wait][Next]
@@ -3043,7 +3043,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_GiantChomp) {
+#message:1C:(EnemyTattle_GiantChomp) {
 	[Style right]
 	It's a Chomp![BR]
 	[Pause 10]A very large one at that![BR]
@@ -3061,7 +3061,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_HammerBrosYellowPhase) {
+#message:1C:(EnemyTattle_HammerBrosYellowPhase) {
 	[Style right]
 	These are the Hammer Bros.[BR]
 	[Pause 10]You've seen these punks[BR]
@@ -3083,7 +3083,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_BlackBandit) {
+#message:1C:(EnemyTattle_BlackBandit) {
 	[Style right]
 	This is Black Banditkoopa.[BR]
 	[Pause 10]W-what's he got in his hands?![BR]
@@ -3102,7 +3102,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_Crate) {
+#message:1C:(EnemyTattle_Crate) {
 	[Style right]
 	This is a Crate[BR]
 	[Pause 10]When did these get here?[BR]
@@ -3121,12 +3121,13 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_ShyGuyRider) {
+#message:1C:(EnemyTattle_ShyGuyRider) {
 	[Style right]
-	This is Shy Guy Rider.[Wait][End]
+	This is a Shy Guy Rider.[BR]
+	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_RedBandit) {
+#message:1C:(EnemyTattle_RedBandit) {
 	[Style right]
 	This is Red Banditkoopa.[BR]
 	[Pause 10]He's the fourth one[BR]
@@ -3149,7 +3150,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_PyroGuyRedPhase) {
+#message:1C:(EnemyTattle_PyroGuyRedPhase) {
 	[Style right]
 	This is a Pyro Guy.[BR]
 	[Pause 10]Pyro Guys are on fire, so any[BR]
@@ -3168,7 +3169,7 @@
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_KoopatheKid) {
+#message:1C:(EnemyTattle_KoopatheKid) {
 	[Style right]
 	It's Koopa the Kid![BR]
 	[Pause 10]He's a lot scarier in person![BR]
@@ -3184,16 +3185,17 @@
 	you![BR]
 	[Wait][Next]
 	He might have other tricks up his[BR]
-	sleeves too, so keep an eye out!
+	sleeves too, so keep an eye out![BR]
 	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_KoopaGang) {
+#message:1C:(EnemyTattle_KoopaGang) {
 	[Style right]
-	This is the Koopa Gang.[Wait][End]
+	This is the Koopa Gang.[BR]
+	[Wait][End]
 }
 
-#message:2F:(EnemyTattle_HammerBrosFinalPhase) {
+#message:1C:(EnemyTattle_HammerBrosFinalPhase) {
 	[Style right]
 	These are the Hammer Bros.[BR]
 	[Pause 10]You've seen these punks[BR]
@@ -3212,5 +3214,11 @@
 	[Wait][Next]
 	As always, they're not to be[BR]
 	underestimated.[BR]
+	[Wait][End]
+}
+
+#message:1C:(EnemyTattle_CalamityKammy) {
+	[Style right]
+	This is Calamity Kammy.[BR]
 	[Wait][End]
 }

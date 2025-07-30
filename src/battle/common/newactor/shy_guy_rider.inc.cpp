@@ -5,6 +5,7 @@
 #include "sprite/npc/ShyGuyRider.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
+#include "dx/debug_menu.h"
 
 namespace battle::actor {
 
@@ -107,8 +108,10 @@ EvtScript EVS_Init = {
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(HPBarToHome, ACTOR_SELF)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
+    // Call(GetOwnerID, LVar9)
+    // DebugPrintf("Shy Guy Rider Actor ID: (%d)\n", LVar9)
     Return
     End
 };
@@ -124,17 +127,17 @@ EvtScript EVS_HandleEvent = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     ExecWait(EVS_Attack_ArrowShot)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Attack_ArrowShot = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ShyGuyRider_ShootArrow)
@@ -150,7 +153,7 @@ EvtScript EVS_Attack_ArrowShot = {
             Sub(LVar0, 15)
             Add(LVar1, 48)
             Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, false)
             // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -165,7 +168,7 @@ EvtScript EVS_Attack_ArrowShot = {
             EndIf
             Call(YieldTurn)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            Call(UseIdleAnimation, ACTOR_SELF, true)
             Return
         EndCaseGroup
     EndSwitch
@@ -174,7 +177,7 @@ EvtScript EVS_Attack_ArrowShot = {
     Sub(LVar0, 15)
     Add(LVar1, 48)
     Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, false)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -187,14 +190,14 @@ EvtScript EVS_Attack_ArrowShot = {
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

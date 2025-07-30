@@ -23,6 +23,8 @@ extern ActorBlueprint GreenBanditTower;
 extern ActorBlueprint YellowBanditTower;
 extern ActorBlueprint BlackBanditTower;
 extern ActorBlueprint RedBanditTower;
-extern ActorBlueprint GreenHammerBro;
+// extern ActorBlueprint GreenHammerBro;
+extern ActorBlueprint StageGuy;
+extern ActorBlueprint CalamityKammy;
 
 }; // namespace battle::actor

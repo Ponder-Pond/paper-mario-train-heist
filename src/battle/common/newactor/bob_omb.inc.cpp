@@ -131,9 +131,9 @@ EvtScript EVS_Init = {
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
-    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, FALSE)
-    Call(SetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, FALSE)
-    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, false)
+    Call(SetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, false)
+    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, false)
     Return
     End
 };
@@ -149,19 +149,19 @@ EvtScript EVS_Ignite = {
         Return
     EndIf
     Label(0)
-    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, TRUE)
-    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, TRUE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, true)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, true)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(IgnitedAnims))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent_Ignited))
-    Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, TRUE)
+    Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, true)
     Call(SetStatusTable, ACTOR_SELF, Ref(IgnitedStatusTable))
     Call(PlayLoopingSoundAtActor, ACTOR_SELF, 0, SOUND_LOOP_BOBOMB_FUSE)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_WalkLit)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetActorJumpGravity, ACTOR_SELF, Float(2.0))
     Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
-    Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
-    Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, TRUE)
+    Call(JumpToGoal, ACTOR_SELF, 5, false, true, false)
+    Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, true)
     Call(SetActorPaletteSwapParams, ACTOR_SELF, PRT_MAIN, SPR_PAL_Bobomb, SPR_PAL_Bobomb_Burst, 0, 10, 0, 10, 0, 0)
     Call(SetActorPaletteEffect, ACTOR_SELF, PRT_MAIN, ACTOR_PAL_ADJUST_BLEND_PALETTES_VARYING_INTERVALS)
     Wait(3)
@@ -172,24 +172,24 @@ EvtScript EVS_Ignite = {
 
 EvtScript EVS_Defuse = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
-    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, false)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
-    Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, FALSE)
+    Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, false)
     Call(SetStatusTable, ACTOR_SELF, Ref(StatusTable))
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar2, 2)
     PlayEffect(EFFECT_LANDING_DUST, 3, LVar0, LVar1, LVar2, 0, 0)
     Call(StopLoopingSoundAtActor, ACTOR_SELF, 0)
-    Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, FALSE)
+    Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, false)
     Return
     End
 };
 
 EvtScript EVS_Cleanup = {
     Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         Call(StopLoopingSoundAtActor, ACTOR_SELF, 0)
-        Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, FALSE)
+        Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, false)
     EndIf
     Return
     End
@@ -216,14 +216,14 @@ EvtScript EVS_Explode = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
         CaseEq(EVENT_HIT_COMBO)
             Call(GetLastDamage, ACTOR_SELF, LVar0)
             IfNe(LVar0, 0)
-                Call(SetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, TRUE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, true)
             EndIf
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_Hurt)
@@ -231,7 +231,7 @@ EvtScript EVS_HandleEvent = {
         CaseEq(EVENT_HIT)
             Call(GetLastElement, LVarE)
             IfFlag(LVarE, DAMAGE_TYPE_SHOCK)
-                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_Bobomb_BurnHurt)
                 SetConst(LVar2, ANIM_Bobomb_BurnStill)
@@ -253,7 +253,7 @@ EvtScript EVS_HandleEvent = {
             EndIf
         CaseOrEq(EVENT_BURN_HIT)
         CaseOrEq(EVENT_BURN_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_BurnHurt)
             SetConst(LVar2, ANIM_Bobomb_BurnStill)
@@ -274,7 +274,7 @@ EvtScript EVS_HandleEvent = {
                 ExecWait(EVS_Ignite)
             EndIf
         CaseEq(EVENT_SPIN_SMASH_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_Hurt)
             ExecWait(EVS_Enemy_SpinSmashHit)
@@ -285,7 +285,7 @@ EvtScript EVS_HandleEvent = {
             Return
         CaseOrEq(EVENT_SHOCK_HIT)
         CaseOrEq(EVENT_SHOCK_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_BurnHurt)
             Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -301,7 +301,7 @@ EvtScript EVS_HandleEvent = {
             SetConst(LVar1, ANIM_Bobomb_Idle)
             ExecWait(EVS_Enemy_NoDamageHit)
             Call(GetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, LVar0)
-            IfEq(LVar0, TRUE)
+            IfEq(LVar0, true)
                 ExecWait(EVS_Ignite)
             EndIf
         EndCaseGroup
@@ -313,7 +313,7 @@ EvtScript EVS_HandleEvent = {
                 SetConst(LVar2, ANIM_Bobomb_BurnStill)
                 ExecWait(EVS_Enemy_BurnHit)
                 ExecWait(EVS_Explode)
-                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_Bobomb_BurnStill)
                 Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -325,7 +325,7 @@ EvtScript EVS_HandleEvent = {
                 ExecWait(EVS_Enemy_Hit)
                 Wait(10)
                 ExecWait(EVS_Cleanup)
-                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+                Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_Bobomb_Hurt)
                 ExecWait(EVS_Enemy_Death)
@@ -337,7 +337,7 @@ EvtScript EVS_HandleEvent = {
             SetConst(LVar2, ANIM_Bobomb_BurnStill)
             ExecWait(EVS_Enemy_BurnHit)
             ExecWait(EVS_Explode)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_BurnStill)
             Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -365,13 +365,13 @@ EvtScript EVS_HandleEvent = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_HandleEvent_Ignited = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -400,7 +400,7 @@ EvtScript EVS_HandleEvent_Ignited = {
                     SetConst(LVar1, ANIM_Bobomb_BurnHurt)
                     ExecWait(EVS_Enemy_Hit)
                     ExecWait(EVS_Explode)
-                    Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+                    Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
                     SetConst(LVar0, PRT_MAIN)
                     SetConst(LVar1, ANIM_Bobomb_BurnStill)
                     Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -413,7 +413,7 @@ EvtScript EVS_HandleEvent_Ignited = {
                     Call(GetLastDamage, ACTOR_SELF, LVar0)
                     IfGt(LVar0, 0)
                         ExecWait(EVS_Explode)
-                        Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+                        Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
                         SetConst(LVar0, PRT_MAIN)
                         SetConst(LVar1, ANIM_Bobomb_BurnStill)
                         Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -427,7 +427,7 @@ EvtScript EVS_HandleEvent_Ignited = {
         CaseOrEq(EVENT_SPIN_SMASH_DEATH)
         CaseOrEq(EVENT_EXPLODE_TRIGGER)
             ExecWait(EVS_Explode)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_BurnStill)
             Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -453,7 +453,7 @@ EvtScript EVS_HandleEvent_Ignited = {
                 SetConst(LVar1, ANIM_Bobomb_BurnStill)
                 Set(LVar2, EXEC_DEATH_NO_SPINNING)
             EndIf
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             ExecWait(EVS_Enemy_Death)
             Return
         CaseOrEq(EVENT_SHOCK_HIT)
@@ -462,7 +462,7 @@ EvtScript EVS_HandleEvent_Ignited = {
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Bobomb_BurnStill)
             Set(LVar2, EXEC_DEATH_NO_SPINNING)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             ExecWait(EVS_Enemy_Death)
             Return
         EndCaseGroup
@@ -502,7 +502,7 @@ EvtScript EVS_HandleEvent_Ignited = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -512,7 +512,7 @@ EvtScript EVS_Attack_Blast = {
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
     Call(BattleCamTargetActor, ACTOR_SELF)
-    Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, FALSE)
+    Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, false)
     Call(PlayLoopingSoundAtActor, ACTOR_SELF, 0, SOUND_LOOP_BOBOMB_FUSE)
     Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
     Switch(LVar0)
@@ -524,7 +524,7 @@ EvtScript EVS_Attack_Blast = {
             Call(SetGoalToTarget, ACTOR_SELF)
             Call(AddGoalPos, ACTOR_SELF, 80, 0, 0)
             Call(SetActorSpeed, ACTOR_SELF, Float(5.0))
-            Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+            Call(RunToGoal, ACTOR_SELF, 0, false)
             Call(SetActorRotationOffset, ACTOR_SELF, -1, 14, 0)
             Call(SetActorRotation, ACTOR_SELF, 0, 0, 90)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_RunLit)
@@ -532,7 +532,7 @@ EvtScript EVS_Attack_Blast = {
             Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Sub(LVar0, 30)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+            Call(JumpToGoal, ACTOR_SELF, 5, false, true, false)
             Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
             ExecWait(EVS_Explode)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_BurnStill)
@@ -543,7 +543,7 @@ EvtScript EVS_Attack_Blast = {
             Wait(10)
             Call(SetActorRotationOffset, ACTOR_SELF, 0, 0, 0)
             Call(SetActorRotation, ACTOR_SELF, 0, 0, 0)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, -1)
             Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -556,7 +556,7 @@ EvtScript EVS_Attack_Blast = {
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(AddGoalPos, ACTOR_SELF, 10, 0, 0)
     Call(SetActorSpeed, ACTOR_SELF, Float(5.0))
-    Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+    Call(RunToGoal, ACTOR_SELF, 0, false)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Buildup)
     Wait(15)
     Set(LVarA, 1)
@@ -566,7 +566,7 @@ EvtScript EVS_Attack_Blast = {
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_BLAST | DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgExplosion, BS_FLAGS1_TRIGGER_EVENTS)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     Wait(15)
-    Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, FALSE)
+    Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_SummonedBobomb, false)
     SetConst(LVar0, PRT_MAIN)
     SetConst(LVar1, ANIM_Bobomb_BurnStill)
     Set(LVar2, EXEC_DEATH_NO_SPINNING)
@@ -576,7 +576,7 @@ EvtScript EVS_Attack_Blast = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
     IfFalse(LVar0)
@@ -586,26 +586,26 @@ EvtScript EVS_TakeTurn = {
         Return
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_HandlePhase = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     // Call(GetBattlePhase, LVar0)
     // Switch(LVar0)
     //     CaseEq(PHASE_ENEMY_BEGIN)
     Call(GetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, LVar0)
-    IfEq(LVar0, FALSE)
+    IfEq(LVar0, false)
         Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
-        IfEq(LVar0, TRUE)
+        IfEq(LVar0, true)
             ExecWait(EVS_Ignite)
         EndIf
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

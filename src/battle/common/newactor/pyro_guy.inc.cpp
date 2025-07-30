@@ -5,6 +5,7 @@
 #include "sprite/npc/PyroGuy.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
+#include "dx/debug_menu.h"
 
 namespace battle::actor {
 
@@ -15,7 +16,7 @@ extern EvtScript EVS_Idle;
 extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_HandleEvent;
 
-enum N(ActorPartIDs) {
+enum ActorPartIDs {
     PRT_MAIN        = 1,
 };
 
@@ -94,9 +95,11 @@ EvtScript EVS_Init = {
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(HPBarToHome, ACTOR_SELF)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
     Call(SetActorYaw, ACTOR_SELF, 180)
+    // Call(GetOwnerID, LVar9)
+    // DebugPrintf("Pyro Guy Actor ID: (%d)\n", LVar9)
     Return
     End
 };
@@ -120,7 +123,7 @@ EvtScript EVS_ReturnHome = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -136,7 +139,7 @@ EvtScript EVS_HandleEvent = {
             SetConst(LVar2, -1)
             ExecWait(EVS_Enemy_BurnHit)
         CaseEq(EVENT_BURN_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             SetConst(LVar2, -1)
@@ -150,7 +153,7 @@ EvtScript EVS_HandleEvent = {
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_SpinSmashHit)
         CaseEq(EVENT_SPIN_SMASH_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_SpinSmashHit)
@@ -168,7 +171,7 @@ EvtScript EVS_HandleEvent = {
             Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
             ExecWait(EVS_ReturnHome)
         CaseEq(EVENT_SHOCK_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_ShockHit)
@@ -184,7 +187,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_NoDamageHit)
         EndCaseGroup
         CaseEq(EVENT_DEATH)
-            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_Hit)
@@ -216,13 +219,13 @@ EvtScript EVS_HandleEvent = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -240,7 +243,7 @@ EvtScript EVS_TakeTurn = {
     Wait(30)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_PyroGuy_Anim03)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

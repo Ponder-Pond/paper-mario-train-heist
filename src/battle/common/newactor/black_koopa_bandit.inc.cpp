@@ -7,6 +7,7 @@
 #include "sprite/npc/ShyGuyRider.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
+#include "dx/debug_menu.h"
 
 namespace battle::actor {
 
@@ -136,20 +137,22 @@ EvtScript EVS_Init = {
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(HPBarToHome, ACTOR_SELF)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
     Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_BlackPhase)
-    Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, false)
     Exec(EVS_ManageThirdPhase)
+    // Call(GetOwnerID, LVar9)
+    // DebugPrintf("Black Bandit Actor ID: (%d)\n", LVar9)
     Return
     End
 };
 
 EvtScript EVS_ManageThirdPhase = {
-    Call(EnableModel, MODEL_SnipingCrate, TRUE)
-    Call(EnableModel, MODEL_BarrelBlack, TRUE)
+    Call(EnableModel, MODEL_SnipingCrate, true)
+    Call(EnableModel, MODEL_BarrelBlack, true)
     Return
     End
 };
@@ -160,7 +163,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -198,21 +201,21 @@ EvtScript EVS_HandleEvent = {
             // EndIf
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Defeat = {
-    Call(EnableBattleStatusBar, FALSE)
+    Call(EnableBattleStatusBar, false)
     Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar2)
-    IfNe(LVar2, FALSE)
+    IfNe(LVar2, false)
         Call(GetActorHP, ACTOR_SHY_GUY_RIDER_1, LVar2)
         IfNe(LVar2, 0)
             Thread
                 Call(HideHealthBar, ACTOR_SHY_GUY_RIDER_1)
                 Call(EnableIdleScript, ACTOR_SHY_GUY_RIDER_1, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_1, FALSE)
+                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_1, false)
                 // Call(SetAnimation, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ANIM_ShyGuyRider_Hurt)
                 Wait(10)
                 // Set(LVar2, 0)
@@ -237,13 +240,13 @@ EvtScript EVS_Defeat = {
         EndIf
     EndIf
     Call(ActorExists, ACTOR_SHY_GUY_RIDER_2, LVar2)
-    IfNe(LVar2, FALSE)
+    IfNe(LVar2, false)
         Call(GetActorHP, ACTOR_SHY_GUY_RIDER_2, LVar2)
         IfNe(LVar2, 0)
             Thread
                 Call(HideHealthBar, ACTOR_SHY_GUY_RIDER_2)
                 Call(EnableIdleScript, ACTOR_SHY_GUY_RIDER_2, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_2, FALSE)
+                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_2, false)
                 // Call(SetAnimation, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_0E)
                 Wait(10)
                 // Set(LVar2, 0)
@@ -268,7 +271,7 @@ EvtScript EVS_Defeat = {
         EndIf
     EndIf
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, true)
     Wait(10)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -279,12 +282,12 @@ EvtScript EVS_Defeat = {
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar0)
-        IfNe(LVar0, FALSE)
+        IfNe(LVar0, false)
             Wait(1)
             Goto(0)
         EndIf
         Call(ActorExists, ACTOR_SHY_GUY_RIDER_2, LVar0)
-        IfNe(LVar0, FALSE)
+        IfNe(LVar0, false)
             Wait(1)
             Goto(0)
         EndIf
@@ -305,36 +308,53 @@ Formation SpawnPyroGuy = {
     ACTOR_BY_POS(PyroGuy, PyroGuySpawnPos, 75),
 };
 
+// Vec3i PositionFourthGroup[] = {
+//     { 105, 0, 10 },
+//     { 25, 0, 15 },
+// };
+
+// Formation FormationFourthGroup = {
+//     ACTOR_BY_POS(RedBanditKoopa, PositionFourthGroup[0], 10),
+//     ACTOR_BY_POS(PyroGuy, PositionFourthGroup[1], 9),
+// };
+
 EvtScript EVS_FourthPhaseTransition = {
     Call(CancelEnemyTurn, 1)
-    Call(EnableModel, MODEL_Tunnel, TRUE)
+    Call(EnableModel, MODEL_Tunnel, true)
+    Set(LFlag0, false)
     Set(LVarA, 0)
     Loop(0)
-        Add(LVarA, 10) // Increment LVarA by 10
+        Add(LVarA, 10)
         IfGt(LVarA, 2250)
-            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            Set(LVarA, 0)
             BreakLoop
         EndIf
         IfGt(LVarA, 1000)
-            Call(GetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, LVarB)
-            IfEq(LVarB, FALSE)
-                Call(EnableModel, MODEL_BarrelBlack, FALSE)
-                Call(EnableModel, MODEL_SnipingCrate, FALSE)
-                Call(EnableModel, MODEL_BombBox, TRUE)
-                Call(EnableModel, MODEL_BombPile, TRUE)
-                Call(EnableModel, MODEL_BarrelRed, TRUE)
-                Call(SummonEnemy, Ref(SpawnRedBandit), FALSE)
-                Call(SummonEnemy, Ref(SpawnPyroGuy), FALSE)
-                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
-                Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, TRUE)
+            IfFalse(LFlag0)
+                Thread
+                    Call(GetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, LVarB)
+                    IfEq(LVarB, false)
+                        Call(EnableModel, MODEL_BarrelBlack, false)
+                        Call(EnableModel, MODEL_SnipingCrate, false)
+                        Call(EnableModel, MODEL_BombBox, true)
+                        Call(EnableModel, MODEL_BombPile, true)
+                        Call(EnableModel, MODEL_BarrelRed, true)
+                        Call(SummonEnemy, Ref(SpawnRedBandit), false)
+                        Call(SummonEnemy, Ref(SpawnPyroGuy), false)
+                        // Call(SummonEnemy, Ref(FormationFourthGroup), false)
+                        Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, true)
+                        Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, true)
+                    EndIf
+                EndThread
             EndIf
+            Set(LFlag0, true)
         EndIf
         Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
         Wait(1)
     EndLoop
     Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
-    Call(EnableModel, MODEL_Tunnel, FALSE)
-    Call(EnableBattleStatusBar, TRUE)
+    Call(EnableModel, MODEL_Tunnel, false)
+    Call(EnableBattleStatusBar, true)
     Call(RemoveActor, ACTOR_SELF)
     Return
     End
@@ -342,16 +362,16 @@ EvtScript EVS_FourthPhaseTransition = {
 
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     ExecWait(EVS_Attack_SniperShot)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Attack_SniperShot = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetGoalToTarget, ACTOR_SELF)
@@ -377,13 +397,13 @@ EvtScript EVS_Attack_SniperShot = {
     // Wait(3)
     Call(SetPartPos, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2)
     Call(SetAnimation, ACTOR_SELF, PRT_PARABEETLE, ANIM_KoopaGang_Black_ParaBeetle)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, false)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Sub(LVar0, 35)
     Add(LVar1, 28)
     Add(LVar2, 5)
     Call(SetPartPos, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, false)
     Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 4, BS_FLAGS1_TRIGGER_EVENTS)
     Switch(LVar0)
         CaseEq(HIT_RESULT_MISS)
@@ -406,10 +426,10 @@ EvtScript EVS_Attack_SniperShot = {
             Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(6.0))
             Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.1))
             Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, true)
             // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_GeneralGuy_Anim02)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            Call(UseIdleAnimation, ACTOR_SELF, true)
             Return
     EndSwitch
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackIdle)
@@ -423,7 +443,7 @@ EvtScript EVS_Attack_SniperShot = {
     // Add(LVar1, 20)
     // PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
     // Call(PlaySoundAtPart, ACTOR_SELF, PRT_PARABEETLE, SOUND_BOMB_BLAST)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, true)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVarF, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgParaBeetleShot, BS_FLAGS1_TRIGGER_EVENTS)
@@ -433,7 +453,7 @@ EvtScript EVS_Attack_SniperShot = {
         EndCaseGroup
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -454,7 +474,7 @@ EvtScript EVS_HandlePhase = {
                 Call(SetBattleCamOffsetY, 15)
                 Call(MoveBattleCamOver, 20)
                 Wait(20)
-                Call(ActorSpeak, MSG_TrainHeist_BlackBattleStart, ACTOR_BLACK_BANDIT, PRT_MAIN, ANIM_KoopaGang_Black_Talk, ANIM_KoopaGang_Black_BlackIdle)
+                Call(ActorSpeak, MSG_TrainHeist_BlackBattleStart, ACTOR_BLACK_BANDIT, PRT_MAIN, ANIM_KoopaGang_Black_BlackTalk, ANIM_KoopaGang_Black_BlackIdle)
                 Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_RedPhase)
                 Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
                 Wait(20)

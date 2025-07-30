@@ -6,6 +6,7 @@
 #include "sprite/npc/ShyGuyRider.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
+#include "dx/debug_menu.h"
 
 namespace battle::actor {
 
@@ -98,8 +99,10 @@ EvtScript EVS_Init = {
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(HPBarToHome, ACTOR_SELF)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
+    // Call(GetOwnerID, LVar9)
+    // DebugPrintf("Dyanmite Crate Actor ID: (%d)\n", LVar9)
     Return
     End
 };
@@ -112,7 +115,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -160,14 +163,14 @@ EvtScript EVS_HandleEvent = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_CrateExplode = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar2, 2)
     PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2, 0)
@@ -181,9 +184,9 @@ EvtScript EVS_CrateExplode = {
     EndThread
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Crate_BreakDynamite)
     Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar4)
-    IfEq(LVar4, TRUE)
-        Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_1, FALSE)
-        Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_2, FALSE)
+    IfEq(LVar4, true)
+        Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_1, false)
+        Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_2, false)
         Call(SetAnimation, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ANIM_ShyGuyRider_Panic)
         Wait(15)
         Call(SetAnimation, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ANIM_ShyGuyRider_Panic)
@@ -195,7 +198,7 @@ EvtScript EVS_CrateExplode = {
         Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_1, 180)
         Call(EnableActorBlur, ACTOR_SHY_GUY_RIDER_1, ACTOR_BLUR_ENABLE)
         Call(SetActorSpeed, ACTOR_SHY_GUY_RIDER_1, Float(15.0))
-        Call(RunToGoal, ACTOR_SHY_GUY_RIDER_1, 0, FALSE)
+        Call(RunToGoal, ACTOR_SHY_GUY_RIDER_1, 0, false)
         Call(SetAnimation, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ANIM_ShyGuyRider_RunAway)
         Call(GetActorPos, ACTOR_SHY_GUY_RIDER_2, LVar0, LVar1, LVar2)
         Add(LVar0, 400)
@@ -203,13 +206,13 @@ EvtScript EVS_CrateExplode = {
         Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_2, 180)
         Call(EnableActorBlur, ACTOR_SHY_GUY_RIDER_2, ACTOR_BLUR_ENABLE)
         Call(SetActorSpeed, ACTOR_SHY_GUY_RIDER_2, Float(15.0))
-        Call(RunToGoal, ACTOR_SHY_GUY_RIDER_2, 0, FALSE)
+        Call(RunToGoal, ACTOR_SHY_GUY_RIDER_2, 0, false)
         Wait(10)
         Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
         Wait(5)
         Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
         Wait(5)
-        Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+        Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, false)
     EndIf
     Wait(30)
     // Call(RemoveActor, ACTOR_SELF)
@@ -221,10 +224,10 @@ EvtScript EVS_CrateExplode = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

@@ -8,6 +8,7 @@
 #include "sprite/npc/HammerBrosSMB3.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
+#include "dx/debug_menu.h"
 
 namespace battle::actor {
 
@@ -139,12 +140,14 @@ EvtScript EVS_Init = {
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(HPBarToHome, ACTOR_SELF)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
     Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_YellowPhase)
-    Call(SetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, false)
+    // Call(GetOwnerID, LVar9)
+    // DebugPrintf("Yellow Bandit Actor ID: (%d)\n", LVar9)
     Return
     End
 };
@@ -155,7 +158,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -193,21 +196,21 @@ EvtScript EVS_HandleEvent = {
             // EndIf
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Defeat = {
-    Call(EnableBattleStatusBar, FALSE)
+    Call(EnableBattleStatusBar, false)
     Call(ActorExists, ACTOR_GIANT_CHOMP, LVar2)
-    IfNe(LVar2, FALSE)
+    IfNe(LVar2, false)
         Call(GetActorHP, ACTOR_GIANT_CHOMP, LVar2)
         IfNe(LVar2, 0)
             Thread
                 Call(HideHealthBar, ACTOR_GIANT_CHOMP)
                 Call(EnableIdleScript, ACTOR_GIANT_CHOMP, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_GIANT_CHOMP, FALSE)
+                Call(UseIdleAnimation, ACTOR_GIANT_CHOMP, false)
                 Call(SetAnimation, ACTOR_GIANT_CHOMP, PRT_MAIN, ANIM_ChainChomp_Hurt)
                 Wait(10)
                 Set(LVar2, 0)
@@ -232,13 +235,13 @@ EvtScript EVS_Defeat = {
         EndIf
     EndIf
     Call(ActorExists, ACTOR_YELLOW_HAMMER_BRO, LVar2)
-    IfNe(LVar2, FALSE)
+    IfNe(LVar2, false)
         Call(GetActorHP, ACTOR_YELLOW_HAMMER_BRO, LVar2)
         IfNe(LVar2, 0)
             Thread
                 Call(HideHealthBar, ACTOR_YELLOW_HAMMER_BRO)
                 Call(EnableIdleScript, ACTOR_YELLOW_HAMMER_BRO, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_YELLOW_HAMMER_BRO, FALSE)
+                Call(UseIdleAnimation, ACTOR_YELLOW_HAMMER_BRO, false)
                 Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_0E)
                 Wait(10)
                 Set(LVar2, 0)
@@ -263,7 +266,7 @@ EvtScript EVS_Defeat = {
         EndIf
     EndIf
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, true)
     Wait(10)
     Call(SetAnimation, ACTOR_YELLOW_BANDIT, PRT_MAIN, THIS_ANIM_HURT)
     Call(GetActorPos, ACTOR_YELLOW_BANDIT, LVar0, LVar1, LVar2)
@@ -274,12 +277,12 @@ EvtScript EVS_Defeat = {
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
-        IfNe(LVar0, FALSE)
+        IfNe(LVar0, false)
             Wait(1)
             Goto(0)
         EndIf
         Call(ActorExists, ACTOR_YELLOW_HAMMER_BRO, LVar0)
-        IfNe(LVar0, FALSE)
+        IfNe(LVar0, false)
             Wait(1)
             Goto(0)
         EndIf
@@ -288,11 +291,11 @@ EvtScript EVS_Defeat = {
     End
 };
 
-// Vec3i N(BlackBanditSpawnPos) = { 115, 10, 20 };
+Vec3i BlackBanditSpawnPos = { 115, 10, 20 };
 
-// Formation N(SpawnBlackBandit) = {
-//     ACTOR_BY_POS(A(black_bandit_koopa), N(BlackBanditSpawnPos), 50),
-// };
+Formation SpawnBlackBandit = {
+    ACTOR_BY_POS(BlackBanditKoopa, BlackBanditSpawnPos, 50),
+};
 
 Vec3i CrateSpawnPos = { 15, 0, 20 };
 
@@ -300,64 +303,87 @@ Formation SpawnCrate = {
     ACTOR_BY_POS(Crate, CrateSpawnPos, 100),
 };
 
-Vec3i DyanmiteCrateSpawnPos = { 55, 0, 20 };
+Vec3i DyanmiteCrateSpawnPos = { 55, 0, 15 };
 
 Formation SpawnDyanmiteCrate = {
     ACTOR_BY_POS(DyanmiteCrate, DyanmiteCrateSpawnPos, 100),
 };
 
-// Vec3i ShyGuyRider1SpawnPos = { 45, -25, -50 };
+Vec3i ShyGuyRider1SpawnPos = { 45, -25, -50 };
 
-// Formation SpawnShyGuyRider1 = {
-//     ACTOR_BY_POS(A(shy_guy_rider), ShyGuyRider1SpawnPos, 75),
+Formation SpawnShyGuyRider1 = {
+    ACTOR_BY_POS(ShyGuyRider, ShyGuyRider1SpawnPos, 75),
+};
+
+Vec3i ShyGuyRider2SpawnPos = { -45, -25, -50 };
+
+Formation SpawnShyGuyRider2 = {
+    ACTOR_BY_POS(ShyGuyRider, ShyGuyRider2SpawnPos, 100),
+};
+
+// Vec3i PositionThirdGroup[] = {
+//     { 115, 10, 20 },
+//     { 15, 0, 20 },
+//     { 55, 0, 15 },
+//     { 45, -25, -50 },
+//     { 45, -25, -50 },
 // };
 
-// Vec3i ShyGuyRider2SpawnPos = { -25, -25, -50 };
-
-// Formation SpawnShyGuyRider2 = {
-//     ACTOR_BY_POS(A(shy_guy_rider), ShyGuyRider2SpawnPos, 100),
+// Formation FormationThirdGroup = {
+//     ACTOR_BY_POS(BlackBanditKoopa, PositionThirdGroup[0], 8),
+//     ACTOR_BY_POS(Crate, PositionThirdGroup[1], 10),
+//     ACTOR_BY_POS(DyanmiteCrate, PositionThirdGroup[2], 10),
+//     ACTOR_BY_POS(ShyGuyRider, PositionThirdGroup[3], 9),
+//     ACTOR_BY_POS(ShyGuyRider, PositionThirdGroup[4], 10),
 // };
 
 EvtScript EVS_ThirdPhaseTransition = {
     Call(CancelEnemyTurn, 1)
-    Call(EnableModel, MODEL_Tunnel, TRUE)
+    Call(EnableModel, MODEL_Tunnel, true)
+    Set(LFlag0, false)
     Set(LVarA, 0)
     Loop(0)
-        Add(LVarA, 10) // Increment LVarA by 10
+        Add(LVarA, 10)
         IfGt(LVarA, 2250)
-            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            Set(LVarA, 0)
             BreakLoop
         EndIf
         IfGt(LVarA, 1000)
-            Call(GetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, LVarB)
-            IfEq(LVarB, FALSE)
-                Call(EnableModel, MODEL_BarrelBlack, TRUE)
-                Call(EnableModel, MODEL_SnipingCrate, TRUE)
-                // Call(SummonEnemy, Ref(N(SpawnBlackBandit)), FALSE)
-                Call(SummonEnemy, Ref(SpawnCrate), FALSE)
-                Call(SummonEnemy, Ref(SpawnDyanmiteCrate), FALSE)
-                // Call(SummonEnemy, Ref(N(SpawnShyGuyRider1)), FALSE)
-                // Call(SummonEnemy, Ref(N(SpawnShyGuyRider2)), FALSE)
-                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
-                Call(SetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, TRUE)
+            IfFalse(LFlag0)
+                Thread
+                    Call(GetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, LVarB)
+                    IfEq(LVarB, false)
+                        Call(EnableModel, MODEL_BarrelBlack, true)
+                        Call(EnableModel, MODEL_SnipingCrate, true)
+                        Call(SummonEnemy, Ref(SpawnBlackBandit), false)
+                        Call(SummonEnemy, Ref(SpawnCrate), false)
+                        Call(SummonEnemy, Ref(SpawnDyanmiteCrate), false)
+                        Call(SummonEnemy, Ref(SpawnShyGuyRider1), false)
+                        Call(SummonEnemy, Ref(SpawnShyGuyRider2), false)
+                        // Call(SummonEnemy, Ref(FormationThirdGroup), false)
+                        Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, true)
+                        Call(SetActorVar, ACTOR_SELF, AVAR_YellowPhase_ActorsSpawned, true)
+                    EndIf
+                EndThread
             EndIf
+            Set(LFlag0, true)
         EndIf
         Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
         Wait(1)
     EndLoop
     Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
-    Call(EnableModel, MODEL_Tunnel, FALSE)
-    Call(EnableBattleStatusBar, TRUE)
+    Call(EnableModel, MODEL_Tunnel, false)
+    Call(EnableBattleStatusBar, true)
     Call(RemoveActor, ACTOR_SELF)
     Return
     End
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
         IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
             Call(GetActorAttackBoost, ACTOR_YELLOW_HAMMER_BRO, LVar3)
@@ -372,14 +398,14 @@ EvtScript EVS_TakeTurn = {
     Else
         ExecWait(EVS_Attack_ShellToss)
     EndIf
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
 
 EvtScript EVS_Move_Cheer = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseBattleCamPreset, BTL_CAM_ACTOR)
     Call(BattleCamTargetActor, ACTOR_SELF)
@@ -399,9 +425,9 @@ EvtScript EVS_Move_Cheer = {
         Call(PlaySoundAtActor, ACTOR_YELLOW_HAMMER_BRO, SOUND_MAGIKOOPA_POWER_UP)
     EndThread
     Thread
-        Call(FreezeBattleState, TRUE)
-        Call(BoostAttack, ACTOR_YELLOW_HAMMER_BRO, amtAttackBoost, FALSE)
-        Call(FreezeBattleState, FALSE)
+        Call(FreezeBattleState, true)
+        Call(BoostAttack, ACTOR_YELLOW_HAMMER_BRO, amtAttackBoost, false)
+        Call(FreezeBattleState, false)
     EndThread
     Call(WaitForBuffDone)
     Wait(5)
@@ -409,14 +435,14 @@ EvtScript EVS_Move_Cheer = {
     Wait(5)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     Call(YieldTurn)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
 
 EvtScript EVS_Attack_ShellToss = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
     Call(SetActorYaw, ACTOR_SELF, 0)
@@ -430,7 +456,7 @@ EvtScript EVS_Attack_ShellToss = {
     Set(LVar2, 15)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_RUN)
-    Call(RunToGoal, ACTOR_SELF, 10, FALSE)
+    Call(RunToGoal, ACTOR_SELF, 10, false)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_ENTER_SHELL)
     Wait(10)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_SPINUP)
@@ -466,7 +492,7 @@ EvtScript EVS_Attack_ShellToss = {
     Call(SetActorSpeed, ACTOR_SELF, Float(16.0))
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetGoalPos, ACTOR_SELF, -160, LVar1, LVar2)
-    Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+    Call(RunToGoal, ACTOR_SELF, 0, false)
     Call(ResetActorSounds, ACTOR_SELF, ACTOR_SOUND_WALK)
     Call(EnableActorBlur, ACTOR_SELF, ACTOR_BLUR_DISABLE)
     Thread
@@ -484,7 +510,7 @@ EvtScript EVS_Attack_ShellToss = {
     Set(LVar2, 15)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.5))
-    Call(JumpToGoal, ACTOR_SELF, 40, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 40, false, true, false)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SpawnSpinEffect, LVar0, LVar1, LVar2, 30)
     Wait(30)
@@ -501,8 +527,8 @@ EvtScript EVS_Attack_ShellToss = {
     Wait(30)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_RUN)
     Call(SetGoalToHome, ACTOR_SELF)
-    Call(RunToGoal, ACTOR_SELF, 10, FALSE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(RunToGoal, ACTOR_SELF, 10, false)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End

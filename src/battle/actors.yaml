@@ -2510,3 +2510,25 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 2, 0 ]
     shadowOffset: 0
+- StageGuy:
+    level: 0
+    nameMsg: MSG_EnemyName_AntiGuy
+    tattleMsg: MSG_EnemyTattle_AntiGuy
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_ACTOR_HURT
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- CalamityKammy:
+    level: 0
+    nameMsg: MSG_EnemyName_CalamityKammy
+    tattleMsg: MSG_EnemyTattle_CalamityKammy
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0

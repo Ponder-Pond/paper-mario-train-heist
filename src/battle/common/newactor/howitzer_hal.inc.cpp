@@ -119,17 +119,17 @@ EvtScript EVS_HandleEvent = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetActorVar, ACTOR_BRIGADER_BONES, AVAR_GreenPhase_BrigaderCommand, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
         ExecWait(EVS_Attack_FireBullet)
     Else
         Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DisableAnims))
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -165,7 +165,7 @@ EvtScript EVS_Attack_FireBullet = {
             // Sub(LVar0, 15)
             // Add(LVar1, 48)
             // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, false)
             // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -180,7 +180,7 @@ EvtScript EVS_Attack_FireBullet = {
             EndIf
             Call(YieldTurn)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            Call(UseIdleAnimation, ACTOR_SELF, true)
             Return
         EndCaseGroup
     EndSwitch
@@ -189,7 +189,7 @@ EvtScript EVS_Attack_FireBullet = {
     // Sub(LVar0, 15)
     // Add(LVar1, 48)
     // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, false)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -203,14 +203,14 @@ EvtScript EVS_Attack_FireBullet = {
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(SetPartPos, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2)
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

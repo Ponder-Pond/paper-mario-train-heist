@@ -177,8 +177,8 @@ EvtScript EVS_Init = {
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
-    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
-    Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, false)
+    Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, false)
     Return
     End
 };
@@ -205,7 +205,7 @@ EvtScript EVS_HandlePhase = {
     Label(1)
         Call(GetOwnerTarget, LVar0, LVar1)
         Call(GetActorVar, LVar0, AVAR_Collapsed, LVar3)
-        IfNe(LVar3, TRUE)
+        IfNe(LVar3, true)
             Return
         EndIf
         Call(ChooseNextTarget, ITER_NEXT, LVar0)
@@ -216,7 +216,7 @@ EvtScript EVS_HandlePhase = {
     Call(InitTargetIterator)
     Label(2)
         Call(GetOwnerTarget, LVar0, LVar1)
-        Call(SetActorFlagBits, LVar0, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_NO_DMG_APPLY, TRUE)
+        Call(SetActorFlagBits, LVar0, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_NO_DMG_APPLY, true)
         Call(ChooseNextTarget, ITER_NEXT, LVar0)
         IfNe(LVar0, ITER_NO_MORE)
             Goto(2)
@@ -256,12 +256,12 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_Collapse = {
-    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_COLLAPSE)
     Call(SetAnimation, ACTOR_SELF, PRT_HAL, ANIM_HowitzerHal_Disable)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_Death)
     Wait(20)
-    Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, TRUE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, true)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(DisableAnims))
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(CollapsedAnims))
     Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(CollapsedDefense))
@@ -289,7 +289,7 @@ EvtScript EVS_Collapse = {
     Label(1)
         Call(GetOwnerTarget, LVar0, LVar1)
         Call(GetActorVar, LVar0, AVAR_Collapsed, LVar3)
-        IfNe(LVar3, TRUE)
+        IfNe(LVar3, true)
             Return
         EndIf
         Call(ChooseNextTarget, ITER_NEXT, LVar0)
@@ -300,7 +300,7 @@ EvtScript EVS_Collapse = {
     Call(InitTargetIterator)
     Label(2)
         Call(GetOwnerTarget, LVar0, LVar1)
-        Call(SetActorFlagBits, LVar0, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_NO_DMG_APPLY, TRUE)
+        Call(SetActorFlagBits, LVar0, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_NO_DMG_APPLY, true)
         Call(ChooseNextTarget, ITER_NEXT, LVar0)
         IfNe(LVar0, ITER_NO_MORE)
             Goto(2)
@@ -310,7 +310,7 @@ EvtScript EVS_Collapse = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -340,7 +340,7 @@ EvtScript EVS_HandleEvent = {
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_IMMUNE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, FALSE)
+            IfEq(LVar0, false)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_Idle)
                 Exec(EVS_Enemy_NoDamageHit)
@@ -365,13 +365,13 @@ EvtScript EVS_HandleEvent = {
             SetConst(LVar1, ANIM_HowitzerHal_Hurt)
             ExecWait(EVS_Enemy_Hit)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, FALSE)
+            IfEq(LVar0, false)
                 Wait(10)
                 ExecWait(EVS_Collapse)
             EndIf
         CaseEq(EVENT_RECOVER_STATUS)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, FALSE)
+            IfEq(LVar0, false)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_Idle)
                 ExecWait(EVS_Enemy_Recover)
@@ -379,28 +379,28 @@ EvtScript EVS_HandleEvent = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     // DebugPrintf("Turn Taken")
     Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         Call(GetActorVar, ACTOR_SELF, AVAR_CollapseTurns, LVar0)
         Switch(LVar0)
             CaseEq(AVAL_CollapseTurnTwo)
-                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, false)
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
                 Wait(10)
                 Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnOne)
                 // DebugPrintf("2 Turns Remaining...")
             CaseEq(AVAL_CollapseTurnOne)
-                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, false)
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
                 Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(4.0))
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
@@ -441,11 +441,11 @@ EvtScript EVS_TakeTurn = {
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_ARISE)
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_Revive)
                 Wait(20)
-                Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, FALSE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, false)
                 Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
                 Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(DefenseTable))
                 Call(SetStatusTable, ACTOR_SELF, Ref(StatusTable))
-                Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_DAMAGE_IMMUNE, FALSE)
+                Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_DAMAGE_IMMUNE, false)
                 Call(SetTargetOffset, ACTOR_SELF, PRT_MAIN, -8, 30)
                 Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_MAIN, -1, -10)
                 ExecWait(EVS_Move_Command)
@@ -454,34 +454,34 @@ EvtScript EVS_TakeTurn = {
         ExecWait(EVS_Move_Command)
     EndIf
     Call(GetActorVar, ACTOR_BRIGADER_BONES, AVAR_GreenPhase_BrigaderCommand, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(HalAnims))
         ExecWait(EVS_Attack_FireBullet)
     Else
         Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(DisableAnims))
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_Command = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_CommandStart)
     Wait(5)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_CommandEnd)
     Wait(15)
-    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, TRUE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Attack_FireBullet = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetGoalToTarget, ACTOR_SELF)
@@ -514,7 +514,7 @@ EvtScript EVS_Attack_FireBullet = {
             // Sub(LVar0, 15)
             // Add(LVar1, 48)
             // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, false)
             // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -529,7 +529,7 @@ EvtScript EVS_Attack_FireBullet = {
             EndIf
             Call(YieldTurn)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            Call(UseIdleAnimation, ACTOR_SELF, true)
             Return
         EndCaseGroup
     EndSwitch
@@ -538,7 +538,7 @@ EvtScript EVS_Attack_FireBullet = {
     // Sub(LVar0, 15)
     // Add(LVar1, 48)
     // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, false)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
@@ -553,14 +553,14 @@ EvtScript EVS_Attack_FireBullet = {
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(SetPartPos, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2)
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

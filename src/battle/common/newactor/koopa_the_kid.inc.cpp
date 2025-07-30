@@ -36,10 +36,6 @@ enum ActorPartIDs {
     PRT_STEELY      = 2,
 };
 
-enum ActorVars {
-    AVAR_TurnCount       = 0,
-};
-
 // Actor Stats
 constexpr s32 hp = 30;
 constexpr s32 dmgKoopaGangSpit = 1;
@@ -149,11 +145,11 @@ ActorPartBlueprint ActorParts[] = {
 #include "common/StartRumbleWithParams.inc.c"
 
 EvtScript EVS_Init = {
-    Call(SetActorVar, ACTOR_SELF, AVAR_TurnCount, 0)
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
+    Call(SetActorVar, ACTOR_SELF, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     ExecWait(EVS_TestPhase)
     Return
     End
@@ -163,14 +159,14 @@ EvtScript EVS_TestPhase = {
     // Call(GetOwnerID, LVar9)
     // DebugPrintf("Koopa Kid Actor ID: (%d)\n", LVar9)
     // Wait(30)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
 
-    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
-    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    // Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, false)
+    // Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
 
-    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    // Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
+    // Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
     Return
     End
 };
@@ -196,16 +192,16 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandlePhase = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -256,7 +252,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_Recover)
         CaseDefault
     EndSwitch
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
@@ -264,7 +260,7 @@ EvtScript EVS_HandleEvent = {
 
 EvtScript EVS_BasicHit = {
     ExecWait(EVS_Hit)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
@@ -279,16 +275,16 @@ EvtScript EVS_Hit = {
 
 EvtScript EVS_Death = {
     Call(HideHealthBar, ACTOR_SELF)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(ActorExists, ACTOR_KOOPA_GANG, LVar2)
-    IfNe(LVar2, FALSE)
+    IfNe(LVar2, false)
         Call(GetActorHP, ACTOR_KOOPA_GANG, LVar2)
         IfNe(LVar2, 0)
             Thread
                 Call(HideHealthBar, ACTOR_KOOPA_GANG)
                 Call(EnableIdleScript, ACTOR_KOOPA_GANG, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_KOOPA_GANG, FALSE)
+                Call(UseIdleAnimation, ACTOR_KOOPA_GANG, false)
                 // Call(SetAnimation, ACTOR_KOOPA_GANG, PRT_MAIN, ANIM_ChainChomp_Hurt)
                 Wait(10)
                 Set(LVar2, 0)
@@ -312,59 +308,59 @@ EvtScript EVS_Death = {
             EndThread
         EndIf
     EndIf
-    Call(ActorExists, ACTOR_GREEN_HAMMER_BRO, LVar2)
-    IfNe(LVar2, FALSE)
-        Call(GetActorHP, ACTOR_GREEN_HAMMER_BRO, LVar2)
-        IfNe(LVar2, 0)
-            Thread
-                Call(HideHealthBar, ACTOR_GREEN_HAMMER_BRO)
-                Call(EnableIdleScript, ACTOR_GREEN_HAMMER_BRO, IDLE_SCRIPT_DISABLE)
-                Call(UseIdleAnimation, ACTOR_GREEN_HAMMER_BRO, FALSE)
-                Call(SetAnimation, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_0E)
-                Wait(10)
-                Set(LVar2, 0)
-                Loop(24)
-                    Call(SetActorYaw, ACTOR_GREEN_HAMMER_BRO, LVar2)
-                    Add(LVar2, 30)
-                    Wait(1)
-                EndLoop
-                Call(SetActorYaw, ACTOR_GREEN_HAMMER_BRO, 0)
-                Call(GetActorPos, ACTOR_GREEN_HAMMER_BRO, LVar0, LVar1, LVar2)
-                Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
-                Call(PlaySoundAtActor, ACTOR_GREEN_HAMMER_BRO, SOUND_ACTOR_DEATH)
-                Set(LVar3, 0)
-                Loop(12)
-                    Call(SetActorRotation, ACTOR_GREEN_HAMMER_BRO, LVar3, 0, 0)
-                    Add(LVar3, 8)
-                    Wait(1)
-                EndLoop
-                Call(RemoveActor, ACTOR_GREEN_HAMMER_BRO)
-            EndThread
-        EndIf
-    EndIf
+    // Call(ActorExists, ACTOR_GREEN_HAMMER_BRO, LVar2)
+    // IfNe(LVar2, false)
+    //     Call(GetActorHP, ACTOR_GREEN_HAMMER_BRO, LVar2)
+    //     IfNe(LVar2, 0)
+    //         Thread
+    //             Call(HideHealthBar, ACTOR_GREEN_HAMMER_BRO)
+    //             Call(EnableIdleScript, ACTOR_GREEN_HAMMER_BRO, IDLE_SCRIPT_DISABLE)
+    //             Call(UseIdleAnimation, ACTOR_GREEN_HAMMER_BRO, false)
+    //             Call(SetAnimation, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_0E)
+    //             Wait(10)
+    //             Set(LVar2, 0)
+    //             Loop(24)
+    //                 Call(SetActorYaw, ACTOR_GREEN_HAMMER_BRO, LVar2)
+    //                 Add(LVar2, 30)
+    //                 Wait(1)
+    //             EndLoop
+    //             Call(SetActorYaw, ACTOR_GREEN_HAMMER_BRO, 0)
+    //             Call(GetActorPos, ACTOR_GREEN_HAMMER_BRO, LVar0, LVar1, LVar2)
+    //             Add(LVar1, 10)
+    //             PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+    //             Call(PlaySoundAtActor, ACTOR_GREEN_HAMMER_BRO, SOUND_ACTOR_DEATH)
+    //             Set(LVar3, 0)
+    //             Loop(12)
+    //                 Call(SetActorRotation, ACTOR_GREEN_HAMMER_BRO, LVar3, 0, 0)
+    //                 Add(LVar3, 8)
+    //                 Wait(1)
+    //             EndLoop
+    //             Call(RemoveActor, ACTOR_GREEN_HAMMER_BRO)
+    //         EndThread
+    //     EndIf
+    // EndIf
     // ExecWait(EVS_Enemy_DeathWithoutRemove)
     Label(0)
         Call(ActorExists, ACTOR_KOOPA_GANG, LVar0)
-        IfNe(LVar0, FALSE)
+        IfNe(LVar0, false)
             Wait(1)
             Goto(0)
         EndIf
-        Call(ActorExists, ACTOR_GREEN_HAMMER_BRO, LVar0)
-        IfNe(LVar0, FALSE)
-            Wait(1)
-            Goto(0)
-        EndIf
+        // Call(ActorExists, ACTOR_GREEN_HAMMER_BRO, LVar0)
+        // IfNe(LVar0, false)
+        //     Wait(1)
+        //     Goto(0)
+        // EndIf
     Set(LVar2, EXEC_DEATH_NO_SPINNING)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_ACTOR_DEATH)
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, true)
     Wait(30)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     // Call(RemoveActor, ACTOR_SELF)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_DMG_APPLY, TRUE)
-    Call(SetBattleFlagBits, BS_FLAGS1_DISABLE_CELEBRATION | BS_FLAGS1_BATTLE_FLED, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_DMG_APPLY, true)
+    Call(SetBattleFlagBits, BS_FLAGS1_DISABLE_CELEBRATION | BS_FLAGS1_BATTLE_FLED, true)
     Call(SetEndBattleFadeOutRate, 20)
     Return
     End
@@ -374,7 +370,7 @@ EvtScript EVS_BurnHit = {
     Call(GetLastEvent, ACTOR_SELF, LVar3)
     IfEq(LVar3, 36)
         Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 1)
-        Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_ENCHANTED, FALSE)
+        Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_ENCHANTED, false)
     EndIf
     Call(SetAnimation, ACTOR_SELF, LVar0, LVar1)
     Call(GetDamageSource, LVar3)
@@ -390,7 +386,7 @@ EvtScript EVS_BurnHit = {
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.01))
                     Add(LVar5, 55)
                     Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                    Call(JumpToGoal, ACTOR_SELF, 8, FALSE, FALSE, FALSE)
+                    Call(JumpToGoal, ACTOR_SELF, 8, false, false, false)
             EndSwitch
             Set(LVar7, 0)
             Loop(30)
@@ -409,18 +405,18 @@ EvtScript EVS_BurnHit = {
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.8))
                     IfEq(LVar5, 0)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 15, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 15, false, true, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 5, false, true, false)
                     Else
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 15, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 15, false, false, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 10, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 10, false, false, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 5, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 5, false, false, false)
                     EndIf
             EndSwitch
         CaseDefault
@@ -483,7 +479,7 @@ EvtScript EVS_ReturnHome = {
     Call(GetDist2D, LVar9, LVarA, LVarC, LVarD, LVarF)
     IfGe(LVar9, Float(5.0))
         Call(SetAnimation, ACTOR_SELF, LVar0, LVar1)
-        Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+        Call(RunToGoal, ACTOR_SELF, 0, false)
     EndIf
     IfEq(LVarB, 180)
         Loop(15)
@@ -498,161 +494,140 @@ EvtScript EVS_ReturnHome = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     ExecWait(EVS_TakeTurn_Inner)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
 
 EvtScript EVS_TakeTurn_Inner = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(AddActorVar, ACTOR_SELF, AVAR_TurnCount, 1)
     ExecWait(EVS_UseAttack)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
 
-#define LBL_JUMP_ATTACK 0
-#define LBL_FIRE_BALL_ATTACK 1
-#define LBL_ENDTURN 2
+// #define LBL_JUMP_ATTACK 0
+// #define LBL_FIRE_BALL_ATTACK 1
+#define LBL_ENDTURN 0
 EvtScript EVS_UseAttack = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetActorVar, ACTOR_SELF, AVAR_BowserPhase_KoopaGangSpitAttack, LVar0)
-    IfEq(LVar0, TRUE)
+    IfEq(LVar0, true)
         ExecWait(EVS_Attack_KoopaGangSpit)
         Goto(LBL_ENDTURN)
     Else
         ExecWait(EVS_Attack_SteelyDrop)
         Goto(LBL_ENDTURN)
     EndIf
-    // Call(RandInt, 100, LVar1)
-    // Switch(LVar1)
-    //     CaseLt(50)
-    //         Set(LVar0, LBL_JUMP_ATTACK)
-    //     CaseDefault
-    //         Set(LVar0, LBL_FIRE_BALL_ATTACK)
-    // EndSwitch
-    // // Set(LVar0, LBL_FIRE_BALL_ATTACK)
-    // // IfEq(LVar0, LBL_JUMP_ATTACK)
-    // //     DebugPrintf("Attack: %s\n", "Jump")
-    // // Else
-    // //     DebugPrintf("Attack: %s\n", "Fire Ball")
-    // // EndIf
-    // Switch(LVar0)
-    //     CaseEq(LBL_JUMP_ATTACK)
-    //         ExecWait(EVS_Attack_KoopaGangSpit)
-    //     CaseEq(LBL_FIRE_BALL_ATTACK)
-    //         ExecWait(EVS_Attack_SteelyDrop)
-    // EndSwitch
     Label(LBL_ENDTURN)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
+#undef LBL_ENDTURN
 
 EvtScript EVS_Attack_KoopaGangSpit = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(SetTargetActor, ACTOR_ENEMY1, ACTOR_PLAYER)
-    Call(SetGoalToTarget, ACTOR_ENEMY1)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Hide)
-    Wait(30)
-    Call(ActorExists, ACTOR_ENEMY1, LVar3)
-    IfEq(LVar3, TRUE)
-        Call(UseIdleAnimation, ACTOR_ENEMY1, FALSE)
-        Call(EnableIdleScript, ACTOR_ENEMY1, IDLE_SCRIPT_DISABLE)
-        Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-        Add(LVar0, 65)
-        Add(LVar1, 60)
-        Sub(LVar2, 2)
-        Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-        Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
-        // Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(1.6))
-        Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(2.0))
-        Call(JumpToGoal, ACTOR_ENEMY1, 10, FALSE, TRUE, FALSE)
-    EndIf
-    Wait(10)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Close)
-    Wait(5)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SuckUp)
-    Wait(20)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Shake)
-    Wait(20)
-    Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_IGNORE_DEFENSE, 0, 0, BS_FLAGS1_INCLUDE_POWER_UPS)
-    Switch(LVar0)
-        CaseEq(HIT_RESULT_LUCKY)
-            Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Sub(LVar0, 15)
-            Add(LVar2, 2)
-            Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
-            Call(SetGoalToTarget, ACTOR_ENEMY1)
-            Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
-            Add(LVar0, -5)
-            Add(LVar1, 20)
-            // Add(LVar2, 0)
-            Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(0.01))
-            Call(SetActorSpeed, ACTOR_ENEMY1, Float(12.0))
-            Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
-            Call(FlyToGoal, ACTOR_ENEMY1, 0, 0, EASING_COS_IN_OUT)
-            Wait(2)
-            Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
-            Return
-        CaseEq(HIT_RESULT_MISS)
-    EndSwitch
-    Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-    Sub(LVar0, 15)
-    Add(LVar2, 2)
-    Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
-    Call(SetGoalToTarget, ACTOR_ENEMY1)
-    Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
-    Add(LVar1, 25)
-    // Add(LVar2, 0)
-    Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-    Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(0.01))
-    Call(SetActorSpeed, ACTOR_ENEMY1, Float(12.0))
-    Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
-    Call(FlyToGoal, ACTOR_ENEMY1, 0, 0, EASING_COS_IN_OUT)
-    Wait(2)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, SUPPRESS_EVENT_ALL, 0, dmgKoopaGangSpit, BS_FLAGS1_TRIGGER_EVENTS)
-    Switch(LVar0)
-        CaseOrEq(HIT_RESULT_HIT)
-        CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetGoalToHome, ACTOR_ENEMY1)
-            Call(GetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(2.0))
-            Call(JumpToGoal, ACTOR_ENEMY1, 10, FALSE, TRUE, FALSE)
-            Wait(10)
-            Call(YieldTurn)
-        EndCaseGroup
-    EndSwitch
+    Wait(24)
+    // Call(ActorExists, ACTOR_ENEMY1, LVar3)
+    // IfEq(LVar3, true)
+    //     Call(UseIdleAnimation, ACTOR_ENEMY1, false)
+    //     Call(EnableIdleScript, ACTOR_ENEMY1, IDLE_SCRIPT_DISABLE)
+    //     Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //     Add(LVar0, 65)
+    //     Add(LVar1, 60)
+    //     Sub(LVar2, 2)
+    //     Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //     Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
+    //     // Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(1.6))
+    //     Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(2.0))
+    //     Call(JumpToGoal, ACTOR_ENEMY1, 10, false, true, false)
+    // EndIf
+    // Wait(10)
+    // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Close)
+    // Wait(5)
+    // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SuckUp)
+    // Wait(20)
+    // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Shake)
+    // Wait(20)
+    // Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_IGNORE_DEFENSE, 0, 0, BS_FLAGS1_INCLUDE_POWER_UPS)
+    // Switch(LVar0)
+    //     CaseEq(HIT_RESULT_LUCKY)
+    //         Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Sub(LVar0, 15)
+    //         Add(LVar2, 2)
+    //         Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
+    //         Call(SetGoalToTarget, ACTOR_ENEMY1)
+    //         Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+    //         Add(LVar0, -5)
+    //         Add(LVar1, 20)
+    //         // Add(LVar2, 0)
+    //         Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(0.01))
+    //         Call(SetActorSpeed, ACTOR_ENEMY1, Float(12.0))
+    //         Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
+    //         Call(FlyToGoal, ACTOR_ENEMY1, 0, 0, EASING_COS_IN_OUT)
+    //         Wait(2)
+    //         Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+    //         Return
+    //     CaseEq(HIT_RESULT_MISS)
+    // EndSwitch
+    // Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    // Sub(LVar0, 15)
+    // Add(LVar2, 2)
+    // Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
+    // Call(SetGoalToTarget, ACTOR_ENEMY1)
+    // Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+    // Add(LVar1, 25)
+    // // Add(LVar2, 0)
+    // Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    // Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(0.01))
+    // Call(SetActorSpeed, ACTOR_ENEMY1, Float(12.0))
+    // Call(SetAnimation, ACTOR_ENEMY1, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
+    // Call(FlyToGoal, ACTOR_ENEMY1, 0, 0, EASING_COS_IN_OUT)
+    // Wait(2)
+    // Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, SUPPRESS_EVENT_ALL, 0, dmgKoopaGangSpit, BS_FLAGS1_TRIGGER_EVENTS)
+    // Switch(LVar0)
+    //     CaseOrEq(HIT_RESULT_HIT)
+    //     CaseOrEq(HIT_RESULT_NO_DAMAGE)
+    //         Call(GetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Call(SetGoalToHome, ACTOR_ENEMY1)
+    //         Call(GetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Call(SetGoalPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
+    //         Call(SetActorJumpGravity, ACTOR_ENEMY1, Float(2.0))
+    //         Call(JumpToGoal, ACTOR_ENEMY1, 10, false, true, false)
+    //         Wait(10)
+    //         Call(YieldTurn)
+    //     EndCaseGroup
+    // EndSwitch
     // Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     // Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_LAUNCH_SHELL)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };
 
 EvtScript EVS_Attack_SteelyDrop = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Hide)
-    Wait(20)
+    Wait(24)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_ClownCarStill)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Sub(LVar0, 6)
@@ -677,7 +652,7 @@ EvtScript EVS_Attack_SteelyDrop = {
     Set(LVar2, 25)
     Call(SetPartJumpGravity, ACTOR_SELF, PRT_STEELY, Float(2.0))
     Call(SetPartMoveSpeed, ACTOR_SELF, PRT_STEELY, Float(4.0))
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, false)
     Call(SetAnimation, ACTOR_SELF, PRT_STEELY, ANIM_KoopaTheKid_BigSteely)
     Set(LVar1, 0)
     Set(LVar2, 25)
@@ -687,13 +662,13 @@ EvtScript EVS_Attack_SteelyDrop = {
     EndThread
     Sub(LVar0, 30)
     Set(LVar2, 25)
-    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 10, TRUE)
+    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 10, true)
     Thread
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.5))
     EndThread
     Sub(LVar0, 30)
     Set(LVar2, 25)
-    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 8, TRUE)
+    Call(JumpPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, 8, true)
     Thread
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.0))
     EndThread
@@ -705,7 +680,7 @@ EvtScript EVS_Attack_SteelyDrop = {
     Add(LVar0, 40)
     Set(LVar2, 25)
     Call(SetPartMoveSpeed, ACTOR_SELF, PRT_STEELY, Float(4.0))
-    Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
+    Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, false)
     Call(SetGoalToTarget, ACTOR_SELF)
     Wait(2)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, SUPPRESS_EVENT_ALL, 0, dmgSteelyDrop, BS_FLAGS1_TRIGGER_EVENTS)
@@ -715,7 +690,7 @@ EvtScript EVS_Attack_SteelyDrop = {
     Set(LVar2, 25)
     Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
+    Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, false)
     Call(SetGoalToTarget, ACTOR_SELF)
     Wait(2)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, SUPPRESS_EVENT_ALL, 0, dmgSteelyDrop, BS_FLAGS1_TRIGGER_EVENTS)
@@ -727,8 +702,8 @@ EvtScript EVS_Attack_SteelyDrop = {
             Set(LVar2, 25)
             Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, FALSE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(RunPartTo, ACTOR_SELF, PRT_STEELY, LVar0, LVar1, LVar2, false)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_STEELY, ACTOR_PART_FLAG_INVISIBLE, true)
             Wait(10)
             Call(GetActorRotation, ACTOR_SELF, LVar3, LVar4, LVar5)
             Call(MakeLerp, 180, 0, 15, EASING_COS_FAST_OVERSHOOT)
@@ -748,7 +723,7 @@ EvtScript EVS_Attack_SteelyDrop = {
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
@@ -757,7 +732,7 @@ EvtScript EVS_Attack_SteelyDrop = {
 }; // namespace koopa_the_kid
 
 ActorBlueprint KoopaTheKid = {
-    .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_ATTACK,
+    .flags = ACTOR_FLAG_FLYING,
     .maxHP = koopa_the_kid::hp,
     .type = ACTOR_TYPE_KOOPA_THE_KID,
     .level = ACTOR_LEVEL_KOOPA_THE_KID,

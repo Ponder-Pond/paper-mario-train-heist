@@ -7,24 +7,25 @@ enum BossCommon {
     ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
     ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,
     ACTOR_BRIGADER_BONES                = ACTOR_ENEMY2,
-    ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY0,
-    ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY1,
-    ACTOR_YELLOW_HAMMER_BRO             = ACTOR_ENEMY2,
+    ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY1,
+    ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY2,
+    ACTOR_YELLOW_HAMMER_BRO             = ACTOR_ENEMY3,
     ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY0,
-    ACTOR_CRATE                         = ACTOR_ENEMY1,
-    ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY2,
-    ACTOR_SHY_GUY_RIDER_1               = ACTOR_ENEMY3,
-    ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY4,
-    ACTOR_RED_BANDIT                    = ACTOR_ENEMY0,
-    ACTOR_PYRO_GUY                      = ACTOR_ENEMY1,
-    ACTOR_BOB_OMB                       = ACTOR_ENEMY2,
-    ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
-    ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
+    ACTOR_CRATE                         = ACTOR_ENEMY2,
+    ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY3,
+    ACTOR_SHY_GUY_RIDER_1               = ACTOR_ENEMY4,
+    ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY5,
+    ACTOR_RED_BANDIT                    = ACTOR_ENEMY1,
+    ACTOR_PYRO_GUY                      = ACTOR_ENEMY2,
+    ACTOR_BOB_OMB                       = ACTOR_ENEMY0,
+    ACTOR_KOOPA_THE_KID                = ACTOR_ENEMY0,
+    ACTOR_KOOPA_GANG                    = ACTOR_ENEMY6,
     GREEN_ACTOR                         = ACTOR_ENEMY2,
     YELLOW_ACTOR                        = ACTOR_ENEMY3,
     BLACK_ACTOR                         = ACTOR_ENEMY4,
     RED_ACTOR                           = ACTOR_ENEMY5,
-    ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY6,
+    ACTOR_STAGE_GUY                     = ACTOR_ENEMY7,
+    // ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY6, // Unused in Train Heist
 
     // // Green Phase Actors
     // ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
@@ -45,7 +46,7 @@ enum BossCommon {
     // ACTOR_PYRO_GUY                      = ACTOR_ENEMY1,
     // ACTOR_BOB_OMB                       = ACTOR_ENEMY2,
     // // Bowser Phase Actors
-    // ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
+    // ACTOR_KOOPA_THE_KID                = ACTOR_ENEMY0,
     // ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
     // ACTOR_GREEN_HAMMER_BRO              = ACTOR_ENEMY2,
 
@@ -56,6 +57,7 @@ enum BossCommon {
     AVAL_Scene_BlackPhase               = 2,
     AVAL_Scene_RedPhase                 = 3,
     AVAL_Scene_BowserPhase              = 4,
+    AVAL_Scene_Defeat                   = 5,
 
     // Phase Actor Vars
     AVAR_Phase                          = 1,
@@ -91,6 +93,7 @@ enum BossCommon {
     AVAR_RedPhase_SummonedBobomb        = 4,
     AVAR_RedPhase_BobOmbIgnited         = 5,
     AVAR_RedPhase_ActorsSpawned         = 6,
+    AVAR_RedPhase_RedDefeated           = 7,
 
     // Bowser Phase Actor Vars
     AVAR_BowserPhase_KoopaGangSpitAttack = 2,

@@ -561,3 +561,7 @@
 #message:29:(EnemyName_KoopaGang) {
 	Koopa Gang[End]
 }
+
+#message:29:(EnemyName_CalamityKammy) {
+	Calamity Kammy[End]
+}

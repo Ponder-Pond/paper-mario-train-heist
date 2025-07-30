@@ -381,25 +381,24 @@
 		</Animation>
 		<Animation name="ThumbsUp">
 			<Component name="Body" xyz="-4,0,0">
-				<Label name="Start"/>
 				<SetRaster index="2B"/>
 				<Wait duration="4"/>
 				<SetRaster index="2C"/>
 				<Wait duration="6"/>
+				<Label name="End"/>
 				<SetRaster index="2D"/>
 				<Wait duration="2"/>
-				<Goto dest="Start"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="PointForward">
 			<Component name="Body" xyz="-4,0,0">
-				<Label name="Start"/>
 				<SetRaster index="2A"/>
 				<Wait duration="4"/>
-				<Label name="Pos_2"/>
+				<Label name="End"/>
 				<SetRaster index="29"/>
 				<Wait duration="2"/>
-				<Goto dest="Pos_2"/>
+				<Goto dest="End"/>
 			</Component>
 		</Animation>
 		<Animation name="EnterShell">

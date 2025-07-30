@@ -228,475 +228,13 @@ EvtScript EVS_Init = {
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
     Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_GreenPhase)
     Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, false)
-
     Exec(EVS_ManageFirstPhase)
     Return
     End
 };
 
 EvtScript EVS_ManageFirstPhase = {
-    Call(GetActorVar, ACTOR_SELF, AVAR_Phase, LVar0)
-    Set(LVar0, AVAL_GreenPhase)
-    Switch(LVar0)
-        CaseEq(AVAL_IntroPhase)
-        CaseEq(AVAL_GreenPhase)
-            //* Models
-            Call(EnableModel, MODEL_BombBox, true)
-
-            // // YELLOWANCHOR  Yellow Phase Actors
-            // Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE,  true)
-            // Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_YELLOW_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // // BLACKANCHOR Black Phase Actors
-            // Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // // REDANCHOR Red Phase Actors
-            // Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_INVISIBLE, true)
-            // Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // // ORANGEANCHOR Bowser Phase Actors
-            // Call(SetActorPos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_BOWSER_THE_KID)
-            // Call(SetActorPos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            // Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_KOOPA_GANG)
-            // Call(SetActorPos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_GREEN_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-        CaseEq(AVAL_YellowPhase)
-            //* Models
-            Call(EnableModel, MODEL_SnipingCrate, true)
-            Call(EnableModel, MODEL_BarrelBlack, true)
-
-            // GREENANCHOR Green Phase Actors
-            Call(SetActorPos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_GREEN_BANDIT)
-
-            Call(SetActorPos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BUZZY_BEETLE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_BUZZY_BEETLE)
-
-            Call(SetActorPos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BRIGADER_BONES, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartPos, ACTOR_BRIGADER_BONES, 2, NPC_DISPOSE_LOCATION)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, 2, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_BRIGADER_BONES)
-
-            // YELLOWANCHOR Yellow Phase Actors
-            Call(SetActorPos, ACTOR_YELLOW_BANDIT, 105, 0, 20)
-            Call(ForceHomePos, ACTOR_YELLOW_BANDIT, 105, 0, 20)
-            Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_YELLOW_BANDIT)
-
-            Call(SetActorPos, ACTOR_GIANT_CHOMP, 25, 0, 20)
-            Call(ForceHomePos, ACTOR_GIANT_CHOMP, 25, 0, 20)
-            Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, false)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET, false)
-            // Call(RemoveActor, ACTOR_GIANT_CHOMP)
-
-            Call(SetActorPos, ACTOR_YELLOW_HAMMER_BRO, 145, 0, 20)
-            Call(ForceHomePos, ACTOR_YELLOW_HAMMER_BRO, 145, 0, 20)
-            Call(SetActorFlagBits, ACTOR_YELLOW_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_YELLOW_HAMMER_BRO)
-
-            // BLACKANCHOR Black Phase Actors
-            Call(SetActorPos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_BLACK_BANDIT)
-
-            Call(SetActorPos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_CRATE)
-
-            Call(SetActorPos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_DYANMITE_CRATE)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1,  NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
-
-            // REDANCHOR Red Phase Actors
-            Call(SetActorPos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_RED_BANDIT)
-
-            Call(SetActorPos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
-            Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
-            // Call(RemoveActor, ACTOR_PYRO_GUY)
-
-            // ORANGEANCHOR Bowser Phase Actors
-            // Call(SetActorPos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_BOWSER_THE_KID)
-            // Call(SetActorPos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            // Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_KOOPA_GANG)
-            // Call(SetActorPos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_GREEN_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-        CaseEq(AVAL_BlackPhase)
-            // Models
-            Call(EnableModel, MODEL_SnipingCrate, true)
-            Call(EnableModel, MODEL_BarrelBlack, true)
-
-            // GREENANCHOR Green Phase Actors
-            Call(SetActorPos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_GREEN_BANDIT)
-
-            Call(SetActorPos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BUZZY_BEETLE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_BUZZY_BEETLE)
-
-            Call(SetActorPos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BRIGADER_BONES, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartPos, ACTOR_BRIGADER_BONES, 2, NPC_DISPOSE_LOCATION)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, 2, ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_BRIGADER_BONES)
-
-            // YELLOWANCHOR Yellow Phase Actors
-            Call(SetActorPos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_YELLOW_BANDIT)
-
-            Call(SetActorPos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_GIANT_CHOMP)
-
-            Call(SetActorPos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_YELLOW_HAMMER_BRO)
-
-            // BLACKANCHOR Black Phase Actors
-            Call(SetActorPos, ACTOR_BLACK_BANDIT, 115, 10, 20)
-            Call(ForceHomePos, ACTOR_BLACK_BANDIT, 115, 10, 20)
-            Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_BLACK_BANDIT)
-
-            Call(SetActorPos, ACTOR_CRATE, 15, 0, 20)
-            Call(ForceHomePos, ACTOR_CRATE, 15, 0, 20)
-            Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, false)
-            Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_CRATE)
-
-            Call(SetActorPos, ACTOR_DYANMITE_CRATE, 55, 0, 20)
-            Call(ForceHomePos, ACTOR_DYANMITE_CRATE, 55, 0, 20)
-            Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, false)
-            Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_DYANMITE_CRATE)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, 45, -25, -50)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, 45, -25, -50)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, -25, -25, -50)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, -25, -25, -50)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
-
-            // REDANCHOR Red Phase Actors
-            Call(SetActorPos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // Call(RemoveActor, ACTOR_RED_BANDIT)
-
-            Call(SetActorPos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
-            Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, true)
-            // Call(RemoveActor, ACTOR_PYRO_GUY)
-
-            // ORANGEANCHOR Bowser Phase Actors
-            // Call(SetActorPos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_BOWSER_THE_KID)
-            // Call(SetActorPos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            // Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_KOOPA_GANG)
-            // Call(SetActorPos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_GREEN_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-        CaseEq(AVAL_RedPhase)
-            //* Models
-            Call(EnableModel, MODEL_BombBox, true)
-            Call(EnableModel, MODEL_BombPile, true)
-            Call(EnableModel, MODEL_BarrelRed, true)
-
-            // GREENANCHOR Green Phase Actors
-            Call(SetActorPos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BUZZY_BEETLE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BRIGADER_BONES, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartPos, ACTOR_BRIGADER_BONES, 2, NPC_DISPOSE_LOCATION)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, 2, ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // YELLOWANCHOR Yellow Phase Actors
-            Call(SetActorPos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // BLACKANCHOR Black Phase Actors
-            Call(SetActorPos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-
-            // REDANCHOR Red Phase Actors
-            Call(SetActorPos, ACTOR_RED_BANDIT, 115, 25, 20)
-            Call(ForceHomePos, ACTOR_RED_BANDIT, 115, 25, 20)
-            Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
-
-            Call(SetActorPos, ACTOR_PYRO_GUY, 145, 55, 25)
-            Call(ForceHomePos, ACTOR_PYRO_GUY, 145, 55, 25)
-            Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
-            Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-
-            // ORANGEANCHOR Bowser Phase Actors
-            // Call(SetActorPos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_BOWSER_THE_KID, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_BOWSER_THE_KID)
-            // Call(SetActorPos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_KOOPA_GANG, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            // Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            // // Call(RemoveActor, ACTOR_KOOPA_GANG)
-            // Call(SetActorPos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(ForceHomePos, ACTOR_GREEN_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            // Call(SetActorFlagBits, ACTOR_GREEN_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            // Call(SetPartFlagBits, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-        CaseEq(AVAL_BowserPhase)
-            //* Models
-            // Call(EnableModel, MODEL_BombBox, true)
-            // Call(EnableModel, MODEL_BombPile, true)
-            // Call(EnableModel, MODEL_BarrelRed, true)
-
-            // GREENANCHOR Green Phase Actors
-            Call(SetActorPos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_GREEN_BANDIT)
-            Call(SetActorPos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BUZZY_BEETLE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_BUZZY_BEETLE)
-            Call(SetActorPos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BRIGADER_BONES, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartPos, ACTOR_BRIGADER_BONES, 2, NPC_DISPOSE_LOCATION)
-            Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, 2, ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_BRIGADER_BONES)
-
-            // YELLOWANCHOR Yellow Phase Actors
-            Call(SetActorPos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_YELLOW_BANDIT)
-            Call(SetActorPos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_GIANT_CHOMP)
-            Call(SetActorPos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_YELLOW_HAMMER_BRO, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_YELLOW_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_YELLOW_HAMMER_BRO)
-
-            // BLACKANCHOR Black Phase Actors
-            Call(SetActorPos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_BLACK_BANDIT)
-            Call(SetActorPos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_CRATE)
-            Call(SetActorPos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_DYANMITE_CRATE)
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
-            Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, true)
-            Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
-
-            // REDANCHOR Red Phase Actors
-            Call(SetActorPos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_RED_BANDIT, NPC_DISPOSE_LOCATION)
-            Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, true)
-            Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, true)
-            Call(RemoveActor, ACTOR_RED_BANDIT)
-            Call(SetActorPos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(ForceHomePos, ACTOR_PYRO_GUY, NPC_DISPOSE_LOCATION)
-            Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
-            Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
-            Call(RemoveActor, ACTOR_PYRO_GUY)
-
-            // ORANGEANCHOR Bowser Phase Actors
-            Call(SetActorPos, ACTOR_BOWSER_THE_KID, 100, 35, 20)
-            Call(ForceHomePos, ACTOR_BOWSER_THE_KID, 100, 35, 20)
-            Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_BOWSER_THE_KID)
-            Call(SetActorPos, ACTOR_KOOPA_GANG, 60, 0, 20)
-            Call(ForceHomePos, ACTOR_KOOPA_GANG, 60, 0, 20)
-            Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, false)
-            Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
-            // Call(RemoveActor, ACTOR_KOOPA_GANG)
-            Call(SetActorPos, ACTOR_GREEN_HAMMER_BRO, 20, 0, 20)
-            Call(ForceHomePos, ACTOR_GREEN_HAMMER_BRO, 20, 0, 20)
-            Call(SetActorFlagBits, ACTOR_GREEN_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, false)
-            Call(SetPartFlagBits, ACTOR_GREEN_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, false)
-    EndSwitch
+    Call(EnableModel, MODEL_BombBox, true)
     Return
     End
 };
@@ -847,7 +385,7 @@ Formation SpawnYellowBandit = {
     ACTOR_BY_POS(YellowBanditKoopa, YellowBanditSpawnPos, 50),
 };
 
-Vec3i GiantChainChompSpawnPos = { 25, 0, 11 };
+Vec3i GiantChainChompSpawnPos = { 25, 0, 15 };
 
 Formation SpawnGiantChainChomp = {
     ACTOR_BY_POS(GiantChainChomp, GiantChainChompSpawnPos, 100),
@@ -859,33 +397,51 @@ Formation SpawnYellowHammerBro = {
     ACTOR_BY_POS(YellowHammerBro, HammerBroAltSpawnPos, 75),
 };
 
+// Vec3i PositionSecondGroup[] = {
+//     { 105, 0, 10 },
+//     { 25, 0, 15 },
+//     { 145, 0, 10 },
+// };
+
+// Formation FormationSecondGroup = {
+//     ACTOR_BY_POS(YellowBanditKoopa, PositionSecondGroup[0], 9),
+//     ACTOR_BY_POS(GiantChainChomp, PositionSecondGroup[1], 10),
+//     ACTOR_BY_POS(YellowHammerBro, PositionSecondGroup[2], 8),
+// };
+
 EvtScript EVS_SecondPhaseTransition = {
     Call(CancelEnemyTurn, 1)
     Call(EnableModel, MODEL_Tunnel, true)
+    Set(LFlag0, false)
     Set(LVarA, 0)
     Loop(0)
-        Add(LVarA, 10) // Increment LVarA by 10
+        Add(LVarA, 10)
         IfGt(LVarA, 2250)
-            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            Set(LVarA, 0)
             BreakLoop
         EndIf
         IfGt(LVarA, 1000)
-            Call(GetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, LVarB)
-            IfEq(LVarB, false)
-                Call(EnableModel, MODEL_BombBox, false)
-                Call(SummonEnemy, Ref(SpawnYellowBandit), false)
-                Call(SummonEnemy, Ref(SpawnGiantChainChomp), false)
-                Call(SummonEnemy, Ref(SpawnYellowHammerBro), false)
-                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, true)
-                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, true)
-                Call(SetActorVar, ACTOR_SELF, AVAR_Phase, AVAL_YellowPhase)
+            IfFalse(LFlag0)
+                Thread
+                    Call(GetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, LVarB)
+                    IfEq(LVarB, false)
+                        Call(EnableModel, MODEL_BombBox, false)
+                        Call(SummonEnemy, Ref(SpawnYellowBandit), false)
+                        Call(SummonEnemy, Ref(SpawnGiantChainChomp), false)
+                        Call(SummonEnemy, Ref(SpawnYellowHammerBro), false)
+                        // Call(SummonEnemy, Ref(FormationSecondGroup), false)
+                        Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, true)
+                        Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, true)
+                        Call(SetActorVar, ACTOR_SELF, AVAR_Phase, AVAL_YellowPhase)
+                    EndIf
+                EndThread
             EndIf
+            Set(LFlag0, true)
         EndIf
         Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
         Wait(1)
     EndLoop
     Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
-    DebugPrintf("Transition Done!")
     Call(EnableModel, MODEL_Tunnel, false)
     Call(EnableBattleStatusBar, true)
     Call(RemoveActor, ACTOR_SELF)
@@ -1102,7 +658,7 @@ EvtScript EVS_HandlePhase = {
                 Call(SetBattleCamOffsetY, 15)
                 Call(MoveBattleCamOver, 20)
                 Wait(20)
-                Call(ActorSpeak, MSG_TrainHeist_GreenBattleStart, ACTOR_GREEN_BANDIT, PRT_MAIN, ANIM_KoopaGang_Green_Talk, ANIM_KoopaGang_Green_CannonSit)
+                Call(ActorSpeak, MSG_TrainHeist_GreenBattleStart, ACTOR_GREEN_BANDIT, PRT_MAIN, ANIM_KoopaGang_Green_CannonTalk, ANIM_KoopaGang_Green_CannonSit)
                 Call(SetActorVar, ACTOR_SELF, AVAR_Scene_BeginBattle, AVAL_Scene_YellowPhase)
                 Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
                 Wait(20)

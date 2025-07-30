@@ -309,6 +309,11 @@ API_CALLABLE(GetAnimatedNodeRotation);
 API_CALLABLE(GetAnimatedNodePosition);
 API_CALLABLE(DispatchEventPlayer);
 
+API_CALLABLE(ExecOnActor_impl);
+API_CALLABLE(ExecWaitOnActor_impl);
+#define ExecOnActor(actor, script) Call(ExecOnActor_impl, actor, Ref(script))
+#define ExecWaitOnActor(actor, script) Call(ExecWaitOnActor_impl, actor, Ref(script))
+
 extern EvtScript EVS_Mario_HandlePhase;
 extern EvtScript EVS_Peach_HandlePhase;
 extern EvtScript EVS_ExecuteMarioAction;
@@ -382,6 +387,7 @@ extern EvtScript Rumble_Unused_1;
 extern EvtScript Rumble_Unused_2;
 extern EvtScript Rumble_Unused_3;
 extern EvtScript Rumble_Unused_4;
+extern EvtScript EVS_Player_Crushed_Impl;
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

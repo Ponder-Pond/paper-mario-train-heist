@@ -31,18 +31,18 @@ enum KoopaGangActorIDs {
     YELLOW_ACTOR        = ACTOR_ENEMY3,
     BLACK_ACTOR         = ACTOR_ENEMY4,
     RED_ACTOR           = ACTOR_ENEMY5,
-    BOSS_ACTOR          = ACTOR_ENEMY1,
+    BOSS_ACTOR          = ACTOR_ENEMY6,
     FIRST_KOOPA_ACTOR   = ACTOR_ENEMY2,
 };
 
 enum {
     // boss actor vars
-    AVAR_Boss_Flags             = 0,
-    AVAR_Boss_TowerState        = 1,
-    AVAR_Boss_BowserTaunts      = 2,
-    AVAR_Boss_TowerHeight       = 3,
-    AVAR_Boss_TopKoopaID        = 4, // top of the tower upon tower formation
-    AVAR_Boss_LeadKoopaID       = 5, // top of the tower during spin attack (invalid at other times)
+    AVAR_Boss_Flags             = 2,
+    AVAR_Boss_TowerState        = 3,
+    AVAR_Boss_BowserTaunts      = 4,
+    AVAR_Boss_TowerHeight       = 5,
+    AVAR_Boss_TopKoopaID        = 6, // top of the tower upon tower formation
+    AVAR_Boss_LeadKoopaID       = 7, // top of the tower during spin attack (invalid at other times)
     // flag values for boss var 0
     AFLAG_Boss_KoopaBrosRevealed        = 0x001,
     // AFLAG_Boss_Dialogue_HaveATaste      = 0x002,
@@ -62,8 +62,8 @@ enum {
     AVAL_Boss_TowerState_ShellSpin      = 4, // tower shell spin state
 
     // actor vars for each koopa
-    AVAR_Koopa_State            = 1,
-    AVAR_Koopa_ToppleTurns      = 2, // number of toppled turns remaining
+    AVAR_Koopa_State            = 2,
+    AVAR_Koopa_ToppleTurns      = 3, // number of toppled turns remaining
     // state values for koopas (AVAR_Koopa_State)
     AVAL_Koopa_State_Ready      = 0,
     AVAL_Koopa_State_Toppled    = 1,

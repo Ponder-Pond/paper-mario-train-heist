@@ -15,7 +15,8 @@
 #include "battle/common/newactor/red_koopa_bandit.inc.cpp"
 #include "battle/common/newactor/pyro_guy.inc.cpp"
 #include "battle/common/newactor/koopa_the_kid.inc.cpp"
-#include "battle/common/newactor/bandit_tower.inc.cpp"
+// #include "battle/common/newactor/bandit_tower.inc.cpp"
+#include "battle/common/newactor/calamity_kammy.inc.cpp"
 
 using namespace battle::actor;
 
@@ -41,6 +42,7 @@ Vec3i YellowTowerPos = { 60, 0, 10 };
 Vec3i BlackTowerPos = { 90, 0, 15 };
 Vec3i RedTowerPos = { 120, 0, 20 };
 // Vec3i GreenHammerBroPos = { 0, 0, 0 };
+Vec3i CalamityKammyPos = { 60, 0, 0 };
 
 
 
@@ -132,6 +134,10 @@ Formation Formation_BowserPhase = {
     // ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
 };
 
+Formation Formation_CalamityKammy = {
+    ACTOR_BY_POS(CalamityKammy, CalamityKammyPos, 10),
+};
+
 BattleList Battles = {
     BATTLE(Formation_TrainHeist, TrainHeist, "Train Heist"), // Battle 0
     BATTLE(Formation_GreenPhase, TrainHeist, "Train Heist Green Phase"), // Battle 1
@@ -139,6 +145,7 @@ BattleList Battles = {
     BATTLE(Formation_BlackPhase, TrainHeist, "Train Heist Black Phase"), // Battle 3
     BATTLE(Formation_RedPhase, TrainHeist, "Train Heist Red Phase"), // Battle 4
     BATTLE(Formation_BowserPhase, TrainHeist, "Train Heist Bowser Phase"), // Battle 5
+    BATTLE(Formation_CalamityKammy, TrainHeist, "Calamity Kammy"), // Battle 6
     {},
 };
 
