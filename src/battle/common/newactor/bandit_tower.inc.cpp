@@ -217,9 +217,8 @@ extern EvtScript EVS_ResetFormation;
 extern EvtScript EVS_ResetFormation_Subscript_FallToPosition;
 extern EvtScript EVS_ResetFormation_Subscript_PlayThumbsUpFX;
 extern EvtScript EVS_DebugPrintKoopaGangPosition;
-extern EvtScript EVS_UpdateBossFlagBits_PlayerHit;
-extern EvtScript EVS_UpdateBossFlagBits_PartnerHit;
 extern EvtScript EVS_MoveKoopaGangOffscreen;
+extern EvtScript EVS_TowerUpdateStable;
 
 enum ActorPartIDs {
     PRT_TOWER           = 1,
@@ -304,6 +303,7 @@ API_CALLABLE((PlayLandOnTowerFX)) {
 // (in) Var1 : expected tower height
 // (in) Var2 : tower index (height - 1, height - 2, ..., 0)
 EvtScript EVS_BuildTowerWithKoopa = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_BuildTowerWithKoopa\n")
     Call(UseIdleAnimation, LVar0, false)
     Switch(LVar0)
         CaseEq(RED_ACTOR)
@@ -424,11 +424,13 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_IdleCrouch)
             Call(SetActorVar, BLACK_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosD)
     EndSwitch
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_BuildTowerWithKoopa\n")
     Return
     End
 };
 
 EvtScript EVS_TryFormingTower = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_TryFormingTower\n")
     #define LBL_WAIT_FOR_TOWER 0
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerHeight, 4)
     // exit if not ready
@@ -443,17 +445,37 @@ EvtScript EVS_TryFormingTower = {
         Set(LVar0, RED_ACTOR)
         ExecGetTID(EVS_BuildTowerWithKoopa, LVar1)
     Else
+        DebugPrintf("Exit:BOSS_ACTOR:EVS_TryFormingTower\n")
         Return
     EndIf
     // hide status bar
     Call(EnableBattleStatusBar, false)
     // Wait until tower state is stable
+    DebugPrintf("Run:LBL_WAIT_FOR_TOWER\n")
     Label(LBL_WAIT_FOR_TOWER)
     IsThreadRunning(LVar1, LVar0)
         IfEq(LVar0, true)
             Wait(1)
             Goto(LBL_WAIT_FOR_TOWER)
         EndIf
+    DebugPrintf("Exit:LBL_WAIT_FOR_TOWER\n")
+    ExecWait(EVS_TowerUpdateStable)
+    // show status bar
+    Call(EnableBattleStatusBar, true)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_TryFormingTower\n")
+    Return
+    End
+    #undef LBL_WAIT_FOR_TOWER
+};
+
+EvtScript EVS_TowerUpdateStable = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_TowerUpdateStable\n")
+    // exit if already unstable
+    Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
+    IfEq(LVar0, AVAL_Boss_TowerState_Stable)
+        DebugPrintf("Exit:BOSS_ACTOR:EVS_TowerUpdateStable\n")
+        Return
+    EndIf
     // Finalize appearance/state of tower actor
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, false)
     // update tower offsets
@@ -467,18 +489,17 @@ EvtScript EVS_TryFormingTower = {
     ExecWait(EVS_BroadcastToKoopaBandits)
     // update tower state
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
-    // show status bar
-    Call(EnableBattleStatusBar, true)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_TowerUpdateStable\n")
     Return
     End
-
-    #undef LBL_WAIT_FOR_TOWER
 };
 
 EvtScript EVS_Broadcast_TowerUnstable = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
     // exit if already unstable
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfEq(LVar0, AVAL_Boss_TowerState_Unstable)
+        DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
         Return
     EndIf
     // update tower state
@@ -490,11 +511,13 @@ EvtScript EVS_Broadcast_TowerUnstable = {
     Set(LVar0, 79) // Was 92
     Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 23
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
     Return
     End
 };
 
 EvtScript EVS_Broadcast_ToppleHit = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_Broadcast_ToppleHit\n")
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Toppled)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     IfNe(LVar0, EVENT_BURN_HIT)
@@ -508,11 +531,13 @@ EvtScript EVS_Broadcast_ToppleHit = {
     ExecWait(EVS_MoveKoopaGangOffscreen)
     // update tower flag bits
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, true)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_ToppleHit\n")
     Return
     End
 };
 
 EvtScript EVS_MoveKoopaGangOffscreen = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_MoveKoopaGangOffscreen\n")
     // adjust camera
     Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     Call(SetBattleCamTarget, 70, 0, 0)
@@ -576,6 +601,7 @@ EvtScript EVS_MoveKoopaGangOffscreen = {
     Call(SetPartFlagBits, YELLOW_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
     Call(SetPartFlagBits, BLACK_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
     Call(SetPartFlagBits, RED_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_MoveKoopaGangOffscreen\n")
     Return
     End
 };
@@ -660,33 +686,21 @@ EvtScript EVS_Idle = {
     End
 };
 
-EvtScript EVS_UpdateBossFlagBits_PlayerHit = {
-    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
-    Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    Return
-    End
-};
-
-EvtScript EVS_UpdateBossFlagBits_PartnerHit = {
-    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
-    Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
-    Return
-    End
-};
-
 EvtScript EVS_HandleEvent = {
     Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
         CaseEq(EVENT_HIT_COMBO)
-            // set flags for player or partner hitting the koopa gang tower
+            // set flags for player or partner hitting the koopa bros tower
             Call(GetBattleFlags, LVar0)
             IfFlag(LVar0, BS_FLAGS1_PARTNER_ACTING)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             Else
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             Set(LVarA, BOSS_CMD_HIT)
             ExecWait(EVS_BroadcastToKoopaBandits)
@@ -694,23 +708,35 @@ EvtScript EVS_HandleEvent = {
             // if the attack was explosive, set both flags
             Call(GetLastElement, LVar0)
             IfFlag(LVar0, DAMAGE_TYPE_SHOCK | DAMAGE_TYPE_BLAST)
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             ExecWait(EVS_Broadcast_TowerUnstable)
         CaseEq(EVENT_HIT)
-            // set flags for player or partner hitting the koopa gang tower
+            // set flags for player or partner hitting the koopa bros tower
             Call(GetBattleFlags, LVar0)
             IfFlag(LVar0, BS_FLAGS1_PARTNER_ACTING)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             Else
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             // if the attack was explosive, set both flags
             Call(GetLastElement, LVar0)
             IfFlag(LVar0, DAMAGE_TYPE_SHOCK | DAMAGE_TYPE_BLAST)
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             // if this was the second hit, topple the tower
             Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
@@ -731,18 +757,26 @@ EvtScript EVS_HandleEvent = {
                 ExecWait(EVS_Broadcast_TowerUnstable)
             EndIf
         CaseEq(EVENT_BURN_HIT)
-            // set flags for player or partner hitting the koopa gang tower
+            // set flags for player or partner hitting the koopa bros tower
             Call(GetBattleFlags, LVar0)
             IfFlag(LVar0, BS_FLAGS1_PARTNER_ACTING)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             Else
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             // if the attack was explosive, set both flags
             Call(GetLastElement, LVar0)
             IfFlag(LVar0, DAMAGE_TYPE_SHOCK | DAMAGE_TYPE_BLAST)
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             EndIf
             // if this was the second hit, topple the tower
             Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
@@ -769,8 +803,12 @@ EvtScript EVS_HandleEvent = {
             // set both flags if the tower is already unstable
             Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
             IfEq(LVar0, AVAL_Boss_TowerState_Unstable)
-                Exec(EVS_UpdateBossFlagBits_PlayerHit)
-                Exec(EVS_UpdateBossFlagBits_PartnerHit)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PlayerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
+                Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             IfFlag(LVar0, AFLAG_Boss_PlayerHitTower)
                 IfFlag(LVar0, AFLAG_Boss_PartnerHitTower)
                     ExecWait(EVS_Broadcast_ToppleHit)
@@ -808,17 +846,29 @@ EvtScript EVS_DebugPrintKoopaGangPosition = {
 };
 
 EvtScript EVS_TakeTurn = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_TakeTurn\n")
+    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_ToppleTurns, LVar0)
+    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_ToppleTurns: (%d)\n", LVar0)
+    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
+    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_State: (%d)\n", LVar0)
+    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
+    DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
+
     Call(UseIdleAnimation, ACTOR_SELF, false)
     // Reform stable tower if tipping
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     Switch(LVar0)
         CaseEq(AVAL_Boss_TowerState_Stable)
+            DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
             Return
         CaseEq(AVAL_Boss_TowerState_Unstable)
             Wait(30)
-            // update koopa state
-            Set(LVarA, BOSS_CMD_STABLE)
-            ExecWait(EVS_BroadcastToKoopaBandits)
+            // stabilize tower
+            ExecWait(EVS_TowerUpdateStable)
+            DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
+            Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
+            DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
+            DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
             Return
     EndSwitch
     // Check if ready
@@ -826,6 +876,11 @@ EvtScript EVS_TakeTurn = {
     ExecWait(EVS_BroadcastToKoopaBandits)
     Wait(5)
     // Reset formation if ready
+    DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
+    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_ToppleTurns, LVar0)
+    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_ToppleTurns: (%d)\n", LVar0)
+    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
+    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_State: (%d)\n", LVar0)
     Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
     IfEq(LVar0, AVAL_Koopa_State_Ready)
         ExecWait(EVS_ResetFormation)
@@ -835,6 +890,10 @@ EvtScript EVS_TakeTurn = {
     IfNe(LVar0, AVAL_Boss_TowerState_Stable)
         ExecWait(EVS_TryFormingTower)
     EndIf
+    DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
+    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
+    DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
     Return
     End
 };
@@ -845,6 +904,7 @@ EvtScript EVS_TakeTurn = {
 // (in) Var3 : fall anim
 // (in) Var4 : land anim
 EvtScript EVS_ResetFormation_Subscript_FallToPosition = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation_Subscript_FallToPosition\n")
     Call(SetAnimation, LVar0, 1, LVar3)
     Call(SetActorPos, LVar0, LVar1, 250, LVar2)
     Call(SetGoalPos, LVar0, LVar1, 0, LVar2)
@@ -855,23 +915,27 @@ EvtScript EVS_ResetFormation_Subscript_FallToPosition = {
     Call(ResetActorSounds, LVar0, ACTOR_SOUND_JUMP)
     Call(ForceHomePos, LVar0, LVar1, 0, LVar2)
     Call(SetAnimation, LVar0, 1, LVar4)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation_Subscript_FallToPosition\n")
     Return
     End
 };
 
 // (in) Var0 : actor id
 EvtScript EVS_ResetFormation_Subscript_PlayThumbsUpFX = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
     Call(GetActorPos, LVar0, LVarA, LVarB, LVarC)
     Add(LVarA, 7)
     Add(LVarB, 28)
     Add(LVarC, 5)
     PlayEffect(EFFECT_LENS_FLARE, 0, LVarA, LVarB, LVarC, 30, 0)
     Call(PlaySoundAtActor, LVar0, SOUND_SMALL_LENS_FLARE)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
     Return
     End
 };
 
 EvtScript EVS_ResetFormation = {
+    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation\n")
     Thread  // play fall sounds
         Wait(23)
         Call(PlaySoundAtActor, GREEN_ACTOR, SOUND_FALL_QUICK)
@@ -942,6 +1006,7 @@ EvtScript EVS_ResetFormation = {
     Exec(EVS_ResetFormation_Subscript_PlayThumbsUpFX)
     // wait for completion
     Wait(30)
+    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation\n")
     Return
     End
 };
@@ -953,8 +1018,12 @@ EvtScript EVS_HandlePhase = {
     Call(GetBattlePhase, LVar0)
     Switch(LVar0)
         CaseEq(PHASE_PLAYER_BEGIN)
-            Exec(EVS_UpdateBossFlagBits_PlayerHit)
-            Exec(EVS_UpdateBossFlagBits_PartnerHit)
+            Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+            BitwiseAndConst(LVar0, ~AFLAG_Boss_PlayerHitTower)
+            Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+            Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+            BitwiseAndConst(LVar0, ~AFLAG_Boss_PartnerHitTower)
+            Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
         CaseEq(PHASE_ENEMY_BEGIN)
         CaseEq(PHASE_ENEMY_END)
     EndSwitch
@@ -966,7 +1035,7 @@ EvtScript EVS_HandlePhase = {
 }; // namespace koopa_gang
 
 ActorBlueprint KoopaGang = {
-    .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_SHADOW | ACTOR_FLAG_TARGET_ONLY | ACTOR_FLAG_NO_DMG_APPLY | ACTOR_FLAG_NO_DMG_POPUP,
+    .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_SHADOW | ACTOR_FLAG_NO_DMG_APPLY | ACTOR_FLAG_NO_DMG_POPUP,
     .maxHP = koopa_gang::hp,
     .type = ACTOR_TYPE_KOOPA_GANG,
     .level = ACTOR_LEVEL_KOOPA_GANG,
