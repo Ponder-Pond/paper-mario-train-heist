@@ -68,7 +68,7 @@ enum ProfilerTime {
     PROFILER_TIME_PUPPYPRINT2,
 #endif
 #ifdef GFX_PROFILING
-    GFX_SUBSET_ENTRIES,
+    GFX_SUBSET_ENTRIES = 22,
     PROFILER_TIME_GFX = PROFILER_TIME_SUB_GFX_END,
 #else
     PROFILER_TIME_GFX,
@@ -198,8 +198,8 @@ static ALWAYS_INLINE void profiler_gfx_subset_complete_and_switch_func(enum Prof
     gfx_subset_starts[start] = time;
 }
 
-static ALWAYS_INLINE void profiler_gfx_subset_start_shared_func(enum ProfilerTime first, enum ProfilerTime newTime) {
-    gfx_subset_starts[newTime] = gfx_subset_starts[first];
+static ALWAYS_INLINE void profiler_gfx_subset_start_shared_func(enum ProfilerTime first, enum ProfilerTime next) {
+    gfx_subset_starts[next] = gfx_subset_starts[first];
 }
 
 static ALWAYS_INLINE void profiler_gfx_subset_start_func(enum ProfilerTime index) {
@@ -277,7 +277,7 @@ static ALWAYS_INLINE void profiler_audio_subset_complete_func(enum ProfilerTime 
 #define AUDIO_PROFILER_COMPLETE(which) profiler_audio_subset_complete_func(which - PROFILER_TIME_SUB_AUDIO_START)
 #else // AUDIO_PROFILING
 enum ProfilerTimeAudioUnused {
-    AUDIO_SUBSET_ENTRIES
+    AUDIO_SUBSET_ENTRIES = 9
 };
 #define AUDIO_PROFILER_SWITCH(complete, begin)
 #define AUDIO_PROFILER_COMPLETE_AND_SWITCH(complete1, complete2, begin)

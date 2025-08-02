@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 #include "PR/ultratypes.h"
-#include "gcc/stdlib.h"
-#include "gcc/stdarg.h"
+#include <stdlib.h>
+#include <stdarg.h>
 
 typedef struct {
     /* 0x0 */ union {

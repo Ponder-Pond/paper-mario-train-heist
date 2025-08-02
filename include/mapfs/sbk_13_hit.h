@@ -1,8 +1,10 @@
-#define COLLIDER_Root           0x15
-#define COLLIDER_ship3          0x14
-#define COLLIDER_ship2          0x13
-#define COLLIDER_ship1          0x12
-#define COLLIDER_ship0          0x11
+#define COLLIDER_Root           0x17
+#define COLLIDER_g25            0x16
+#define COLLIDER_o154           0x15
+#define COLLIDER_o141           0x14
+#define COLLIDER_o153           0x13
+#define COLLIDER_o152           0x12
+#define COLLIDER_o151           0x11
 #define COLLIDER_tuitate        0x10
 #define COLLIDER_ttw            0xF
 #define COLLIDER_tts            0xE
@@ -35,4 +37,3 @@
 #define ZONE_g2                 0x2
 #define ZONE_g10                0x1
 #define ZONE_hiru_came          0x0
-

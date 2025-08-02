@@ -1061,6 +1061,40 @@ void clear_ispy_icon(void) {
 
 /// unavoidable use of hardcoded map and area IDs
 void check_for_pulse_stone(void) {
+    s32 dx, dy;
+
+    if (PulseStoneNotificationCallback == NULL) {
+        if (gPlayerStatus.animFlags & PA_FLAG_ISPY_VISIBLE) {
+            return;
+        }
+
+        // if (gGameStatusPtr->areaID != AREA_SBK || gGameStatusPtr->context != CONTEXT_WORLD) {
+        //     return;
+        // }
+
+        dx = abs(gGameStatusPtr->mapID % 7 - 2);
+        dy = gGameStatusPtr->mapID / 7;
+        if ((dx + dy) > 5) {
+            return;
+        }
+
+        if (!(gPlayerStatus.animFlags & (PA_FLAG_USING_PULSE_STONE | PA_FLAG_PULSE_STONE_VISIBLE))) {
+            return;
+        }
+
+        if (gPlayerStatus.flags & PS_FLAG_PAUSED || gPlayerStatus.inputDisabledCount != 0) {
+            return;
+        }
+
+        if (!(gPlayerStatus.animFlags & (PA_FLAG_SPEECH_PROMPT_AVAILABLE | PA_FLAG_INTERACT_PROMPT_AVAILABLE))) {
+            DMA_COPY_SEGMENT(pulse_stone);
+            PulseStoneNotificationCallback = pulse_stone_notification_setup;
+        }
+    }
+
+    if (PulseStoneNotificationCallback != NULL) {
+        PulseStoneNotificationCallback();
+    }
 }
 
 void render_pulse_stone_icon(void) {

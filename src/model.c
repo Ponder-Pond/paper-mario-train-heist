@@ -6,7 +6,7 @@
 #include "model_clear_render_tasks.h"
 #include "nu/nusys.h"
 #include "qsort.h"
-#include "gcc/string.h"
+#include <string.h>
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 extern "C" {
@@ -2158,7 +2158,7 @@ void load_texture_by_name(ModelNodeProperty* propertyName, s32 romOffset, s32 si
 
     if (romOffset >= startOffset + 0x40000) {
         // did not find the texture with `textureName`
-        osSyncPrintf("could not find texture '%s'\n", textureName);
+        printf("could not find texture '%s'\n", textureName);
         (*gCurrentModelTreeNodeInfo)[TreeIterPos].textureID = 0;
         return;
     }

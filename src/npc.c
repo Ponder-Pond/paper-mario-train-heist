@@ -85,11 +85,17 @@ void init_npc_list(void) {
     gNpcPlayerCollisionsEnabled = TRUE;
 }
 
-s32 create_npc_with_index(NpcBlueprint* blueprint, AnimID* animList, s32 isPeachNpc, s32 i) {
+s32 create_npc_impl(NpcBlueprint* blueprint, AnimID* animList, s32 isPeachNpc) {
     Npc* npc;
+    s32 i;
     s32 j;
 
-    ASSERT((*gCurrentNpcListPtr)[i] == NULL);
+    for (i = 0; i < MAX_NPCS; i++) {
+        if ((*gCurrentNpcListPtr)[i] == NULL) {
+            break;
+        }
+    }
+    ASSERT(i < MAX_NPCS);
 
     (*gCurrentNpcListPtr)[i] = npc = heap_malloc(sizeof(*npc));
     gNpcCount++;
@@ -179,16 +185,6 @@ s32 create_npc_with_index(NpcBlueprint* blueprint, AnimID* animList, s32 isPeach
         i |= BATTLE_NPC_ID_BIT;
     }
     return i;
-}
-
-s32 create_npc_impl(NpcBlueprint* blueprint, AnimID* animList, s32 isPeachNpc) {
-    s32 i;
-    for (i = 0; i < MAX_NPCS; i++) {
-        if ((*gCurrentNpcListPtr)[i] == NULL) {
-            break;
-        }
-    }
-    return create_npc_with_index(blueprint, animList, isPeachNpc, i);
 }
 
 s32 create_basic_npc(NpcBlueprint* blueprint) {

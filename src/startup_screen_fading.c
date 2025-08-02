@@ -15,7 +15,7 @@ b32 startup_fade_screen_in(s16 subtractAlpha) {
         return TRUE;
     }
 
-    gGameStatusPtr->screenColorA -= subtractAlpha * 2;
+    gGameStatusPtr->screenColorA -= subtractAlpha;
     if (gGameStatusPtr->screenColorA < 0) {
         gGameStatusPtr->screenColorA = 0;
     }
@@ -28,7 +28,7 @@ b32 startup_fade_screen_out(s16 addAlpha) {
         return TRUE;
     }
 
-    gGameStatusPtr->screenColorA += addAlpha * 2;
+    gGameStatusPtr->screenColorA += addAlpha;
     if (gGameStatusPtr->screenColorA > 255) {
         gGameStatusPtr->screenColorA = 255;
     }

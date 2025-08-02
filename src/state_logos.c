@@ -169,7 +169,7 @@ void state_step_logos(void) {
                     startup_set_fade_screen_color(208);
                     gGameStatusPtr->startupState++;
                 }
-                gGameStatusPtr->logoTime -= 2;
+                gGameStatusPtr->logoTime--;
                 break;
             case LOGOS_STATE_N64_FADE_OUT:
                 if (startup_fade_screen_out(10)) {
@@ -194,7 +194,7 @@ void state_step_logos(void) {
                     startup_set_fade_screen_color(208);
 #endif
                 }
-                gGameStatusPtr->logoTime -= 2;
+                gGameStatusPtr->logoTime--;
                 break;
             case LOGOS_STATE_NINTENDO_FADE_OUT:
                 if (startup_fade_screen_out(10)) {
@@ -213,7 +213,7 @@ void state_step_logos(void) {
                     startup_set_fade_screen_color(208);
                     gGameStatusPtr->logoTime = 30;
                 }
-                gGameStatusPtr->logoTime -= 2;
+                gGameStatusPtr->logoTime--;
                 break;
             case LOGOS_STATE_IS_HOLD_2:
                 if (gGameStatusPtr->logoTime == 0) {
@@ -222,7 +222,7 @@ void state_step_logos(void) {
                     set_curtain_draw_callback(NULL);
                     set_curtain_fade_goal(0.3f);
                 } else {
-                    gGameStatusPtr->logoTime -= 2;
+                    gGameStatusPtr->logoTime--;
                 }
                 break;
             case LOGOS_STATE_IS_FADE_OUT:
@@ -235,7 +235,7 @@ void state_step_logos(void) {
                 if (gGameStatusPtr->logoTime == 0) {
                     gGameStatusPtr->startupState++;
                 } else {
-                    gGameStatusPtr->logoTime -= 2;
+                    gGameStatusPtr->logoTime--;
                 }
                 break;
             case LOGOS_STATE_CLEANUP:

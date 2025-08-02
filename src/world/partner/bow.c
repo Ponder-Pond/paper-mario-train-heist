@@ -142,7 +142,26 @@ void N(try_cancel_tweester)(Npc* bow) {
 
 // check whether the player would collide with an obstacle while on a treadmill in AREA_OMO
 s32 N(check_for_treadmill_overlaps)(void) {
-    return NO_COLLIDER;
+    PlayerStatus* playerStatus = &gPlayerStatus;
+    f32 x, y, z;
+    f32 yaw;
+
+    // //TODO hardcoded map IDs
+    // if (gGameStatusPtr->areaID != AREA_OMO) {
+    //     return NO_COLLIDER;
+    // }
+
+    if (playerStatus->pushVel.x == 0.0f && playerStatus->pushVel.z == 0.0f) {
+        return NO_COLLIDER;
+    }
+
+    yaw = atan2(0.0f, 0.0f, playerStatus->pushVel.x, playerStatus->pushVel.z);
+    x = playerStatus->pos.x;
+    y = playerStatus->pos.y + (playerStatus->colliderHeight * 0.5f);
+    z = playerStatus->pos.z;
+
+    add_vec2D_polar(&x, &z, playerStatus->colliderDiameter * 0.5f, clamp_angle(yaw + 180.0f));
+    return player_test_lateral_overlap(PLAYER_COLLISION_0, playerStatus, &x, &y, &z, playerStatus->colliderDiameter, yaw);
 }
 
 API_CALLABLE(N(UseAbility)) {

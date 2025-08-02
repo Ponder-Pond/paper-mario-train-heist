@@ -5,8 +5,8 @@
 #include "ld_addrs.h"
 #include "game_modes.h"
 #include "dx/config.h"
-#include "gcc/memory.h"
-#include "gcc/string.h"
+#include <memory.h>
+#include <string.h>
 
 extern HudScript HES_AnimatedCursorHand;
 
@@ -900,7 +900,7 @@ void filemenu_init(s32 mode) {
     menu->state = FM_MAIN_SELECT_FILE;
 
     if (menu->state == FM_MAIN_SELECT_FILE) {
-        for (i = 0; i < 4; i += 2) { // We only display slots 0 and 2
+        for (i = 0; i < ARRAY_COUNT(filemenu_menus); i++) {
             if (fio_load_game(i)) {
                 gSaveSlotSummary[i] = gCurrentSaveFile.summary;
                 gSaveSlotMetadata[i].hasData = TRUE;
@@ -909,16 +909,13 @@ void filemenu_init(s32 mode) {
             } else {
                 gSaveSlotMetadata[i].hasData = FALSE;
                 gSaveSlotMetadata[i].validData = FALSE;
-                memset(gSaveSlotMetadata[i].modName, 0, ARRAY_COUNT(gSaveSlotMetadata[i].modName));
+                memset(gSaveSlotMetadata[i].modName, ARRAY_COUNT(gSaveSlotMetadata[i].modName), 0);
             }
         }
 
         fio_load_globals();
         if (gSaveGlobals.lastFileSelected >= 4) {
             gSaveGlobals.lastFileSelected = 0;
-        }
-        if (gSaveGlobals.lastFileSelected % 2 != 0) { // We only display slots 0 and 2
-            gSaveGlobals.lastFileSelected--;
         }
         gGameStatusPtr->saveSlot = gSaveGlobals.lastFileSelected;
     }

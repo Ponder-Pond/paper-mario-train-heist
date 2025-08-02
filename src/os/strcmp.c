@@ -1,4 +1,4 @@
-#include "gcc/string.h"
+#include <string.h>
 
 int strcmp(const char* str1, const char* str2) {
 #if !VERSION_IQUE
@@ -26,4 +26,3 @@ int strcmp(const char* str1, const char* str2) {
     return *str1 - *str2;
 #endif
 }
-

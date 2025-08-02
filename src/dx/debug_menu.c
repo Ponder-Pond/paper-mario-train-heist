@@ -1,9 +1,10 @@
 #include "dx/debug_menu.h"
+#if DX_DEBUG_MENU || defined(DX_QUICK_LAUNCH_BATTLE)
 #include "game_modes.h"
 #include "battle/battle.h"
 #include "hud_element.h"
 #include "qsort.h"
-#include "gcc/string.h"
+#include <string.h>
 #include "dx/utils.h"
 #include "msg.h"
 #include "fio.h"
@@ -2045,14 +2046,6 @@ void dx_hashed_debug_printf(const char* filename, s32 line, const char* fmt, ...
     }
     ASSERT(len < 85);
 
-    // Add a newline if there isn't one
-    if (fmtBuf[len - 1] != '\n') {
-        fmtBuf[len++] = '\n';
-        fmtBuf[len] = '\0';
-    }
-
-    osSyncPrintf("%s:%d: %s", filename, line, fmtBuf);
-
     u32 hash = dx_debug_hash_location(filename, line);
     s32 matchedLine = -1;
     s32 idx;
@@ -2186,4 +2179,4 @@ void dx_debug_console_main() {
     }
 }
 
-// #endif
+#endif

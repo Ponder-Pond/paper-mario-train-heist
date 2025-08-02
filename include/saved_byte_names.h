@@ -17,7 +17,7 @@ enum GameBytes {
     GB_KMR20_MarioReadDiaryFlags_01         = GameByte(0x00D),
     GB_KMR20_MarioReadLetterFlags_00        = GameByte(0x00E),
     GB_KMR20_MarioReadLetterFlags_01        = GameByte(0x00F),
-    GB_NET01_Intro                        = GameByte(0x010),
+    GB_NET01_Intro                          = GameByte(0x010),
     GB_Unused_KMR_05                        = GameByte(0x011),
     GB_Unused_KMR_06                        = GameByte(0x012),
     GB_Unused_KMR_07                        = GameByte(0x013),
