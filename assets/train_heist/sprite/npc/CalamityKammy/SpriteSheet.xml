@@ -11,6 +11,16 @@
 		<Raster id="4" name="Mouth2" palette="0" src="Mouth2.png"/>
 		<Raster id="5" name="Talk1" palette="0" src="Talk1.png"/>
 		<Raster id="6" name="Talk2" palette="0" src="Talk2.png"/>
+		<Raster id="7" name="Hurt1" palette="0" src="Hurt1.png"/>
+		<Raster id="8" name="Hurt2" palette="0" src="Hurt2.png"/>
+		<Raster id="9" name="Laugh1" palette="0" src="Laugh1.png"/>
+		<Raster id="A" name="Laugh2" palette="0" src="Laugh2.png"/>
+		<Raster id="B" name="Defeat" palette="0" src="Defeat.png"/>
+		<Raster id="C" name="Gun1" palette="0" src="Gun1.png"/>
+		<Raster id="D" name="Gun2" palette="0" src="Gun2.png"/>
+		<Raster id="E" name="Gun3" palette="0" src="Gun3.png"/>
+		<Raster id="F" name="Gun4" palette="0" src="Gun4.png"/>
+		<Raster id="10" name="Gun5" palette="0" src="Gun5.png"/>
 	</RasterList>
 	<AnimationList>
 		<Animation name="Still">
@@ -127,6 +137,228 @@
 				<Wait duration="6"/>
 				<SetRaster index="6"/>
 				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="GunFireStart">
+			<Component name="Body" xyz="-9,-3,0">
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="105"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="110"/>
+				<Wait duration="2"/>
+				<Label name="Pos_14"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Pos_14"/>
+			</Component>
+			<Component name="Gun" xyz="-5,-4,-2">
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="10"/>
+				<Label name="Pos_2"/>
+				<SetRaster index="C"/>
+				<SetPos flag="0" xyz="-32,3,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_2"/>
+			</Component>
+		</Animation>
+		<Animation name="GunFireEnd">
+			<Component name="Body" xyz="-9,-3,0">
+				<Label name="Start"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Gun" xyz="-5,-4,-2">
+				<SetRaster index="C"/>
+				<SetPos flag="0" xyz="-32,3,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<SetScale mode="uniform" percent="104"/>
+				<SetPos flag="0" xyz="-32,2,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="E"/>
+				<SetScale mode="uniform" percent="102"/>
+				<SetPos flag="0" xyz="-32,3,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="F"/>
+				<SetPos flag="0" xyz="-33,3,0"/>
+				<SetScale mode="x" percent="105"/>
+				<Wait duration="2"/>
+				<Label name="Pos_1E"/>
+				<SetRaster index="F"/>
+				<SetPos flag="0" xyz="-32,3,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_1E"/>
+			</Component>
+		</Animation>
+		<Animation name="Laugh">
+			<Component name="Body" xyz="-1,-3,0">
+				<Label name="Start"/>
+				<SetRaster index="9"/>
+				<Wait duration="6"/>
+				<SetRaster index="A"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Gun" xyz="-45,15,-2">
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<SetRot xyz="0,0,-25"/>
+				<Wait duration="6"/>
+				<SetRaster index="F"/>
+				<SetRot xyz="0,0,-30"/>
+				<SetPos flag="0" xyz="-1,5,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="Body" xyz="0,-3,0">
+				<Label name="Start"/>
+				<SetRaster index="7"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Gun" xyz="0,-3,-2">
+				<Label name="Start"/>
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,-16"/>
+				<SetPos flag="0" xyz="-45,18,0"/>
+				<Wait duration="6"/>
+				<SetRot xyz="0,0,16"/>
+				<SetPos flag="0" xyz="-25,-2,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Defeat">
+			<Component name="Body" xyz="0,-3,0">
+				<SetRaster index="8"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRot xyz="0,0,5"/>
+				<Wait duration="2"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<SetRot xyz="0,0,15"/>
+				<Wait duration="2"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<SetRaster index="7"/>
+				<SetRot xyz="0,0,35"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<Wait duration="4"/>
+				<SetRaster index="B"/>
+				<SetScale mode="y" percent="95"/>
+				<Wait duration="4"/>
+				<Label name="Pos_2C"/>
+				<SetRaster index="B"/>
+				<Wait duration="70"/>
+				<SetRaster index="B"/>
+				<Wait duration="48"/>
+				<SetRaster index="B"/>
+				<SetScale mode="y" percent="96"/>
+				<Wait duration="16"/>
+				<Goto dest="Pos_2C"/>
+			</Component>
+			<Component name="Gun" xyz="0,-3,-2">
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,15"/>
+				<SetPos flag="0" xyz="-25,-2,0"/>
+				<Wait duration="6"/>
+				<SetRot xyz="0,0,-5"/>
+				<SetPos flag="0" xyz="-35,13,0"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-25"/>
+				<SetPos flag="0" xyz="-46,15,0"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-30"/>
+				<SetPos flag="0" xyz="-45,15,0"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-35"/>
+				<SetPos flag="0" xyz="-54,11,0"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-40"/>
+				<SetPos flag="0" xyz="-54,11,0"/>
+				<Wait duration="2"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="2"/>
+				<Label name="Pos_39"/>
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="64"/>
+				<Goto dest="Pos_39"/>
+			</Component>
+		</Animation>
+		<Animation name="WhiteFlag">
+			<Component name="Body" xyz="0,-3,0">
+				<SetRaster index="B"/>
+				<Wait duration="14"/>
+				<Label name="Pos_2"/>
+				<SetRaster index="B"/>
+				<Wait duration="8"/>
+				<Goto dest="Pos_2"/>
+			</Component>
+			<Component name="Gun" xyz="0,-3,-2">
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="D"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetPos flag="0" xyz="-57,10,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="E"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetScale mode="uniform" percent="105"/>
+				<SetPos flag="0" xyz="-56,11,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="10"/>
+				<SetScale mode="y" percent="80"/>
+				<SetRot xyz="0,0,-50"/>
+				<SetPos flag="0" xyz="-56,17,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="10"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="2"/>
+				<Label name="Pos_33"/>
+				<SetRaster index="10"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Pos_33"/>
+			</Component>
+		</Animation>
+		<Animation name="DefeatWorld">
+			<Component name="Body" xyz="0,-3,0">
+				<Label name="Start"/>
+				<SetRaster index="B"/>
+				<Wait duration="70"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Gun" xyz="0,-3,-2">
+				<Label name="Start"/>
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetPos flag="0" xyz="-55,12,0"/>
+				<Wait duration="64"/>
 				<Goto dest="Start"/>
 			</Component>
 		</Animation>

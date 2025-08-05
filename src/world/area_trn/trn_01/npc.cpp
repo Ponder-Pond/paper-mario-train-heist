@@ -96,14 +96,14 @@ ShopItemData TayceTItemInventory[TAYCE_T_ITEM_COUNT] = {
     { .itemID = ITEM_REPEL_GEL,    .price =  15, .descMsg = MSG_ItemShopDesc_PrettyLucky },
 };
 
-API_CALLABLE((TayceT_GetPlayerCoins)) {
+API_CALLABLE(TayceT_GetPlayerCoins) {
     Bytecode* args = script->ptrReadPos;
 
     evt_set_variable(script, *args++, gPlayerData.coins);
     return ApiStatus_DONE2;
 }
 
-API_CALLABLE((TayceT_SetItemPurchased)) {
+API_CALLABLE(TayceT_SetItemPurchased) {
     Bytecode* args = script->ptrReadPos;
     s32 index = evt_get_variable(script, *args++);
 
@@ -111,7 +111,7 @@ API_CALLABLE((TayceT_SetItemPurchased)) {
     return ApiStatus_DONE2;
 }
 
-API_CALLABLE((TayceT_ShopItemsPopup)) {
+API_CALLABLE(TayceT_ShopItemsPopup) {
     PlayerData* playerData = &gPlayerData;
     PopupMenu* menu;
     s32 selected, menuPos, i;
@@ -191,20 +191,20 @@ EvtScript EVS_NpcInteract_TayceT = {
         Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT4)
         Return
     EndIf
-    Call((TayceT_GetPlayerCoins), LVar0)
+    Call(TayceT_GetPlayerCoins, LVar0)
     IfEq(LVar0, 0)
         Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT5)
         Return
     EndIf
     Call(ContinueSpeech, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT7)
     Label(0)
-    Call((TayceT_ShopItemsPopup))
+    Call(TayceT_ShopItemsPopup)
     Wait(10)
     IfEq(LVar0, -1)
         Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT8)
         Return
     EndIf
-    Call((TayceT_GetPlayerCoins), LVar3)
+    Call(TayceT_GetPlayerCoins, LVar3)
     IfLt(LVar3, LVar1)
         Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT8)
         Goto(0)
@@ -228,7 +228,7 @@ EvtScript EVS_NpcInteract_TayceT = {
     Call(AddCoin, LVar1)
     Add(GB_TRN01_TayceT_PurchaseCount, 1)
     Set(MF_PurchasedItem, TRUE)
-    Call((TayceT_SetItemPurchased), LVar2)
+    Call(TayceT_SetItemPurchased, LVar2)
     // awkward
     // #define NAME_SUFFIX _Tayce_T
     Set(LVar0, LVar3)
@@ -240,7 +240,7 @@ EvtScript EVS_NpcInteract_TayceT = {
         Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT11)
         Return
     EndIf
-    Call((TayceT_GetPlayerCoins), LVar0)
+    Call(TayceT_GetPlayerCoins, LVar0)
     IfLe(LVar0, 0)
         Call(SpeakToPlayer, NPC_TayceT, ANIM_TayceT_Cooking, ANIM_TayceT_Cooking, 0, MSG_TrainLobby_BuyTayceT11)
         Return
@@ -285,14 +285,14 @@ ShopItemData ToadBadgeInventory[TOAD_BADGE_COUNT] = {
     { .itemID = ITEM_ALLOR_NOTHING,    .price = 10, .descMsg = MSG_ItemShopDesc_FlowerSaver },
 };
 
-API_CALLABLE((Toad_GetPlayerStarPieces)) {
+API_CALLABLE(Toad_GetPlayerStarPieces) {
     Bytecode* args = script->ptrReadPos;
 
     evt_set_variable(script, *args++, gPlayerData.starPieces);
     return ApiStatus_DONE2;
 }
 
-API_CALLABLE((Toad_SetBadgePurchased)) {
+API_CALLABLE(Toad_SetBadgePurchased) {
     Bytecode* args = script->ptrReadPos;
     s32 index = evt_get_variable(script, *args++);
 
@@ -300,7 +300,7 @@ API_CALLABLE((Toad_SetBadgePurchased)) {
     return ApiStatus_DONE2;
 }
 
-API_CALLABLE((Toad_ShopBadgesPopup)) {
+API_CALLABLE(Toad_ShopBadgesPopup) {
     PlayerData* playerData = &gPlayerData;
     PopupMenu* menu;
     s32 selected, menuPos, i;
@@ -381,20 +381,20 @@ EvtScript EVS_NpcInteract_Toad = {
         Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad4)
         Return
     EndIf
-    Call((Toad_GetPlayerStarPieces), LVar0)
+    Call(Toad_GetPlayerStarPieces, LVar0)
     IfEq(LVar0, 0)
         Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad5)
         Return
     EndIf
     Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad7)
     Label(0)
-    Call((Toad_ShopBadgesPopup))
+    Call(Toad_ShopBadgesPopup)
     Wait(10)
     IfEq(LVar0, -1)
         Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad8)
         Return
     EndIf
-    Call((Toad_GetPlayerStarPieces), LVar3)
+    Call(Toad_GetPlayerStarPieces, LVar3)
     IfLt(LVar3, LVar1)
         Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad8)
         Goto(0)
@@ -418,7 +418,7 @@ EvtScript EVS_NpcInteract_Toad = {
     Call(AddStarPieces, LVar1)
     Add(GB_TRN01_Toad_PurchaseCount, 1)
     Set(MF_PurchasedBadge, TRUE)
-    Call((Toad_SetBadgePurchased), LVar2)
+    Call(Toad_SetBadgePurchased, LVar2)
     // awkward
     // #define NAME_SUFFIX _Toad
     Set(LVar0, LVar3)
@@ -430,7 +430,7 @@ EvtScript EVS_NpcInteract_Toad = {
         Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad11)
         Return
     EndIf
-    Call((Toad_GetPlayerStarPieces), LVar0)
+    Call(Toad_GetPlayerStarPieces, LVar0)
     IfLe(LVar0, 0)
         Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_TrainLobby_BorrowToad11)
         Return

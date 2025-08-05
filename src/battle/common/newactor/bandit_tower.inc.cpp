@@ -303,7 +303,7 @@ API_CALLABLE((PlayLandOnTowerFX)) {
 // (in) Var1 : expected tower height
 // (in) Var2 : tower index (height - 1, height - 2, ..., 0)
 EvtScript EVS_BuildTowerWithKoopa = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_BuildTowerWithKoopa\n")
+    DebugPrintf("Run:BOSS:EVS_BuildTowerWithKoopa\n")
     Call(UseIdleAnimation, LVar0, false)
     Switch(LVar0)
         CaseEq(RED_ACTOR)
@@ -424,13 +424,13 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(SetAnimation, BLACK_ACTOR, 1, ANIM_KoopaGang2_Black_IdleCrouch)
             Call(SetActorVar, BLACK_ACTOR, AVAR_Koopa_State, AVAL_Koopa_State_PosD)
     EndSwitch
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_BuildTowerWithKoopa\n")
+    DebugPrintf("Exit:BOSS:EVS_BuildTowerWithKoopa\n")
     Return
     End
 };
 
 EvtScript EVS_TryFormingTower = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_TryFormingTower\n")
+    DebugPrintf("Run:BOSS:EVS_TryFormingTower\n")
     #define LBL_WAIT_FOR_TOWER 0
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerHeight, 4)
     // exit if not ready
@@ -445,61 +445,61 @@ EvtScript EVS_TryFormingTower = {
         Set(LVar0, RED_ACTOR)
         ExecGetTID(EVS_BuildTowerWithKoopa, LVar1)
     Else
-        DebugPrintf("Exit:BOSS_ACTOR:EVS_TryFormingTower\n")
+        DebugPrintf("Exit:BOSS:EVS_TryFormingTower\n")
         Return
     EndIf
     // hide status bar
     Call(EnableBattleStatusBar, false)
     // Wait until tower state is stable
-    DebugPrintf("Run:LBL_WAIT_FOR_TOWER\n")
     Label(LBL_WAIT_FOR_TOWER)
     IsThreadRunning(LVar1, LVar0)
         IfEq(LVar0, true)
             Wait(1)
             Goto(LBL_WAIT_FOR_TOWER)
         EndIf
-    DebugPrintf("Exit:LBL_WAIT_FOR_TOWER\n")
     ExecWait(EVS_TowerUpdateStable)
     // show status bar
     Call(EnableBattleStatusBar, true)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_TryFormingTower\n")
+    DebugPrintf("Exit:BOSS:EVS_TryFormingTower\n")
     Return
     End
     #undef LBL_WAIT_FOR_TOWER
 };
 
 EvtScript EVS_TowerUpdateStable = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_TowerUpdateStable\n")
-    // exit if already unstable
+    DebugPrintf("Run:BOSS:EVS_TowerUpdateStable\n")
+    // set script owner boss actor
+    Call(SetOwnerID, BOSS_ACTOR)
+    // exit if already stable
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfEq(LVar0, AVAL_Boss_TowerState_Stable)
-        DebugPrintf("Exit:BOSS_ACTOR:EVS_TowerUpdateStable\n")
+        DebugPrintf("Exit:BOSS:EVS_TowerUpdateStable\n")
         Return
     EndIf
     // Finalize appearance/state of tower actor
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, false)
-    // update tower offsets
+    // reset tower offsets
     Set(LVar0, 68) // Was 92
     Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 36
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
     Call(GetActorPos, GREEN_ACTOR, LVar2, LVar3, LVar4)
     Call(SetActorPos, ACTOR_SELF, LVar2, LVar3, LVar4)
-    // update koopa state
+    // reset koopa state
     Set(LVarA, BOSS_CMD_STABLE)
     ExecWait(EVS_BroadcastToKoopaBandits)
-    // update tower state
+    // reset tower state
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Stable)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_TowerUpdateStable\n")
+    DebugPrintf("Exit:BOSS:EVS_TowerUpdateStable\n")
     Return
     End
 };
 
 EvtScript EVS_Broadcast_TowerUnstable = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
+    DebugPrintf("Run:BOSS:EVS_Broadcast_TowerUnstable\n")
     // exit if already unstable
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     IfEq(LVar0, AVAL_Boss_TowerState_Unstable)
-        DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
+        DebugPrintf("Exit:BOSS:EVS_Broadcast_TowerUnstable\n")
         Return
     EndIf
     // update tower state
@@ -511,13 +511,13 @@ EvtScript EVS_Broadcast_TowerUnstable = {
     Set(LVar0, 79) // Was 92
     Call(SetTargetOffset, ACTOR_SELF, PRT_TOWER, -5, LVar0) // Was 23
     Call(SetActorSize, ACTOR_SELF, LVar0, 45)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_TowerUnstable\n")
+    DebugPrintf("Exit:BOSS:EVS_Broadcast_TowerUnstable\n")
     Return
     End
 };
 
 EvtScript EVS_Broadcast_ToppleHit = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_Broadcast_ToppleHit\n")
+    DebugPrintf("Run:BOSS:EVS_Broadcast_ToppleHit\n")
     Call(SetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Toppled)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     IfNe(LVar0, EVENT_BURN_HIT)
@@ -531,13 +531,13 @@ EvtScript EVS_Broadcast_ToppleHit = {
     ExecWait(EVS_MoveKoopaGangOffscreen)
     // update tower flag bits
     Call(SetPartFlagBits, ACTOR_SELF, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, true)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_Broadcast_ToppleHit\n")
+    DebugPrintf("Exit:BOSS:EVS_Broadcast_ToppleHit\n")
     Return
     End
 };
 
 EvtScript EVS_MoveKoopaGangOffscreen = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_MoveKoopaGangOffscreen\n")
+    DebugPrintf("Run:BOSS:EVS_MoveKoopaGangOffscreen\n")
     // adjust camera
     Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     Call(SetBattleCamTarget, 70, 0, 0)
@@ -601,7 +601,7 @@ EvtScript EVS_MoveKoopaGangOffscreen = {
     Call(SetPartFlagBits, YELLOW_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
     Call(SetPartFlagBits, BLACK_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
     Call(SetPartFlagBits, RED_ACTOR, 1, ACTOR_PART_FLAG_INVISIBLE, true)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_MoveKoopaGangOffscreen\n")
+    DebugPrintf("Exit:BOSS:EVS_MoveKoopaGangOffscreen\n")
     Return
     End
 };
@@ -846,29 +846,19 @@ EvtScript EVS_DebugPrintKoopaGangPosition = {
 };
 
 EvtScript EVS_TakeTurn = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_TakeTurn\n")
-    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_ToppleTurns, LVar0)
-    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_ToppleTurns: (%d)\n", LVar0)
-    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
-    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_State: (%d)\n", LVar0)
-    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
-    DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
-
+    DebugPrintf("Run:BOSS:EVS_TakeTurn\n")
     Call(UseIdleAnimation, ACTOR_SELF, false)
     // Reform stable tower if tipping
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TowerState, LVar0)
     Switch(LVar0)
         CaseEq(AVAL_Boss_TowerState_Stable)
-            DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
+            DebugPrintf("Exit:BOSS:EVS_TakeTurn\n")
             Return
         CaseEq(AVAL_Boss_TowerState_Unstable)
             Wait(30)
             // stabilize tower
             ExecWait(EVS_TowerUpdateStable)
-            DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
-            Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
-            DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
-            DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
+            DebugPrintf("Exit:BOSS:EVS_TakeTurn\n")
             Return
     EndSwitch
     // Check if ready
@@ -876,11 +866,6 @@ EvtScript EVS_TakeTurn = {
     ExecWait(EVS_BroadcastToKoopaBandits)
     Wait(5)
     // Reset formation if ready
-    DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
-    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_ToppleTurns, LVar0)
-    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_ToppleTurns: (%d)\n", LVar0)
-    Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
-    DebugPrintf("GREEN_ACTOR:AVAR_Koopa_State: (%d)\n", LVar0)
     Call(GetActorVar, GREEN_ACTOR, AVAR_Koopa_State, LVar0)
     IfEq(LVar0, AVAL_Koopa_State_Ready)
         ExecWait(EVS_ResetFormation)
@@ -890,10 +875,7 @@ EvtScript EVS_TakeTurn = {
     IfNe(LVar0, AVAL_Boss_TowerState_Stable)
         ExecWait(EVS_TryFormingTower)
     EndIf
-    DebugPrintf("Update:BOSS_ACTOR:EVS_TakeTurn\n")
-    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, LVar0)
-    DebugPrintf("BOSS_ACTOR:AVAR_Boss_TowerState: (%d)\n", LVar0)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_TakeTurn\n")
+    DebugPrintf("Exit:BOSS:EVS_TakeTurn\n")
     Return
     End
 };
@@ -904,7 +886,7 @@ EvtScript EVS_TakeTurn = {
 // (in) Var3 : fall anim
 // (in) Var4 : land anim
 EvtScript EVS_ResetFormation_Subscript_FallToPosition = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation_Subscript_FallToPosition\n")
+    DebugPrintf("Run:BOSS:EVS_ResetFormation_Subscript_FallToPosition\n")
     Call(SetAnimation, LVar0, 1, LVar3)
     Call(SetActorPos, LVar0, LVar1, 250, LVar2)
     Call(SetGoalPos, LVar0, LVar1, 0, LVar2)
@@ -915,27 +897,27 @@ EvtScript EVS_ResetFormation_Subscript_FallToPosition = {
     Call(ResetActorSounds, LVar0, ACTOR_SOUND_JUMP)
     Call(ForceHomePos, LVar0, LVar1, 0, LVar2)
     Call(SetAnimation, LVar0, 1, LVar4)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation_Subscript_FallToPosition\n")
+    DebugPrintf("Exit:BOSS:EVS_ResetFormation_Subscript_FallToPosition\n")
     Return
     End
 };
 
 // (in) Var0 : actor id
 EvtScript EVS_ResetFormation_Subscript_PlayThumbsUpFX = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
+    DebugPrintf("Run:BOSS:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
     Call(GetActorPos, LVar0, LVarA, LVarB, LVarC)
     Add(LVarA, 7)
     Add(LVarB, 28)
     Add(LVarC, 5)
     PlayEffect(EFFECT_LENS_FLARE, 0, LVarA, LVarB, LVarC, 30, 0)
     Call(PlaySoundAtActor, LVar0, SOUND_SMALL_LENS_FLARE)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
+    DebugPrintf("Exit:BOSS:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
     Return
     End
 };
 
 EvtScript EVS_ResetFormation = {
-    DebugPrintf("Run:BOSS_ACTOR:EVS_ResetFormation\n")
+    DebugPrintf("Run:BOSS:EVS_ResetFormation\n")
     Thread  // play fall sounds
         Wait(23)
         Call(PlaySoundAtActor, GREEN_ACTOR, SOUND_FALL_QUICK)
@@ -1006,7 +988,7 @@ EvtScript EVS_ResetFormation = {
     Exec(EVS_ResetFormation_Subscript_PlayThumbsUpFX)
     // wait for completion
     Wait(30)
-    DebugPrintf("Exit:BOSS_ACTOR:EVS_ResetFormation\n")
+    DebugPrintf("Exit:BOSS:EVS_ResetFormation\n")
     Return
     End
 };

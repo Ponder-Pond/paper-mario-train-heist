@@ -2487,7 +2487,7 @@
     hurtSound: SOUND_NONE
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
-    shadowOffset: 0
+    shadowOffset: 241
 - KoopaGang:
     level: 0
     nameMsg: MSG_EnemyName_KoopaGang

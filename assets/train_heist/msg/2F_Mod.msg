@@ -252,6 +252,11 @@
 }
 
 
+#message:2F:(MenuTip_Item)
+{
+	Item[End]
+}
+
 
 #message:2F:(TrainLobby_BorrowToad1)
 {
@@ -614,4 +619,3 @@
 	(Lousy rat scammed me again...)[BR]
 	[Wait][End]
 }
-

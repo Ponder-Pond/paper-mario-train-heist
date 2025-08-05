@@ -9,7 +9,7 @@
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
 // #include "koopa_gang_tower.hpp"
-#include "battle/common/newactor/bandit_tower.inc.cpp"
+#include "battle/common/newactor/koopa_the_kid.inc.cpp"
 #include "dx/debug_menu.h"
 
 namespace battle::actor {
@@ -950,31 +950,31 @@ Formation SpawnKoopatheKid = {
     ACTOR_BY_POS(KoopaTheKid, KoopaTheKidPosSpawnPos, 100),
 };
 
-Vec3i KoopaGangSpawnPos = { 30, 0, 20 };
+Vec3i KoopaGangSpawnPos = { 30, 0, 5 };
 
 Formation SpawnKoopaGang = {
     ACTOR_BY_POS(KoopaGang, KoopaGangSpawnPos, 75),
 };
 
-Vec3i GreenTowerSpawnPos = { 30, 0, 5 };
+Vec3i GreenTowerSpawnPos = { NPC_DISPOSE_LOCATION }; // 30, 0, 5
 
 Formation SpawnGreenBanditTower = {
     ACTOR_BY_POS(GreenBanditTower, GreenTowerSpawnPos, 50),
 };
 
-Vec3i YellowTowerSpawnPos = { 60, 0, 10 };
+Vec3i YellowTowerSpawnPos = { NPC_DISPOSE_LOCATION }; // 60, 0, 10
 
 Formation SpawnYellowBanditTower = {
     ACTOR_BY_POS(YellowBanditTower, YellowTowerSpawnPos, 50),
 };
 
-Vec3i BlackTowerSpawnPos = { 90, 0, 15 };
+Vec3i BlackTowerSpawnPos = { NPC_DISPOSE_LOCATION }; // 90, 0, 15
 
 Formation SpawnBlackBanditTower = {
     ACTOR_BY_POS(BlackBanditTower, BlackTowerSpawnPos, 50),
 };
 
-Vec3i RedTowerSpawnPos = { 120, 0, 20 };
+Vec3i RedTowerSpawnPos = { NPC_DISPOSE_LOCATION }; // 120, 0, 20
 
 Formation SpawnRedBanditTower = {
     ACTOR_BY_POS(RedBanditTower, RedTowerSpawnPos, 50),
@@ -1646,7 +1646,7 @@ EvtScript EVS_HandlePhase = {
 }; // namespace red_bandit_koopa
 
 ActorBlueprint RedBanditKoopa = {
-    .flags = ACTOR_FLAG_NO_SHADOW, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
+    .flags = 0, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .maxHP = red_bandit_koopa::hp,
     .type = red_bandit_koopa::THIS_ACTOR_TYPE,
     .level = red_bandit_koopa::THIS_LEVEL,

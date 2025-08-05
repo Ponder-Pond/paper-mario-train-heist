@@ -14,7 +14,7 @@
 #include "battle/common/newactor/shy_guy_rider.inc.cpp"
 #include "battle/common/newactor/red_koopa_bandit.inc.cpp"
 #include "battle/common/newactor/pyro_guy.inc.cpp"
-#include "battle/common/newactor/koopa_the_kid.inc.cpp"
+// #include "battle/common/newactor/koopa_the_kid.inc.cpp"
 // #include "battle/common/newactor/bandit_tower.inc.cpp"
 #include "battle/common/newactor/calamity_kammy.inc.cpp"
 

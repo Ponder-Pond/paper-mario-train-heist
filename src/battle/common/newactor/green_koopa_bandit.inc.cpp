@@ -1105,7 +1105,7 @@ EvtScript EVS_TakeTurn = {
 }; // namespace buzzy_beetle
 
 ActorBlueprint GreenBanditKoopa = {
-    .flags = ACTOR_FLAG_NO_SHADOW, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
+    .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .maxHP = green_bandit_koopa::hp,
     .type = green_bandit_koopa::THIS_ACTOR_TYPE,
     .level = green_bandit_koopa::THIS_LEVEL,
@@ -1128,7 +1128,7 @@ ActorBlueprint GreenBanditKoopa = {
 };
 
 ActorBlueprint BuzzyBeetle = {
-    .flags = ACTOR_FLAG_NO_SHADOW,
+    .flags = 0,
     .maxHP = buzzy_beetle::hp,
     .type = ACTOR_TYPE_BUZZY_BEETLE_GREEN_PHASE,
     .level = ACTOR_LEVEL_BUZZY_BEETLE_GREEN_PHASE,

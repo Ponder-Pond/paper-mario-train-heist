@@ -251,7 +251,7 @@ EvtScript EVS_TakeTurn = {
 }; // namespace pyro_guy
 
 ActorBlueprint PyroGuy = {
-    .flags = ACTOR_FLAG_NO_SHADOW,
+    .flags = 0,
     .maxHP = pyro_guy::hp,
     .type = ACTOR_TYPE_PYRO_GUY_RED_PHASE,
     .level = ACTOR_LEVEL_PYRO_GUY_RED_PHASE,

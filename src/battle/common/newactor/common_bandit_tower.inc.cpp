@@ -487,7 +487,7 @@ EvtScript EVS_HandleCommand = {
                         // update turn counter
                         Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, LVar0)
                     Else
-                        // topple turns are over, koopa bros can get up
+                        // topple turns are over, koopa can get up
                         Call(SetTargetOffset, ACTOR_SELF, PRT_MAIN, -5, 36)
                         Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
                         Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, false)
