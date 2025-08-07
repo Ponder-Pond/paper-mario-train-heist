@@ -87,13 +87,13 @@ EvtScript EVS_NpcInit_Peach = {
 };
 
 ShopItemData TayceTItemInventory[TAYCE_T_ITEM_COUNT] = {
-    { .itemID = ITEM_POTATO_SALAD,    .price =  5, .descMsg = MSG_ItemShopDesc_AttackFXA },
-    { .itemID = ITEM_NUTTY_CAKE,  .price =  5, .descMsg = MSG_ItemShopDesc_HappyHeart },
-    { .itemID = ITEM_APPLE_PIE, .price =  10, .descMsg = MSG_ItemShopDesc_HappyFlower },
+    { .itemID = ITEM_POTATO_SALAD,    .price =  5, .descMsg = MSG_ItemShortDesc_PotatoSalad },
+    { .itemID = ITEM_NUTTY_CAKE,  .price =  5, .descMsg = MSG_ItemShortDesc_NuttyCake },
+    { .itemID = ITEM_APPLE_PIE, .price =  10, .descMsg = MSG_ItemShortDesc_ApplePie },
 
-    { .itemID = ITEM_YUMMY_MEAL,     .price =  20, .descMsg = MSG_ItemShopDesc_PayOff },
-    { .itemID = ITEM_LIFE_SHROOM,   .price =  40, .descMsg = MSG_ItemShopDesc_ChillOut },
-    { .itemID = ITEM_REPEL_GEL,    .price =  15, .descMsg = MSG_ItemShopDesc_PrettyLucky },
+    { .itemID = ITEM_YUMMY_MEAL,     .price =  20, .descMsg = MSG_ItemShortDesc_YummyMeal },
+    { .itemID = ITEM_LIFE_SHROOM,   .price =  40, .descMsg = MSG_ItemShopDesc_LifeShroom },
+    { .itemID = ITEM_REPEL_GEL,    .price =  15, .descMsg = MSG_ItemShopDesc_RepelGel },
 };
 
 API_CALLABLE(TayceT_GetPlayerCoins) {
@@ -137,7 +137,8 @@ API_CALLABLE(TayceT_ShopItemsPopup) {
                 menuPos++;
             }
         }
-        menu->popupType = POPUP_MENU_BUY_ITEM;
+        // menu->popupType = POPUP_MENU_BUY_ITEM;
+        menu->popupType = POPUP_MENU_SELL_ITEM;
         menu->numEntries = menuPos;
         menu->initialPos = 0;
         create_standard_popup_menu(menu);
@@ -265,24 +266,24 @@ EvtScript EVS_NpcInit_TayceT = {
 };
 
 ShopItemData ToadBadgeInventory[TOAD_BADGE_COUNT] = {
-    { .itemID = ITEM_FIRE_SHIELD,    .price =  3, .descMsg = MSG_ItemShopDesc_AttackFXA },
+    { .itemID = ITEM_FIRE_SHIELD,    .price =  3, .descMsg = MSG_ItemShopDesc_FireShield },
     { .itemID = ITEM_HAPPY_HEART_A,  .price =  15, .descMsg = MSG_ItemShopDesc_HappyHeart },
     { .itemID = ITEM_HAPPY_FLOWER_A, .price =  15, .descMsg = MSG_ItemShopDesc_HappyFlower },
 
-    { .itemID = ITEM_POWER_JUMP,     .price =  10, .descMsg = MSG_ItemShopDesc_PayOff },
-    { .itemID = ITEM_SHRINK_STOMP,   .price =  7, .descMsg = MSG_ItemShopDesc_ChillOut },
-    { .itemID = ITEM_POWER_SMASH,    .price =  10, .descMsg = MSG_ItemShopDesc_PrettyLucky },
+    { .itemID = ITEM_POWER_JUMP,     .price =  10, .descMsg = MSG_ItemShopDesc_PowerJump },
+    { .itemID = ITEM_SHRINK_STOMP,   .price =  7, .descMsg = MSG_ItemShopDesc_ShrinkStomp },
+    { .itemID = ITEM_POWER_SMASH,    .price =  10, .descMsg = MSG_ItemShopDesc_PowerSmash },
 
-    { .itemID = ITEM_JUMP_CHARGE,    .price = 3, .descMsg = MSG_ItemShopDesc_FeelingFine },
-    { .itemID = ITEM_POWER_RUSH,     .price = 7, .descMsg = MSG_ItemShopDesc_Peekaboo },
+    { .itemID = ITEM_JUMP_CHARGE,    .price = 3, .descMsg = MSG_ItemShopDesc_JumpCharge },
+    { .itemID = ITEM_POWER_RUSH,     .price = 7, .descMsg = MSG_ItemShopDesc_PowerRush },
 
-    { .itemID = ITEM_CLOSE_CALL,     .price = 5, .descMsg = MSG_ItemShopDesc_ZapTap },
-    { .itemID = ITEM_LAST_STAND,     .price = 5, .descMsg = MSG_ItemShopDesc_HeartFinder },
-    { .itemID = ITEM_PRETTY_LUCKY,   .price = 10, .descMsg = MSG_ItemShopDesc_FlowerFinder },
+    { .itemID = ITEM_CLOSE_CALL,     .price = 5, .descMsg = MSG_ItemShopDesc_CloseCall },
+    { .itemID = ITEM_LAST_STAND,     .price = 5, .descMsg = MSG_ItemShopDesc_LastStand },
+    { .itemID = ITEM_PRETTY_LUCKY,   .price = 10, .descMsg = MSG_ItemShopDesc_PrettyLucky },
 
-    { .itemID = ITEM_DOUBLE_DIP,       .price = 3, .descMsg = MSG_ItemShopDesc_HPDrain },
-    { .itemID = ITEM_QUICK_CHANGE,     .price = 20, .descMsg = MSG_ItemShopDesc_MoneyMoney },
-    { .itemID = ITEM_ALLOR_NOTHING,    .price = 10, .descMsg = MSG_ItemShopDesc_FlowerSaver },
+    { .itemID = ITEM_DOUBLE_DIP,       .price = 3, .descMsg = MSG_ItemShopDesc_DoubleDip },
+    { .itemID = ITEM_QUICK_CHANGE,     .price = 20, .descMsg = MSG_ItemShopDesc_QuickChange },
+    { .itemID = ITEM_ALLOR_NOTHING,    .price = 10, .descMsg = MSG_ItemShopDesc_AllorNothing },
 };
 
 API_CALLABLE(Toad_GetPlayerStarPieces) {

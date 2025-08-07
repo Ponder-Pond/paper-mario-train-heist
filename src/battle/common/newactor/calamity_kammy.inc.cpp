@@ -343,6 +343,7 @@ EvtScript EVS_Attack_DropBlock = {
     EndThread
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_CalamityKammy_GunFireStart)
     Wait(8)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_BOING)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_CalamityKammy_GunFireEnd)
     DebugPrintf("Prank Shot Here\n")
     Wait(7)
@@ -368,7 +369,7 @@ EvtScript EVS_Attack_DropBlock = {
     // Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     // Call(SetBattleCamTarget, -80, 37, 5)
     // Call(SetBattleCamDist, 256)
-    // Wait(10)
+    Wait(10)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     ChildThread

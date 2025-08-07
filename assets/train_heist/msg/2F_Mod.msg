@@ -559,7 +559,7 @@
 #message:2F:(TrainLobby_BuyTayceT13)
 {
 	[Next]
-	You don't want anymore[BR]
+	You don't want any more[BR]
 	leftovers?[BR]
 	[Wait][Next]
 	Well. That's fine! I can probably[BR]
