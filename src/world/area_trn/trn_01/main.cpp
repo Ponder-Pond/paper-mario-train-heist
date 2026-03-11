@@ -18,7 +18,7 @@ EvtScript EVS_TexPan = {
     End
 };
 
-API_CALLABLE((MapTransition)) {
+API_CALLABLE(MapTransition) {
     set_map_transition_effect(TRANSITION_BEGIN_OR_END_GAME);
     return ApiStatus_DONE2;
 }
@@ -27,7 +27,7 @@ EvtScript EVS_EnterMap = {
     Call(GetEntryID, LVar0)
     Switch(LVar0)
         CaseEq(0)
-            Call((MapTransition))
+            Call(MapTransition)
             Exec(EVS_Scene_BeginGame)
             Wait(5)
         CaseEq(1)

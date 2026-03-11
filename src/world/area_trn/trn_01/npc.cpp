@@ -62,18 +62,6 @@ EvtScript EVS_NpcInit_Luigi = {
     End
 };
 
-EvtScript EVS_NpcInteract_Kammy = {
-    Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TrainLobby_KammyInteract)
-    Return
-    End
-};
-
-EvtScript EVS_NpcInit_Kammy = {
-    Call(BindNpcInteract, NPC_SELF, Ref(EVS_NpcInteract_Kammy))
-    Return
-    End
-};
-
 EvtScript EVS_NpcInteract_Peach = {
     Call(SpeakToPlayer, NPC_Peach, ANIM_ParadePeach_Talk, ANIM_ParadePeach_IdleRaisedArms, 0, MSG_TrainLobby_PeachInteract)
     Return
@@ -501,17 +489,6 @@ NpcData NpcData_Characters[] = {
         .tattle = MSG_TrainLobby_LuigiTattle,
     },
     {
-        .id = NPC_CalamityKammy,
-        .settings = &N(NpcSettings_Kammy),
-        .pos = { GEN_CALAMITY_KAMMY_VEC },
-        .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
-        .init = &EVS_NpcInit_Kammy,
-        .yaw = GEN_CALAMITY_KAMMY_DIR,
-        .drops = NO_DROPS,
-        .animations = CALAMITY_KAMMY_ANIMS,
-        .tattle = MSG_TrainLobby_CalamityKammyTattle,
-    },
-    {
         .id = NPC_Peach,
         .settings = &N(NpcSettings_Peach),
         .pos = { GEN_PEACH_VEC },
@@ -546,8 +523,33 @@ NpcData NpcData_Characters[] = {
     },
 };
 
+EvtScript EVS_NpcInteract_Kammy = {
+    Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TrainLobby_KammyInteract)
+    Return
+    End
+};
+
+EvtScript EVS_NpcInit_Kammy = {
+    Call(BindNpcInteract, NPC_SELF, Ref(EVS_NpcInteract_Kammy))
+    Return
+    End
+};
+
+NpcData NpcData_CalamityKammy = {
+    .id = NPC_CalamityKammy,
+    .settings = &N(NpcSettings_Kammy),
+    .pos = { GEN_CALAMITY_KAMMY_VEC },
+    .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
+    .init = &EVS_NpcInit_Kammy,
+    .yaw = GEN_CALAMITY_KAMMY_DIR,
+    .drops = NO_DROPS,
+    .animations = CALAMITY_KAMMY_ANIMS,
+    .tattle = MSG_TrainLobby_CalamityKammyTattle,
+};
+
 NpcGroupList DefaultNPCs = {
     NPC_GROUP(NpcData_Characters),
+    NPC_GROUP(NpcData_CalamityKammy),
     {}
 };
 
