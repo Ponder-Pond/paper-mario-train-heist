@@ -1,5 +1,7 @@
 #include "common.h"
 #include "vars_access.h"
+#include "dx/config.h"
+#include "dx/debug_menu.h"
 
 extern u32* gMapFlags;
 extern s32* gMapVars;
@@ -891,20 +893,20 @@ ApiStatus evt_handle_call(Evt* script) {
     EvtCallingLine = script->ptrCurLine;
 
     if (script->blocked) {
-        isInitialCall = FALSE;
+        isInitialCall = false;
         func = script->callFunction;
         ret = func(script, isInitialCall);
     } else {
         script->callFunction = (ApiFunc)evt_get_variable(script, *args++);
         script->ptrReadPos = args;
         script->curArgc--;
-        script->blocked = TRUE;
-        isInitialCall = TRUE;
+        script->blocked = true;
+        isInitialCall = true;
         func = script->callFunction;
         ret = func(script, isInitialCall);
     }
 
-    EvtCallingLine = NULL;
+    EvtCallingLine = nullptr;
     return ret;
 }
 
@@ -982,7 +984,7 @@ s32 evt_trigger_on_activate_exec_script(Trigger* trigger) {
     EvtScript* scriptStart;
     Evt* script;
 
-    if (trigger->runningScript == NULL) {
+    if (trigger->runningScript == nullptr) {
         scriptStart = trigger->onTriggerEvt;
         if (is_another_trigger_bound(trigger, scriptStart)) {
             return 0;
@@ -998,7 +1000,7 @@ s32 evt_trigger_on_activate_exec_script(Trigger* trigger) {
     }
 
     if (!does_script_exist(trigger->runningScriptID)) {
-        trigger->runningScript = NULL;
+        trigger->runningScript = nullptr;
         return 0; // stop calling this function
     }
 
@@ -1024,7 +1026,7 @@ ApiStatus evt_handle_bind(Evt* script) {
 
     trigger = create_trigger(&bp);
     trigger->onTriggerEvt = (EvtScript*)triggerScript;
-    trigger->runningScript = NULL;
+    trigger->runningScript = nullptr;
     trigger->priority = script->priority;
     trigger->varTable[0] = evt_get_variable(script, script->varTable[0]);
     trigger->varTable[1] = evt_get_variable(script, script->varTable[1]);
@@ -1107,7 +1109,7 @@ ApiStatus evt_handle_does_script_exist(Evt* script) {
 }
 
 s32 evt_trigger_on_activate_lock(Trigger* trigger) {
-    if (trigger->runningScript == NULL) {
+    if (trigger->runningScript == nullptr) {
         Evt* newScript = start_script(trigger->onTriggerEvt, trigger->priority, EVT_FLAG_RUN_IMMEDIATELY);
         trigger->runningScript = newScript;
         trigger->runningScriptID = newScript->id;
@@ -1118,7 +1120,7 @@ s32 evt_trigger_on_activate_lock(Trigger* trigger) {
     }
 
     if (!does_script_exist(trigger->runningScriptID)) {
-        trigger->runningScript = NULL;
+        trigger->runningScript = nullptr;
         trigger->flags &= ~TRIGGER_ACTIVATED;
     }
 }
@@ -1144,7 +1146,7 @@ ApiStatus evt_handle_bind_lock(Evt* script) {
 
     trigger = create_trigger(&bp);
     trigger->onTriggerEvt = (EvtScript*)triggerScript;
-    trigger->runningScript = NULL;
+    trigger->runningScript = nullptr;
     trigger->priority = script->priority;
     trigger->varTable[0] = evt_get_variable(script, script->varTable[0]);
     trigger->varTable[1] = evt_get_variable(script, script->varTable[1]);
@@ -1206,7 +1208,7 @@ ApiStatus evt_handle_child_thread(Evt* script) {
     } while (opcode != EVT_OP_END_CHILD_THREAD);
 
     script->ptrNextLine = endLine;
-    newScript = func_802C39F8(script, startLine, EVT_FLAG_RUN_IMMEDIATELY | EVT_FLAG_THREAD);
+    newScript = start_child_thread(script, startLine, EVT_FLAG_RUN_IMMEDIATELY | EVT_FLAG_THREAD);
     newScript->owner1.enemyID = script->owner1.enemyID;
     newScript->owner2.npcID = script->owner2.npcID;
     newScript->groupFlags = script->groupFlags;
@@ -1347,13 +1349,35 @@ ApiStatus func_802C73B8(Evt* script) {
     return ApiStatus_DONE1;
 }
 
+ApiStatus evt_handle_debug_breakpoint(Evt* script) {
+    #if DX_DEBUG_MENU
+    script->debugPaused = true;
+    #endif
+    return ApiStatus_DONE2;
+}
+
 s32 evt_execute_next_command(Evt* script) {
     s32 commandsExecuted = 0;
 
-    while (TRUE) {
+    while (true) {
         s32 status = ApiStatus_DONE2;
         s32* lines;
         s32 nargs;
+
+        #if DX_DEBUG_MENU
+        if (script->debugPaused && script->curOpcode != EVT_OP_INTERNAL_FETCH) {
+            switch (script->debugStep) {
+                case DEBUG_EVT_STEP_NONE:
+                    return EVT_CMD_RESULT_YIELD;
+                case DEBUG_EVT_STEP_ONCE:
+                    script->debugStep = DEBUG_EVT_STEP_NONE;
+                    break;
+                case DEBUG_EVT_STEP_OVER:
+                    // do not pause execution until we get a block
+                    break;
+            }
+        }
+        #endif
 
         commandsExecuted++;
         ASSERT_MSG(commandsExecuted < 10000, "Script %x is blocking for ages (infinite loop?)", script->ptrFirstLine);
@@ -1365,7 +1389,7 @@ s32 evt_execute_next_command(Evt* script) {
                 script->curOpcode = *lines++;
                 nargs = *lines++;
                 script->ptrReadPos = lines;
-                script->blocked = FALSE;
+                script->blocked = false;
                 script->curArgc = nargs;
                 lines = &lines[nargs];
                 script->ptrNextLine = lines;
@@ -1649,6 +1673,10 @@ s32 evt_execute_next_command(Evt* script) {
                 break;
             case EVT_OP_94:
                 status = func_802C73B8(script);
+                break;
+            case EVT_OP_DEBUG_BREAKPOINT:
+                status = evt_handle_debug_breakpoint(script);
+                break;
             case EVT_OP_END:
                 break;
             default:
@@ -1656,6 +1684,7 @@ s32 evt_execute_next_command(Evt* script) {
         }
 
         if (status == ApiStatus_REPEAT) {
+            // execute command after a fetch operation
             continue;
         }
 
@@ -1667,22 +1696,29 @@ s32 evt_execute_next_command(Evt* script) {
             return EVT_CMD_RESULT_ERROR;
         }
 
-        // TODO: this may be able to be a switch but I couldn't get it
         if (status == ApiStatus_BLOCK) {
-            // return 0
-        } else if (status == ApiStatus_DONE1) {
+            return EVT_CMD_RESULT_CONTINUE;
+        }
+
+        #if DX_DEBUG_MENU
+        // pause again now that the current command is done blocking
+        if (script->debugStep == DEBUG_EVT_STEP_OVER) {
+            script->debugStep = DEBUG_EVT_STEP_NONE;
+        }
+        #endif
+
+        if (status == ApiStatus_DONE1) {
             script->curOpcode = EVT_OP_INTERNAL_FETCH;
-            // return 0
-        } else if (status == ApiStatus_DONE2) {
+            return EVT_CMD_RESULT_CONTINUE;
+        }
+
+        if (status == ApiStatus_DONE2) {
             script->curOpcode = EVT_OP_INTERNAL_FETCH;
             if (gGameStatusPtr->debugScripts != DEBUG_SCRIPTS_BLOCK_FUNC_DONE) {
                 continue;
             }
-            // return 0
-        } else {
-            continue;
+            return EVT_CMD_RESULT_CONTINUE;
         }
-        return EVT_CMD_RESULT_CONTINUE;
     }
 }
 
@@ -2074,7 +2110,7 @@ Bytecode* evt_skip_if(Evt* script) {
                 }
             break;
         }
-    } while (TRUE);
+    } while (true);
 }
 
 Bytecode* evt_skip_else(Evt* script) {
@@ -2122,7 +2158,7 @@ Bytecode* evt_skip_else(Evt* script) {
                 nestedIfDepth++;
                 break;
         }
-    } while (TRUE);
+    } while (true);
 }
 
 Bytecode* evt_goto_end_case(Evt* script) {
@@ -2150,7 +2186,7 @@ Bytecode* evt_goto_end_case(Evt* script) {
                 }
                 break;
         }
-    } while (TRUE);
+    } while (true);
 }
 
 Bytecode* evt_goto_next_case(Evt* script) {
@@ -2193,7 +2229,7 @@ Bytecode* evt_goto_next_case(Evt* script) {
                 }
                 break;
         }
-    } while (TRUE);
+    } while (true);
 }
 
 Bytecode* evt_goto_end_loop(Evt* script) {
@@ -2221,5 +2257,5 @@ Bytecode* evt_goto_end_loop(Evt* script) {
                 loopDepth++;
                 break;
         }
-    } while (TRUE);
+    } while (true);
 }

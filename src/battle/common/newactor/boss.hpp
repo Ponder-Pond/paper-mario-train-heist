@@ -105,4 +105,4 @@ enum BossCommon {
     // Bowser Phase AVAL
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

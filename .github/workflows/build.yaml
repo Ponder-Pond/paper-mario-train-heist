@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-      - 'refs/tags/v*'
+    tags:
+      - "v*"
 
 jobs:
   game:
@@ -18,7 +19,7 @@ jobs:
       - uses: cachix/cachix-action@v15
         with:
           name: papermario-dx
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Download base ROM
         run: |
           curl -L $BASEROM_US_URL -o papermario.us.z64
@@ -41,83 +42,3 @@ jobs:
       - uses: root-project/gcc-problem-matcher-improved@v0.0.1-alpha.1
       - name: Build game
         run: nix develop --command "ninja"
-      - name: Build patch file
-        run: nix develop --command ninja ver/us/build/papermario.bps
-      - name: Get repository name
-        id: repo-name
-        uses: MariachiBear/get-repo-name-action@v1.1.0
-        with:
-          string-case: paramCase
-      - name: Upload patch as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.repo-name.outputs.repository-name }}.bps
-          path: ver/us/build/papermario.bps
-  prerelease:
-    name: Prerelease
-    runs-on: ubuntu-latest
-    needs: game
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Get repository name
-        id: repo-name
-        uses: MariachiBear/get-repo-name-action@v1.1.0
-        with:
-          string-case: paramCase
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ steps.repo-name.outputs.repository-name }}.bps
-          path: ${{ steps.repo-name.outputs.repository-name }}.bps
-      - uses: softprops/action-gh-release@v2
-        with:
-          tag_name: "latest"
-          prerelease: true
-          name: Development build
-          files: ${{ steps.repo-name.outputs.repository-name }}.bps
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    needs: game
-    if: github.ref == 'refs/tags/v*'
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Get repository name
-        id: repo-name
-        uses: MariachiBear/get-repo-name-action@v1.1.0
-        with:
-          string-case: paramCase
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ steps.repo-name.outputs.repository-name }}.bps
-          path: ${{ steps.repo-name.outputs.repository-name }}.bps
-      - uses: softprops/action-gh-release@v2
-        with:
-          files: ${{ steps.repo-name.outputs.repository-name }}.bps
-  darwin-cachix:
-    name: Build Nix shell for macOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v25
-      - uses: cachix/cachix-action@v15
-        with:
-          name: papermario-dx-aarch64-darwin
-          extraPullNames: papermario-dx
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Download base ROM
-        run: |
-          curl -L $BASEROM_US_URL -o papermario.us.z64
-          nix-store --add-fixed sha256 papermario.us.z64
-        env:
-          BASEROM_US_URL: ${{ secrets.BASEROM_US_URL }}
-      - name: Build shell
-        run: nix develop --command true
-        env:
-          NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1 # glibc is marked unsupported on darwin

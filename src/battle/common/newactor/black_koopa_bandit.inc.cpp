@@ -72,7 +72,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               THIS_DIZZY_CHANCE,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            THIS_PARALYZE_CHANCE,
     STATUS_KEY_SHRINK,            100,
@@ -82,7 +82,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,         -1,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,      -1,
     STATUS_TURN_MOD_SHRINK,        -1,
@@ -305,7 +305,7 @@ Formation SpawnRedBandit = {
 Vec3i PyroGuySpawnPos = { 145, 55, 25 };
 
 Formation SpawnPyroGuy = {
-    ACTOR_BY_POS(PyroGuy, PyroGuySpawnPos, 75),
+    OVL_ACTOR_BY_POS("pyro_guy", PyroGuySpawnPos, 75),
 };
 
 // Vec3i PositionFourthGroup[] = {
@@ -487,7 +487,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace black_bandit_koopa
+} // namespace black_bandit_koopa
 
 ActorBlueprint BlackBanditKoopa = {
     .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
@@ -512,4 +512,4 @@ ActorBlueprint BlackBanditKoopa = {
     .statusTextOffset = { 10, 20 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

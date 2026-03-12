@@ -28,19 +28,19 @@ API_CALLABLE(N(init)) {
     acs->actionCommandID = ACTION_COMMAND_JUMP;
     acs->hudPosX = -48;
     acs->state = 0;
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     acs->hudPosY = 80;
 
     hid = hud_element_create(&HES_AButton);
     acs->hudElemIDs[HIDX_BUTTON] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
     hud_element_set_alpha(hid, 255);
 
     hid = hud_element_create(&HES_RightOn);
     acs->hudElemIDs[HIDX_RIGHT_ON] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
     hud_element_set_alpha(hid, 255);
@@ -63,7 +63,7 @@ API_CALLABLE(N(start)) {
     acs->prepareTime = evt_get_variable(script, *args++);
     acs->difficulty = evt_get_variable(script, *args++);
     acs->difficulty = adjust_action_command_difficulty(acs->difficulty);
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     battleStatus->actionQuality = 0;
 
     hid = acs->hudElemIDs[HIDX_BUTTON];
@@ -133,7 +133,7 @@ void N(update)(void) {
             }
             // inputs during this state will cause the action to fail
             if ((battleStatus->curButtonsPressed & BUTTON_A) && !acs->autoSucceed) {
-                acs->wrongButtonPressed = TRUE;
+                acs->wrongButtonPressed = true;
                 battleStatus->actionResult = ACTION_RESULT_EARLY;
             }
             // continue until we begin the window for valid input

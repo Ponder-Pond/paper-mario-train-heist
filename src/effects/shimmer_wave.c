@@ -43,7 +43,6 @@ EffectInstance* shimmer_wave_main(
     EffectBlueprint bp;
     EffectInstance* effect;
     ShimmerWaveFXData* part;
-    f32 one = 1.0f;
     f32 temp;
     s32 i;
 
@@ -53,13 +52,13 @@ EffectInstance* shimmer_wave_main(
     bp.update = shimmer_wave_update;
     bp.renderScene = shimmer_wave_render;
     bp.unk_00 = 0;
-    bp.renderUI = NULL;
+    bp.renderUI = nullptr;
     bp.effectID = EFFECT_SHIMMER_WAVE;
 
     effect = create_effect_instance(&bp);
     effect->numParts = arg6;
     part = effect->data.shimmerWave = general_heap_malloc(arg6 * sizeof(*part));
-    ASSERT(effect->data.shimmerWave != NULL);
+    ASSERT(effect->data.shimmerWave != nullptr);
 
     part->unk_00 = arg0;
     part->unk_3C = 0;
@@ -72,7 +71,7 @@ EffectInstance* shimmer_wave_main(
     part->unk_04 = arg1;
     part->unk_08 = arg2;
     part->unk_0C = arg3;
-    part->unk_60 = one;
+    part->unk_60 = 1.0f;
     part->unk_10 = arg4;
     part->unk_14 = arg5;
     part->unk_40 = 255;

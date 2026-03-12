@@ -5,7 +5,6 @@
 #include "game_modes.h"
 #include "dx/config.h"
 #include "dx/versioning.h"
-
 void state_init_startup(void) {
     gOverrideFlags |= GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME;
     gGameStatus.startupState = 3;
@@ -25,9 +24,9 @@ void state_step_startup(void) {
     gGameStatus.prevArea = -1;
     gGameStatus.mapID = 0;
     gGameStatus.entryID = 0;
-    gGameStatus.debugUnused1 = FALSE;
+    gGameStatus.debugUnused1 = false;
     gGameStatus.debugScripts = DEBUG_SCRIPTS_NONE;
-    gGameStatus.keepUsingPartnerOnMapChange = FALSE;
+    gGameStatus.keepUsingPartnerOnMapChange = false;
     gGameStatus.introPart = INTRO_PART_NONE;
     gGameStatus.demoBattleFlags = 0;
     gGameStatus.unk_A9 = -1;
@@ -48,7 +47,7 @@ void state_step_startup(void) {
     hud_element_clear_cache();
     clear_trigger_data();
     clear_printers();
-    clear_entity_data(FALSE);
+    clear_entity_data(false);
     clear_screen_overlays();
     clear_player_status();
     clear_npcs();
@@ -66,19 +65,19 @@ void state_step_startup(void) {
     bgm_reset_volume();
     initialize_curtains();
 
-    for (i = 0; i < ARRAY_COUNT(gGameStatus.unk_50); i++) {
-        gGameStatus.unk_50[i] = 4;
-        gGameStatus.unk_48[i] = 15;
+    for (i = 0; i < ARRAY_COUNT(gGameStatus.holdRepeatInterval); i++) {
+        gGameStatus.holdRepeatInterval[i] = 4;
+        gGameStatus.holdDelayTime[i] = 15;
     }
 
     fio_load_globals();
 
     if (gSaveGlobals.useMonoSound == 0) {
         gGameStatus.soundOutputMode = SOUND_OUT_STEREO;
-        audio_set_stereo();
+        snd_set_stereo();
     } else {
         gGameStatus.soundOutputMode = SOUND_OUT_MONO;
-        audio_set_mono();
+        snd_set_mono();
     }
 
     gOverrideFlags &= ~GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME;

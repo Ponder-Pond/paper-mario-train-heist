@@ -4,19 +4,19 @@
 #include "battle/common/newactor/train_heist_actors.hpp"
 
 #include "battle/common/newactor/green_koopa_bandit.inc.cpp"
-#include "battle/common/newactor/brigader_bones.inc.cpp"
+// #include "battle/common/newactor/brigader_bones.inc.cpp"
 #include "battle/common/newactor/yellow_koopa_bandit.inc.cpp"
-#include "battle/common/newactor/giant_chain_chomp.inc.cpp"
+// #include "battle/common/newactor/giant_chain_chomp.inc.cpp"
 #include "battle/common/newactor/hammer_bros.inc.cpp"
 #include "battle/common/newactor/black_koopa_bandit.inc.cpp"
-#include "battle/common/newactor/crate.inc.cpp"
-#include "battle/common/newactor/dyanmite_crate.inc.cpp"
-#include "battle/common/newactor/shy_guy_rider.inc.cpp"
+// #include "battle/common/newactor/crate.inc.cpp"
+// #include "battle/common/newactor/dyanmite_crate.inc.cpp"
+// #include "battle/common/newactor/shy_guy_rider.inc.cpp"
 #include "battle/common/newactor/red_koopa_bandit.inc.cpp"
-#include "battle/common/newactor/pyro_guy.inc.cpp"
+// #include "battle/common/newactor/pyro_guy.inc.cpp"
 // #include "battle/common/newactor/koopa_the_kid.inc.cpp"
 // #include "battle/common/newactor/bandit_tower.inc.cpp"
-#include "battle/common/newactor/calamity_kammy.inc.cpp"
+// #include "battle/common/newactor/calamity_kammy.inc.cpp"
 
 using namespace battle::actor;
 
@@ -83,17 +83,17 @@ Vec3i CalamityKammyPos = { 60, 0, 0 };
 Formation Formation_TrainHeist = {
     ACTOR_BY_POS(GreenBanditKoopa, GreenPos, 8),
     ACTOR_BY_POS(BuzzyBeetle, BuzzyBeetlePos, 9),
-    ACTOR_BY_POS(BrigaderBones, BrigaderBonesPos, 10),
+    OVL_ACTOR_BY_POS("brigader_bones", BrigaderBonesPos, 10),
     // ACTOR_BY_POS(YellowBanditKoopa, YellowPos, 8),
-    // ACTOR_BY_POS(GiantChainChomp, GiantChompPos, 10),
+    // OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChompPos, 10),
     // ACTOR_BY_POS(YellowHammerBro, YellowHammerBroPos, 9),
     // ACTOR_BY_POS(BlackBanditKoopa, BlackPos, 8),
-    // ACTOR_BY_POS(Crate, CratePos, 10),
-    // ACTOR_BY_POS(DyanmiteCrate, DyanmitePos, 10),
-    // ACTOR_BY_POS(ShyGuyRider, Rider1Pos, 9),
-    // ACTOR_BY_POS(ShyGuyRider, Rider2Pos, 10),
+    // OVL_ACTOR_BY_POS("crate", CratePos, 10),
+    // OVL_ACTOR_BY_POS("dyanmite_crate", DyanmitePos, 10),
+    // OVL_ACTOR_BY_POS("shy_guy_rider", Rider1Pos, 9),
+    // OVL_ACTOR_BY_POS("shy_guy_rider", Rider2Pos, 10),
     // ACTOR_BY_POS(RedBanditKoopa, RedPos, 10),
-    // ACTOR_BY_POS(PyroGuy, PyroGuyPos, 9),
+    // OVL_ACTOR_BY_POS("pyro_guy", PyroGuyPos, 9),
     // ACTOR_BY_POS(KoopaTheKid, KoopaTheKidPos, 8),
     // ACTOR_BY_POS(KoopaGang, KoopaGangPos, 9),
     // ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
@@ -102,26 +102,26 @@ Formation Formation_TrainHeist = {
 Formation Formation_GreenPhase = {
     ACTOR_BY_POS(GreenBanditKoopa, GreenPos, 8),
     ACTOR_BY_POS(BuzzyBeetle, BuzzyBeetlePos, 9),
-    ACTOR_BY_POS(BrigaderBones, BrigaderBonesPos, 10),
+    OVL_ACTOR_BY_POS("brigader_bones", BrigaderBonesPos, 10),
 };
 
 Formation Formation_YellowPhase = {
     ACTOR_BY_POS(YellowBanditKoopa, YellowPos, 8),
-    ACTOR_BY_POS(GiantChainChomp, GiantChompPos, 10),
+    OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChompPos, 10),
     ACTOR_BY_POS(YellowHammerBro, YellowHammerBroPos, 9),
 };
 
 Formation Formation_BlackPhase = {
     ACTOR_BY_POS(BlackBanditKoopa, BlackPos, 8),
-    ACTOR_BY_POS(Crate, CratePos, 10),
-    ACTOR_BY_POS(DyanmiteCrate, DyanmitePos, 10),
-    ACTOR_BY_POS(ShyGuyRider, Rider1Pos, 9),
-    ACTOR_BY_POS(ShyGuyRider, Rider2Pos, 10),
+    OVL_ACTOR_BY_POS("crate", CratePos, 10),
+    OVL_ACTOR_BY_POS("dyanmite_crate", DyanmitePos, 10),
+    OVL_ACTOR_BY_POS("shy_guy_rider", Rider1Pos, 9),
+    OVL_ACTOR_BY_POS("shy_guy_rider", Rider2Pos, 10),
 };
 
 Formation Formation_RedPhase = {
     ACTOR_BY_POS(RedBanditKoopa, RedPos, 10),
-    ACTOR_BY_POS(PyroGuy, PyroGuyPos, 9),
+    OVL_ACTOR_BY_POS("pyro_guy", PyroGuyPos, 9),
 };
 
 Formation Formation_BowserPhase = {
@@ -135,7 +135,7 @@ Formation Formation_BowserPhase = {
 };
 
 Formation Formation_CalamityKammy = {
-    ACTOR_BY_POS(CalamityKammy, CalamityKammyPos, 10),
+    OVL_ACTOR_BY_POS("calamity_kammy", CalamityKammyPos, 10),
 };
 
 BattleList Battles = {
@@ -154,4 +154,4 @@ StageList Stages = {
     {},
 };
 
-}; // namespace battle::area::kmr_part_1
+} // namespace battle::area::kmr_part_1

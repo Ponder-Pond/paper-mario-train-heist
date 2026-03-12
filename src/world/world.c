@@ -6,8 +6,8 @@
 #include "sprite.h"
 #include "model.h"
 #include <string.h>
-#include "dx/debug_menu.h"
 #include "world/surfaces.h"
+#include "dx/overlay.h"
 
 #ifdef SHIFT
 #define ASSET_TABLE_ROM_START (s32) mapfs_ROM_START
@@ -53,9 +53,9 @@ void load_map_script_lib(void) {
 void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     s32 skipLoadingAssets = 0;
     MapConfig* mapConfig;
-    MapSettings* mapSettings;
-    char texStr[17];
     s32 decompressedSize;
+
+    ovl_unload_type(OVL_MAP);
 
     sfx_stop_env_sounds();
     gOverrideFlags &= ~GLOBAL_OVERRIDES_40;
@@ -63,8 +63,8 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
 
     gGameStatusPtr->playerSpriteSet = PLAYER_SPRITES_MARIO_WORLD;
     surface_set_walk_effect(SURFACE_WALK_FX_STANDARD);
-    phys_set_player_sliding_check(NULL);
-    phys_set_landing_adjust_cam_check(NULL);
+    phys_set_player_sliding_check(nullptr);
+    phys_set_landing_adjust_cam_check(nullptr);
 
 #if !VERSION_IQUE
     load_obfuscation_shims();
@@ -92,9 +92,9 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
             break;
     }
 
-    gGameStatusPtr->mapShop = NULL;
+    gGameStatusPtr->mapShop = nullptr;
 
-    ASSERT_MSG(areaID < ARRAY_COUNT(gAreas) - 1, "Invalid area ID %d", areaID);
+    ASSERT_MSG(gAreas[areaID].maps != nullptr, "Invalid area ID %d", areaID);
     ASSERT_MSG(mapID < gAreas[areaID].mapCount, "Invalid map ID %d in %s", mapID, gAreas[areaID].id);
     mapConfig = &gAreas[areaID].maps[mapID];
 
@@ -104,25 +104,37 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
 
     sprintf(wMapShapeName, "%s_shape", mapConfig->id);
     sprintf(wMapHitName, "%s_hit", mapConfig->id);
-    strcpy(texStr, mapConfig->id);
-    texStr[3] = '\0';
-    sprintf(wMapTexName, "%s_tex", texStr);
 
     gMapConfig = mapConfig;
-    if (mapConfig->bgName != NULL) {
-        strcpy(wMapBgName, mapConfig->bgName);
-    }
     load_map_script_lib();
 
-    if (mapConfig->dmaStart != NULL) {
-        dma_copy(mapConfig->dmaStart, mapConfig->dmaEnd, mapConfig->dmaDest);
+    // TODO: don't use NAMESPACE in maps
+    char symSettings[32];
+    char symInit[32];
+    sprintf(symSettings, "%s_settings", mapConfig->id);
+    sprintf(symInit, "%s_map_init", mapConfig->id);
+
+    Overlay* ovl = ovl_load(mapConfig->id, OVL_MAP);
+    MapSettings* settings = ovl_import(ovl, symSettings);
+    ASSERT_MSG(settings != nullptr, "Map '%s' does not export 'settings'", mapConfig->id);
+    gMapSettings = *settings;
+
+    if (gMapSettings.textureArchive != nullptr) {
+        sprintf(wMapTexName, "%s_tex", gMapSettings.textureArchive);
+    } else {
+        char texStr[17];
+        strcpy(texStr, mapConfig->id);
+        texStr[3] = '\0';
+        sprintf(wMapTexName, "%s_tex", texStr);
     }
 
-    gMapSettings = *mapConfig->settings;
+    if (gMapSettings.bgName != nullptr) {
+        strcpy(wMapBgName, gMapSettings.bgName);
+    }
 
-    mapSettings = &gMapSettings;
-    if (mapConfig->init != NULL) {
-        skipLoadingAssets = mapConfig->init();
+    s32 (*init)(void) = ovl_import(ovl, symInit);
+    if (init != nullptr) {
+        skipLoadingAssets = init();
     }
 
     if (!skipLoadingAssets) {
@@ -132,13 +144,13 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
         decode_yay0(yay0Asset, shapeFile);
         general_heap_free(yay0Asset);
 
-        mapSettings->modelTreeRoot = shapeFile->header.root;
-        mapSettings->modelNameList = shapeFile->header.modelNames;
-        mapSettings->colliderNameList = shapeFile->header.colliderNames;
-        mapSettings->zoneNameList = shapeFile->header.zoneNames;
+        gMapSettings.modelTreeRoot = shapeFile->header.root;
+        gMapSettings.modelNameList = shapeFile->header.modelNames;
+        gMapSettings.colliderNameList = shapeFile->header.colliderNames;
+        gMapSettings.zoneNameList = shapeFile->header.zoneNames;
     }
 
-    if (mapConfig->bgName != NULL) {
+    if (gMapSettings.bgName != nullptr) {
         load_map_bg(wMapBgName);
     }
 
@@ -162,7 +174,7 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     reset_background_settings();
 
     if (gGameStatusPtr->introPart == INTRO_PART_NONE) {
-        func_80138188();
+        reset_back_screen_overlay_progress();
     }
 
     if (!skipLoadingAssets) {
@@ -172,7 +184,7 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
 
     reset_battle_status();
     clear_encounter_status();
-    clear_entity_data(TRUE);
+    clear_entity_data(true);
     clear_effect_data();
     clear_player_status();
     player_reset_data();
@@ -182,21 +194,22 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
 
     gPlayerStatus.targetYaw = gPlayerStatus.curYaw;
 
-    sfx_set_reverb_mode(WorldReverbModeMapping[*(s32*)mapConfig->unk_1C & 0x3]);
+    sfx_set_reverb_mode(WorldReverbModeMapping[gMapSettings.sfxReverb & 0x3]);
     sfx_reset_door_sounds();
 
     if (!skipLoadingAssets) {
         s32 texturesOffset = get_asset_offset(wMapTexName, &decompressedSize);
 
-        if (mapSettings->modelTreeRoot != NULL) {
-            load_data_for_models(mapSettings->modelTreeRoot, texturesOffset, decompressedSize);
+        if (gMapSettings.modelTreeRoot != nullptr) {
+            load_data_for_models(gMapSettings.modelTreeRoot, texturesOffset, decompressedSize);
         }
     }
 
-    if (mapSettings->background != NULL) {
-        set_background(mapSettings->background);
+    if (gMapSettings.bgName != nullptr) {
+        set_background(&gBackgroundImage);
     } else {
-        set_background_size(296, 200, 12, 20);
+        set_background_size(SCREEN_XMAX - SCREEN_XMIN, SCREEN_YMAX - SCREEN_YMIN,
+            SCREEN_INSET_X, SCREEN_INSET_Y);
     }
 
     gCurrentCameraID = CAM_DEFAULT;
@@ -214,7 +227,7 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     initialize_status_bar();
     gGameStatusPtr->unk_90 = 1000;
     gGameStatusPtr->unk_92 = 1000;
-    gGameStatusPtr->mainScriptID = start_script_in_group(mapSettings->main, EVT_PRIORITY_0, 0, EVT_GROUP_NEVER_PAUSE)->id;
+    gGameStatusPtr->mainScriptID = start_script_in_group(gMapSettings.main, EVT_PRIORITY_0, 0, EVT_GROUP_NEVER_PAUSE)->id;
 }
 
 MapConfig* get_current_map_config(void) {
@@ -231,17 +244,17 @@ NODISCARD s32 get_map_IDs_by_name(const char* mapName, s16* areaID, s16* mapID) 
     MapConfig* maps;
 
     // TODO: Potentially a fake match? Difficult to not set the temp in the for conditional.
-    for (i = 0; (maps = gAreas[i].maps) != NULL; i++) {
+    for (i = 0; (maps = gAreas[i].maps) != nullptr; i++) {
         for (j = 0; j < gAreas[i].mapCount; j++) {
             if (strcmp(maps[j].id, mapName) == 0) {
                 *areaID = i;
                 *mapID = j;
-                return TRUE;
+                return true;
             }
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void get_map_IDs_by_name_checked(const char* mapName, s16* areaID, s16* mapID) {
@@ -290,47 +303,4 @@ s32 get_asset_offset(char* assetName, s32* compressedSize) {
     return ret;
 }
 
-#define AREA(area, jp_name) { ARRAY_COUNT(area##_maps), area##_maps, "area_" #area, jp_name }
-
-#define MAP(map) \
-    .id = #map, \
-    .settings = &map##_settings, \
-    .dmaStart = map##_ROM_START, \
-    .dmaEnd = map##_ROM_END, \
-    .dmaDest = map##_VRAM \
-
-#define MAP_WITH_INIT(map) \
-    MAP(map), \
-    .init = &map##_map_init \
-
-s32 map_init_mac_tex(void) {
-    sprintf(wMapTexName, "mac_tex");
-    return FALSE;
-}
-
-/// Credits
-#include "area_end/end.h"
-MapConfig end_maps[] = {
-    { MAP_WITH_INIT(end_00) },
-    { MAP_WITH_INIT(end_01) },
-};
-
-/// Game Over
-#include "area_gv/gv.h"
-MapConfig gv_maps[] = {
-    { MAP(gv_01) },
-};
-
-/// Train
-#include "area_trn/trn.h"
-MapConfig trn_maps[] = {
-    { MAP(trn_01) },
-};
-
-
-AreaConfig gAreas[] = {
-    AREA(end, "エンディング"),  // endingu [Ending]
-    AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
-    AREA(trn, "Train"),
-    {},
-};
+#include "world/gAreas.inc.c"

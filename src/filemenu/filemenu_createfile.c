@@ -35,7 +35,7 @@ MenuWindowBP filemenu_createfile_windowBPs[] = {
         .height = 46,
         .priority = WINDOW_PRIORITY_64,
         .fpDrawContents = &filemenu_draw_contents_file_create_header,
-        .tab = NULL,
+        .tab = nullptr,
         .parentID = WIN_FILES_MAIN,
         .fpUpdate = { WINDOW_UPDATE_HIDE },
         .extraFlags = 0,
@@ -49,7 +49,7 @@ MenuWindowBP filemenu_createfile_windowBPs[] = {
         .height = WINDOW_2_HEIGHT,
         .priority = WINDOW_PRIORITY_64,
         .fpDrawContents = &filemenu_draw_contents_choose_name,
-        .tab = NULL,
+        .tab = nullptr,
         .parentID = WIN_FILES_MAIN,
         .fpUpdate = { WINDOW_UPDATE_HIDE },
         .extraFlags = 0,
@@ -58,7 +58,7 @@ MenuWindowBP filemenu_createfile_windowBPs[] = {
 };
 
 MenuPanel filemenu_createfile_menuBP = {
-    .initialized = FALSE,
+    .initialized = false,
     .col = 0,
     .row = 0,
     .selected = 0,
@@ -348,7 +348,7 @@ void filemenu_choose_name_init(MenuPanel* menu) {
 
     for (i = 0; i < ARRAY_COUNT(filemenu_createfile_hudScripts); i++) {
         filemenu_createfile_HIDs[i] = hud_element_create(filemenu_createfile_hudScripts[i]);
-        hud_element_set_flags(filemenu_createfile_HIDs[i], HUD_ELEMENT_FLAG_80);
+        hud_element_set_flags(filemenu_createfile_HIDs[i], HUD_ELEMENT_FLAG_MANUAL_RENDER);
     }
 
     for (i = 0; i < ARRAY_COUNT(filemenu_createfile_windowBPs); i++) {
@@ -360,7 +360,7 @@ void filemenu_choose_name_init(MenuPanel* menu) {
     gWindows[WIN_FILES_INPUT_FIELD].pos.x = CENTER_WINDOW_X(WIN_FILES_INPUT_FIELD);
     gWindows[WIN_FILES_INPUT_KEYBOARD].pos.x = CENTER_WINDOW_X(WIN_FILES_INPUT_KEYBOARD);
 
-    menu->initialized = TRUE;
+    menu->initialized = true;
 }
 
 void filemenu_choose_name_handle_input(MenuPanel* menu) {

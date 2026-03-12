@@ -37,12 +37,12 @@ API_CALLABLE(N(init)) {
     action_command_init_status();
 
     acs->actionCommandID = ACTION_COMMAND_DIZZY_SHELL;
-    acs->showHud = TRUE;
+    acs->showHud = true;
     acs->state = AC_STATE_INIT;
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     acs->meterFillLevel = 0;
     acs->meterFillWidth = 0;
-    acs->isMeterFilled = FALSE;
+    acs->isMeterFilled = false;
     battleStatus->actionQuality = 0;
     acs->hudPosX = -48;
     acs->hudPosY = 80;
@@ -51,19 +51,19 @@ API_CALLABLE(N(init)) {
     acs->hudElemIDs[HIDX_BUTTON] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     hid = hud_element_create(&HES_BlueMeter);
     acs->hudElemIDs[HIDX_METER] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     hid = hud_element_create(&HES_100pct);
     acs->hudElemIDs[HIDX_100_PCT] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     return ApiStatus_DONE2;
 }
@@ -86,7 +86,7 @@ API_CALLABLE(N(start)) {
     acs->difficulty = adjust_action_command_difficulty(acs->difficulty);
     acs->statusChance = evt_get_variable(script, *args++); // average chance for enemies to be affected
 
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     acs->meterFillLevel = 0;
     acs->meterFillWidth = 0;
     battleStatus->actionQuality = 0;
@@ -186,7 +186,7 @@ void N(update)(void) {
             // handle meter reaching 100%
             if (acs->meterFillLevel >= MAX_MASH_UNITS) {
                 acs->meterFillLevel = MAX_MASH_UNITS;
-                acs->isMeterFilled = TRUE;
+                acs->isMeterFilled = true;
                 hid = acs->hudElemIDs[HIDX_100_PCT];
                 hud_element_set_render_pos(hid, acs->hudPosX + 50, acs->hudPosY + 28);
                 hud_element_clear_flags(hid, HUD_ELEMENT_FLAG_DISABLED);

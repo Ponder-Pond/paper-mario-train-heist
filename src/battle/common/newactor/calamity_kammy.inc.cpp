@@ -58,7 +58,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -68,7 +68,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -611,7 +611,7 @@ EvtScript EVS_Death = {
     End
 };
 
-}; // namespace calamity_kammy
+} // namespace calamity_kammy
 
 ActorBlueprint CalamityKammy = {
     .flags = 0,
@@ -636,4 +636,4 @@ ActorBlueprint CalamityKammy = {
     .statusTextOffset = { 10, 20 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

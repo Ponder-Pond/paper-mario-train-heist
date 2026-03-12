@@ -91,8 +91,10 @@
 #define	SEGMENT_NUMBER(a)	(((unsigned int)(a) << 4) >> 28)
 #define	SEGMENT_ADDR(num, off)	(((num) << 24) + (off))
 
-#ifndef NULL
-#define NULL 0
+#ifndef __cplusplus
+#ifndef nullptr
+#define nullptr 0
+#endif
 #endif
 
 #endif /* !_MBI_H_ */

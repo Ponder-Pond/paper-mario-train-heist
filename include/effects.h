@@ -4,10 +4,6 @@
 #include "types.h"
 #include "common_structs.h"
 
-#ifdef _LANGUAGE_C_PLUS_PLUS
-extern "C" {
-#endif
-
 typedef struct BigSmokePuffFXData {
     /* 0x00 */ s16 unk_00;
     /* 0x02 */ s16 unk_02;
@@ -2685,14 +2681,18 @@ enum FireBreathType {
     FIRE_BREATH_TINY  = 2,
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 EffectInstance* create_effect_instance(EffectBlueprint* effectBp);
 void remove_effect(EffectInstance*);
 s32 load_effect(s32 effectIndex);
 
 #include "effects/effect_defs.h"
 
-#ifdef _LANGUAGE_C_PLUS_PLUS
-}
+#ifdef __cplusplus
+} // extern "C"
 #endif
 
-#endif
+#endif // _EFFECTS_H_

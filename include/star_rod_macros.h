@@ -2,6 +2,9 @@
 #define _STAR_ROD_MACROS_H_
 // macros used by Star Rod's script generation
 
+#define TRUE 1
+#define FALSE 0
+
 #define EVT_MAKE_ITEM_ENTITY(args...) \
     Call(MakeItemEntity, args)
 

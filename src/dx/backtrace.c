@@ -8,6 +8,7 @@
 #include "nu/nusys.h"
 #include "backtrace.h"
 #include "PR/osint.h"
+#include "dx/overlay.h"
 
 /** @brief Enable to debug why a backtrace is wrong */
 #define BACKTRACE_DEBUG 0
@@ -103,7 +104,7 @@ static void backtrace_foreach(void (*cb)(void *arg, void *ptr), void *arg) {
     debugf("backtrace: start\n");
     #endif
 
-    exception_ra = NULL;      // If != NULL,
+    exception_ra = nullptr;      // If != nullptr,
     func_start = 0;            // Start of the current function (when known)
 
     // Start from the backtrace function itself. Put the start pointer somewhere after the initial
@@ -141,7 +142,7 @@ static void backtrace_foreach(void (*cb)(void *arg, void *ptr), void *arg) {
                     fp = *(uint32_t**)((uint32_t)sp + func.fp_offset);
                 ra = *(uint32_t**)((uint32_t)sp + func.ra_offset) - 2;
                 sp = (uint32_t*)((uint32_t)sp + func.stack_size);
-                exception_ra = NULL;
+                exception_ra = nullptr;
                 func_start = 0;
                 break;
             /*
@@ -185,7 +186,7 @@ static void backtrace_foreach(void (*cb)(void *arg, void *ptr), void *arg) {
                     // The function that jumped into an invalid PC was not interrupted by the exception: it
                     // is a regular function
                     // call now.
-                    exception_ra = NULL;
+                    exception_ra = nullptr;
                     break;
                 }
 
@@ -212,7 +213,7 @@ static void backtrace_foreach(void (*cb)(void *arg, void *ptr), void *arg) {
                 // beginning of a standard function (before RA is saved), does have a stack but
                 // will be marked as a leaf function. In this case, we mus update the stack pointer.
                 sp = (uint32_t*)((uint32_t)sp + func.stack_size);
-                exception_ra = NULL;
+                exception_ra = nullptr;
                 func_start = 0;
                 break;
         }
@@ -228,7 +229,7 @@ static void backtrace_foreach_foreign(void (*cb)(void *arg, void *ptr), void *ar
     uint32_t* exception_ra;
     uint32_t func_start;
 
-    exception_ra = NULL;      // If != NULL,
+    exception_ra = nullptr;      // If != nullptr,
     func_start = 0;            // Start of the current function (when known)
 
     while (1) {
@@ -262,7 +263,7 @@ static void backtrace_foreach_foreign(void (*cb)(void *arg, void *ptr), void *ar
                     fp = *(uint32_t**)((uint32_t)sp + func.fp_offset);
                 ra = *(uint32_t**)((uint32_t)sp + func.ra_offset) - 2;
                 sp = (uint32_t*)((uint32_t)sp + func.stack_size);
-                exception_ra = NULL;
+                exception_ra = nullptr;
                 func_start = 0;
                 break;
             case BT_LEAF:
@@ -271,7 +272,7 @@ static void backtrace_foreach_foreign(void (*cb)(void *arg, void *ptr), void *ar
                 // beginning of a standard function (before RA is saved), does have a stack but
                 // will be marked as a leaf function. In this case, we mus update the stack pointer.
                 sp = (uint32_t*)((uint32_t)sp + func.stack_size);
-                exception_ra = NULL;
+                exception_ra = nullptr;
                 func_start = 0;
                 break;
         }
@@ -338,8 +339,8 @@ s32 address2symbol(u32 address, Symbol* out) {
     nuPiReadRom(0, &romHeader, sizeof(romHeader));
 
     u32 symbolTableRomAddr = romHeader[SYMBOL_TABLE_PTR_ROM_ADDR / sizeof(*romHeader)];
-    if (symbolTableRomAddr == NULL) {
-        debugf("address2symbol: no symbols available (SYMBOL_TABLE_PTR is NULL)\n");
+    if (symbolTableRomAddr == nullptr) {
+        debugf("address2symbol: no symbols available (SYMBOL_TABLE_PTR is nullptr)\n");
         return -1;
     }
 
@@ -356,10 +357,9 @@ s32 address2symbol(u32 address, Symbol* out) {
     }
 
     // Read symbols in chunks
-    static Symbol chunk[chunkSize];
+    static Symbol chunk[symbolsPerChunk];
     s32 i;
     for (i = 0; i < symt.symbolCount; i++) {
-        // Do we need to load the next chunk?
         if (i % symbolsPerChunk == 0) {
             u32 chunkAddr = symbolTableRomAddr + sizeof(SymbolTable) + (i / symbolsPerChunk) * chunkSize;
             nuPiReadRom(chunkAddr, chunk, chunkSize);
@@ -371,11 +371,8 @@ s32 address2symbol(u32 address, Symbol* out) {
             *out = sym;
             return 0;
         } else if (address < sym.address) {
-            // Symbols are sorted by address, so if we passed the address, we can stop
             break;
         } else {
-            // Keep searching, but remember this as the last symbol
-            // incase we don't find an exact match
             *out = sym;
         }
     }
@@ -383,8 +380,8 @@ s32 address2symbol(u32 address, Symbol* out) {
 }
 
 char* load_symbol_string(char* dest, u32 addr, int n) {
-    if (addr == NULL) {
-        return NULL;
+    if (addr == nullptr) {
+        return nullptr;
     }
 
     u32 aligned = addr & ~3;
@@ -395,7 +392,77 @@ char* load_symbol_string(char* dest, u32 addr, int n) {
     return (char*)((u32)dest + (addr & 3));
 }
 
+/**
+ * @brief Look up a symbol in an overlay's debug symbol table stored in ROM.
+ *
+ * Addresses in the table are stored as offsets from LINK_ADDR (0x80000000).
+ * The caller passes `offset = addr - overlay_base` as the lookup key.
+ */
+s32 ovl_address2symbol(u32 offset, u32 debugRomStart, u32 debugRomEnd, Symbol* out) {
+    #define symbolsPerChunk 0x1000
+    #define chunkSize ((sizeof(Symbol) * symbolsPerChunk))
+
+    SymbolTable symt;
+    nuPiReadRom(debugRomStart, &symt, sizeof(SymbolTable));
+    if (symt.magic[0] != 'S' || symt.magic[1] != 'Y' || symt.magic[2] != 'M' || symt.magic[3] != 'S') {
+        return -1;
+    }
+    if (symt.symbolCount <= 0) {
+        return -1;
+    }
+
+    static Symbol chunk[symbolsPerChunk];
+    s32 i;
+    for (i = 0; i < symt.symbolCount; i++) {
+        if (i % symbolsPerChunk == 0) {
+            u32 chunkAddr = debugRomStart + sizeof(SymbolTable) + (i / symbolsPerChunk) * chunkSize;
+            nuPiReadRom(chunkAddr, chunk, chunkSize);
+        }
+
+        Symbol sym = chunk[i % symbolsPerChunk];
+
+        if (sym.address == offset) {
+            *out = sym;
+            return 0;
+        } else if (offset < sym.address) {
+            break;
+        } else {
+            *out = sym;
+        }
+    }
+    return offset - out->address;
+
+    #undef symbolsPerChunk
+    #undef chunkSize
+}
+
 void backtrace_address_to_string(u32 address, char* dest) {
+    const char* ovl_name = NULL;
+    u32 debugRomStart = 0, debugRomEnd = 0, ovlBase = 0;
+    const char* ovl_sym_name = ovl_resolve_addr(address, &ovl_name,
+                                              &debugRomStart, &debugRomEnd, &ovlBase);
+    if (ovl_sym_name != NULL) {
+        if (debugRomStart != 0) {
+            u32 offset = address - ovlBase;
+            Symbol sym;
+            s32 sym_offset = ovl_address2symbol(offset, debugRomStart, debugRomEnd, &sym);
+            if (sym_offset >= 0 && sym_offset < 0x1000) {
+                char name[0x40];
+                char file[0x40];
+                char* namep = load_symbol_string(name, sym.nameOffset, ARRAY_COUNT(name));
+                char* filep = load_symbol_string(file, sym.fileOffset, ARRAY_COUNT(file));
+
+                if (filep == NULL)
+                    sprintf(dest, "%s (%s)", namep, ovl_name);
+                else
+                    sprintf(dest, "%s (%s %s)", namep, ovl_name, filep);
+                return;
+            }
+        }
+        sprintf(dest, "%s (%s)", ovl_sym_name, ovl_name);
+        return;
+    }
+
     Symbol sym;
     s32 offset = address2symbol(address, &sym);
 
@@ -407,7 +474,7 @@ void backtrace_address_to_string(u32 address, char* dest) {
 
         offset = 0; // Don't show offsets
 
-        if (filep == NULL)
+        if (filep == nullptr)
             if (offset == 0)
                 sprintf(dest, "%s", namep);
             else

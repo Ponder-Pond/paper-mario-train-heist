@@ -22,7 +22,7 @@ extern "C" {
 /// @evtapi
 /// @param modelID
 /// @param x
-/// @param y 
+/// @param y
 /// @param z
 API_CALLABLE(TranslateModel);
 
@@ -139,7 +139,7 @@ API_CALLABLE(SetTransformGroupEnabled);
 /// @evtapi
 /// @param modelID
 /// @param x
-/// @param y 
+/// @param y
 /// @param z
 API_CALLABLE(TranslateGroup);
 
@@ -176,7 +176,7 @@ API_CALLABLE(EnableGroup);
 /// @param bool "0 = clear, 1 = get"
 API_CALLABLE(MakeLocalVertexCopy);
 
-/// Set flags for collider + siblings + children. 
+/// Set flags for collider + siblings + children.
 /// @evtapi
 /// @param mode 0 = set bits, 1 = clear bits, 2 = replace, 3 = replace lowest 16 bits
 /// @param colliderID
@@ -208,7 +208,7 @@ API_CALLABLE(UpdateColliderTransform);
 /// Enables or disables the given zone.
 /// @evtapi
 /// @param zoneID
-/// @param bool 
+/// @param bool
 API_CALLABLE(SetZoneEnabled);
 
 /// Makes the player go to the given map and at the given entrance.
@@ -889,13 +889,13 @@ API_CALLABLE(SetMessageValue);
 /// @{
 /// @name Player
 
-/// Hides the player's shadow if `hide` is `TRUE`, shows it if `FALSE`.
+/// Hides the player's shadow if `hide` is `true`, shows it if `false`.
 /// @evtapi
 /// @param hide Whether to hide the player's shadow.
 /// @see disable_player_shadow, enable_player_shadow
 API_CALLABLE(HidePlayerShadow);
 
-/// Disables player physics if `disable` is `TRUE`, enables it if `FALSE`.
+/// Disables player physics if `disable` is `true`, enables it if `false`.
 /// @evtapi
 /// @param disable Whether to disable player physics.
 /// @see disable_player_static_collisions, enable_player_static_collisions
@@ -1043,7 +1043,7 @@ API_CALLABLE(InterruptUsePartner);
 /// Enables and disables the 8-bit Mario easter egg.
 ///
 /// @evtapi
-/// @param disable Disable the easter egg if `TRUE`, enable it if `FALSE`.
+/// @param disable Disable the easter egg if `true`, enable it if `false`.
 ///
 /// Whilst active, the player uses a retro sprite, and the following actions are disabled:
 /// - Spin dash
@@ -1151,6 +1151,12 @@ API_CALLABLE(ClampAngleFloat);
 API_CALLABLE(GetLanguage);
 #endif
 
+/// Get current @ref GameContext from @ref GameStatus
+/// Use this to tell whether the script is executing in world or battle.
+/// @evtapi
+/// @param (out) GameContext
+API_CALLABLE(GetGameContext);
+
 /// @}
 
 /// @{
@@ -1180,7 +1186,7 @@ API_CALLABLE(RegisterMusicEvents);
 API_CALLABLE(FadeOutMusic);
 
 /// @evtapi
-API_CALLABLE(SetMusicTrack);
+API_CALLABLE(SetMusic);
 
 /// @evtapi
 API_CALLABLE(FadeInMusic);
@@ -1192,7 +1198,7 @@ API_CALLABLE(EnableMusicProximityMix);
 API_CALLABLE(AdjustMusicProximityMix);
 
 /// @evtapi
-API_CALLABLE(SetMusicTrackVolumes);
+API_CALLABLE(SetTrackVolumes);
 
 /// @evtapi
 API_CALLABLE(PopSong);
@@ -1502,7 +1508,7 @@ extern EvtScript EnemyNpcHit;
 extern EvtScript EnemyNpcDefeat;
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
-}
+} // extern "C"
 #endif
 
 #endif

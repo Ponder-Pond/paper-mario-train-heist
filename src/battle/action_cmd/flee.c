@@ -36,15 +36,15 @@ API_CALLABLE(N(init)) {
 
     acs->actionCommandID = ACTION_COMMAND_FLEE;
     acs->state = AC_STATE_INIT;
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     acs->meterFillLevel = acs->escapeChance * 100;
     acs->escapeThreshold = rand_int(50);
     acs->meterFillWidth = 0;
     acs->flee.dir = 1;
     acs->escapeChance = rand_int(1);
-    acs->isMeterFilled = FALSE;
+    acs->isMeterFilled = false;
     battleStatus->actionQuality = 0;
-    N(HasStarted) = FALSE;
+    N(HasStarted) = false;
     acs->hudPosX = -48;
     acs->hudPosY = 80;
 
@@ -52,25 +52,25 @@ API_CALLABLE(N(init)) {
     acs->hudElemIDs[HIDX_BUTTON] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     hid = hud_element_create(&HES_BlueMeter);
     acs->hudElemIDs[HIDX_METER] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     hid = hud_element_create(&HES_RunningAway);
     acs->hudElemIDs[HIDX_RUN_AWAY] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     hid = hud_element_create(&HES_RunAwayOK);
     acs->hudElemIDs[HIDX_OK] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     offsetX = 29 - ((100 - acs->escapeThreshold) * 60) / 100;
     hud_element_set_render_pos(acs->hudElemIDs[HIDX_OK], acs->hudPosX - offsetX, acs->hudPosY + 17);
@@ -80,7 +80,7 @@ API_CALLABLE(N(init)) {
     acs->hudElemIDs[HIDX_100_PCT] = hid;
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY + 28);
     hud_element_set_render_depth(hid, 0);
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
 
     return ApiStatus_DONE2;
 }
@@ -97,7 +97,7 @@ API_CALLABLE(N(start)) {
     acs->difficulty = evt_get_variable(script, *args++);
     acs->difficulty = adjust_action_command_difficulty(acs->difficulty);
 
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     battleStatus->actionQuality = 0;
     battleStatus->actionResult = ACTION_RESULT_NONE;
     battleStatus->maxActionQuality = acs->mashMeterCutoffs[acs->mashMeterNumIntervals - 1];
@@ -156,7 +156,7 @@ void N(update)(void) {
             }
 
             hud_element_set_script(acs->hudElemIDs[HIDX_BUTTON], &HES_MashAButton);
-            N(HasStarted) = TRUE;
+            N(HasStarted) = true;
             acs->state = AC_STATE_ACTIVE;
             acs->stateTimer = acs->duration;
 
@@ -170,7 +170,7 @@ void N(update)(void) {
             // handle meter reaching 100%
             if (acs->meterFillLevel >= MAX_MASH_UNITS) {
                 acs->meterFillLevel = MAX_MASH_UNITS;
-                acs->isMeterFilled = TRUE;
+                acs->isMeterFilled = true;
                 hid = acs->hudElemIDs[HIDX_100_PCT];
                 hud_element_set_render_pos(hid, acs->hudPosX + 50, acs->hudPosY + 28);
                 hud_element_clear_flags(hid, HUD_ELEMENT_FLAG_DISABLED);

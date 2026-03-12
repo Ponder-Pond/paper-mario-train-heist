@@ -74,16 +74,20 @@ typedef unsigned long   size_t;
 /*************************************************************************
  * Common definitions
  */
-#ifndef TRUE
-#define TRUE    1
+#ifndef __cplusplus
+#ifndef true
+#define true    1
 #endif
 
-#ifndef FALSE
-#define FALSE   0
+#ifndef false
+#define false   0
+#endif
 #endif
 
-#ifndef NULL
-#define NULL    0
+#ifndef __cplusplus
+#ifndef nullptr
+#define nullptr    0
+#endif
 #endif
 
 #endif  /* _ULTRATYPES_H_ */

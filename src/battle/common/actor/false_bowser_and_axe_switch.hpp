@@ -7,4 +7,4 @@ namespace battle::actor {
 extern ActorBlueprint FalseBowser;
 extern ActorBlueprint AxeSwitch;
 
-}; // namespace battle::actor
+} // namespace battle::actor

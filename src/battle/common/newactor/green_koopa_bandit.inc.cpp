@@ -81,7 +81,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               THIS_DIZZY_CHANCE,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            THIS_PARALYZE_CHANCE,
     STATUS_KEY_SHRINK,              0,
@@ -91,7 +91,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -388,7 +388,7 @@ Formation SpawnYellowBandit = {
 Vec3i GiantChainChompSpawnPos = { 25, 0, 15 };
 
 Formation SpawnGiantChainChomp = {
-    ACTOR_BY_POS(GiantChainChomp, GiantChainChompSpawnPos, 100),
+    OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChainChompSpawnPos, 100),
 };
 
 Vec3i HammerBroAltSpawnPos = { 145, 0, 10 };
@@ -671,7 +671,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace green_bandit_koopa
+} // namespace green_bandit_koopa
 
 namespace buzzy_beetle {
 
@@ -717,7 +717,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,             50,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,              75,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,             50,
     STATUS_KEY_PARALYZE,           75,
     STATUS_KEY_SHRINK,             90,
@@ -727,7 +727,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -764,7 +764,7 @@ s32 DefaultAnims[] = {
     STATUS_KEY_STATIC,    ANIM_BuzzyBeetle_Anim01,
     STATUS_KEY_PARALYZE,  ANIM_BuzzyBeetle_Anim00,
     STATUS_KEY_DIZZY,     ANIM_BuzzyBeetle_Anim0A,
-    STATUS_KEY_FEAR,      ANIM_BuzzyBeetle_Anim0A,
+    STATUS_KEY_UNUSED,      ANIM_BuzzyBeetle_Anim0A,
     STATUS_END,
 };
 
@@ -776,7 +776,7 @@ s32 ToppledAnims[] = {
     STATUS_KEY_STOP,      ANIM_BuzzyBeetle_Anim1A,
     STATUS_KEY_STATIC,    ANIM_BuzzyBeetle_Anim02,
     STATUS_KEY_DIZZY,     ANIM_BuzzyBeetle_Anim1C,
-    STATUS_KEY_FEAR,      ANIM_BuzzyBeetle_Anim1C,
+    STATUS_KEY_UNUSED,      ANIM_BuzzyBeetle_Anim1C,
     STATUS_END,
 };
 
@@ -1102,7 +1102,7 @@ EvtScript EVS_TakeTurn = {
     End
 };
 
-}; // namespace buzzy_beetle
+} // namespace buzzy_beetle
 
 ActorBlueprint GreenBanditKoopa = {
     .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
@@ -1150,4 +1150,4 @@ ActorBlueprint BuzzyBeetle = {
     .statusTextOffset = { 8, 13 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

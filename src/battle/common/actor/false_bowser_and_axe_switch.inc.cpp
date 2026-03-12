@@ -70,7 +70,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,              30,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,           30,
     STATUS_KEY_SHRINK,             50,
@@ -80,7 +80,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,         -1,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,      -1,
     STATUS_TURN_MOD_SHRINK,        -1,
@@ -95,7 +95,7 @@ s32 BoostedStatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -105,7 +105,7 @@ s32 BoostedStatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,         -1,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,      -1,
     STATUS_TURN_MOD_SHRINK,        -1,
@@ -132,7 +132,7 @@ ActorPartBlueprint ActorParts[] = {
 
 EvtScript EVS_Init = {
     Call(SetActorVar, ACTOR_SELF, AVAR_TurnCount, 0)
-    Call(SetActorVar, ACTOR_SELF, AVAR_AxeSwitch, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_AxeSwitch, false)
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
@@ -190,15 +190,15 @@ EvtScript EVS_PlayFootstepSounds = {
 };
 
 EvtScript EVS_HandlePhase = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
         CaseEq(EVENT_BEGIN_FIRST_STRIKE)
@@ -282,14 +282,14 @@ EvtScript EVS_HandleEvent = {
             Call(ShakeCam, CAM_BATTLE, 0, 4, Float(3.0))
         CaseDefault
     EndSwitch
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_BasicHit = {
     ExecWait(EVS_Hit)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -303,7 +303,7 @@ EvtScript EVS_Hit = {
 
 EvtScript EVS_Death = {
     Call(HideHealthBar, ACTOR_SELF)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Set(LVar2, EXEC_DEATH_NO_SPINNING)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Set(LVar3, 1000)
@@ -315,8 +315,8 @@ EvtScript EVS_Death = {
     PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_ACTOR_DEATH)
     Call(DropStarPoints, ACTOR_SELF)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, true)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, true)
     Wait(30)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     // ExecWait(EVS_ForceNextTarget)
@@ -329,7 +329,7 @@ EvtScript EVS_BurnHit = {
     Call(GetLastEvent, ACTOR_SELF, LVar3)
     IfEq(LVar3, 36)
         Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 1)
-        Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_ENCHANTED, FALSE)
+        Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_ENCHANTED, false)
     EndIf
     Call(SetAnimation, ACTOR_SELF, LVar0, LVar1)
     Call(GetDamageSource, LVar3)
@@ -345,7 +345,7 @@ EvtScript EVS_BurnHit = {
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.01))
                     Add(LVar5, 55)
                     Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                    Call(JumpToGoal, ACTOR_SELF, 8, FALSE, FALSE, FALSE)
+                    Call(JumpToGoal, ACTOR_SELF, 8, false, false, false)
             EndSwitch
             Set(LVar7, 0)
             Loop(30)
@@ -364,18 +364,18 @@ EvtScript EVS_BurnHit = {
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.8))
                     IfEq(LVar5, 0)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 15, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 15, false, true, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 5, false, true, false)
                     Else
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 15, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 15, false, false, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 10, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 10, false, false, false)
                         Call(SetGoalPos, ACTOR_SELF, LVar4, LVar5, LVar6)
-                        Call(JumpToGoal, ACTOR_SELF, 5, FALSE, FALSE, FALSE)
+                        Call(JumpToGoal, ACTOR_SELF, 5, false, false, false)
                     EndIf
             EndSwitch
         CaseDefault
@@ -438,15 +438,15 @@ EvtScript EVS_ShockReaction = {
     Add(LVar9, LVar7)
     Div(LVar9, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar8, 0, LVar9)
-    Call(JumpToGoal, ACTOR_SELF, 15, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 15, false, true, false)
     Add(LVar8, LVar2)
     Div(LVar8, 2)
     Add(LVar9, LVar4)
     Div(LVar9, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar8, 0, LVar9)
-    Call(JumpToGoal, ACTOR_SELF, 8, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 8, false, true, false)
     Call(SetGoalPos, ACTOR_SELF, LVar2, LVar3, LVar4)
-    Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 5, false, true, false)
     Return
     End
 };
@@ -467,7 +467,7 @@ EvtScript EVS_ReturnHome = {
     Call(GetDist2D, LVar9, LVarA, LVarC, LVarD, LVarF)
     IfGe(LVar9, Float(5.0))
         Call(SetAnimation, ACTOR_SELF, LVar0, LVar1)
-        Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+        Call(RunToGoal, ACTOR_SELF, 0, false)
     EndIf
     IfEq(LVarB, 180)
         Loop(15)
@@ -482,9 +482,9 @@ EvtScript EVS_ReturnHome = {
 };
 
 EvtScript EVS_TakeTurn = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     ExecWait(EVS_TakeTurn_Inner)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -500,7 +500,7 @@ EvtScript EVS_TakeTurn_Inner = {
 #define LBL_FIRE_BALL_ATTACK 1
 EvtScript EVS_UseAttack = {
     Call(GetActorVar, ACTOR_SELF, AVAR_AxeSwitch, LVar3)
-    IfEq(LVar3, FALSE)
+    IfEq(LVar3, false)
         Call(RandInt, 100, LVar1)
         Switch(LVar1)
             CaseLt(50)
@@ -536,20 +536,20 @@ EvtScript EVS_Attack_Jump = {
         Call(SetBattleCamOffsetY, 36)
         Call(BattleCamTargetActor, ACTOR_SELF)
         Call(MoveBattleCamOver, 40)
-        Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, FALSE)
+        Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, false)
     Else
         Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
         Call(SetBattleCamDist, 240)
         Call(SetBattleCamOffsetY, 14)
         Call(BattleCamTargetActor, ACTOR_SELF)
         Call(MoveBattleCamOver, 40)
-        Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, FALSE)
+        Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, false)
     EndIf
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Walk)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(AddGoalPos, ACTOR_SELF, 60, 0, 0)
     Call(SetActorSpeed, ACTOR_SELF, Float(4.5))
-    Call(RunToGoal, ACTOR_SELF, 0, FALSE)
+    Call(RunToGoal, ACTOR_SELF, 0, false)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
     Wait(15)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_PreJump)
@@ -566,14 +566,14 @@ EvtScript EVS_Attack_Jump = {
             Set(LVar1, 0)
             Call(SetActorSounds, ACTOR_SELF, ACTOR_SOUND_JUMP, SOUND_NONE, 0)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 18, FALSE, TRUE, FALSE)
+            Call(JumpToGoal, ACTOR_SELF, 18, false, true, false)
             Thread
                 Call(N(StartRumbleWithParams), 80, 14)
                 Call(ShakeCam, CAM_BATTLE, 0, 4, Float(3.0))
             EndThread
             Sub(LVar0, 35)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 14, FALSE, TRUE, FALSE)
+            Call(JumpToGoal, ACTOR_SELF, 14, false, true, false)
             Thread
                 Call(N(StartRumbleWithParams), 80, 14)
                 Call(ShakeCam, CAM_BATTLE, 0, 4, Float(2.0))
@@ -594,7 +594,7 @@ EvtScript EVS_Attack_Jump = {
         CaseDefault
     EndSwitch
     Call(SetGoalToTarget, ACTOR_SELF)
-    Call(JumpToGoal, ACTOR_SELF, 15, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 15, false, true, false)
     Thread
         Call(ShakeCam, CAM_BATTLE, 0, 4, Float(3.0))
     EndThread
@@ -610,7 +610,7 @@ EvtScript EVS_Attack_Jump = {
     Set(LVar1, 0)
     Call(SetActorSounds, ACTOR_SELF, ACTOR_SOUND_JUMP, SOUND_NONE, 0)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(JumpToGoal, ACTOR_SELF, 18, FALSE, TRUE, FALSE)
+    Call(JumpToGoal, ACTOR_SELF, 18, false, true, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEAVY_NPC_LANDING)
     Thread
         Call(N(StartRumbleWithParams), 80, 14)
@@ -722,7 +722,7 @@ EvtScript EVS_Attack_FireBall = {
     End
 };
 
-}; // namespace false_bowser
+} // namespace false_bowser
 
 namespace axe_switch {
 
@@ -757,7 +757,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -767,7 +767,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -839,7 +839,7 @@ EvtScript EVS_HandleEvent = {
         CaseOrEq(EVENT_DEATH)
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_IMMUNE)
-            Call(SetActorVar, ACTOR_ENEMY0, false_bowser::AVAR_AxeSwitch, TRUE)
+            Call(SetActorVar, ACTOR_ENEMY0, false_bowser::AVAR_AxeSwitch, true)
             Call((ForceTriggerAxeSwitchEntity))
             ExecWait(EVS_ActivateSwitch)
             Return
@@ -870,7 +870,7 @@ EvtScript EVS_ActivateSwitch = {
         Wait(1)
     EndLoop
     Wait(15)
-    Call(EnableModel, MODEL_AxeChain, FALSE)
+    Call(EnableModel, MODEL_AxeChain, false)
     // Loop(5)
     //     Call(TranslateGroup, MODEL_Bridge10, 1, 1, 1)
     //     Call(TranslateGroup, MODEL_Bridge9, 1, 1, 1)
@@ -917,25 +917,25 @@ EvtScript EVS_ActivateSwitch = {
     //     Call(TranslateGroup, MODEL_Bridge1, 0, 0, 0)
     //     Wait(1)
     // EndLoop
-    Call(EnableGroup, MODEL_Bridge10, FALSE)
+    Call(EnableGroup, MODEL_Bridge10, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge9, FALSE)
+    Call(EnableGroup, MODEL_Bridge9, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge8, FALSE)
+    Call(EnableGroup, MODEL_Bridge8, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge7, FALSE)
+    Call(EnableGroup, MODEL_Bridge7, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge6, FALSE)
+    Call(EnableGroup, MODEL_Bridge6, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge5, FALSE)
+    Call(EnableGroup, MODEL_Bridge5, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge4, FALSE)
+    Call(EnableGroup, MODEL_Bridge4, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge3, FALSE)
+    Call(EnableGroup, MODEL_Bridge3, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge2, FALSE)
+    Call(EnableGroup, MODEL_Bridge2, false)
     Wait(2)
-    Call(EnableGroup, MODEL_Bridge1, FALSE)
+    Call(EnableGroup, MODEL_Bridge1, false)
     Wait(2)
     Call(SetActorJumpGravity, ACTOR_ENEMY0, Float(1.2))
     Call(SetGoalPos, ACTOR_ENEMY0, LVar0, -130, LVar2)
@@ -954,13 +954,13 @@ EvtScript EVS_TakeTurn = {
     End
 };
 
-}; // namespace axe_switch
+} // namespace axe_switch
 
 ActorBlueprint FalseBowser = {
     .flags = 0,
     .maxHP = false_bowser::hp,
-    .type = ACTOR_TYPE_FALSE_BOWSER,
-    .level = ACTOR_LEVEL_FALSE_BOWSER,
+    .type = ACTOR_TYPE_false_BOWSER,
+    .level = ACTOR_LEVEL_false_BOWSER,
     .partCount = ARRAY_COUNT(false_bowser::ActorParts),
     .partsData = false_bowser::ActorParts,
     .initScript = &false_bowser::EVS_Init,
@@ -1002,4 +1002,4 @@ ActorBlueprint AxeSwitch = {
     .statusTextOffset = { 0, 0 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

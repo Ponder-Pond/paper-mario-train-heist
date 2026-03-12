@@ -73,7 +73,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               THIS_DIZZY_CHANCE,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            THIS_PARALYZE_CHANCE,
     STATUS_KEY_SHRINK,              0,
@@ -83,7 +83,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -300,25 +300,25 @@ Formation SpawnBlackBandit = {
 Vec3i CrateSpawnPos = { 15, 0, 20 };
 
 Formation SpawnCrate = {
-    ACTOR_BY_POS(Crate, CrateSpawnPos, 100),
+    OVL_ACTOR_BY_POS("crate", CrateSpawnPos, 100),
 };
 
 Vec3i DyanmiteCrateSpawnPos = { 55, 0, 15 };
 
 Formation SpawnDyanmiteCrate = {
-    ACTOR_BY_POS(DyanmiteCrate, DyanmiteCrateSpawnPos, 100),
+    OVL_ACTOR_BY_POS("dyanmite_crate", DyanmiteCrateSpawnPos, 100),
 };
 
 Vec3i ShyGuyRider1SpawnPos = { 45, -25, -50 };
 
 Formation SpawnShyGuyRider1 = {
-    ACTOR_BY_POS(ShyGuyRider, ShyGuyRider1SpawnPos, 75),
+    OVL_ACTOR_BY_POS("shy_guy_rider", ShyGuyRider1SpawnPos, 75),
 };
 
 Vec3i ShyGuyRider2SpawnPos = { -45, -25, -50 };
 
 Formation SpawnShyGuyRider2 = {
-    ACTOR_BY_POS(ShyGuyRider, ShyGuyRider2SpawnPos, 100),
+    OVL_ACTOR_BY_POS("shy_guy_rider", ShyGuyRider2SpawnPos, 100),
 };
 
 // Vec3i PositionThirdGroup[] = {
@@ -563,7 +563,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace yellow_bandit_koopa
+} // namespace yellow_bandit_koopa
 
 ActorBlueprint YellowBanditKoopa = {
     .flags = 0, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
@@ -588,4 +588,4 @@ ActorBlueprint YellowBanditKoopa = {
     .statusTextOffset = { 10, 20 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

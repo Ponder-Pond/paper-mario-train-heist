@@ -39,7 +39,7 @@ s32 DefaultAnims[] = {
     STATUS_KEY_STATIC,    ANIM_Bobomb_Idle,
     STATUS_KEY_PARALYZE,  ANIM_Bobomb_Still,
     STATUS_KEY_DIZZY,     ANIM_Bobomb_Dizzy,
-    STATUS_KEY_FEAR,      ANIM_Bobomb_Dizzy,
+    STATUS_KEY_UNUSED,      ANIM_Bobomb_Dizzy,
     STATUS_END,
 };
 
@@ -52,7 +52,7 @@ s32 IgnitedAnims[] = {
     STATUS_KEY_STATIC,    ANIM_Bobomb_IdleLit,
     STATUS_KEY_PARALYZE,  ANIM_Bobomb_StillLit,
     STATUS_KEY_DIZZY,     ANIM_Bobomb_DizzyLit,
-    STATUS_KEY_FEAR,      ANIM_Bobomb_DizzyLit,
+    STATUS_KEY_UNUSED,      ANIM_Bobomb_DizzyLit,
     STATUS_END,
 };
 
@@ -68,7 +68,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,            100,
     STATUS_KEY_DIZZY,              80,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,           80,
     STATUS_KEY_SHRINK,             90,
@@ -78,7 +78,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -93,7 +93,7 @@ s32 IgnitedStatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,              40,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,           40,
     STATUS_KEY_SHRINK,              0,
@@ -103,7 +103,7 @@ s32 IgnitedStatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -610,7 +610,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace bob_omb
+} // namespace bob_omb
 
 ActorBlueprint BobOmb = {
     .flags = 0,
@@ -635,4 +635,4 @@ ActorBlueprint BobOmb = {
     .statusTextOffset = { 10, 20 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

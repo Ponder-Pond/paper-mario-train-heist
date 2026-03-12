@@ -86,12 +86,12 @@ EvtScript EVS_PreBattle = {
         GEN_TEX_PANNER_3
         Exec(N(EVS_UpdateTexturePan))
     EndThread
-    Call(EnableModel, MODEL_Tunnel, FALSE)
-    Call(EnableModel, MODEL_SnipingCrate, FALSE)
-    Call(EnableModel, MODEL_BarrelBlack, FALSE)
-    Call(EnableModel, MODEL_BombBox, FALSE)
-    Call(EnableModel, MODEL_BombPile, FALSE)
-    Call(EnableModel, MODEL_BarrelRed, FALSE)
+    Call(EnableModel, MODEL_Tunnel, false)
+    Call(EnableModel, MODEL_SnipingCrate, false)
+    Call(EnableModel, MODEL_BarrelBlack, false)
+    Call(EnableModel, MODEL_BombBox, false)
+    Call(EnableModel, MODEL_BombPile, false)
+    Call(EnableModel, MODEL_BarrelRed, false)
     Label(0)
         Loop(0)
             Add(LVar0, 28)
@@ -138,7 +138,7 @@ s32 ForegroundModels[] = {
     STAGE_MODEL_LIST_END
 };
 
-}; // namespace trn_00
+} // namespace trn_00
 
 Stage TrainHeist = {
     .texture = "trn_tex",
@@ -150,4 +150,4 @@ Stage TrainHeist = {
     .foregroundModelList = trn_00::ForegroundModels,
 };
 
-}; // namespace battle::area::kmr_part_1
+} // namespace battle::area::kmr_part_1

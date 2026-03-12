@@ -3,6 +3,8 @@
 
 #include "battle/battle.h"
 
+// TODO: delete this file, use area.h includes instead
+
 // EXTERN_C BattleList b_area_kmr_part_1_Formations;
 // EXTERN_C StageList b_area_kmr_part_1_Stages;
 

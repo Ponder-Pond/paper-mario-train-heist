@@ -5,6 +5,7 @@
 #include "hud_element.h"
 #include "sprite.h"
 #include "game_modes.h"
+#include "battle/states/states.h"
 #include "dx/debug_menu.h"
 
 #include "area/kmr_part_1/area.hpp"
@@ -113,9 +114,9 @@ BattleArea gBattleAreas[] = {
 
 void reset_battle_status(void) {
     gGameStatusPtr->demoBattleFlags = 0;
-    gBattleState = BATTLE_STATE_0;
+    gBattleState = BATTLE_STATE_NONE;
     gBattleSubState = BTL_SUBSTATE_INIT;
-    gLastDrawBattleState = BATTLE_STATE_0;
+    gLastDrawBattleState = BATTLE_STATE_NONE;
     gCurrentBattlePtr = NULL;
     gCurrentBattleID = 0;
     gCurrentStagePtr = NULL;
@@ -137,15 +138,15 @@ void load_battle_section(void) {
         gCurrentStagePtr = &(*battleArea->stages)[gCurrentStageID];
     }
 
-    btl_set_state(BATTLE_STATE_NORMAL_START);
-    gLastDrawBattleState = BATTLE_STATE_0;
+    btl_set_state(BATTLE_STATE_START);
+    gLastDrawBattleState = BATTLE_STATE_NONE;
 }
 
 void load_battle(s32 battleID) {
     gCurrentBattleID = battleID;
     set_game_mode(GAME_MODE_BATTLE);
-    gBattleState = BATTLE_STATE_0;
-    gLastDrawBattleState = BATTLE_STATE_0;
+    gBattleState = BATTLE_STATE_NONE;
+    gLastDrawBattleState = BATTLE_STATE_NONE;
     gBattleSubState = BTL_SUBSTATE_INIT;
 }
 
@@ -168,14 +169,14 @@ void setup_demo_player(void) {
     playerData->curMaxFP = 10;
     playerData->hardMaxFP = 10;
     playerData->level = 3;
-    playerData->hasActionCommands = TRUE;
+    playerData->hasActionCommands = true;
     playerData->starPoints = 55;
     playerData->bootsLevel = 0;
     playerData->hammerLevel = 0;
     playerData->coins = 34;
 
     for (i = 1; i < ARRAY_COUNT(playerData->partners); i++) {
-        playerData->partners[i].enabled = TRUE;
+        playerData->partners[i].enabled = true;
         playerData->partners[i].level = 2;
     }
 
@@ -225,10 +226,10 @@ void load_demo_battle(u32 index) {
     clear_model_data();
     clear_sprite_shading_data();
     reset_background_settings();
-    func_80138188();
+    reset_back_screen_overlay_progress();
     reset_battle_status();
     clear_encounter_status();
-    clear_entity_data(TRUE);
+    clear_entity_data(true);
     clear_effect_data();
     clear_player_status();
     clear_printers();
@@ -242,7 +243,7 @@ void load_demo_battle(u32 index) {
         case 0: // hammer first strike on Fuzzies
             setup_demo_player();
             mode = 0;
-            playerData->hasActionCommands = FALSE;
+            playerData->hasActionCommands = false;
             battleID = BTL_DIG_FORMATION_00;
             break;
         case 1: // jump on Monty Mole
@@ -278,7 +279,7 @@ void load_demo_battle(u32 index) {
     }
 
     gGameStatusPtr->debugEnemyContact = DEBUG_CONTACT_NONE;
-    gGameStatusPtr->healthBarsEnabled = TRUE;
+    gGameStatusPtr->healthBarsEnabled = true;
 
     switch (mode) {
         case 0:

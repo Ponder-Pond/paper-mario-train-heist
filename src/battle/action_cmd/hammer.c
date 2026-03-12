@@ -34,49 +34,49 @@ API_CALLABLE(N(init)) {
     action_command_init_status();
     acs->actionCommandID = ACTION_COMMAND_SMASH;
     acs->state = AC_STATE_INIT;
-    acs->wrongButtonPressed = FALSE;
+    acs->wrongButtonPressed = false;
     acs->hudPosX = -48;
     acs->hudPosY = 96;
 
     hid = hud_element_create(&HES_TimingBar1Chance);
     acs->hudElemIDs[HIDX_FRAME] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 10);
 
     hid = hud_element_create(&HES_TimingWait);
     acs->hudElemIDs[HIDX_WAIT] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
 
     hid = hud_element_create(&HES_TimingCharge4a);
     acs->hudElemIDs[HIDX_CHARGE_A] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
 
     hid = hud_element_create(&HES_TimingCharge4b);
     acs->hudElemIDs[HIDX_CHARGE_B] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
 
     hid = hud_element_create(&HES_TimingCharge4c);
     acs->hudElemIDs[HIDX_CHARGE_C] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
 
     hid = hud_element_create(&HES_StickHoldLeft);
     acs->hudElemIDs[HIDX_STICK] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
 
     hid = hud_element_create(&HES_RightOn);
     acs->hudElemIDs[HIDX_RIGHT_ON] = hid;
-    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_80 | HUD_ELEMENT_FLAG_DISABLED);
+    hud_element_set_flags(hid, HUD_ELEMENT_FLAG_MANUAL_RENDER | HUD_ELEMENT_FLAG_DISABLED);
     hud_element_set_render_pos(hid, acs->hudPosX, acs->hudPosY);
     hud_element_set_render_depth(hid, 0);
     hud_element_set_alpha(hid, 255);
@@ -100,14 +100,14 @@ API_CALLABLE(N(start)) {
     acs->duration = evt_get_variable(script, *args++);
     acs->difficulty = evt_get_variable(script, *args++);
     acs->difficulty = adjust_action_command_difficulty(acs->difficulty);
-    acs->wrongButtonPressed = FALSE;
-    acs->playHammerSounds = TRUE;
+    acs->wrongButtonPressed = false;
+    acs->playHammerSounds = true;
     if (acs->prepareTime < 0) {
         acs->prepareTime = 0;
-        acs->playHammerSounds = FALSE;
+        acs->playHammerSounds = false;
     }
 
-    acs->hammerMissedStart = FALSE;
+    acs->hammerMissedStart = false;
     battleStatus->actionQuality = 0;
     battleStatus->actionProgress = 0;
     battleStatus->actionResult = ACTION_RESULT_FAIL;
@@ -211,7 +211,7 @@ void N(update)(void) {
 
             acs->stateTimer = 0;
             if (!(battleStatus->curButtonsDown & BUTTON_STICK_LEFT) && battleStatus->actionCommandMode < AC_MODE_TUTORIAL) {
-                acs->hammerMissedStart = TRUE;
+                acs->hammerMissedStart = true;
             }
             acs->state = AC_STATE_ACTIVE;
 

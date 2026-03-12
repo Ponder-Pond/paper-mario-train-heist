@@ -63,7 +63,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -73,7 +73,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -109,7 +109,7 @@ EvtScript EVS_Init = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
-    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, TRUE)
+    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, true)
     Return
     End
 };
@@ -120,7 +120,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -156,7 +156,7 @@ EvtScript EVS_HandleEvent = {
             //     IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
             //         ExecWait(EVS_ToppleGang)
             //         Wait(20)
-            //         Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            //         Call(UseIdleAnimation, ACTOR_SELF, true)
             //         Return
             //     EndIf
             // EndIf
@@ -193,7 +193,7 @@ EvtScript EVS_HandleEvent = {
         //         IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
         //             ExecWait(EVS_ToppleGang)
         //             Wait(20)
-        //             Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+        //             Call(UseIdleAnimation, ACTOR_SELF, true)
         //             Return
         //         EndIf
         //     EndIf
@@ -231,7 +231,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_Recover)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -253,31 +253,31 @@ EvtScript EVS_Defeat = {
 #define LBL_ENDTURN 1
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     // Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
     // Switch(LVar0)
     //     CaseEq(AVAL_KoopaGang_TowerState_None)
     //         Label(LBL_FORMTOWER)
     //             ExecWait(EVS_Move_FormTower)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Stable)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Unstable)
     //         ExecWait(EVS_Move_Spin)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Toppled)
     //         Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
     //         Switch(LVar0)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //                 Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnZero)
     //                 Goto(LBL_FORMTOWER)
@@ -285,14 +285,14 @@ EvtScript EVS_TakeTurn = {
     // EndSwitch
     // Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_FormTower = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
 
     // Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
     // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -300,7 +300,7 @@ EvtScript EVS_Move_FormTower = {
     // Sub(LVar1, -54)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Leap)
-    // Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+    // Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
     // Wait(5)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Midair)
     // Wait(10)
@@ -310,25 +310,25 @@ EvtScript EVS_Move_FormTower = {
     // Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(DefaultDefense))
 
 
-    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, false)
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Unstable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_Spin = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Green_ShellSpin)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -339,7 +339,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace koopa_gang_green
+} // namespace koopa_gang_green
 
 namespace koopa_gang_yellow {
 
@@ -394,7 +394,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -404,7 +404,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -445,7 +445,7 @@ EvtScript EVS_Init = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
-    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, TRUE)
+    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, true)
     Return
     End
 };
@@ -456,7 +456,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -492,7 +492,7 @@ EvtScript EVS_HandleEvent = {
             //     IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
             //         ExecWait(EVS_ToppleGang)
             //         Wait(20)
-            //         Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            //         Call(UseIdleAnimation, ACTOR_SELF, true)
             //         Return
             //     EndIf
             // EndIf
@@ -529,7 +529,7 @@ EvtScript EVS_HandleEvent = {
         //         IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
         //             ExecWait(EVS_ToppleGang)
         //             Wait(20)
-        //             Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+        //             Call(UseIdleAnimation, ACTOR_SELF, true)
         //             Return
         //         EndIf
         //     EndIf
@@ -567,7 +567,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_Recover)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -589,31 +589,31 @@ EvtScript EVS_Defeat = {
 #define LBL_ENDTURN 1
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     // Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
     // Switch(LVar0)
     //     CaseEq(AVAL_KoopaGang_TowerState_None)
     //         Label(LBL_FORMTOWER)
     //             ExecWait(EVS_Move_FormTower)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Stable)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Unstable)
     //         ExecWait(EVS_Move_Spin)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Toppled)
     //         Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
     //         Switch(LVar0)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //                 Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnZero)
     //                 Goto(LBL_FORMTOWER)
@@ -621,14 +621,14 @@ EvtScript EVS_TakeTurn = {
     // EndSwitch
     // Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_FormTower = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
 
     // Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
     // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -636,7 +636,7 @@ EvtScript EVS_Move_FormTower = {
     // Sub(LVar1, -54)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Leap)
-    // Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+    // Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
     // Wait(5)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Midair)
     // Wait(10)
@@ -646,25 +646,25 @@ EvtScript EVS_Move_FormTower = {
     // Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(DefaultDefense))
 
 
-    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, false)
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Unstable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_Spin = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Yellow_ShellSpin)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -675,7 +675,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace koopa_gang_yellow
+} // namespace koopa_gang_yellow
 
 namespace koopa_gang_black {
 
@@ -730,7 +730,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -740,7 +740,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -781,7 +781,7 @@ EvtScript EVS_Init = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
-    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, TRUE)
+    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, true)
     Return
     End
 };
@@ -792,7 +792,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -828,7 +828,7 @@ EvtScript EVS_HandleEvent = {
             //     IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
             //         ExecWait(EVS_ToppleGang)
             //         Wait(20)
-            //         Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            //         Call(UseIdleAnimation, ACTOR_SELF, true)
             //         Return
             //     EndIf
             // EndIf
@@ -865,7 +865,7 @@ EvtScript EVS_HandleEvent = {
         //         IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
         //             ExecWait(EVS_ToppleGang)
         //             Wait(20)
-        //             Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+        //             Call(UseIdleAnimation, ACTOR_SELF, true)
         //             Return
         //         EndIf
         //     EndIf
@@ -903,7 +903,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_Recover)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -925,31 +925,31 @@ EvtScript EVS_Defeat = {
 #define LBL_ENDTURN 1
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     // Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
     // Switch(LVar0)
     //     CaseEq(AVAL_KoopaGang_TowerState_None)
     //         Label(LBL_FORMTOWER)
     //             ExecWait(EVS_Move_FormTower)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Stable)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Unstable)
     //         ExecWait(EVS_Move_Spin)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Toppled)
     //         Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
     //         Switch(LVar0)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //                 Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnZero)
     //                 Goto(LBL_FORMTOWER)
@@ -957,14 +957,14 @@ EvtScript EVS_TakeTurn = {
     // EndSwitch
     // Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_FormTower = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
 
     // Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
     // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -972,7 +972,7 @@ EvtScript EVS_Move_FormTower = {
     // Sub(LVar1, -54)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Leap)
-    // Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+    // Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
     // Wait(5)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Midair)
     // Wait(10)
@@ -982,26 +982,26 @@ EvtScript EVS_Move_FormTower = {
     // Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(DefaultDefense))
 
 
-    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, false)
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Unstable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_Spin = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
     Call(GetPartPos, ACTOR_SELF, PRT_MAIN, LVar0, LVar1, LVar2)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -1012,7 +1012,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace koopa_gang_black
+} // namespace koopa_gang_black
 
 namespace koopa_gang_red {
 
@@ -1067,7 +1067,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -1077,7 +1077,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -1118,7 +1118,7 @@ EvtScript EVS_Init = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(EVS_HandleEvent))
     Call(BindHandlePhase, ACTOR_SELF, Ref(EVS_HandlePhase))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
-    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, TRUE)
+    Call(SetPartTargetFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_TARGET_NO_DAMAGE, true)
     Return
     End
 };
@@ -1129,7 +1129,7 @@ EvtScript EVS_Idle = {
 };
 
 EvtScript EVS_HandleEvent = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -1165,7 +1165,7 @@ EvtScript EVS_HandleEvent = {
             //     IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
             //         ExecWait(EVS_ToppleGang)
             //         Wait(20)
-            //         Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            //         Call(UseIdleAnimation, ACTOR_SELF, true)
             //         Return
             //     EndIf
             // EndIf
@@ -1202,7 +1202,7 @@ EvtScript EVS_HandleEvent = {
         //         IfFlag(LVar0, AFLAG_KoopaGang_PartnerHitTower)
         //             ExecWait(EVS_ToppleGang)
         //             Wait(20)
-        //             Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+        //             Call(UseIdleAnimation, ACTOR_SELF, true)
         //             Return
         //         EndIf
         //     EndIf
@@ -1240,7 +1240,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_Recover)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -1262,31 +1262,31 @@ EvtScript EVS_Defeat = {
 #define LBL_ENDTURN 1
 EvtScript EVS_TakeTurn = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     // Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, LVar0)
     // Switch(LVar0)
     //     CaseEq(AVAL_KoopaGang_TowerState_None)
     //         Label(LBL_FORMTOWER)
     //             ExecWait(EVS_Move_FormTower)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Stable)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Unstable)
     //         ExecWait(EVS_Move_Spin)
-    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
-    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+    //         // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, true)
+    //         Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, true)
     //         Goto(LBL_ENDTURN)
     //     CaseEq(AVAL_KoopaGang_TowerState_Toppled)
     //         Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
     //         Switch(LVar0)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    //                 // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    //                 Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
     //                 Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
     //             CaseEq(AVAL_KoopaGang_ToppleTurnZero)
     //                 Goto(LBL_FORMTOWER)
@@ -1294,14 +1294,14 @@ EvtScript EVS_TakeTurn = {
     // EndSwitch
     // Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_FormTower = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
 
     // Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
     // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -1309,7 +1309,7 @@ EvtScript EVS_Move_FormTower = {
     // Sub(LVar1, -54)
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Leap)
-    // Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
+    // Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)
     // Wait(5)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_Midair)
     // Wait(10)
@@ -1319,25 +1319,25 @@ EvtScript EVS_Move_FormTower = {
     // Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(DefaultDefense))
 
 
-    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, false)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, false)
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Unstable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript EVS_Move_Spin = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPA_BROS_TOWER_SPIN_3)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_ShellSpin)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(DefaultAnims))
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Stable)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -1348,7 +1348,7 @@ EvtScript EVS_HandlePhase = {
     End
 };
 
-}; // namespace koopa_gang_red
+} // namespace koopa_gang_red
 
 ActorBlueprint KoopaGangGreen = {
     .flags = ACTOR_FLAG_NO_DMG_POPUP | ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_ATTACK,
@@ -1442,4 +1442,4 @@ ActorBlueprint KoopaGangRed = {
     .statusTextOffset = { 10, 20 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

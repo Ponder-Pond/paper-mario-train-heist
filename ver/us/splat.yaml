@@ -111,6 +111,8 @@ segments:
     - [auto, c, dx/backtrace]
     - [auto, c, dx/debug_menu]
     - [auto, c, dx/profiling]
+    - [auto, c, dx/overlay]
+    - [auto, cpp, dx/heap]
     - [auto, c, os/nusys/nugfxtaskmgr, -fforce-addr]
     - [auto, c, os/nusys/nusimgr]
     - [auto, c, load_obfuscation_shims]
@@ -142,19 +144,17 @@ segments:
     - [auto, c, status_icons]
     - [auto, c, 23680]
     - [auto, c, 25AF0]
-    - [auto, cpp, foliage]
-    - [auto, c, audio/25f00_len_940]
+    - [auto, c, audio/core/system]
     - [auto, c, audio/sfx_player]
-    - [auto, c, audio/28910_len_5090]
-    - [auto, c, audio/2BF90]
-    - [auto, c, audio/2d9a0_len_890]
-    - [auto, c, audio/2e230_len_2190]
-    - [auto, c, audio/303c0_len_3e10]
-    - [auto, c, audio/30450]
-    - [auto, c, audio/31650]
-    - [auto, c, audio/33450]
-    - [auto, c, audio/tables]
-    - [auto, c, audio/reverb]
+    - [auto, c, audio/bgm_player]
+    - [auto, c, audio/mseq_player]
+    - [auto, c, audio/core/voice]
+    - [auto, c, audio/core/engine]
+    - [auto, c, audio/load_banks]
+    - [auto, c, audio/snd_interface]
+    - [auto, c, audio/core/syn_driver]
+    - [auto, c, audio/core/pull_voice]
+    - [auto, c, audio/core/reverb]
     - [auto, c, effects]
     - [auto, c, 5B320]
     - [auto, c, world/world]
@@ -830,6 +830,7 @@ segments:
     - [auto, c, entity]
     - [auto, c, model]
     - [auto, c, animator]
+    - [auto, c, foliage]
     - [auto, c, entity_model]
     - [auto, c, worker]
     - [auto, c, msg]
@@ -846,8 +847,8 @@ segments:
     - [auto, c, audio/ambience]
     - [auto, c, windows]
     - [auto, c, sprite_shading]
-    - [auto, c, audio/sfx]
-    - [auto, c, audio/e0b30_len_b80]
+    - [auto, c, audio/sfx_control]
+    - [auto, c, audio/bgm_control]
     - start: 0xE2DF0
       type: .data
       name: screen_overlays
@@ -1296,6 +1297,38 @@ segments:
     subsegments:
     - [auto, c, battle/16C8E0]
     - [auto, c, battle/btl_states_actions]
+    - [auto, c, battle/states/start_battle]
+    - [auto, c, battle/states/player_first_strike]
+    - [auto, c, battle/states/partner_first_strike]
+    - [auto, c, battle/states/enemy_first_strike]
+    - [auto, c, battle/states/turn_begin]
+    - [auto, c, battle/states/turn_end]
+    - [auto, c, battle/states/turn_transfer]
+    - [auto, c, battle/states/enemy_next]
+    - [auto, c, battle/states/enemy_move]
+    - [auto, c, battle/states/switch_to_player]
+    - [auto, c, battle/states/switch_to_partner]
+    - [auto, c, battle/states/prepare_menu]
+    - [auto, c, battle/states/player_turn_begin]
+    - [auto, c, battle/states/player_turn_end]
+    - [auto, c, battle/states/player_move]
+    - [auto, c, battle/states/partner_turn_begin]
+    - [auto, c, battle/states/partner_turn_end]
+    - [auto, c, battle/states/partner_move]
+    - [auto, c, battle/states/change_partner]
+    - [auto, c, battle/states/run_away]
+    - [auto, c, battle/states/defend]
+    - [auto, c, battle/states/victory]
+    - [auto, c, battle/states/level_up]
+    - [auto, c, battle/states/defeat]
+    - [auto, c, battle/states/end_battle]
+    - [auto, c, battle/states/end_training]
+    - [auto, c, battle/states/end_demo]
+    - [auto, c, battle/states/menu_player]
+    - [auto, c, battle/states/menu_partner]
+    - [auto, c, battle/states/menu_peach]
+    - [auto, c, battle/states/menu_twink]
+    - [auto, c, battle/states/select_target]
     - [auto, c, battle/camera]
     - [auto, c, battle/actors]
     - [auto, c, battle/popup_messages]
@@ -1304,7 +1337,6 @@ segments:
     - [auto, c, battle/dmg_item]
     - [auto, c, battle/181810]
     - [auto, c, battle/actor_rendering]
-    - [auto, c, battle/level_up]
     - [auto, c, battle/player_events]
     - [auto, c, battle_ui_gfx]
     - [auto, c, battle/190A10]
@@ -5838,6 +5870,8 @@ segments:
     vram_class: battle_move
     subsegments:
     - [auto, c, battle/btl_states_menus]
+    - [auto, c, battle/menu_moves]
+    - [auto, c, battle/menu_strats]
   - type: code
     start: 0x4219F0
     vram_class: action_cmd
@@ -6082,7 +6116,6 @@ segments:
     - [auto, c, area]
     - [auto, c, actor/tutorial_spiked_goomba]
     - [auto, c, actor/tutorial_paragoomba]
-    - [auto, c, actor/paragoomba]
     - [auto, c, actor/jr_troopa]
     - [auto, c, actor/egg_jr_troopa]
     - [auto, c, actor/para_jr_troopa]
@@ -6120,7 +6153,6 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, actor/goombario_tutor]
-    - [auto, c, actor/ember]
     - [auto, c, actor/magikoopa]
     - [auto, c, stage/hos_01]
     - [auto, c, stage/hos_00]
@@ -6133,12 +6165,6 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, area]
-    - [auto, c, actor/goomba]
-    - [auto, c, actor/paragoomba]
-    - [auto, c, actor/spiked_goomba]
-    - [auto, c, actor/koopa_troopa]
-    - [auto, c, actor/fuzzy]
-    - [auto, c, actor/paratroopa]
     - [auto, c, actor/kent_c_koopa]
     - [auto, c, stage/nok_01]
     - [auto, c, stage/nok_02]
@@ -6153,9 +6179,6 @@ segments:
     - [auto, c, area]
     - [auto, c, actor/bullet_bill]
     - [auto, c, actor/bill_blaster]
-    - [auto, c, actor/bob_omb]
-    - [auto, c, actor/koopa_troopa]
-    - [auto, c, actor/paratroopa]
     - [auto, c, stage/trd_01]
     - [auto, c, stage/trd_02]
     - [auto, c, stage/trd_02b]
@@ -6210,10 +6233,7 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, area]
-    - [auto, c, actor/cleft]
-    - [auto, c, actor/monty_mole]
     - [auto, c, actor/buzzar]
-    - [auto, c, actor/whacka]
     - [auto, c, stage/iwa_01]
     - [auto, c, stage/iwa_01b]
     - [auto, c, stage/iwa_02]
@@ -6223,8 +6243,6 @@ segments:
     vram_class: battle_area
     subalign: 16 # BSS alignment hack
     subsegments:
-    - [auto, c, actor/pokey]
-    - [auto, c, actor/bandit]
     - [auto, c, stage/sbk_02]
     - [auto, c, area]
   - dir: battle/area/isk_part_1
@@ -6233,10 +6251,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/pokey_mummy]
-    - [auto, c, actor/swooper]
-    - [auto, c, actor/buzzy_beetle]
-    - [auto, c, actor/stone_chomp]
     - [auto, c, stage/isk_00]
     - [auto, c, stage/isk_01]
     - [auto, c, stage/isk_02]
@@ -6279,9 +6293,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/forest_fuzzy]
-    - [auto, c, actor/bzzap]
-    - [auto, c, actor/piranha_plant]
     - [auto, c, stage/mim_01]
     - [auto, c, area]
   - dir: battle/area/arn
@@ -6290,9 +6301,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/hyper_goomba]
-    - [auto, c, actor/hyper_paragoomba]
-    - [auto, c, actor/hyper_cleft]
     - [auto, c, actor/tubbas_heart]
     - [auto, c, actor/tubba_blubba]
     - [auto, c, stage/arn_01]
@@ -6308,7 +6316,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/clubba]
     - [auto, c, actor/tubba_blubba]
     - [auto, c, stage/dgb_01]
     - [auto, c, stage/dgb_02]
@@ -6322,17 +6329,8 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/red_shy_guy]
-    - [auto, c, actor/blue_shy_guy]
-    - [auto, c, actor/yellow_shy_guy]
-    - [auto, c, actor/pink_shy_guy]
-    - [auto, c, actor/green_shy_guy]
     - [auto, c, actor/anti_guy]
-    - [auto, c, actor/medi_guy]
     - [auto, c, actor/groove_guy]
-    - [auto, c, actor/spy_guy]
-    - [auto, c, actor/sky_guy]
-    - [auto, c, actor/pyro_guy]
     - [auto, c, stage/omo_01]
     - [auto, c, stage/omo_02]
     - [auto, c, stage/omo_03]
@@ -6412,13 +6410,6 @@ segments:
     - [auto, c, stage/omo_05b]
     - [auto, c, stage/omo_06]
     - [auto, c, stage/omo_07]
-    - [auto, c, actor/goomba]
-    - [auto, c, actor/clubba]
-    - [auto, c, actor/fuzzy]
-    - [auto, c, actor/hammer_bro]
-    - [auto, c, actor/pokey]
-    - [auto, c, actor/koopatrol]
-    - [auto, c, actor/red_shy_guy]
     - [auto, c, area]
   - dir: battle/area/kgr
     type: code
@@ -6435,12 +6426,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/spear_guy]
-    - [auto, c, actor/hurt_plant]
-    - [auto, c, actor/jungle_fuzzy]
-    - [auto, c, actor/m_bush]
-    - [auto, c, actor/medi_guy]
-    - [auto, c, actor/spike_top]
     - [auto, c, stage/jan_00]
     - [auto, c, stage/jan_01]
     - [auto, c, stage/jan_01b]
@@ -6456,7 +6441,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/putrid_piranha]
     - [auto, c, actor/white_magikoopa]
     - [auto, c, stage/jan_00]
     - [auto, c, stage/jan_01]
@@ -6473,10 +6457,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/lava_bubble]
-    - [auto, c, actor/putrid_piranha]
-    - [auto, c, actor/spike_top]
-    - [auto, c, actor/medi_guy]
     - [auto, c, actor/red_magikoopa]
     - [auto, c, actor/white_magikoopa]
     - [auto, c, stage/kzn_01]
@@ -6559,12 +6539,6 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, actor/lakitu]
-    - [auto, c, actor/spiny]
-    - [auto, c, actor/crazee_dayzee]
-    - [auto, c, actor/bzzap]
-    - [auto, c, actor/amazy_dayzee]
-    - [auto, c, actor/ruff_puff]
-    - [auto, c, actor/medi_guy]
     - [auto, c, actor/red_magikoopa]
     - [auto, c, actor/green_magikoopa]
     - [auto, c, actor/white_magikoopa]
@@ -6607,14 +6581,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/dark_koopa]
-    - [auto, c, actor/dark_paratroopa]
-    - [auto, c, actor/gloomba]
-    - [auto, c, actor/spiked_gloomba]
-    - [auto, c, actor/paragloomba]
-    - [auto, c, actor/buzzy_beetle]
-    - [auto, c, actor/spike_top]
-    - [auto, c, actor/spiny]
     - [auto, c, stage/tik_01]
     - [auto, c, stage/tik_02]
     - [auto, c, stage/tik_03]
@@ -6643,8 +6609,6 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/swooper]
-    - [auto, c, actor/swoopula]
     - [auto, c, stage/tik_01]
     - [auto, c, stage/tik_02]
     - [auto, c, stage/tik_03]
@@ -6658,11 +6622,6 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, actor/duplighost]
-    - [auto, c, actor/gulpit]
-    - [auto, c, actor/gulpit_rocks]
-    - [auto, c, actor/white_clubba]
-    - [auto, c, actor/frost_piranha]
-    - [auto, c, actor/gray_magikoopa]
     - [auto, c, stage/sam_01]
     - [auto, c, stage/sam_02]
     - [auto, c, stage/sam_02b]
@@ -6677,8 +6636,6 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, actor/monstar]
-    - [auto, c, actor/paragoomba]
-    - [auto, c, actor/gray_magikoopa]
     - [auto, c, stage/sam_01]
     - [auto, c, stage/sam_02]
     - [auto, c, stage/sam_02b]
@@ -6707,13 +6664,9 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/swoopula]
-    - [auto, c, actor/albino_dino]
-    - [auto, c, actor/white_clubba]
     - [auto, c, actor/red_magikoopa]
     - [auto, c, actor/green_magikoopa]
     - [auto, c, actor/yellow_magikoopa]
-    - [auto, c, actor/gray_magikoopa]
     - [auto, c, actor/white_magikoopa]
     - [auto, c, stage/pra_01]
     - [auto, c, stage/pra_02]
@@ -6739,10 +6692,7 @@ segments:
     subalign: 8
     subsegments:
     - [auto, c, actor/duplighost]
-    - [auto, c, actor/swoopula]
-    - [auto, c, actor/white_clubba]
     - [auto, c, actor/red_magikoopa]
-    - [auto, c, actor/gray_magikoopa]
     - [auto, c, stage/pra_01]
     - [auto, c, stage/pra_02]
     - [auto, c, stage/pra_03]
@@ -6756,12 +6706,7 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/bony_beetle]
-    - [auto, c, actor/dry_bones]
-    - [auto, c, actor/hammer_bro]
-    - [auto, c, actor/koopatrol]
     - [auto, c, actor/magikoopa]
-    - [auto, c, actor/ember]
     - [auto, c, stage/kpa_01]
     - [auto, c, stage/kpa_01b]
     - [auto, c, stage/kpa_02]
@@ -6810,7 +6755,6 @@ segments:
     subsegments:
     - [auto, c, actor/bombshell_blaster]
     - [auto, c, actor/bombshell_bill]
-    - [auto, c, actor/koopatrol]
     - [auto, c, actor/magikoopa]
     - [auto, c, stage/kpa_01]
     - [auto, c, stage/kpa_01b]
@@ -6842,14 +6786,7 @@ segments:
     vram_class: battle_area
     subalign: 8
     subsegments:
-    - [auto, c, actor/koopa_troopa]
-    - [auto, c, actor/fuzzy]
-    - [auto, c, actor/pokey]
-    - [auto, c, actor/bandit]
-    - [auto, c, actor/red_shy_guy]
     - [auto, c, actor/tubba_blubba]
-    - [auto, c, actor/monty_mole]
-    - [auto, c, actor/whacka]
     - [auto, c, stage/dig_01]
     - [auto, c, stage/dig_02]
     - [auto, c, stage/dig_03]
@@ -8066,7 +8003,7 @@ segments:
 ### maps ###
 ############
   - name: end_00
-    dir: world/area_end/end_00
+    dir: world/area/end/end_00
     type: code
     start: 0xDF6A00
     vram_class: map
@@ -8084,7 +8021,7 @@ segments:
     - [auto, c, crystal_king]
     - [auto, c, bowser]
   - name: end_01
-    dir: world/area_end/end_01
+    dir: world/area/end/end_01
     type: code
     start: 0xE05360
     vram_class: map
@@ -8098,7 +8035,7 @@ segments:
     - [auto, c, shyguy_float]
     - [auto, c, peach_float]
   - name: gv_01
-    dir: world/area_gv/gv_01
+    dir: world/area/gv/gv_01
     type: code
     start: 0xE1E460
     vram_class: map
@@ -8106,7 +8043,7 @@ segments:
     - [auto, c, settings]
     - [auto, c, main]
   - name: trn_01
-    dir: world/area_trn/trn_01
+    dir: world/area/trn/trn_01
     type: code
     start: auto
     vram_class: map

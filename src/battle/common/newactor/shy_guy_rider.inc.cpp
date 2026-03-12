@@ -35,7 +35,7 @@ s32 DefaultAnims[] = {
     STATUS_KEY_STATIC,    ANIM_ShyGuyRider_Idle,
     STATUS_KEY_PARALYZE,  ANIM_ShyGuyRider_Idle,
     STATUS_KEY_DIZZY,     ANIM_ShyGuyRider_Idle,
-    STATUS_KEY_FEAR,      ANIM_ShyGuyRider_Idle,
+    STATUS_KEY_UNUSED,      ANIM_ShyGuyRider_Idle,
     STATUS_END,
 };
 
@@ -56,7 +56,7 @@ s32 StatusTable[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -66,7 +66,7 @@ s32 StatusTable[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -202,7 +202,7 @@ EvtScript EVS_Attack_ArrowShot = {
     End
 };
 
-}; // namespace shy_guy_rider
+} // namespace shy_guy_rider
 
 ActorBlueprint ShyGuyRider = {
     .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_NO_HEALTH_BAR,
@@ -227,4 +227,4 @@ ActorBlueprint ShyGuyRider = {
     .statusTextOffset = { 11, 40 },
 };
 
-}; // namespace battle::actor
+} // namespace battle::actor

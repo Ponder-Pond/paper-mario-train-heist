@@ -153,16 +153,17 @@ typedef struct ActorBlueprint {
 
 typedef struct FormationRow {
     /* 0x00 */ ActorBlueprint* actor;
-    /* 0x04 */ union {
+    /* 0x04 */ const char* overlay; ///< Overlay name, if `actor` is to be loaded dynamically.
+    /* 0x08 */ union {
                    s32    index;
                    Vec3i* vec;
                } home;
-    /* 0x08 */ s32 priority; ///< Actors with higher priority values take their turn first.
-    /* 0x0C */ s32 var0;
-    /* 0x10 */ s32 var1;
-    /* 0x14 */ s32 var2;
-    /* 0x18 */ s32 var3;
-} FormationRow; // size = 0x1C * n
+    /* 0x0C */ s32 priority; ///< Actors with higher priority values take their turn first.
+    /* 0x10 */ s32 var0;
+    /* 0x14 */ s32 var1;
+    /* 0x18 */ s32 var2;
+    /* 0x1C */ s32 var3;
+} FormationRow; // size = 0x20 * n
 
 typedef FormationRow Formation[];
 
@@ -229,6 +230,9 @@ EXTERN_C BattleArea gBattleAreas[0x30];
 #define ACTOR_BY_IDX(_name, _idx, _priority, args...) { .actor = &_name, .home = { .index = _idx }, .priority = _priority, args }
 #define ACTOR_BY_POS(_name, _pos, _priority, args...) { .actor = &_name, .home = { .vec = &_pos }, .priority = _priority, args }
 
+#define OVL_ACTOR_BY_IDX(_name, _idx, _priority, args...) { .overlay = _name, .home = { .index = _idx }, .priority = _priority, args }
+#define OVL_ACTOR_BY_POS(_name, _pos, _priority, args...) { .overlay = _name, .home = { .vec = &_pos }, .priority = _priority, args }
+
 #define STAGE(_name, _stage) { .name = _name, .stage = &_stage }
 
 typedef struct ActorSounds {
@@ -246,12 +250,18 @@ typedef struct ActorOffsets {
     /* 0x03 */ s8 shadow;
 } ActorOffsets; // size = 0x04
 
-// TODO look into making options here better. it's really an array of 5 substructs, each having an [8][2] array
-typedef struct PlayerCelebrationAnimOptions {
+typedef struct CelebrationAnimEntry {
+    /* 0x00 */ s32 weight;
+    /* 0x04 */ AnimID anim;
+} CelebrationAnimEntry;
+
+typedef CelebrationAnimEntry CelebrationOptionSet[8];
+
+typedef struct CelebrationAnimOptions {
     /* 0x00 */ s16 randomChance;
     /* 0x02 */ s16 hpBasedChance;
-    /* 0x04 */ s32 options[80];
-} PlayerCelebrationAnimOptions; // size = 0x144
+    /* 0x04 */ CelebrationOptionSet options[5];
+} CelebrationAnimOptions; // size = 0x144
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 extern "C" {
