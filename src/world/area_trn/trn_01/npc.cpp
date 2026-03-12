@@ -1,15 +1,11 @@
 #include "trn_01.h"
-#include "generated.h"
-#include "world/common/npc/Bubba.inc.c"
-#include "world/common/npc/Toad_Stationary.inc.c"
-#include "world/common/npc/Luigi.inc.c"
-#include "world/common/enemy/Kammy.inc.c"
-#include "world/common/npc/Peach.inc.c"
 #include "hud_element.h"
 
 extern IconHudScriptPair gItemHudScripts[];
 
 namespace trn_01 {
+
+#include "world/common/npc/Toad_Stationary.inc.c"
 
 EvtScript EVS_NpcInteract_Toadsworth = {
     Call(SpeakToPlayer, NPC_Toadsworth, ANIM_Toadsworth_Talk, ANIM_Toadsworth_Idle, 0, MSG_TrainLobby_ToadsworthInteract)
@@ -35,6 +31,8 @@ EvtScript EVS_NpcInit_ToadMinister = {
     End
 };
 
+#include "world/common/npc/Bubba.inc.c"
+
 EvtScript EVS_NpcInteract_Bubba = {
     Call(SpeakToPlayer, NPC_Bubba, ANIM_BigBubba_Talk, ANIM_BigBubba_Idle, 0, MSG_TrainLobby_BubbaInteract)
     Return
@@ -46,6 +44,8 @@ EvtScript EVS_NpcInit_Bubba = {
     Return
     End
 };
+
+#include "world/common/npc/Luigi.inc.c"
 
 EvtScript EVS_NpcInteract_Luigi = {
     Call(DisablePlayerInput, TRUE)
@@ -61,6 +61,8 @@ EvtScript EVS_NpcInit_Luigi = {
     Return
     End
 };
+
+#include "world/common/npc/Peach.inc.c"
 
 EvtScript EVS_NpcInteract_Peach = {
     Call(SpeakToPlayer, NPC_Peach, ANIM_ParadePeach_Talk, ANIM_ParadePeach_IdleRaisedArms, 0, MSG_TrainLobby_PeachInteract)
@@ -522,6 +524,8 @@ NpcData NpcData_Characters[] = {
         .tattle = MSG_TrainLobby_ToadTattle,
     },
 };
+
+#include "world/common/enemy/Kammy.inc.c"
 
 EvtScript EVS_NpcInteract_Kammy = {
     Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TrainLobby_KammyInteract)

@@ -1,5 +1,4 @@
 #include "trn_01.h"
-
 namespace trn_01 {
 
 EntryList Entrances = { GEN_ENTRY_LIST };
