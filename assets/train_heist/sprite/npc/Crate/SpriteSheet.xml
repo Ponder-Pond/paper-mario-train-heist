@@ -234,7 +234,7 @@
 				<Wait duration="2"/>
 				<Goto dest="End"/>
 			</Component>
-			<Component name="Lid" xyz="23,-12,0">
+			<Component name="Lid" xyz="23,-12,2">
 				<Label name="Start"/>
 				<SetRaster index="1"/>
 				<Wait duration="2"/>
@@ -371,7 +371,7 @@
 				<Wait duration="2"/>
 				<Goto dest="End"/>
 			</Component>
-			<Component name="Dynamite1" xyz="4,10,0">
+			<Component name="Dynamite1" xyz="4,10,-2">
 				<SetParent index="1"/>
 				<SetRaster index="FFFFFFFF"/>
 				<Wait duration="2"/>
@@ -414,7 +414,7 @@
 				<Wait duration="2"/>
 				<Goto dest="Start"/>
 			</Component>
-			<Component name="Dynamite1" xyz="4,26,0">
+			<Component name="Dynamite1" xyz="4,26,-2">
 				<Label name="Start"/>
 				<SetRaster index="9"/>
 				<SetScale mode="uniform" percent="75"/>
@@ -494,7 +494,7 @@
 				<Wait duration="2"/>
 				<Goto dest="End"/>
 			</Component>
-			<Component name="Dynamite1" xyz="4,26,2">
+			<Component name="Dynamite1" xyz="4,26,0">
 				<SetRaster index="9"/>
 				<SetPos flag="0" xyz="-2,5,0"/>
 				<SetScale mode="uniform" percent="75"/>
@@ -554,7 +554,7 @@
 				<Wait duration="2"/>
 				<Goto dest="End"/>
 			</Component>
-			<Component name="Lid" xyz="23,-12,4">
+			<Component name="Lid" xyz="23,-12,6">
 				<SetRaster index="1"/>
 				<Wait duration="2"/>
 				<SetRaster index="1"/>

@@ -670,13 +670,13 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 1;
+constexpr s32 hp = 10;
 constexpr s32 dmgLitBomb = 5;
 constexpr s32 dmgUnlitBomb = 3;
 constexpr s32 dmgPokey = 2;
 
 s32 DefaultDefense[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -923,7 +923,7 @@ EvtScript EVS_Defeat = {
     Wait(10)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Add(LVar1, 50)
+    Add(LVar1, 20)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
     PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)

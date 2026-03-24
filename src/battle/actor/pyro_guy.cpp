@@ -18,7 +18,7 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 10;
+constexpr s32 hp = 5;
 constexpr s32 dmgTackle = 4;
 
 s32 DefaultAnims[] = {

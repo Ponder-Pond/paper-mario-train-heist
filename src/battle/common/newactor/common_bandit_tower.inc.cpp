@@ -155,7 +155,7 @@ Actor* (GetKoopaBrosWithState)(s32 state) {
     return NULL;
 }
 
-API_CALLABLE((GetTowerFallPosition)) {
+API_CALLABLE(GetTowerFallPosition) {
     Bytecode* args = script->ptrReadPos;
     Vec3f temp;
     Vec3f fallPositions[4];
@@ -410,7 +410,7 @@ EvtScript EVS_HandleCommand = {
                         Set(LFlag0, true)
                     EndIf
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
-                    Call((GetTowerFallPosition), LVar0, LVar1, LVar2)
+                    Call(GetTowerFallPosition, LVar0, LVar1, LVar2)
                     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT_STILL)
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))
@@ -446,7 +446,7 @@ EvtScript EVS_HandleCommand = {
                         Set(LFlag0, true)
                     EndIf
                     Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
-                    Call((GetTowerFallPosition), LVar0, LVar1, LVar2)
+                    Call(GetTowerFallPosition, LVar0, LVar1, LVar2)
                     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_BURN)
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))

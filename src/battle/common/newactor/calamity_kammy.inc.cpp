@@ -27,7 +27,7 @@ enum ActorPartIDs {
     // PRT_BROOM       = 2,
 };
 
-enum N(ActorVars) {
+enum ActorVars {
     AVAR_PlayerTurnCount    = 0,
     AVAR_Speaking           = 1,
 };

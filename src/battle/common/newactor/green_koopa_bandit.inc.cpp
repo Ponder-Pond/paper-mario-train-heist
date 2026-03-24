@@ -60,12 +60,12 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 1;
+constexpr s32 hp = 10;
 constexpr s32 dmgSlowImpact = 1;
 constexpr s32 dmgFastImpact = 2;
 
 s32 DefaultDefense[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -379,19 +379,19 @@ EvtScript EVS_Defeat = {
     End
 };
 
-Vec3i YellowBanditSpawnPos = { 105, 0, 10 };
+Vec3i YellowBanditSpawnPos = { 85, 0, 15 };
 
 Formation SpawnYellowBandit = {
     ACTOR_BY_POS(YellowBanditKoopa, YellowBanditSpawnPos, 50),
 };
 
-Vec3i GiantChainChompSpawnPos = { 25, 0, 15 };
+Vec3i GiantChainChompSpawnPos = { 25, 0, 20 };
 
 Formation SpawnGiantChainChomp = {
     OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChainChompSpawnPos, 100),
 };
 
-Vec3i HammerBroAltSpawnPos = { 145, 0, 10 };
+Vec3i HammerBroAltSpawnPos = { 125, 0, 10 };
 
 Formation SpawnYellowHammerBro = {
     ACTOR_BY_POS(YellowHammerBro, HammerBroAltSpawnPos, 75),
@@ -506,11 +506,13 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(7.5))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(8.0))
             Call(SetGoalToTarget, ACTOR_SELF)
             // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
+            // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
             // Wait(5)
+            Call(SetPartJumpGravity, ACTOR_SELF, PRT_BIFF, Float(0.01))
+            Call(JumpPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, true)
             Wait(2)
             IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
@@ -534,11 +536,13 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
     Add(LVar1, 25)
     Add(LVar2, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(7.5))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(8.0))
     Call(SetGoalToTarget, ACTOR_SELF)
     // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
+    // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN)
     // Wait(5)
+    Call(SetPartJumpGravity, ACTOR_SELF, PRT_BIFF, Float(0.01))
+    Call(JumpPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, true)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgSlowImpact, BS_FLAGS1_TRIGGER_EVENTS)
@@ -592,11 +596,13 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(15.0))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(12.0))
             Call(SetGoalToTarget, ACTOR_SELF)
             // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-            Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
             // Wait(5)
+            Call(SetPartJumpGravity, ACTOR_SELF, PRT_BIFF, Float(0.01))
+            Call(JumpPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, true)
             Wait(2)
             IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
@@ -620,11 +626,13 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
     Add(LVar1, 25)
     Add(LVar2, 2)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(15.0))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BIFF, Float(12.0))
     Call(SetGoalToTarget, ACTOR_SELF)
     // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 10, EASING_CUBIC_IN)
-    Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    // Call(FlyPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
     // Wait(5)
+    Call(SetPartJumpGravity, ACTOR_SELF, PRT_BIFF, Float(0.01))
+    Call(JumpPartTo, ACTOR_SELF, PRT_BIFF, LVar0, LVar1, LVar2, 0, true)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgFastImpact, BS_FLAGS1_TRIGGER_EVENTS)
@@ -706,7 +714,7 @@ s32 UprightDefense[] = {
 };
 
 s32 ToppledDefense[] = {
-    ELEMENT_NORMAL,   2,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 

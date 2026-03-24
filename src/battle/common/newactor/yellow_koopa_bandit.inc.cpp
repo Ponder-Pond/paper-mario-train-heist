@@ -44,6 +44,8 @@ extern EvtScript EVS_TakeTurn;
 extern EvtScript EVS_Defeat;
 extern EvtScript EVS_ThirdPhaseTransition;
 extern EvtScript EVS_Move_Cheer;
+extern EvtScript EVS_Move_Heal_YellowBro;
+extern EvtScript EVS_Move_Heal_Self;
 extern EvtScript EVS_Attack_ShellToss;
 
 enum ActorPartIDs {
@@ -51,13 +53,14 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 1;
+constexpr s32 hp = 10;
 constexpr s32 dmgShellToss = 2;
 constexpr s32 maxAttackBoost = 3;
 constexpr s32 amtAttackBoost = 1;
+constexpr s32 amtHeal = 1;
 
 s32 DefaultDefense[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -309,13 +312,13 @@ Formation SpawnDyanmiteCrate = {
     OVL_ACTOR_BY_POS("dyanmite_crate", DyanmiteCrateSpawnPos, 100),
 };
 
-Vec3i ShyGuyRider1SpawnPos = { 45, -25, -50 };
+Vec3i ShyGuyRider1SpawnPos = { 80, -25, -50 };
 
 Formation SpawnShyGuyRider1 = {
     OVL_ACTOR_BY_POS("shy_guy_rider", ShyGuyRider1SpawnPos, 75),
 };
 
-Vec3i ShyGuyRider2SpawnPos = { -45, -25, -50 };
+Vec3i ShyGuyRider2SpawnPos = { 40, -25, -50 };
 
 Formation SpawnShyGuyRider2 = {
     OVL_ACTOR_BY_POS("shy_guy_rider", ShyGuyRider2SpawnPos, 100),
@@ -379,6 +382,32 @@ EvtScript EVS_ThirdPhaseTransition = {
     End
 };
 
+// OLD TakeTurn Script
+// EvtScript EVS_TakeTurn = {
+//     Call(UseIdleAnimation, ACTOR_SELF, false)
+//     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+//     Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+//     IfEq(LVar0, true)
+//         Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
+//         IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
+//             Call(GetActorAttackBoost, ACTOR_YELLOW_HAMMER_BRO, LVar3)
+//             IfLt(LVar3, maxAttackBoost)
+//                 ExecWait(EVS_Move_Cheer)
+//             Else
+//                 ExecWait(EVS_Attack_ShellToss)
+//             EndIf
+//         Else
+//             ExecWait(EVS_Attack_ShellToss)
+//         EndIf
+//     Else
+//         ExecWait(EVS_Attack_ShellToss)
+//     EndIf
+//     Call(UseIdleAnimation, ACTOR_SELF, true)
+//     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+//     Return
+//     End
+// };
+
 EvtScript EVS_TakeTurn = {
     Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
@@ -390,13 +419,37 @@ EvtScript EVS_TakeTurn = {
             IfLt(LVar3, maxAttackBoost)
                 ExecWait(EVS_Move_Cheer)
             Else
-                ExecWait(EVS_Attack_ShellToss)
+                Call(GetActorHP, ACTOR_YELLOW_HAMMER_BRO, LVar4)
+                IfLt(LVar4, 3)
+                    ExecWait(EVS_Move_Heal_YellowBro)
+                Else
+                    Call(GetActorHP, ACTOR_SELF, LVar4)
+                    IfLt(LVar4, 10)
+                        ExecWait(EVS_Move_Heal_Self)
+                    EndIf
+                EndIf
             EndIf
         Else
-            ExecWait(EVS_Attack_ShellToss)
+            Call(GetActorHP, ACTOR_YELLOW_HAMMER_BRO, LVar4)
+            IfLt(LVar4, 3)
+                ExecWait(EVS_Move_Heal_YellowBro)
+            Else
+                Call(GetActorHP, ACTOR_SELF, LVar4)
+                IfLt(LVar4, 10)
+                    ExecWait(EVS_Move_Heal_Self)
+                EndIf
+            EndIf
         EndIf
     Else
-        ExecWait(EVS_Attack_ShellToss)
+        Call(GetActorHP, ACTOR_YELLOW_HAMMER_BRO, LVar4)
+        IfLt(LVar4, 3)
+            ExecWait(EVS_Move_Heal_YellowBro)
+        Else
+            Call(GetActorHP, ACTOR_SELF, LVar4)
+            IfLt(LVar4, 10)
+                ExecWait(EVS_Move_Heal_Self)
+            EndIf
+        EndIf
     EndIf
     Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
@@ -431,6 +484,172 @@ EvtScript EVS_Move_Cheer = {
     EndThread
     Call(WaitForBuffDone)
     Wait(5)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+    Wait(5)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(YieldTurn)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Return
+    End
+};
+
+API_CALLABLE(SpawnHeartRecoveryFX) {
+    Bytecode* args = script->ptrReadPos;
+    s32 x = evt_get_variable(script, *args++);
+    s32 y = evt_get_variable(script, *args++);
+    s32 z = evt_get_variable(script, *args++);
+    s32 duration = evt_get_variable(script, *args++);
+
+    fx_recover(0, x, y, z, duration);
+
+    return ApiStatus_DONE2;
+}
+
+EvtScript UseItemWithEffectYellowBro = {
+    Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
+    Call(PlaySoundAtActor, ACTOR_YELLOW_HAMMER_BRO, SOUND_USE_ITEM)
+    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_1A)
+    Wait(4)
+    Add(LVar1, 45)
+    Set(LVar3, LVar1)
+    Add(LVar3, 10)
+    Add(LVar3, 2)
+    PlayEffect(EFFECT_RADIAL_SHIMMER, 1, LVar0, LVar3, LVar2, Float(1.0), 30, 0)
+    Call(MakeItemEntity, LVarA, LVar0, LVar1, LVar2, ITEM_SPAWN_MODE_DECORATION, 0)
+    Set(LVarA, LVar0)
+    Wait(15)
+    Call(RemoveItemEntity, LVarA)
+    Return
+    End
+};
+
+EvtScript EVS_YellowBro_UseItem = {
+    SetConst(LVarA, ITEM_DRIED_SHROOM)
+    ExecWait(UseItemWithEffectYellowBro)
+    Thread
+        Loop(4)
+            Call(PlaySoundAtActor, ACTOR_YELLOW_HAMMER_BRO, SOUND_EAT_OR_DRINK)
+            Wait(10)
+        EndLoop
+    EndThread
+    Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
+    Add(LVar0, 0)
+    Add(LVar1, 35)
+    Call(SpawnHeartRecoveryFX, LVar0, LVar1, LVar2, 1)
+    Call(GetActorHP, ACTOR_YELLOW_HAMMER_BRO, LVar3)
+    Add(LVar3, amtHeal)
+    IfGt(LVar3, 3)
+        Set(LVar3, 3)
+    EndIf
+    Call(SetEnemyHP, ACTOR_YELLOW_HAMMER_BRO, LVar3)
+    Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
+    Add(LVar1, 25)
+    Add(LVar2, 5)
+    Call(ShowStartRecoveryShimmer, LVar0, LVar1, LVar2, 1)
+    Wait(30)
+    Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
+    Add(LVar2, 5)
+    Call(ShowRecoveryShimmer, LVar0, LVar1, LVar2, 1)
+    Wait(20)
+    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_02)
+    Return
+    End
+};
+
+EvtScript EVS_Move_Heal_YellowBro = {
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(UseBattleCamPreset, BTL_CAM_ACTOR)
+    Call(BattleCamTargetActor, ACTOR_SELF)
+    Call(MoveBattleCamOver, 20)
+    Wait(15)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Yellow_PointForward)
+    Wait(5)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Sub(LVar0, 22)
+    Add(LVar1, 19)
+    Add(LVar2, 2)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    Wait(30)
+    ExecWait(EVS_YellowBro_UseItem)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+    Wait(5)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(YieldTurn)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Return
+    End
+};
+
+EvtScript UseItemWithEffectSelf = {
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_USE_ITEM)
+    Add(LVar1, 45)
+    Set(LVar3, LVar1)
+    Add(LVar3, 10)
+    Add(LVar3, 2)
+    PlayEffect(EFFECT_RADIAL_SHIMMER, 1, LVar0, LVar3, LVar2, Float(1.0), 30, 0)
+    Call(MakeItemEntity, LVarA, LVar0, LVar1, LVar2, ITEM_SPAWN_MODE_DECORATION, 0)
+    Set(LVarA, LVar0)
+    Wait(15)
+    Call(RemoveItemEntity, LVarA)
+    Return
+    End
+};
+
+EvtScript EVS_Self_UseItem = {
+    SetConst(LVarA, ITEM_DRIED_SHROOM)
+    ExecWait(UseItemWithEffectSelf)
+    Thread
+        Loop(4)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EAT_OR_DRINK)
+            Wait(10)
+        EndLoop
+    EndThread
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar0, 0)
+    Add(LVar1, 35)
+    Call(SpawnHeartRecoveryFX, LVar0, LVar1, LVar2, 1)
+    Call(GetActorHP, ACTOR_SELF, LVar3)
+    Add(LVar3, amtHeal)
+    IfGt(LVar3, 10)
+        Set(LVar3, 10)
+    EndIf
+    Call(SetEnemyHP, ACTOR_SELF, LVar3)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 25)
+    Add(LVar2, 5)
+    Call(ShowStartRecoveryShimmer, LVar0, LVar1, LVar2, 1)
+    Wait(30)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar2, 5)
+    Call(ShowRecoveryShimmer, LVar0, LVar1, LVar2, 1)
+    Wait(20)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+    Return
+    End
+};
+
+EvtScript EVS_Move_Heal_Self = {
+    Call(UseIdleAnimation, ACTOR_SELF, false)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(UseBattleCamPreset, BTL_CAM_ACTOR)
+    Call(BattleCamTargetActor, ACTOR_SELF)
+    Call(MoveBattleCamOver, 20)
+    Wait(15)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Yellow_ThumbsUp)
+    Wait(5)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar0, 7)
+    Add(LVar1, 28)
+    Add(LVar2, 5)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
+    Wait(30)
+    ExecWait(EVS_Self_UseItem)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
     Wait(5)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)

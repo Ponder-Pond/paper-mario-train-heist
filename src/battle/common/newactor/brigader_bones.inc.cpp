@@ -38,8 +38,8 @@ enum ActorVars {
 };
 
 // Actor Stats
-constexpr s32 hp = 1;
-constexpr s32 dmgImpact = 1;
+constexpr s32 hp = 2;
+constexpr s32 dmgImpact = 2;
 
 #define BASE_COLLAPSE_DURATION  2
 

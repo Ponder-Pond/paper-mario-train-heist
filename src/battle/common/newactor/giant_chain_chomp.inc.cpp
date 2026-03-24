@@ -40,8 +40,8 @@ enum ActorPartIDs {
 
 // Actor Stats
 constexpr s32 hp = 4;
-constexpr s32 dmgBite = 3;
-constexpr s32 dmgQuickBite = 6;
+constexpr s32 dmgBite = 2;
+constexpr s32 dmgQuickBite = 4;
 
 s32 BasicAnims[] = {
     STATUS_KEY_NORMAL,    ANIM_ChainChomp_Idle,

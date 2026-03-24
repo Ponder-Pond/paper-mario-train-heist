@@ -52,11 +52,11 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 1;
+constexpr s32 hp = 10;
 constexpr s32 dmgParaBeetleShot = 4;
 
 s32 DefaultDefense[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -415,17 +415,20 @@ EvtScript EVS_Attack_SniperShot = {
             Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Sub(LVar0, 50)
             Set(LVar1, 0)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(14.0))
-            Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.1))
-            Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(7.0))
+            Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.01))
+            // Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            Call(JumpPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, true)
             Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
             Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Sub(LVar0, 65)
             Set(LVar1, 0)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(6.0))
-            Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.1))
-            Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(5.0))
+            Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.01))
+            // Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            Call(JumpPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, true)
+
             Call(SetPartFlagBits, ACTOR_SELF, PRT_PARABEETLE, ACTOR_PART_FLAG_INVISIBLE, true)
             // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_GeneralGuy_Anim02)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
@@ -436,9 +439,10 @@ EvtScript EVS_Attack_SniperShot = {
     Call(PlaySoundAtPart, ACTOR_SELF, PRT_PARABEETLE, SOUND_TOSS)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar0, 15)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(20.0))
-    Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.1))
-    Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_PARABEETLE, Float(10.0))
+    Call(SetPartJumpGravity, ACTOR_SELF, PRT_PARABEETLE, Float(0.01))
+    // Call(FlyPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    Call(JumpPartTo, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2, 0, true)
     // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Add(LVar1, 20)
     // PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)

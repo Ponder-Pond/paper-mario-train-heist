@@ -27,8 +27,8 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 12;
-constexpr s32 dmgHammerSurge = 2;
+constexpr s32 hp = 4;
+constexpr s32 dmgHammerSurge = 1;
 constexpr s32 amtHeal = 10;
 
 s32 DefaultAnims[] = {
@@ -50,7 +50,7 @@ s32 HammerAnims[] = {
 };
 
 s32 DefenseTable[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -475,7 +475,7 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr s32 hp = 4;
+constexpr s32 hp = 3;
 constexpr s32 dmgHammerThrow = 2;
 
 s32 DefaultAnims[] = {
@@ -497,7 +497,7 @@ s32 HammerAnims[] = {
 };
 
 s32 DefenseTable[] = {
-    ELEMENT_NORMAL,   1,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 

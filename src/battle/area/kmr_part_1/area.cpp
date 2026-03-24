@@ -22,17 +22,17 @@ using namespace battle::actor;
 
 namespace battle::area::kmr_part_1 {
 
-Vec3i GreenPos = { 70, 25, 20 };
-Vec3i BuzzyBeetlePos = { 100, 25, 20 };
-Vec3i BrigaderBonesPos = { 23, 0, 30 };
-Vec3i YellowPos = { 105, 0, 20 };
-Vec3i GiantChompPos = { 25, 0, 21 };
-Vec3i YellowHammerBroPos = { 145, 0, 20 };
+Vec3i GreenPos = { 90, 25, 20 };
+Vec3i BuzzyBeetlePos = { 120, 25, 20 };
+Vec3i BrigaderBonesPos = { 60, 0, 40 };
+Vec3i YellowPos = { 85, 0, 15 };
+Vec3i GiantChompPos = { 25, 0, 20 };
+Vec3i YellowHammerBroPos = { 125, 0, 10 };
 Vec3i BlackPos = { 115, 10, 20 };
 Vec3i CratePos = { 15, 0, 20 };
 Vec3i DyanmitePos = { 55, 0, 20 };
-Vec3i Rider1Pos = { 45, -25, -50 };
-Vec3i Rider2Pos = { -25, -25, -50};
+Vec3i Rider1Pos = { 80, -25, -50 };
+Vec3i Rider2Pos = { 40, -25, -50};
 Vec3i RedPos = { 115, 22, 10 };
 Vec3i PyroGuyPos = { 150, 54, 10 };
 Vec3i KoopaTheKidPos = { 105, 45, 0 };

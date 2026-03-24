@@ -37,8 +37,8 @@ enum ActorPartIDs {
 
 // Actor Stats
 constexpr s32 hp = 4;
-constexpr s32 dmgBite = 3;
-constexpr s32 dmgQuickBite = 6;
+constexpr s32 dmgBite = 2;
+constexpr s32 dmgQuickBite = 4;
 
 s32 BasicAnims[] = {
     STATUS_KEY_NORMAL,    ANIM_ChainChomp_Idle,
@@ -290,8 +290,8 @@ extern "C" export ActorBlueprint blueprint = {
     .coinReward = 0,
     .size = { 56, 40 },
     .healthBarOffset = { 0, 0 },
-    .statusIconOffset = { -30, 40 },
-    .statusTextOffset = { 10, 40 },
+    .statusIconOffset = { 30, 65 },
+    .statusTextOffset = { 30, 40 },
 };
 
 

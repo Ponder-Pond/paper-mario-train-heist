@@ -40,8 +40,8 @@ s32 DefenseTable[] = {
 };
 
 s32 OpenDefense[] = {
-    ELEMENT_NORMAL,   99,
-    ELEMENT_JUMP,     99,
+    ELEMENT_NORMAL,    0,
+    ELEMENT_JUMP,      0,
     ELEMENT_SMASH,     0,
     ELEMENT_BLAST,    -1,
     ELEMENT_END,

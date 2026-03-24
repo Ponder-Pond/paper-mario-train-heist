@@ -36,7 +36,7 @@ enum ActorVars {
 
 // Actor Stats
 constexpr s32 hp = 1;
-constexpr s32 dmgImpact = 1;
+constexpr s32 dmgImpact = 2;
 
 #define BASE_COLLAPSE_DURATION  2
 
@@ -539,9 +539,11 @@ EvtScript EVS_Attack_FireBullet = {
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BULLET, Float(10.0))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BULLET, Float(8.0))
             Call(SetGoalToTarget, ACTOR_SELF)
-            Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            // Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+            Call(SetPartJumpGravity, ACTOR_SELF, PRT_BULLET, Float(0.01))
+            Call(JumpPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, true)
             Wait(2)
             IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
@@ -566,7 +568,9 @@ EvtScript EVS_Attack_FireBullet = {
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BULLET, Float(8.0))
     Call(SetGoalToTarget, ACTOR_SELF)
-    Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    // Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_COS_IN_OUT)
+    Call(SetPartJumpGravity, ACTOR_SELF, PRT_BULLET, Float(0.01))
+    Call(JumpPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, true)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, dmgImpact, BS_FLAGS1_TRIGGER_EVENTS)
