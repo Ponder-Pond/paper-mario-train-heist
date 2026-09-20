@@ -3,7 +3,7 @@
 /// Creates the version string that appears on the file select menu.
 /// Also used to sign save files created with this mod.
 /// WARNING: name must not exceed 27 characters!
-#define DX_MOD_NAME "New Mod"
+#define DX_MOD_NAME "Train Heist"
 #define DX_MOD_VER_MAJOR 1 /// Increase this when you make breaking changes to the savefile format (like reordering items)
 #define DX_MOD_VER_MINOR 0 /// Increase this when adding new features or other enchancements
 #define DX_MOD_VER_PATCH 0 /// Increase this when fixing bugs
@@ -37,7 +37,7 @@
 #define NEW_GAME_ENTRY_ID kmr_20_ENTRY_0
 
 /// Story progress when starting a new game.
-#define NEW_GAME_STORY_PROGRESS STORY_INTRO
+#define NEW_GAME_STORY_PROGRESS STORY_CH8_REACHED_BOWSERS_CASTLE
 
 /// Enables the profiler, which shows lots of performance info on screen.
 /// Press L + D-Pad Up to show/hide the profiler.
