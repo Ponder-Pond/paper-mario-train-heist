@@ -2,10 +2,9 @@ import argparse
 from pathlib import Path
 import sys
 
-sys.path.append(str(Path(__file__).parent.parent))
-sys.path.append(str(Path(__file__).parent.parent / "splat"))
+sys.path.append(str(Path(__file__).parent))
 
-from splat_ext.pm_effect_loads import effects_from_yaml
+from effect_table import effects_from_yaml
 
 
 if __name__ == "__main__":
@@ -38,11 +37,11 @@ if __name__ == "__main__":
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(args.out_dir / "effect_macros.h", "w") as f:
+    with open(args.out_dir / "effect_macros.h", "w", encoding="utf-8") as f:
         f.write(macro_defs)
 
-    with open(args.out_dir / "effect_table.c", "w") as f:
+    with open(args.out_dir / "effect_table.c", "w", encoding="utf-8") as f:
         f.write(main_decls_text + "\n" + effect_table_text + "};\n")
 
-    with open(args.out_dir / "effect_defs.h", "w") as f:
+    with open(args.out_dir / "effect_defs.h", "w", encoding="utf-8") as f:
         f.write(effect_enum_text + "};\n\n" + fx_decls_text)
