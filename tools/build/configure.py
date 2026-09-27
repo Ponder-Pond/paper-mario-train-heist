@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.request
 from functools import lru_cache
 from glob import glob
 from pathlib import Path
@@ -17,6 +18,7 @@ if sys.platform == 'win32':
     import ntfsutils.junction
 
 import assets
+from common import layer_relative
 import effect_table
 import linker
 from layout import Layout
@@ -51,6 +53,78 @@ else:
     CRC_TOOL = f"{BUILD_TOOLS}/rom/n64crc"
 
 SOURCE_DIRS = ["src", "include", "assets"]
+
+# Serves the shared sccache bucket's config and credentials. Overridable for
+# self-hosted caches.
+BUILD_JSON_URL = os.environ.get(
+    "PAPERMARIO_BUILD_JSON_URL", "https://papermario-dx.starhaven.dev/build.json"
+)
+
+# Ninja can't set per-command environment variables portably, so the build
+# environment exports SCCACHE_CONF and AWS_SHARED_CREDENTIALS_FILE pointing at
+# these files instead.
+SCCACHE_CONFIG_PATH = ROOT / ".dx/sccache-config.toml"
+SCCACHE_CREDENTIALS_PATH = ROOT / ".dx/sccache-credentials"
+
+
+def write_shared_sccache_config() -> None:
+    try:
+        with urllib.request.urlopen(BUILD_JSON_URL, timeout=3) as resp:
+            config = json.load(resp)["sccache"]
+        endpoint: str = config["endpoint"]
+        use_ssl = not endpoint.startswith("http://")
+        endpoint = endpoint.removeprefix("https://").removeprefix("http://")
+
+        SCCACHE_CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        SCCACHE_CONFIG_PATH.write_text(
+            "[cache.s3]\n"
+            f'bucket = "{config["bucket"]}"\n'
+            f'endpoint = "{endpoint}"\n'
+            'region = "auto"\n'
+            f"use_ssl = {str(use_ssl).lower()}\n"
+            "no_credentials = false\n"
+        )
+        SCCACHE_CREDENTIALS_PATH.write_text(
+            "[default]\n"
+            f'aws_access_key_id = {config["accessKey"]}\n'
+            f'aws_secret_access_key = {config["secretKey"]}\n'
+        )
+        SCCACHE_CREDENTIALS_PATH.chmod(0o600)
+    except (OSError, ValueError, KeyError) as e:
+        print(f"note: couldn't reach shared sccache config ({e}), using a local-only cache", file=sys.stderr)
+
+
+def migrate_mod_assets() -> None:
+    """Move a mod's assets from assets/mod into src, its asset layer now.
+
+    A file already at the same path in src stops configure rather than being
+    overwritten, so neither copy is lost.
+    """
+    old = ROOT / "assets" / "mod"
+    if not old.is_dir():
+        return
+    files = [
+        path
+        for path in sorted(old.rglob("*"))
+        if path.is_file() and path.name not in IGNORED_ASSET_NAMES
+    ]
+    clashes = [
+        path for path in files if (ROOT / "src" / path.relative_to(old)).exists()
+    ]
+    if clashes:
+        raise SystemExit(
+            "configure: a mod's assets go in src now, but these are in both "
+            "assets/mod and src. Keep one of each, then configure again:\n"
+            + "\n".join(f"  {posix(path.relative_to(ROOT))}" for path in clashes)
+        )
+    for path in files:
+        destination = ROOT / "src" / path.relative_to(old)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(path), str(destination))
+    shutil.rmtree(old)
+    if files:
+        plural = "" if len(files) == 1 else "s"
+        print(f"configure: moved {len(files)} file{plural} from assets/mod into src")
 
 
 def _walk_source_file_list():
@@ -89,6 +163,8 @@ def posix(path) -> str:
 
 # Files a hand-authored asset layer may hold that no build rule reads.
 IGNORED_ASSET_NAMES = {".gitkeep", ".DS_Store", "Thumbs.db"}
+# Files in an asset layer that are code or configuration rather than assets.
+NOT_ASSETS = (".c", ".cpp", ".s", ".h", ".ld", ".yaml", ".md")
 
 
 def _repo_paths(entries) -> List[str]:
@@ -183,22 +259,17 @@ def write_ninja_rules(
     extra_cppflags: str,
     extra_cflags: str,
     extra_cxxflags: str,
-    use_ccache: bool,
+    use_sccache: bool,
     shift: bool,
     debug: bool,
 ):
     # platform-specific
 
-    ccache = ""
+    sccache = ""
 
-    if use_ccache:
-        ccache = "ccache "
-        try:
-            subprocess.call(
-                ["ccache"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-            )
-        except FileNotFoundError:
-            ccache = ""
+    if use_sccache and shutil.which("sccache"):
+        write_shared_sccache_config()
+        sccache = "sccache "
 
     cross = "mips-linux-gnu-"
     cc_modern = f"{cross}gcc"
@@ -213,11 +284,20 @@ def write_ninja_rules(
 
     CPPFLAGS = CPPFLAGS_COMMON
 
-    modern_flags = "-c -G0 -O2 -g1 -gdwarf -gas-loc-support -ffast-math -fno-unsafe-math-optimizations -fdiagnostics-color=always -funsigned-char -mgp32 -mfp32 -mabi=32 -mfix4300 -march=vr4300 -mno-gpopt -mno-abicalls -fno-pic -fno-exceptions -fno-stack-protector -fno-toplevel-reorder -fno-zero-initialized-in-bss -Wno-builtin-declaration-mismatch"
+    # Keeps debug paths portable across machines sharing the cache.
+    # SCCACHE_BASEDIRS strips the checkout path from this flag before hashing.
+    prefix_map = f"-ffile-prefix-map={os.getcwd()}=/papermario-dx"
+
+    modern_flags = f"-c -G0 -O2 -g1 -gdwarf -gas-loc-support -ffast-math -fno-unsafe-math-optimizations -fdiagnostics-color=always -funsigned-char -mgp32 -mfp32 -mabi=32 -mfix4300 -march=vr4300 -mno-gpopt -mno-abicalls -fno-pic -fno-exceptions -fno-stack-protector -fno-toplevel-reorder -fno-zero-initialized-in-bss -Wno-builtin-declaration-mismatch {prefix_map}"
     cflags_modern = f"{modern_flags} {extra_cflags}"
     cxxflags_modern = f"{modern_flags} {extra_cxxflags}"
 
     ninja.variable("python", f'"{sys.executable}"')
+    # sccache keys on the preprocessed source, which leaves out files pulled in
+    # by `.incbin`, so edges that embed assets clear this to compile uncached.
+    # The trailing space lives in the value because Windows fails to start a
+    # command that begins with one.
+    ninja.variable("sccache", sccache)
 
     ld_args = f"-T ver/$version/build/undefined_syms.txt -T ver/$version/undefined_syms_auto.txt -T ver/$version/undefined_funcs_auto.txt -Map $mapfile --no-check-sections --whole-archive -T $in -o $out"
     ld = (
@@ -275,7 +355,7 @@ def write_ninja_rules(
     ninja.rule(
         "cc_modern",
         description="Compiling $in",
-        command=f"{ccache}{cc_modern} {cflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include common.h -D_LANGUAGE_C -Werror=implicit -Werror=old-style-declaration -Werror=missing-parameter-type -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -MD -MF $out.d $in -o $out",
+        command=f"${{sccache}}{cc_modern} {cflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include $pch_header -D_LANGUAGE_C -Werror=implicit -Werror=old-style-declaration -Werror=missing-parameter-type -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -MD -MF $out.d $in -o $out",
         depfile="$out.d",
         deps="gcc",
     )
@@ -283,15 +363,15 @@ def write_ninja_rules(
     ninja.rule(
         "cxx_modern",
         description="Compiling $in",
-        command=f"{ccache}{cxx_modern} {cxxflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include common.hpp -std=c++20 -D_LANGUAGE_C_PLUS_PLUS -MD -MF $out.d $in -o $out",
+        command=f"${{sccache}}{cxx_modern} {cxxflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include $pch_header -std=c++20 -D_LANGUAGE_C_PLUS_PLUS -MD -MF $out.d $in -o $out",
         depfile="$out.d",
         deps="gcc",
     )
 
     ninja.rule(
-        "evt_validate_obj",
+        "evt_validate",
         description="Validating scripts in $evt_target",
-        command=f"$python {BUILD_TOOLS}/evt_validate_obj.py --object-list $out.rsp --out $out",
+        command="evt_validate --object-list $out.rsp --out $out",
         rspfile="$out.rsp",
         rspfile_content="$in_newline",
     )
@@ -509,20 +589,29 @@ def write_ninja_rules(
     ninja.rule(
         "syms",
         description="Reading engine symbols for overlays",
-        command=f"$python {BUILD_TOOLS}/overlay.py gen-syms $in $out",
+        command=f"$python {BUILD_TOOLS}/overlay_cli.py gen-syms $in $out",
         restat=True,
     )
 
     ninja.rule(
         "ovl_link_convert",
         description="Linking overlay $ovl_src",
-        command=f"$python {BUILD_TOOLS}/overlay.py link $syms $out $link_addr $in",
+        command=f"$python {BUILD_TOOLS}/overlay_cli.py link $syms $out $link_addr $in",
+    )
+
+    # A debugger loads this alongside the engine's ELF, offset to wherever the
+    # game loaded the overlay. Calls into the engine resolve against its ELF.
+    # Some overlays define a global twice, which the overlay linker tolerates.
+    ninja.rule(
+        "ovl_debug_elf",
+        description="Linking overlay debug ELF $ovl_src",
+        command=f"{ld} -T $script --just-symbols=$engine_elf --no-check-sections --allow-multiple-definition -o $out $in",
     )
 
     ninja.rule(
         "ovl_apply",
         description="Applying overlays",
-        command=f"$python {BUILD_TOOLS}/overlay.py apply-all $in $out $syms $manifest",
+        command=f"$python {BUILD_TOOLS}/overlay_cli.py apply-all $in $out $syms $manifest",
     )
 
 
@@ -608,7 +697,7 @@ class Configure:
         packed = self.layout.packed_dirs
         found: Dict[str, Path] = {}
         for layer in reversed(self.asset_stack):
-            root = ROOT / "assets" / layer
+            root = ROOT / layer
             if not root.is_dir():
                 continue
             base = str(root)
@@ -682,7 +771,7 @@ class Configure:
         """The image effect animations, across the asset stack."""
         found: Dict[str, Path] = {}
         for layer in reversed(self.asset_stack):
-            for source in (ROOT / "assets" / layer / "imgfx").glob("*.json"):
+            for source in (ROOT / layer / "imgfx").glob("*.json"):
                 found[source.name] = source.relative_to(ROOT)
         return [found[name] for name in sorted(found)]
 
@@ -731,9 +820,9 @@ class Configure:
 
         # Each animation is reached by name from a table in the engine, so the
         # order these are emitted in only decides where they sit.
-        imgfx_c = version_assets / "imgfx" / "imgfx_data.c"
+        imgfx_c = self.build_path() / version_assets / "imgfx" / "imgfx_data.c"
         build(imgfx_c, self.imgfx_animations(), "imgfx_data")
-        imgfx_obj = self.build_path() / (posix(imgfx_c) + ".o")
+        imgfx_obj = Path(posix(imgfx_c) + ".o")
         build(
             imgfx_obj,
             [imgfx_c],
@@ -803,7 +892,7 @@ class Configure:
         message_bins = []
         layer_sizes = []
         for layer in reversed(self.asset_stack):
-            directory = Path("assets") / layer / "msg"
+            directory = Path(layer) / "msg"
             count = 0
             if directory.exists():
                 for source in sorted(directory.glob("*.msg")):
@@ -846,7 +935,7 @@ class Configure:
             for layer in self.asset_stack:
                 found.update(
                     path.name
-                    for path in (ROOT / "assets" / layer / "mapfs" / directory).glob(
+                    for path in (ROOT / layer / "mapfs" / directory).glob(
                         pattern
                     )
                 )
@@ -872,7 +961,8 @@ class Configure:
         object_path = self.build_path() / "assets" / self.version / "mapfs.dat.o"
         # flat list of (uncompressed path, compressed? path) pairs
         bin_yay0s: List[Path] = []
-        src_dir = Path("assets/x") / seg_name
+        # Inputs resolve through the asset stack to the highest layer's file.
+        src_dir = Path(self.asset_stack[-1]) / seg_name
 
         for path in src_paths:
             name = path.stem
@@ -989,9 +1079,7 @@ class Configure:
             elif name.endswith("_shape_built"):
                 base_name = name[:-6]
                 map_name = base_name[:-6]
-                raw_bin_path = self.resolve_asset_path(
-                    f"assets/x/mapfs/geom/{base_name}.bin"
-                )
+                raw_bin_path = self.find_asset(f"mapfs/geom/{base_name}.bin")
                 bin_path = bin_path.parent / "geom" / (base_name + ".bin")
 
                 if c_maps:
@@ -1017,9 +1105,7 @@ class Configure:
                 else:
                     build(bin_path, [raw_bin_path], "cp")
 
-                xml_path = self.resolve_asset_path(
-                    f"assets/x/mapfs/geom/{map_name}.xml"
-                )
+                xml_path = self.find_asset(f"mapfs/geom/{map_name}.xml")
                 if xml_path.exists():
                     build(
                         self.build_path()
@@ -1034,23 +1120,17 @@ class Configure:
             elif name.endswith("_hit"):
                 base_name = name
                 map_name = base_name[:-4]
-                raw_bin_path = self.resolve_asset_path(
-                    f"assets/x/mapfs/geom/{base_name}.bin"
-                )
+                raw_bin_path = self.find_asset(f"mapfs/geom/{base_name}.bin")
 
                 # TEMP: star rod compatiblity
-                old_raw_bin_path = self.resolve_asset_path(
-                    f"assets/x/mapfs/{base_name}.bin"
-                )
+                old_raw_bin_path = self.find_asset(f"mapfs/{base_name}.bin")
                 if old_raw_bin_path.is_file():
                     raw_bin_path = old_raw_bin_path
 
                 bin_path = bin_path.parent / "geom" / (base_name + ".bin")
                 build(bin_path, [raw_bin_path], "cp")
 
-                xml_path = self.resolve_asset_path(
-                    f"assets/x/mapfs/geom/{map_name}.xml"
-                )
+                xml_path = self.find_asset(f"mapfs/geom/{map_name}.xml")
                 if xml_path.exists():
                     build(
                         self.build_path()
@@ -1082,7 +1162,7 @@ class Configure:
         """The images of one font, across the asset stack."""
         found: Dict[str, Path] = {}
         for layer in reversed(self.asset_stack):
-            root = ROOT / "assets" / layer / "charset" / directory
+            root = ROOT / layer / "charset" / directory
             if root.is_dir():
                 for source in root.glob("*.png"):
                     found[source.name] = source.relative_to(ROOT)
@@ -1289,6 +1369,22 @@ class Configure:
     def syms_path(self) -> Path:
         return self.build_path() / "syms.pkl"
 
+    def embedded_asset_deps(self, src: Path) -> List[str]:
+        """Build outputs that a source embeds with `.incbin`.
+
+        Paths without a build rule belong to other versions, such as the
+        Japanese fonts, and are left out.
+        """
+        deps = []
+        for macro, asset in assets.embedded_assets(ROOT / src):
+            if macro == "RAW":
+                path = self.build_path() / "assets" / self.version / asset
+            else:
+                path = self.build_path() / (asset + ".bin")
+            if posix(path) in self.inc_img_bins:
+                deps.append(posix(path))
+        return deps
+
     def resolve_src_paths(self, src_paths: List[Path]) -> List[str]:
         out = []
 
@@ -1303,13 +1399,13 @@ class Configure:
 
         return out
 
-    # Given a directory relative to assets/, return a list of all assets in the directory
-    # for all layers of the asset stack
+    # Given a directory within an asset layer, return a list of all assets in the
+    # directory for all layers of the asset stack
     def get_asset_list(self, asset_dir: str) -> List[str]:
         ret: Dict[Path, Path] = {}
 
         for stack_dir in self.asset_stack:
-            path_stem = f"assets/{stack_dir}/{asset_dir}"
+            path_stem = f"{stack_dir}/{asset_dir}"
 
             for p in Path(path_stem).glob("**/*"):
                 glob_part = p.relative_to(path_stem)
@@ -1320,21 +1416,19 @@ class Configure:
 
     @lru_cache(maxsize=None)
     def resolve_asset_path(self, path: Path) -> Path:
-        # Remove nonsense
+        """The file an asset layer's path stands for: the highest layer's."""
         path = Path(os.path.normpath(path))
+        relative = layer_relative(path, self.asset_stack)
+        return path if relative is None else self.find_asset(relative)
 
-        parts = list(path.parts)
-
-        if parts[0] != "assets":
-            return path
-
-        for asset_dir in self.asset_stack:
-            parts[1] = asset_dir
-            new_path = Path("/".join(parts))
-            if new_path.exists():
-                return new_path
-
-        return path
+    @lru_cache(maxsize=None)
+    def find_asset(self, relative: Union[str, Path]) -> Path:
+        """An asset in the highest layer that has it, or the lowest layer's path."""
+        for layer in self.asset_stack:
+            path = Path(layer) / relative
+            if path.exists():
+                return path
+        return Path(self.asset_stack[-1]) / relative
 
     def _sidecar_target_consumed(
         self, sidecar: Path, layer: str, consumed_assets: Set[str]
@@ -1346,14 +1440,14 @@ class Configure:
         live in a different layer than the sidecar, so resolve it through the
         stack.
         """
-        rel = Path(os.path.relpath(str(sidecar), ROOT / "assets" / layer))
+        rel = Path(os.path.relpath(str(sidecar), ROOT / layer))
         if sidecar.name == assets.DIRECTORY_SIDECAR:
             directory = rel.parent.as_posix()
             directory = "" if directory == "." else directory + "/"
-            prefixes = tuple(f"assets/{name}/{directory}" for name in self.asset_stack)
+            prefixes = tuple(f"{name}/{directory}" for name in self.asset_stack)
             return any(path.startswith(prefixes) for path in consumed_assets)
         target = rel.as_posix()[: -len(assets.SIDECAR_SUFFIX)]
-        resolved = self.resolve_asset_path(Path("assets") / layer / target)
+        resolved = self.find_asset(target)
         return posix(os.path.relpath(str(resolved), ROOT)) in consumed_assets
 
     def check_asset_coverage(
@@ -1365,12 +1459,13 @@ class Configure:
         tools/build/check_assets.py; the earlier layers are hand-authored, so a
         file there that nothing builds is a mistake rather than leftover dump.
         """
-        consumed_assets = {p for p in consumed if p.startswith("assets/")}
-        produced_assets = {p for p in produced if p.startswith("assets/")}
+        layers = tuple(f"{layer}/" for layer in self.asset_stack)
+        consumed_assets = {p for p in consumed if p.startswith(layers)}
+        produced_assets = {p for p in produced if p.startswith(layers)}
 
         orphans: List[str] = []
         for layer in self.asset_stack[:-1]:
-            root = ROOT / "assets" / layer
+            root = ROOT / layer
             if not root.is_dir():
                 continue
             for directory, _subdirs, filenames in os.walk(root):
@@ -1379,7 +1474,8 @@ class Configure:
                     rel = posix(os.path.relpath(str(path), ROOT))
                     if filename in IGNORED_ASSET_NAMES:
                         continue
-                    if filename.endswith((".inc.c", ".inc.cpp")):
+                    # Code and configuration share the src layer with assets.
+                    if filename.endswith(NOT_ASSETS) or filename.startswith("."):
                         continue
                     if rel in consumed_assets or rel in produced_assets:
                         continue
@@ -1402,9 +1498,21 @@ class Configure:
         built_objects = set()
         evt_validation_stamps = []
         generated_code = []
-        inc_img_bins = []
-        precompiled_header_path = Path("include/common.h.gch")
-        cxx_precompiled_header_path = Path("include/common.hpp.gch")
+        self.inc_img_bins: Set[str] = set()
+        # Sources force-include the header beside each precompiled header,
+        # which includes the real one so sccache can still preprocess them.
+        # The directory stays off the include path: GCC would otherwise match
+        # the `.gch` again for a source's own `#include "common.h"`.
+        precompiled_header_path = self.build_path() / "pch" / "common.h.gch"
+        cxx_precompiled_header_path = self.build_path() / "pch" / "common.hpp.gch"
+        for pch in [precompiled_header_path, cxx_precompiled_header_path]:
+            forwarder = ROOT / pch.with_suffix("")
+            target = os.path.relpath(ROOT / "include" / forwarder.name, forwarder.parent)
+            text = f'#include "{posix(target)}"\n'
+            # Rewriting it unchanged would rebuild every object on each reconfigure.
+            if not forwarder.exists() or forwarder.read_text() != text:
+                forwarder.parent.mkdir(parents=True, exist_ok=True)
+                forwarder.write_text(text)
 
         def build(
             object_paths: Union[Path, List[Path]],
@@ -1432,7 +1540,7 @@ class Configure:
                 elif object_path.name.endswith(
                     (".png.bin", ".pal.bin", ".dat")
                 ):
-                    inc_img_bins.append(obj_posix)
+                    self.inc_img_bins.add(obj_posix)
 
                 # don't rebuild objects if we've already seen all of them
                 if obj_posix not in skip_outputs:
@@ -1451,11 +1559,26 @@ class Configure:
                 if task in ["cc", "cxx", "cc_modern", "cxx_modern"]:
                     order_only.append("generated_code_" + self.version)
                     order_only.append("inc_img_bins_" + self.version)
-                    if object_paths[0].suffixes[-1] != ".gch":
-                        if task == "cc_modern":
-                            implicit.append(posix(precompiled_header_path))
-                        elif task == "cxx_modern":
-                            implicit.append(posix(cxx_precompiled_header_path))
+                    if task in ["cc_modern", "cxx_modern"]:
+                        pch = (
+                            precompiled_header_path
+                            if task == "cc_modern"
+                            else cxx_precompiled_header_path
+                        )
+                        if object_paths[0] == pch:
+                            # Not the forwarder, which would pick up the
+                            # previous build of this precompiled header.
+                            pch_header = Path("include") / pch.stem
+                        else:
+                            pch_header = pch.with_suffix("")
+                            implicit.append(posix(pch))
+                        variables = {**variables, "pch_header": posix(pch_header)}
+                    embedded = [
+                        dep for src in src_paths for dep in self.embedded_asset_deps(src)
+                    ]
+                    if embedded:
+                        implicit.extend(embedded)
+                        variables = {**variables, "sccache": ""}
 
                 inputs = self.resolve_src_paths(src_paths)
                 for dir in asset_deps:
@@ -1487,15 +1610,14 @@ class Configure:
                         evt_target = evt_validation_display_path(object_path)
                     ninja.build(
                         evt_validation_stamp,
-                        "evt_validate_obj",
+                        "evt_validate",
                         [posix(object_path)],
-                        implicit=[posix(BUILD_TOOLS / "evt_validate_obj.py")],
                         variables={"evt_target": evt_target},
                     )
 
         # Effect data includes
         effect_yaml = ROOT / "src/effects.yaml"
-        effect_data_outdir = ROOT / "assets" / version / "effects"
+        effect_data_outdir = self.build_path() / "include" / "effects"
         effect_macros_path = effect_data_outdir / "effect_macros.h"
         effect_defs_path = effect_data_outdir / "effect_defs.h"
         effect_table_path = effect_data_outdir / "effect_table.c"
@@ -1521,9 +1643,10 @@ class Configure:
         # exist: otherwise adding the first source to one leaves the table stale.
         gen_areas_stamp = self.build_path() / "gen_areas.stamp"
         area_dirs = []
-        for area_root in [ROOT / "src" / "world" / "area"] + [
-            ROOT / "assets" / d / "world" / "area" for d in self.asset_stack
-        ]:
+        for area_root in dict.fromkeys(
+            [ROOT / "src" / "world" / "area"]
+            + [ROOT / d / "world" / "area" for d in self.asset_stack]
+        ):
             if area_root.is_dir():
                 for area_dir in sorted(area_root.iterdir()):
                     if area_dir.is_dir():
@@ -1603,8 +1726,16 @@ class Configure:
                 "actor_types",
             )
 
-        build([precompiled_header_path], [Path("include/common.h")], "cc_modern")
-        build([cxx_precompiled_header_path], [Path("include/common.hpp")], "cxx_modern")
+        build(
+            [precompiled_header_path],
+            [precompiled_header_path.with_suffix("")],
+            "cc_modern",
+        )
+        build(
+            [cxx_precompiled_header_path],
+            [cxx_precompiled_header_path.with_suffix("")],
+            "cxx_modern",
+        )
 
         self.asset_objects: Dict[str, List[Path]] = {}
         self.write_effect_stub_rules(build)
@@ -1713,7 +1844,7 @@ class Configure:
         )
 
         ninja.build("generated_code_" + self.version, "phony", generated_code)
-        ninja.build("inc_img_bins_" + self.version, "phony", inc_img_bins)
+        ninja.build("inc_img_bins_" + self.version, "phony", sorted(self.inc_img_bins))
         return evt_validation_stamps
 
     def get_segment_max_sizes(self):
@@ -1729,13 +1860,13 @@ class Configure:
             "world/area/*/*/",
         ]
 
-        # Collect overlays keyed by (type_index, name). Later entries in the
-        # asset stack override earlier ones; src/ is the lowest-priority layer.
+        # Collect overlays keyed by (type_index, name), each layer of the asset
+        # stack overriding the ones below it. src/ holds overlays even when the
+        # stack doesn't list it, beneath every layer.
         found: Dict[Tuple[int, str], Tuple[Path, int]] = {}
 
-        search_dirs = [ROOT / "src"] + [
-            ROOT / "assets" / d for d in reversed(self.asset_stack)
-        ]
+        layers = [ROOT / d for d in reversed(self.asset_stack)]
+        search_dirs = ([] if ROOT / "src" in layers else [ROOT / "src"]) + layers
         for search_dir in search_dirs:
             if not search_dir.exists():
                 continue
@@ -1766,8 +1897,8 @@ class Configure:
         import json
 
         overlays = self.find_overlays()
-        c_precompiled_header_path = Path("include/common.h.gch")
-        cxx_precompiled_header_path = Path("include/common.hpp.gch")
+        c_precompiled_header_path = self.build_path() / "pch" / "common.h.gch"
+        cxx_precompiled_header_path = self.build_path() / "pch" / "common.hpp.gch"
 
         manifest_entries = []
         evt_validation_stamps = []
@@ -1780,6 +1911,8 @@ class Configure:
             build_dir = self.build_path() / "ovl" / str(type_index) / name
             ovl_path = build_dir / f"{name}.ovl"
             debug_syms_path = build_dir / f"{name}.ovl.debug_syms"
+            debug_script_path = build_dir / f"{name}.ovl.ld"
+            debug_elf_path = build_dir / f"{name}.ovl.elf"
             objects = []
 
             c_files = []
@@ -1801,6 +1934,15 @@ class Configure:
                     task = "cc_modern"
                     pch = c_precompiled_header_path
                 obj_path = build_dir / (c_file.name + ".o")
+                embedded = self.embedded_asset_deps(c_file)
+                variables = {
+                    "version": self.version,
+                    "pch_header": posix(pch.with_suffix("")),
+                    "cflags": "-fno-common -fvisibility=hidden",
+                    "cppflags": f"-DVERSION_{self.version.upper()} -DMODERN_COMPILER",
+                }
+                if embedded:
+                    variables["sccache"] = ""
                 evt_stamps = (
                     [evt_validation_stamp_path(obj_path)] if evt_validation else []
                 )
@@ -1809,24 +1951,19 @@ class Configure:
                     posix(obj_path),
                     task,
                     posix(c_file),
-                    implicit=[posix(pch)],
+                    implicit=[posix(pch)] + embedded,
                     order_only=[
                         "generated_code_" + self.version,
                         "inc_img_bins_" + self.version,
                     ],
-                    variables={
-                        "version": self.version,
-                        "cflags": "-fno-common -fvisibility=hidden",
-                        "cppflags": f"-DVERSION_{self.version.upper()} -DMODERN_COMPILER",
-                    },
+                    variables=variables,
                     validations=evt_stamps,
                 )
                 for evt_validation_stamp in evt_stamps:
                     ninja.build(
                         evt_validation_stamp,
-                        "evt_validate_obj",
+                        "evt_validate",
                         [posix(obj_path)],
-                        implicit=[posix(BUILD_TOOLS / "evt_validate_obj.py")],
                         variables={"evt_target": posix(c_file)},
                     )
                 objects.append(posix(obj_path))
@@ -1842,11 +1979,29 @@ class Configure:
                 posix(ovl_path),
                 "ovl_link_convert",
                 objects,
-                implicit=[posix(self.syms_path())],
-                implicit_outputs=[posix(debug_syms_path)],
+                implicit=[
+                    posix(self.syms_path()),
+                    posix(BUILD_TOOLS / "overlay_cli.py"),
+                    posix(BUILD_TOOLS / "overlay_impl.py"),
+                ],
+                implicit_outputs=[posix(debug_syms_path), posix(debug_script_path)],
                 variables={
                     "syms": posix(self.syms_path()),
                     "link_addr": link_addr,
+                    "ovl_src": posix(src_path.relative_to(ROOT)),
+                },
+            )
+
+            # Depends on the engine through syms.pkl, which only changes when
+            # its symbols do, rather than on every rebuild of the engine's ELF.
+            ninja.build(
+                posix(debug_elf_path),
+                "ovl_debug_elf",
+                objects,
+                implicit=[posix(debug_script_path), posix(self.syms_path())],
+                variables={
+                    "script": posix(debug_script_path),
+                    "engine_elf": posix(self.elf_path()),
                     "ovl_src": posix(src_path.relative_to(ROOT)),
                 },
             )
@@ -1860,13 +2015,15 @@ class Configure:
                 }
             )
             implicit_deps.append(posix(ovl_path))
+            implicit_deps.append(posix(debug_elf_path))
 
         manifest_path = self.build_path() / "ovl" / "manifest.json"
         manifest_path.parent.mkdir(parents=True, exist_ok=True)
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(manifest_entries, f)
 
-        implicit_deps.append(posix(BUILD_TOOLS / "overlay.py"))
+        implicit_deps.append(posix(BUILD_TOOLS / "overlay_cli.py"))
+        implicit_deps.append(posix(BUILD_TOOLS / "overlay_impl.py"))
         ninja.build(
             posix(self.rom_path()),
             "ovl_apply",
@@ -1945,7 +2102,7 @@ if __name__ == "__main__":
         action="store_true",
         help="Use modern GCC instead of the original compiler",
     )
-    parser.add_argument("--no-ccache", action="store_true", help="Use ccache")
+    parser.add_argument("--no-sccache", action="store_true", help="Use sccache")
     parser.add_argument(
         "--dump",
         action="store_true",
@@ -1969,8 +2126,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     args.shift = not args.no_shift
     args.non_matching = not args.no_non_matching
-    args.ccache = not args.no_ccache
+    args.sccache = not args.no_sccache
     args.evt_validation = not args.no_evt_validation
+
+    migrate_mod_assets()
 
     if args.incremental:
         stamp = ROOT / "build" / "source_files.stamp"
@@ -2104,7 +2263,7 @@ if __name__ == "__main__":
         extra_cppflags,
         extra_cflags,
         extra_cxxflags,
-        args.ccache,
+        args.sccache,
         args.shift,
         args.debug,
     )
@@ -2202,13 +2361,16 @@ if __name__ == "__main__":
 
     for top in ["src", "include", "assets"]:
         for dirpath, dirnames, _ in os.walk(ROOT / top):
-            configure_deps.append(
-                str(
-                    Path(dirpath).relative_to(ROOT)
-                    if Path(dirpath).is_absolute()
-                    else dirpath
-                )
+            directory = posix(
+                Path(dirpath).relative_to(ROOT)
+                if Path(dirpath).is_absolute()
+                else dirpath
             )
+            configure_deps.append(directory)
+            # A phony edge with no inputs is out of date once its path is
+            # missing, so deleting the directory reconfigures instead of
+            # failing for want of a rule to make it.
+            ninja.build(directory, "phony")
 
     ninja.build(
         "build.ninja",
@@ -2231,9 +2393,9 @@ if __name__ == "__main__":
         if compdb.returncode == 0:
             entries = json.loads(compdb.stdout)
             strip_re = re.compile(r"^(-m\S+|-f\S+|-g\S+|-G\d+|--warn-\S+)$")
-            cross_cc_re = re.compile(r"^(ccache\s+)?mips-linux-gnu-g(cc|\+\+)(?=\s)")
+            cross_cc_re = re.compile(r"^(sccache\s+)?mips-linux-gnu-g(cc|\+\+)(?=\s)")
             for entry in entries:
-                entry["command"] = cross_cc_re.sub(r"\1cc", entry["command"])
+                entry["command"] = cross_cc_re.sub("cc", entry["command"])
                 parts = entry["command"].split()
                 entry["command"] = " ".join(p for p in parts if not strip_re.match(p))
             (ROOT / "compile_commands.json").write_text(

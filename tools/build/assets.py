@@ -9,10 +9,11 @@ for every asset in it.
 import re
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import yaml
 
+from common import layer_relative
 from raster import Png
 
 DIRECTORY_SIDECAR = ".meta"
@@ -32,17 +33,13 @@ def _layers(png_path: Path, asset_stack) -> List[Path]:
     Assets split from the ROM are not version controlled, so their sidecars
     live in a layer that is, and have to be found from there.
     """
-    parts = list(png_path.parts)
-    if len(parts) < 2 or parts[0] != "assets":
+    relative = layer_relative(png_path, asset_stack)
+    if relative is None:
         return [png_path]
-    paths = []
-    for layer in reversed(list(asset_stack)):
-        parts[1] = layer
-        paths.append(Path(*parts))
-    return paths
+    return [Path(layer) / relative for layer in reversed(list(asset_stack))]
 
 
-def metadata(png_path: Path, asset_stack=("us",)) -> Dict:
+def metadata(png_path: Path, asset_stack=("assets/us",)) -> Dict:
     """Sidecar values for an asset, the nearest declaration winning."""
     values: Dict = {}
     for path in _layers(png_path, asset_stack):
@@ -54,7 +51,7 @@ def metadata(png_path: Path, asset_stack=("us",)) -> Dict:
 
 
 class Texture:
-    def __init__(self, path: Path, asset_stack=("us",)):
+    def __init__(self, path: Path, asset_stack=("assets/us",)):
         self.path = path
         self.png = Png(path)
         meta = metadata(path, asset_stack)
@@ -117,3 +114,28 @@ def included_palettes(src_root: Path) -> set:
         for match in re.finditer(r'INCLUDE_PAL\(\s*"([^"]+)"', source.read_text()):
             palettes.add(Path(match.group(1)).with_suffix(".png").as_posix())
     return palettes
+
+
+EMBED_MACRO = re.compile(r'INCLUDE_(IMG|PAL|RAW)\(\s*"([^"]+)"')
+LOCAL_INCLUDE = re.compile(r'^\s*#\s*include\s+"([^"]+)"', re.MULTILINE)
+
+
+def embedded_assets(source: Path) -> List[Tuple[str, str]]:
+    """The (macro, path) pairs a source embeds with INCLUDE_IMG, INCLUDE_PAL or INCLUDE_RAW.
+
+    The compiler's dependency output leaves out files pulled in by `.incbin`,
+    so the build has to find them itself. Includes that resolve next to the
+    including file are followed, since that is how `.inc.c` files are pulled in.
+    """
+    found: List[Tuple[str, str]] = []
+    seen = set()
+    pending = [source]
+    while pending:
+        path = pending.pop()
+        if path in seen or not path.is_file():
+            continue
+        seen.add(path)
+        text = path.read_text()
+        found.extend(EMBED_MACRO.findall(text))
+        pending.extend(path.parent / name for name in LOCAL_INCLUDE.findall(text))
+    return found
