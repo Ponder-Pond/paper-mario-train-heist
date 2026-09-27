@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="5">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="Dynamite" src="Dynamite.png"/>
+		<Palette id="2" name="CrateBomb" src="CrateBomb.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="CrateClosed" palette="0" src="CrateClosed.png"/>
+		<Raster id="1" name="CrateLidSpin1" palette="0" src="CrateLidSpin1.png"/>
+		<Raster id="2" name="CrateLidSpin2" palette="0" src="CrateLidSpin2.png"/>
+		<Raster id="3" name="CrateLidSpin3" palette="0" src="CrateLidSpin3.png"/>
+		<Raster id="4" name="CrateLidSpin4" palette="0" src="CrateLidSpin4.png"/>
+		<Raster id="5" name="CrateLidSpin5" palette="0" src="CrateLidSpin5.png"/>
+		<Raster id="6" name="CrateLidSpin6" palette="0" src="CrateLidSpin6.png"/>
+		<Raster id="7" name="CrateLidSpin7" palette="0" src="CrateLidSpin7.png"/>
+		<Raster id="8" name="CrateLidSpin8" palette="0" src="CrateLidSpin8.png"/>
+		<Raster id="9" name="Dynamite" palette="1" src="Dynamite.png"/>
+		<Raster id="A" name="CrateOpen" palette="0" src="CrateOpen.png"/>
+		<Raster id="B" name="CrateBreak1" palette="0" src="CrateBreak1.png"/>
+		<Raster id="C" name="CrateBreak2" palette="0" src="CrateBreak2.png"/>
+		<Raster id="D" name="CrateBreak3" palette="0" src="CrateBreak3.png"/>
+		<Raster id="E" name="CrateBreak4" palette="0" src="CrateBreak4.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="IdleClosed">
+			<Component name="Crate" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="JumpedOn">
+			<Component name="LidMovement" xyz="0,0,0">
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="16"/>
+				<SetPos flag="0" xyz="1,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="2,20,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="3,30,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="4,35,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="5,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="6,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="7,45,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="8,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="9,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="10,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="11,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="12,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="13,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="14,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="15,45,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="16,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="17,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="18,35,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="19,30,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="20,20,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="21,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="22,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="23,-12,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="DynamiteMovement" xyz="0,0,0">
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Wait duration="4"/>
+				<Wait duration="6"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,3,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,7,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,12,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,19,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="0,16,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Crate" xyz="0,0,0">
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="90"/>
+				<SetScale mode="x" percent="110"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="80"/>
+				<SetScale mode="x" percent="120"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="50"/>
+				<SetScale mode="x" percent="150"/>
+				<Wait duration="4"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<SetScale mode="y" percent="80"/>
+				<SetScale mode="x" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<SetScale mode="y" percent="90"/>
+				<SetScale mode="x" percent="110"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<Wait duration="6"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Lid" xyz="0,0,2">
+				<SetParent index="0"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="16"/>
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<Wait duration="2"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<SetRaster index="5"/>
+				<Wait duration="2"/>
+				<SetRaster index="6"/>
+				<Wait duration="2"/>
+				<SetRaster index="7"/>
+				<Wait duration="2"/>
+				<SetRaster index="8"/>
+				<Wait duration="2"/>
+				<Loop dest="Start" count="1"/>
+				<Label name="End"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="IdleOpenEmpty">
+			<Component name="Crate" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Lid" xyz="23,-12,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Break">
+			<Component name="Movement" xyz="0,0,0">
+				<SetPos flag="0" xyz="0,-4,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,5,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,15,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,5,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Boom" xyz="0,-12,0">
+				<SetParent index="0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<SetRaster index="A"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetPos flag="0" xyz="0,6,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetScale mode="uniform" percent="135"/>
+				<SetPos flag="0" xyz="0,7,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,4,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="C"/>
+				<Wait duration="4"/>
+				<SetRaster index="D"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="E"/>
+				<SetScale mode="x" percent="125"/>
+				<SetScale mode="y" percent="80"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Lid" xyz="23,-12,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="DynamiteJumpedOn">
+			<Component name="LidMovement" xyz="0,0,0">
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="16"/>
+				<SetPos flag="0" xyz="1,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="2,20,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="3,30,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="4,35,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="5,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="6,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="7,45,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="8,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="9,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="10,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="11,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="12,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="13,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="14,50,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="15,45,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="16,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="17,40,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="18,35,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="19,30,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="20,20,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="21,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="22,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="23,-12,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="DynamiteMovement" xyz="0,0,0">
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Wait duration="4"/>
+				<Wait duration="6"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,3,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,7,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,12,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,19,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="0,16,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Crate" xyz="0,0,2">
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="90"/>
+				<SetScale mode="x" percent="110"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="80"/>
+				<SetScale mode="x" percent="120"/>
+				<Wait duration="6"/>
+				<SetRaster index="0"/>
+				<SetScale mode="y" percent="50"/>
+				<SetScale mode="x" percent="150"/>
+				<Wait duration="4"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<SetScale mode="y" percent="80"/>
+				<SetScale mode="x" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<SetScale mode="y" percent="90"/>
+				<SetScale mode="x" percent="110"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<Wait duration="6"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Lid" xyz="0,0,4">
+				<SetParent index="0"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="16"/>
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<Wait duration="2"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<SetRaster index="5"/>
+				<Wait duration="2"/>
+				<SetRaster index="6"/>
+				<Wait duration="2"/>
+				<SetRaster index="7"/>
+				<Wait duration="2"/>
+				<SetRaster index="8"/>
+				<Wait duration="2"/>
+				<Loop dest="Start" count="1"/>
+				<Label name="End"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Dynamite1" xyz="4,10,-2">
+				<SetParent index="1"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Wait duration="4"/>
+				<Wait duration="6"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRaster index="9"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Dynamite2" xyz="10,5,0">
+				<SetParent index="1"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Wait duration="4"/>
+				<Wait duration="6"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRaster index="9"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="IdleOpenDyanmite">
+			<Component name="Crate" xyz="0,0,2">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-16,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Lid" xyz="23,-12,4">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Dynamite1" xyz="4,26,-2">
+				<Label name="Start"/>
+				<SetRaster index="9"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Dynamite2" xyz="10,21,0">
+				<Label name="Start"/>
+				<SetRaster index="9"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="BreakDynamite">
+			<Component name="Movement" xyz="0,0,0">
+				<SetPos flag="0" xyz="0,-4,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,5,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,15,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,10,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,5,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Boom" xyz="0,-12,0">
+				<SetParent index="0"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<SetRaster index="A"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetPos flag="0" xyz="0,6,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="135"/>
+				<SetPos flag="0" xyz="0,7,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<SetPalette index="2"/>
+				<SetPos flag="0" xyz="0,4,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="C"/>
+				<SetPalette index="2"/>
+				<Wait duration="4"/>
+				<SetRaster index="D"/>
+				<SetPalette index="2"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="E"/>
+				<SetPalette index="2"/>
+				<SetScale mode="x" percent="125"/>
+				<SetScale mode="y" percent="80"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Dynamite1" xyz="4,26,0">
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="-2,5,0"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="-3,15,0"/>
+				<SetScale mode="uniform" percent="100"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="-7,10,0"/>
+				<SetScale mode="uniform" percent="130"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="-7,10,0"/>
+				<SetScale mode="uniform" percent="145"/>
+				<SetRot xyz="0,0,60"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Dynamite2" xyz="10,21,2">
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="2,5,0"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="3,15,0"/>
+				<SetScale mode="uniform" percent="100"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="10,10,0"/>
+				<SetScale mode="uniform" percent="130"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="10,10,0"/>
+				<SetScale mode="uniform" percent="145"/>
+				<SetRot xyz="0,0,25"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="CrateCover" xyz="0,0,4">
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Lid" xyz="23,-12,6">
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetRaster index="1"/>
+				<SetRot xyz="0,0,-15"/>
+				<SetPos flag="0" xyz="10,11,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="E"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="75"/>
+				<SetRot xyz="0,0,-40"/>
+				<SetPos flag="0" xyz="20,20,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="E"/>
+				<SetPalette index="2"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="40"/>
+				<SetPos flag="0" xyz="40,3,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="E"/>
+				<SetPalette index="2"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="uniform" percent="50"/>
+				<SetPos flag="0" xyz="40,7,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="E"/>
+				<SetPalette index="2"/>
+				<SetPos flag="0" xyz="40,12,0"/>
+				<SetScale mode="y" percent="10"/>
+				<SetScale mode="x" percent="40"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

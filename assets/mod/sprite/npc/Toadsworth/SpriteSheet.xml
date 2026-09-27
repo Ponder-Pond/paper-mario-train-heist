@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="5">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="Blue" src="Blue.png"/>
+		<Palette id="2" name="Green" src="Green.png"/>
+		<Palette id="3" name="Red" src="Red.png"/>
+		<Palette id="4" name="Yellow" src="Yellow.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Blink" palette="0" src="Blink.png"/>
+		<Raster id="1" name="FranticPush1" palette="0" src="FranticPush1.png"/>
+		<Raster id="2" name="FranticPush2" palette="0" src="FranticPush2.png"/>
+		<Raster id="3" name="FranticPush3" palette="0" src="FranticPush3.png"/>
+		<Raster id="4" name="Idle1" palette="0" src="Idle1.png"/>
+		<Raster id="5" name="Idle2" palette="0" src="Idle2.png"/>
+		<Raster id="6" name="Idle3" palette="0" src="Idle3.png"/>
+		<Raster id="7" name="Idle4" palette="0" src="Idle4.png"/>
+		<Raster id="8" name="Idle5" palette="0" src="Idle5.png"/>
+		<Raster id="9" name="Panic" palette="0" src="Panic.png"/>
+		<Raster id="A" name="Panic2" palette="0" src="Panic2.png"/>
+		<Raster id="B" name="Panic3" palette="0" src="Panic3.png"/>
+		<Raster id="C" name="Talk" palette="0" src="Talk.png"/>
+		<Raster id="D" name="Thinking1" palette="0" src="Thinking1.png"/>
+		<Raster id="E" name="Thinking2" palette="0" src="Thinking2.png"/>
+		<Raster id="F" name="Thinking3" palette="0" src="Thinking3.png"/>
+		<Raster id="10" name="Walk1" palette="0" src="Walk1.png"/>
+		<Raster id="11" name="Walk2" palette="0" src="Walk2.png"/>
+		<Raster id="12" name="Walk3" palette="0" src="Walk3.png"/>
+		<Raster id="13" name="Laugh1" palette="0" src="Laugh1.png"/>
+		<Raster id="14" name="Laugh2" palette="0" src="Laugh2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<SetRaster index="5"/>
+				<Wait duration="8"/>
+				<SetRaster index="6"/>
+				<Wait duration="10"/>
+				<SetRaster index="7"/>
+				<Wait duration="8"/>
+				<SetRaster index="8"/>
+				<Wait duration="12"/>
+				<Loop dest="Start" count="4"/>
+				<SetRaster index="4"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetRaster index="4"/>
+				<Wait duration="10"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Walk">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="10"/>
+				<Wait duration="8"/>
+				<SetRaster index="11"/>
+				<Wait duration="6"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Run">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Talk">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<SetRaster index="C"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Laugh">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="13"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Think">
+			<Component name="Body" xyz="0,0,0">
+				<SetRaster index="4"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<Wait duration="6"/>
+				<SetRaster index="E"/>
+				<Wait duration="6"/>
+				<Label name="End"/>
+				<SetRaster index="F"/>
+				<Wait duration="30"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="Panic">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<SetRaster index="B"/>
+				<Wait duration="6"/>
+				<SetRaster index="A"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Pushing">
+			<Component name="Body" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<Wait duration="4"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

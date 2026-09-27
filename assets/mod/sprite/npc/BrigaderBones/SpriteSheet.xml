@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="6" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Hat1" palette="0" src="Hat1.png"/>
+		<Raster id="1" name="Hat2" palette="0" src="Hat2.png"/>
+		<Raster id="2" name="Hat3" palette="0" src="Hat3.png"/>
+		<Raster id="3" name="Head" palette="0" src="Head.png"/>
+		<Raster id="4" name="Body1" palette="0" src="Body1.png"/>
+		<Raster id="5" name="Body2" palette="0" src="Body2.png"/>
+		<Raster id="6" name="Body3" palette="0" src="Body3.png"/>
+		<Raster id="7" name="Body4" palette="0" src="Body4.png"/>
+		<Raster id="8" name="Torso1" palette="0" src="Torso1.png"/>
+		<Raster id="9" name="Torso2" palette="0" src="Torso2.png"/>
+		<Raster id="A" name="Hand1" palette="0" src="Hand1.png"/>
+		<Raster id="B" name="Hand2" palette="0" src="Hand2.png"/>
+		<Raster id="C" name="Hand3" palette="0" src="Hand3.png"/>
+		<Raster id="D" name="Hand4" palette="0" src="Hand4.png"/>
+		<Raster id="E" name="Hand5" palette="0" src="Hand5.png"/>
+		<Raster id="F" name="Hand6" palette="0" src="Hand6.png"/>
+		<Raster id="10" name="Hand7" palette="0" src="Hand7.png"/>
+		<Raster id="11" name="Shoe1" palette="0" src="Shoe1.png"/>
+		<Raster id="12" name="Shoe2" palette="0" src="Shoe2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Head" xyz="-4,16,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="0,-1,0">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RHand" xyz="-13,6,-2">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LHand" xyz="-4,5,4">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="StillDead">
+			<Component name="Hat" xyz="-3,-2,-4">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="17,-7,0"/>
+				<SetRot xyz="0,0,-7"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Head" xyz="12,-1,2">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-12,21,0"/>
+				<SetRot xyz="0,0,120"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Torso" xyz="1,1,6">
+				<Label name="Start"/>
+				<SetRot xyz="0,180,20"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Hand" xyz="11,22,-2">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-34,-24,0"/>
+				<SetRot xyz="0,0,-25"/>
+				<SetRaster index="B"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RFoot" xyz="-16,-1,4">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-2,22,0"/>
+				<SetRot xyz="0,0,-100"/>
+				<SetRaster index="11"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LFoot" xyz="-20,18,0">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="25,-16,0"/>
+				<SetRot xyz="0,0,-70"/>
+				<SetRaster index="12"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="Head" xyz="-4,15,2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<Wait duration="8"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,2,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="8"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="0,-1,0">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<Wait duration="20"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RHand" xyz="-13,6,-2">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="8"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LHand" xyz="-4,5,4">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="8"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="CommandStart">
+			<Component name="Head" xyz="-1,17,2">
+				<SetRaster index="2"/>
+				<Wait duration="2"/>
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-2,3,0"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetRaster index="2"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="0,-1,0">
+				<SetRaster index="6"/>
+				<Wait duration="2"/>
+				<Label name="Start"/>
+				<SetRot xyz="0,0,0"/>
+				<SetRaster index="6"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RHand" xyz="1,0,-2">
+				<SetPos flag="1" xyz="4,38,0"/>
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,-90"/>
+				<Wait duration="2"/>
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="12,39,0"/>
+				<SetRot xyz="0,0,-105"/>
+				<SetRaster index="C"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LHand" xyz="-15,6,4">
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Label name="Start"/>
+				<SetRaster index="B"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="CommandEnd">
+			<Component name="Head" xyz="-1,17,2">
+				<SetPos flag="1" xyz="-3,-1,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="16,-5,0"/>
+				<SetRaster index="10"/>
+				<SetRot xyz="0,0,40"/>
+				<Wait duration="27"/>
+				<SetPos flag="1" xyz="0,-13,0"/>
+				<SetRaster index="D"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-3,-1,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Body" xyz="0,-1,0">
+				<SetRaster index="7"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="-39,6,0"/>
+				<SetRot xyz="0,0,0"/>
+				<SetRaster index="C"/>
+				<Wait duration="27"/>
+				<SetPos flag="1" xyz="-21,6,0"/>
+				<SetRaster index="C"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="RHand" xyz="1,0,-2">
+				<SetPos flag="1" xyz="-30,11,0"/>
+				<SetRaster index="C"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="0,3,0"/>
+				<SetRot xyz="0,0,20"/>
+				<SetRaster index="7"/>
+				<Wait duration="27"/>
+				<SetRaster index="5"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-14,6,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="LHand" xyz="-10,8,4">
+				<SetPos flag="1" xyz="18,-5,0"/>
+				<SetRaster index="10"/>
+				<Wait duration="2"/>
+				<SetPos flag="1" xyz="4,7,0"/>
+				<SetRot xyz="0,0,30"/>
+				<SetRaster index="1"/>
+				<Wait duration="27"/>
+				<SetPos flag="1" xyz="11,7,0"/>
+				<SetRot xyz="0,0,15"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="11,-1,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<SetNotify value="1"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="Head" xyz="7,-4,2">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-10,26,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<SetRaster index="1"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="-15,30,0"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetRaster index="2"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Torso" xyz="0,7,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,15"/>
+				<SetRaster index="8"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-5,0,0"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetRaster index="8"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RHand" xyz="11,22,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,-26"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-1,1,0"/>
+				<SetRot xyz="0,0,-63"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LHand" xyz="-20,18,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,8"/>
+				<SetRaster index="E"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="3,2,0"/>
+				<SetRot xyz="0,0,49"/>
+				<SetRaster index="E"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RFoot" xyz="12,-1,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,-15"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="4,1,0"/>
+				<SetRot xyz="0,0,12"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LFoot" xyz="-16,-1,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,20"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-7,0,0"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Death">
+			<Component name="Hat" xyz="-3,-2,-4">
+				<SetPos flag="1" xyz="10,-1,0"/>
+				<SetRot xyz="0,0,35"/>
+				<SetRaster index="8"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="17,-7,0"/>
+				<SetRot xyz="0,0,-7"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Head" xyz="12,-1,2">
+				<SetPos flag="1" xyz="-36,5,0"/>
+				<SetRot xyz="0,0,-67"/>
+				<SetRaster index="1"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-12,21,0"/>
+				<SetRot xyz="0,0,120"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Torso" xyz="1,1,6">
+				<SetPos flag="1" xyz="0,1,0"/>
+				<SetRot xyz="0,180,6"/>
+				<SetRaster index="9"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRot xyz="0,180,20"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<SetNotify value="1"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Hand" xyz="11,22,-2">
+				<SetPos flag="1" xyz="-37,-18,0"/>
+				<SetRot xyz="0,0,25"/>
+				<SetRaster index="E"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-34,-24,0"/>
+				<SetRot xyz="0,0,-25"/>
+				<SetRaster index="B"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="RFoot" xyz="-16,-1,4">
+				<SetPos flag="1" xyz="5,14,0"/>
+				<SetRot xyz="0,0,-28"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-2,22,0"/>
+				<SetRot xyz="0,0,-100"/>
+				<SetRaster index="11"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="LFoot" xyz="-20,18,0">
+				<SetPos flag="1" xyz="27,-20,0"/>
+				<SetRot xyz="0,0,-34"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="25,-16,0"/>
+				<SetRot xyz="0,0,-70"/>
+				<SetRaster index="12"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="DeathRattle">
+			<Component name="Hat" xyz="-3,-2,-4">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="19,-6,0"/>
+				<SetRot xyz="0,0,2"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="17,-7,0"/>
+				<SetRot xyz="0,0,-7"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Head" xyz="12,-1,2">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-12,20,0"/>
+				<SetRot xyz="0,0,114"/>
+				<SetRaster index="3"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="-12,21,0"/>
+				<SetRot xyz="0,0,120"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Torso" xyz="1,1,6">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="0,1,0"/>
+				<SetRot xyz="0,180,25"/>
+				<SetRaster index="9"/>
+				<Wait duration="4"/>
+				<SetRot xyz="0,180,20"/>
+				<SetRaster index="9"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Hand" xyz="11,22,-2">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-37,-23,0"/>
+				<SetRot xyz="0,0,-35"/>
+				<SetRaster index="B"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="-34,-24,0"/>
+				<SetRot xyz="0,0,-25"/>
+				<SetRaster index="B"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="RFoot" xyz="-16,-1,4">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="-2,23,0"/>
+				<SetRot xyz="0,0,-94"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="-2,22,0"/>
+				<SetRot xyz="0,0,-100"/>
+				<SetRaster index="11"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="LFoot" xyz="-20,18,0">
+				<Label name="Start"/>
+				<SetPos flag="1" xyz="25,-13,0"/>
+				<SetRot xyz="0,0,-76"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<SetPos flag="1" xyz="25,-16,0"/>
+				<SetRot xyz="0,0,-70"/>
+				<SetRaster index="12"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Revive">
+			<Component name="Hat" xyz="9,-2,-4">
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Head" xyz="12,-1,2">
+				<SetPos flag="1" xyz="-36,11,0"/>
+				<SetRot xyz="0,0,-67"/>
+				<SetRaster index="3"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-16,17,0"/>
+				<SetRaster index="1"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Torso" xyz="1,1,6">
+				<SetPos flag="1" xyz="0,1,-1"/>
+				<SetRot xyz="0,180,6"/>
+				<SetRaster index="9"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Hand" xyz="11,22,-2">
+				<SetPos flag="1" xyz="-37,-18,0"/>
+				<SetRot xyz="0,0,25"/>
+				<SetRaster index="E"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="-24,-16,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="RFoot" xyz="-16,-1,4">
+				<SetPos flag="1" xyz="5,14,0"/>
+				<SetRot xyz="0,0,-28"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="12,6,0"/>
+				<SetRaster index="A"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="LFoot" xyz="-20,18,0">
+				<SetPos flag="1" xyz="27,-20,-1"/>
+				<SetRot xyz="0,0,-34"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetPos flag="1" xyz="20,-19,0"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

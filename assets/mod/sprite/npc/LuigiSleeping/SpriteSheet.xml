@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="2" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="LuigiNap1" palette="0" src="LuigiNap1.png"/>
+		<Raster id="1" name="LuigiNap2" palette="0" src="LuigiNap2.png"/>
+		<Raster id="2" name="LuigiNap3" palette="0" src="LuigiNap3.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="LuigiSleep">
+			<Component name="Body" xyz="0,-8,0">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="20"/>
+				<SetRaster index="1"/>
+				<Wait duration="18"/>
+				<SetRaster index="2"/>
+				<Wait duration="70"/>
+				<SetRaster index="1"/>
+				<Wait duration="22"/>
+				<SetRaster index="0"/>
+				<Wait duration="20"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

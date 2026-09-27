@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="3" paletteGroups="2">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="BulletBill" src="BulletBill.png"/>
+		<Palette id="2" name="Burnt" src="Burnt.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Blaster1" palette="0" src="Blaster1.png"/>
+		<Raster id="1" name="Blaster2" palette="0" src="Blaster2.png"/>
+		<Raster id="2" name="Blaster3" palette="0" src="Blaster3.png"/>
+		<Raster id="3" name="BulletBill1" palette="1" src="BulletBill1.png"/>
+		<Raster id="4" name="BulletBill2" palette="1" src="BulletBill2.png"/>
+		<Raster id="5" name="Shot1" palette="0" src="Shot1.png"/>
+		<Raster id="6" name="Shot2" palette="0" src="Shot2.png"/>
+		<Raster id="7" name="Shot3" palette="0" src="Shot3.png"/>
+		<Raster id="8" name="Shot4" palette="0" src="Shot4.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,6,-2">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="56"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="24"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="8"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="56"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="24"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="8"/>
+				<SetRaster index="0"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Shot">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<SetScale mode="uniform" percent="115"/>
+				<SetRaster index="1"/>
+				<Wait duration="4"/>
+				<SetRaster index="5"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="20"/>
+				<SetRaster index="6"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetRaster index="8"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="48"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<SetRaster index="0"/>
+				<Wait duration="36"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="6,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="36"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-2,0,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRot xyz="0,0,-2"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="36"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-2,0,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRot xyz="0,0,-2"/>
+				<Wait duration="2"/>
+				<Label name="Emd"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Emd"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRot xyz="0,0,5"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRot xyz="0,0,5"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="6"/>
+				<SetRaster index="2"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Disable">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,0,0"/>
+				<SetRot xyz="0,0,-4"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-4,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="16"/>
+				<SetPos flag="0" xyz="-3,-2,0"/>
+				<SetRot xyz="0,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,-4,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,-6,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="-3,-6,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,6,-2">
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,0,0"/>
+				<SetRot xyz="0,0,-4"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-4,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<SetRaster index="0"/>
+				<Wait duration="16"/>
+				<SetPos flag="0" xyz="-3,-2,0"/>
+				<SetRot xyz="0,0,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,-4,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="-3,-6,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetPos flag="0" xyz="-3,-6,0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="66"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="66"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Explosion">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<SetRaster index="1"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="8"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetPalette index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="BulletBill">
+			<Component name="BulletBill" xyz="0,-12,0">
+				<Label name="Start"/>
+				<SetRaster index="3"/>
+				<SetScale mode="uniform" percent="95"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="ShotStart">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<SetScale mode="uniform" percent="115"/>
+				<SetRaster index="1"/>
+				<Wait duration="4"/>
+				<Label name="End"/>
+				<SetRaster index="5"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="20"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<Label name="Start"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="ShotEnd">
+			<Component name="BlasterTop" xyz="-5,10,0">
+				<SetRaster index="6"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetRaster index="8"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="5,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="1"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="48"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BlasterBottom" xyz="-2,5,-2">
+				<SetRaster index="0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="8,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="6,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="3,0,0"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="FrontWheel" xyz="3,-6,2">
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="12"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-2,0,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRot xyz="0,0,-2"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="BackWheel" xyz="-8,-4,-4">
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="12"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-3,1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-2,0,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRot xyz="0,0,-2"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="2"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="2"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

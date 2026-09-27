@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="9" paletteGroups="2">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="ClownCar" src="ClownCar.png"/>
+		<Palette id="2" name="BodySuit" src="BodySuit.png"/>
+		<Palette id="3" name="BigSteely" src="BigSteely.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="HeadHat" palette="0" src="HeadHat.png"/>
+		<Raster id="1" name="HeadMouthClosed" palette="0" src="HeadMouthClosed.png"/>
+		<Raster id="2" name="HeadMouthOpen" palette="0" src="HeadMouthOpen.png"/>
+		<Raster id="3" name="HeadHatBlink" palette="0" src="HeadHatBlink.png"/>
+		<Raster id="4" name="HeadMouthClosedBlink" palette="0" src="HeadMouthClosedBlink.png"/>
+		<Raster id="5" name="HeadMouthOpenBlink" palette="0" src="HeadMouthOpenBlink.png"/>
+		<Raster id="6" name="HeadHatLookDown" palette="0" src="HeadHatLookDown.png"/>
+		<Raster id="7" name="HeadHatHurt" palette="0" src="HeadHatHurt.png"/>
+		<Raster id="8" name="BodySuit" palette="2" src="BodySuit.png"/>
+		<Raster id="9" name="BodySuitHurt" palette="2" src="BodySuitHurt.png"/>
+		<Raster id="A" name="ArmSuit1" palette="2" src="ArmSuit1.png"/>
+		<Raster id="B" name="ArmSuit2" palette="2" src="ArmSuit2.png"/>
+		<Raster id="C" name="ArmSuitHurt1" palette="2" src="ArmSuitHurt1.png"/>
+		<Raster id="D" name="ArmSuitHurt2" palette="2" src="ArmSuitHurt2.png"/>
+		<Raster id="E" name="ArmSuitCrossed" palette="2" src="ArmSuitCrossed.png"/>
+		<Raster id="F" name="ClownCarNeutral" palette="1" src="ClownCarNeutral.png"/>
+		<Raster id="10" name="ClownCarNeutral1" palette="1" src="ClownCarNeutral1.png"/>
+		<Raster id="11" name="ClownCarNeutral2" palette="1" src="ClownCarNeutral2.png"/>
+		<Raster id="12" name="ClownCarBlink" palette="1" src="ClownCarBlink.png"/>
+		<Raster id="13" name="ClownCarHurt" palette="1" src="ClownCarHurt.png"/>
+		<Raster id="14" name="ClownCar3" palette="1" src="ClownCar3.png"/>
+		<Raster id="15" name="ClownCar4" palette="1" src="ClownCar4.png"/>
+		<Raster id="16" name="ClownCar5" palette="1" src="ClownCar5.png"/>
+		<Raster id="17" name="ClownCar6" palette="1" src="ClownCar6.png"/>
+		<Raster id="18" name="ClownCar7" palette="1" src="ClownCar7.png"/>
+		<Raster id="19" name="ClownCar8" palette="1" src="ClownCar8.png"/>
+		<Raster id="1A" name="ClownCar9" palette="1" src="ClownCar9.png"/>
+		<Raster id="1B" name="ClownCar10" palette="1" src="ClownCar10.png"/>
+		<Raster id="1C" name="ClownCar11" palette="1" src="ClownCar11.png"/>
+		<Raster id="1D" name="BigSteely1" palette="3" src="BigSteely1.png"/>
+		<Raster id="1E" name="BigSteely2" palette="3" src="BigSteely2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Head" xyz="-30,57,8">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="-4,53,2">
+				<Label name="Start"/>
+				<SetRaster index="8"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmFront" xyz="-5,44,6">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmBack" xyz="-35,51,4">
+				<Label name="Start"/>
+				<SetRaster index="B"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rim" xyz="-9,18,0">
+				<Label name="Start"/>
+				<SetRaster index="11"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<Label name="Start"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component name="Head" xyz="-30,57,8">
+				<Label name="Start"/>
+				<SetRaster index="0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<Loop dest="Start" count="3"/>
+				<SetRaster index="3"/>
+				<Wait duration="2"/>
+				<SetRaster index="0"/>
+				<Wait duration="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="-4,53,2">
+				<Label name="Start"/>
+				<SetRaster index="8"/>
+				<Wait duration="24"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmFront" xyz="-5,44,6">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="24"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmBack" xyz="-35,51,4">
+				<Label name="Start"/>
+				<SetRaster index="B"/>
+				<Wait duration="24"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rim" xyz="-9,18,0">
+				<Label name="Start"/>
+				<SetRaster index="11"/>
+				<Wait duration="24"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="7"/>
+				<SetRaster index="12"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Talk">
+			<Component name="MoveHead" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Head" xyz="-30,57,8">
+				<Label name="Start"/>
+				<SetParent index="0"/>
+				<SetRaster index="0"/>
+				<Wait duration="2"/>
+				<SetRaster index="1"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="2"/>
+				<SetPos flag="0" xyz="1,0,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Body" xyz="-4,53,2">
+				<Label name="Start"/>
+				<SetRaster index="8"/>
+				<Wait duration="24"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmFront" xyz="-5,44,6">
+				<Label name="Start"/>
+				<SetRaster index="A"/>
+				<Wait duration="24"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ArmBack" xyz="-35,51,4">
+				<Label name="Start"/>
+				<SetRaster index="B"/>
+				<Wait duration="24"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rim" xyz="-9,18,0">
+				<Label name="Start"/>
+				<SetRaster index="11"/>
+				<Wait duration="24"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<Loop dest="Start" count="7"/>
+				<SetRaster index="12"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="10"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Smirk">
+			<Component name="CarMove" xyz="0,0,0">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="12"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="Head" xyz="-30,57,8">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetParent index="0"/>
+				<SetRaster index="4"/>
+				<Wait duration="2"/>
+				<SetRaster index="4"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="4"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="Body" xyz="-4,53,2">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="8"/>
+				<Wait duration="24"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="8"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ArmFront" xyz="-5,44,6">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="A"/>
+				<Wait duration="24"/>
+				<SetRaster index="A"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ArmBack" xyz="-35,51,4">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="B"/>
+				<Wait duration="24"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="Rim" xyz="-9,18,0">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="11"/>
+				<Wait duration="24"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetParent index="0"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-3,-16,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="16"/>
+				<SetRot xyz="0,0,-1"/>
+				<SetPos flag="0" xyz="-3,-16,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="16"/>
+				<SetRot xyz="0,0,-1"/>
+				<SetPos flag="0" xyz="-3,-16,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-3,-16,0"/>
+				<Wait duration="4"/>
+				<Goto dest="#0"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="Head" xyz="-30,55,8">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="7"/>
+				<Wait duration="12"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="0,-2,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="7"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="Body" xyz="-2,55,2">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="9"/>
+				<Wait duration="24"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ArmMovement" xyz="0,0,0">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<Wait duration="24"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="24"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ArmFront" xyz="6,70,6">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetParent index="2"/>
+				<SetRaster index="D"/>
+				<Wait duration="4"/>
+				<SetRaster index="D"/>
+				<SetRot xyz="0,0,-30"/>
+				<SetPos flag="0" xyz="-8,-3,0"/>
+				<Wait duration="2"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ArmBack" xyz="-48,74,4">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetParent index="2"/>
+				<SetRaster index="C"/>
+				<Wait duration="4"/>
+				<SetRaster index="C"/>
+				<SetRot xyz="0,0,30"/>
+				<SetPos flag="0" xyz="10,-6,0"/>
+				<Wait duration="2"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="Rim" xyz="-9,18,0">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetRaster index="11"/>
+				<Wait duration="24"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="12"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<Goto dest="#0"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<Label name="Start"/>
+				<Label name="#0"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetRaster index="13"/>
+				<Wait duration="2"/>
+				<SetRaster index="13"/>
+				<SetScale mode="uniform" percent="99"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="13"/>
+				<Wait duration="2"/>
+				<SetRaster index="13"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="103"/>
+				<Wait duration="4"/>
+				<Goto dest="#0"/>
+			</Component>
+		</Animation>
+		<Animation name="Hide">
+			<Component name="Head" xyz="-30,54,8">
+				<SetRaster index="0"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="2,-3,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="6,-9,0"/>
+				<SetScale mode="uniform" percent="85"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="9,-15,0"/>
+				<SetScale mode="uniform" percent="70"/>
+				<Wait duration="2"/>
+				<Label name="Pos_15"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_15"/>
+			</Component>
+			<Component name="Body" xyz="-4,50,2">
+				<SetRaster index="8"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="-3,-1,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-4,-2,0"/>
+				<SetScale mode="uniform" percent="90"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="-4,-2,0"/>
+				<SetScale mode="uniform" percent="75"/>
+				<Wait duration="2"/>
+				<Label name="Pos_15"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_15"/>
+			</Component>
+			<Component name="ArmFront" xyz="-5,41,6">
+				<SetRaster index="A"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="uniform" percent="90"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="6,-1,0"/>
+				<SetScale mode="uniform" percent="65"/>
+				<Wait duration="2"/>
+				<Label name="Pos_15"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_15"/>
+			</Component>
+			<Component name="ArmBack" xyz="-35,48,4">
+				<SetRaster index="B"/>
+				<Wait duration="6"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<SetScale mode="uniform" percent="90"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetScale mode="uniform" percent="70"/>
+				<Wait duration="2"/>
+				<Label name="Pos_15"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_15"/>
+			</Component>
+			<Component name="Rim" xyz="-9,15,0">
+				<SetRaster index="11"/>
+				<Wait duration="10"/>
+				<Label name="Pos_2"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_2"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<SetPos flag="0" xyz="0,-3,0"/>
+				<SetRaster index="10"/>
+				<Wait duration="10"/>
+				<SetRaster index="F"/>
+				<SetScale mode="x" percent="102"/>
+				<SetScale mode="y" percent="98"/>
+				<Wait duration="4"/>
+				<SetScale mode="x" percent="103"/>
+				<SetScale mode="y" percent="97"/>
+				<Wait duration="2"/>
+				<SetScale mode="x" percent="104"/>
+				<SetScale mode="y" percent="96"/>
+				<Wait duration="2"/>
+				<SetScale mode="y" percent="98"/>
+				<SetScale mode="x" percent="102"/>
+				<Wait duration="2"/>
+				<Label name="Pos_1B"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_1B"/>
+			</Component>
+		</Animation>
+		<Animation name="ClownCarStill">
+			<Component name="ClownCar" xyz="0,-24,0">
+				<Label name="Start"/>
+				<SetRot xyz="0,0,0"/>
+				<SetRaster index="F"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Close">
+			<Component name="Rim" xyz="-9,18,0">
+				<SetRaster index="11"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetScale mode="x" percent="80"/>
+				<SetPos flag="0" xyz="-1,1,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetScale mode="x" percent="70"/>
+				<SetPos flag="0" xyz="-1,3,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetScale mode="x" percent="60"/>
+				<SetPos flag="0" xyz="-1,4,0"/>
+				<Wait duration="2"/>
+				<Label name="Pos_1A"/>
+				<SetRaster index="11"/>
+				<SetScale mode="x" percent="50"/>
+				<SetPos flag="0" xyz="-1,6,0"/>
+				<Goto dest="Pos_1A"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,0,-2">
+				<SetRaster index="10"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<SetPos flag="0" xyz="1,-14,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="14"/>
+				<SetPos flag="0" xyz="1,-14,0"/>
+				<Wait duration="2"/>
+				<SetRaster index="14"/>
+				<SetPos flag="0" xyz="1,-14,0"/>
+				<Wait duration="2"/>
+				<Label name="Pos_14"/>
+				<SetRaster index="14"/>
+				<SetPos flag="0" xyz="1,-14,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_14"/>
+			</Component>
+		</Animation>
+		<Animation name="SuckUp">
+			<Component name="Rim" xyz="-10,23,0">
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="14"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="14"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="4,7,0"/>
+				<SetScale mode="x" percent="50"/>
+				<SetRot xyz="0,0,-2"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="9,10,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="16,14,0"/>
+				<SetRot xyz="0,0,-8"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="38,7,-1"/>
+				<SetRot xyz="0,0,-20"/>
+				<SetScale mode="x" percent="40"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="23,17,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="23,17,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="20,20,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="6"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="21,21,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="4"/>
+				<Label name="Pos_70"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="20,20,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_70"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,-1,-2">
+				<SetRaster index="14"/>
+				<SetPos flag="0" xyz="1,-14,0"/>
+				<Wait duration="14"/>
+				<SetRaster index="15"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<Wait duration="14"/>
+				<SetRaster index="16"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-4,-14,0"/>
+				<SetScale mode="uniform" percent="105"/>
+				<Wait duration="4"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-5,-13,0"/>
+				<SetScale mode="uniform" percent="110"/>
+				<SetRot xyz="0,0,-5"/>
+				<Wait duration="4"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-6,-12,0"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="uniform" percent="115"/>
+				<Wait duration="2"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-28,8,0"/>
+				<SetRot xyz="0,0,-45"/>
+				<SetScale mode="uniform" percent="115"/>
+				<Wait duration="2"/>
+				<SetRaster index="18"/>
+				<SetPos flag="0" xyz="-2,-13,0"/>
+				<SetScale mode="uniform" percent="115"/>
+				<Wait duration="2"/>
+				<SetRaster index="18"/>
+				<SetPos flag="0" xyz="-2,-13,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="19"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="1A"/>
+				<SetPos flag="0" xyz="-3,-15,0"/>
+				<SetScale mode="uniform" percent="123"/>
+				<Wait duration="2"/>
+				<Label name="Pos_5B"/>
+				<SetRaster index="1A"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_5B"/>
+			</Component>
+		</Animation>
+		<Animation name="Shake">
+			<Component name="Rim" xyz="-10,23,0">
+				<Label name="Start"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="20,20,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="20,19,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,-1,-2">
+				<Label name="Start"/>
+				<SetRaster index="1A"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="1A"/>
+				<SetPos flag="0" xyz="-3,-15,0"/>
+				<SetScale mode="uniform" percent="123"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="SpitOut">
+			<Component name="Rim" xyz="-10,23,0">
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="20,20,-1"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="9,18,0"/>
+				<SetRot xyz="0,0,-5"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="6,18,0"/>
+				<SetRot xyz="0,0,-3"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<Label name="Pos_21"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="-13,16,0"/>
+				<SetRot xyz="0,0,4"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="-15,11,0"/>
+				<SetRot xyz="0,0,4"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="-13,16,0"/>
+				<SetRot xyz="0,0,4"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<SetRaster index="11"/>
+				<SetPos flag="0" xyz="-15,24,0"/>
+				<SetRot xyz="0,0,4"/>
+				<SetScale mode="x" percent="50"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_21"/>
+			</Component>
+			<Component name="ClownCar" xyz="-10,-1,-2">
+				<SetRaster index="1A"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="1B"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<SetRaster index="17"/>
+				<SetPos flag="0" xyz="-3,-14,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<Wait duration="2"/>
+				<Label name="Pos_18"/>
+				<SetRaster index="1C"/>
+				<SetPos flag="0" xyz="-1,-13,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetRot xyz="0,0,10"/>
+				<Wait duration="2"/>
+				<SetRaster index="1C"/>
+				<SetPos flag="0" xyz="-1,-11,0"/>
+				<SetScale mode="y" percent="110"/>
+				<SetScale mode="x" percent="135"/>
+				<SetRot xyz="0,0,10"/>
+				<Wait duration="2"/>
+				<SetRaster index="1C"/>
+				<SetPos flag="0" xyz="-1,-13,0"/>
+				<SetScale mode="uniform" percent="120"/>
+				<SetRot xyz="0,0,10"/>
+				<Wait duration="2"/>
+				<SetRaster index="1C"/>
+				<SetPos flag="0" xyz="-3,-18,0"/>
+				<SetScale mode="x" percent="110"/>
+				<SetScale mode="y" percent="135"/>
+				<SetRot xyz="0,0,10"/>
+				<Wait duration="2"/>
+				<Goto dest="Pos_18"/>
+			</Component>
+		</Animation>
+		<Animation name="BigSteely">
+			<Component name="BigSteely" xyz="0,-5,0">
+				<Label name="Start"/>
+				<SetRaster index="1D"/>
+				<Wait duration="6"/>
+				<SetRaster index="1E"/>
+				<SetScale mode="uniform" percent="98"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

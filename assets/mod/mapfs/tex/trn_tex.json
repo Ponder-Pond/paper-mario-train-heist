@@ -1,0 +1,513 @@
+[
+    {
+        "name": "wood",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "trainrooffront",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "traintrim",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "hasMipmaps": true,
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "traincart",
+        "main": {
+            "format": "I4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "smokestar",
+        "main": {
+            "format": "I8",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "rail",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "piston",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "railway",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "crate",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "planks",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "wood",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "gravel",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "graveltop",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "rope1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "steam",
+        "main": {
+            "format": "IA8",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "rope2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "chandelier",
+        "main": {
+            "format": "IA8",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "mountain",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "cactus",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "brush",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "bombs",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "emblem",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "chomp",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "koopacart",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "wheel",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "traincar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "trainroof",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "books",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "bookshelf",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "cratebox",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "carpetcar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "curtaincar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "cushion",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "flowerssill",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "kitchenfloor",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "kitchentools1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "kitchentools2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "metalrod",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "newspaper",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "outside",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "papersmisc",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "plateshelf",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "seatframe",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "shelfitems",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "suitcase",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "trimstar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "wallblue",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "wallgreen",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "wantedmouser",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "windowopen",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "woodfinish",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    }
+]

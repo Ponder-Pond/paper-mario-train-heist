@@ -31,10 +31,10 @@
 #define DX_SKIP_DEMO 1
 
 /// Map to load when starting a new game.
-#define NEW_GAME_MAP_ID "kmr_20"
+#define NEW_GAME_MAP_ID "trn_01"
 
 /// Entry to use when starting a new game.
-#define NEW_GAME_ENTRY_ID kmr_20_ENTRY_0
+#define NEW_GAME_ENTRY_ID 1
 
 /// Story progress when starting a new game.
 #define NEW_GAME_STORY_PROGRESS STORY_CH8_REACHED_BOWSERS_CASTLE

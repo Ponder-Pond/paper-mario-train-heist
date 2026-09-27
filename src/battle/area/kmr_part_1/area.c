@@ -1,96 +1,134 @@
 #include "area.h"
+#include "stage/trn_bt00.h"
+
+Vec3i GreenPos = { 90, 25, 20 };
+Vec3i BuzzyBeetlePos = { 120, 25, 20 };
+Vec3i BrigaderBonesPos = { 60, 0, 40 };
+Vec3i YellowPos = { 85, 0, 15 };
+Vec3i GiantChompPos = { 25, 0, 20 };
+Vec3i YellowHammerBroPos = { 125, 0, 10 };
+Vec3i BlackPos = { 115, 10, 20 };
+Vec3i CratePos = { 15, 0, 20 };
+Vec3i DyanmitePos = { 55, 0, 20 };
+Vec3i Rider1Pos = { 80, -25, -52 };
+Vec3i Rider2Pos = { 40, -25, -50};
+Vec3i RedPos = { 115, 22, 10 };
+Vec3i PyroGuyPos = { 150, 54, 10 };
+Vec3i KoopaTheKidPos = { 105, 45, 0 };
+Vec3i KoopaGangPos = { 30, 0, 20 };
+Vec3i GreenTowerPos = { 30, 0, 5 };
+Vec3i YellowTowerPos = { 60, 0, 10 };
+Vec3i BlackTowerPos = { 90, 0, 15 };
+Vec3i RedTowerPos = { 120, 0, 20 };
+// Vec3i GreenHammerBroPos = { 0, 0, 0 };
+Vec3i CalamityKammyPos = { 60, 0, 0 };
 
 
-extern Stage A(kmr_02);
-extern Stage A(kmr_03);
-extern Stage A(kmr_04);
-extern Stage A(kmr_05);
-extern Stage A(kmr_06);
 
-Formation A(Formation_00) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 10),
+// Vec3i KoopaTheKidTestingPos = { 130, 35, 20 };
+// Vec3i KoopaGangTestingPos = { 60, 0, 20 };
+// Vec3i HammerBroTestingPos = { 15, 0, 20 };
+// Vec3i HowitzerHalPos = { -5, 0, 25 };
+// Vec3i YellowPos = { 105, 0, 10 };
+// Vec3i GiantChompPos = { 25, 0, 10 };
+// Vec3i GreenHammerBroPos = { 145, 0, 10 };
+// Vec3i BlackPos = { 140, 10, 20 };
+// Vec3i CratePos = { 15, 0, 20 };
+// Vec3i DyanmitePos = { 55, 0, 20 };
+// Vec3i Rider1Pos = { 45, -25, -50 };
+// Vec3i Rider2Pos = { -25, -25, -50 };
+
+
+// Vec3i YellowPos = { NPC_DISPOSE_LOCATION };
+// Vec3i GiantChompPos = { NPC_DISPOSE_LOCATION };
+// Vec3i YellowHammerBroPos = { NPC_DISPOSE_LOCATION };
+// Vec3i BlackPos = { NPC_DISPOSE_LOCATION };
+// Vec3i CratePos = { NPC_DISPOSE_LOCATION };
+// Vec3i DyanmitePos = { NPC_DISPOSE_LOCATION };
+// Vec3i Rider1Pos = { NPC_DISPOSE_LOCATION };
+// Vec3i Rider2Pos = { NPC_DISPOSE_LOCATION };
+// Vec3i RedPos = { NPC_DISPOSE_LOCATION };
+// Vec3i PyroGuyPos = { NPC_DISPOSE_LOCATION };
+// Vec3i KoopaTheKidPos = { NPC_DISPOSE_LOCATION };
+// Vec3i KoopaGangPos = { NPC_DISPOSE_LOCATION };
+// Vec3i GreenHammerBroPos = { NPC_DISPOSE_LOCATION };
+
+
+// [BTL_POS_GROUND_A] { 5, 0, -20 },
+// [BTL_POS_GROUND_B] { 45, 0, -5 },
+// [BTL_POS_GROUND_C] { 85, 0, 10 },
+// [BTL_POS_GROUND_D] { 125, 0, 25 },
+
+Formation Formation_TrainHeist = {
+    OVL_ACTOR_BY_POS("green_bandit_koopa", GreenPos, 8),
+    OVL_ACTOR_BY_POS("buzzy_beetle", BuzzyBeetlePos, 9),
+    OVL_ACTOR_BY_POS("brigader_bones", BrigaderBonesPos, 10),
+    // OVL_ACTOR_BY_POS("yellow_bandit_koopa", YellowPos, 8),
+    // OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChompPos, 10),
+    // OVL_ACTOR_BY_POS("yellow_hammer_bro", YellowHammerBroPos, 9),
+    // OVL_ACTOR_BY_POS("black_bandit_koopa", BlackPos, 8),
+    // OVL_ACTOR_BY_POS("crate", CratePos, 10),
+    // OVL_ACTOR_BY_POS("dyanmite_crate", DyanmitePos, 10),
+    // OVL_ACTOR_BY_POS("shy_guy_rider", Rider1Pos, 9),
+    // OVL_ACTOR_BY_POS("shy_guy_rider", Rider2Pos, 10),
+    // OVL_ACTOR_BY_POS("red_bandit_koopa", RedPos, 10),
+    // OVL_ACTOR_BY_POS("red_pyro_guy", PyroGuyPos, 9),
+    // OVL_ACTOR_BY_POS("koopa_the_kid", KoopaTheKidPos, 8),
+    // OVL_ACTOR_BY_POS("koopa_gang", KoopaGangPos, 9),
+    // OVL_ACTOR_BY_POS("green_hammer_bro", GreenHammerBroPos, 10),
 };
 
-Formation A(Formation_01) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 10),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_C, 9),
+Formation Formation_GreenPhase = {
+    OVL_ACTOR_BY_POS("green_bandit_koopa", GreenPos, 8),
+    OVL_ACTOR_BY_POS("green_buzzy_beetle", BuzzyBeetlePos, 9),
+    OVL_ACTOR_BY_POS("brigader_bones", BrigaderBonesPos, 10),
 };
 
-Formation A(Formation_02) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_A, 10),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 9),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_C, 8),
+Formation Formation_YellowPhase = {
+    OVL_ACTOR_BY_POS("yellow_bandit_koopa", YellowPos, 8),
+    OVL_ACTOR_BY_POS("giant_chain_chomp", GiantChompPos, 10),
+    OVL_ACTOR_BY_POS("yellow_hammer_bro", YellowHammerBroPos, 9),
 };
 
-Formation A(Formation_03) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 10),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_C, 9),
+Formation Formation_BlackPhase = {
+    OVL_ACTOR_BY_POS("black_bandit_koopa", BlackPos, 8),
+    OVL_ACTOR_BY_POS("crate", CratePos, 10),
+    OVL_ACTOR_BY_POS("dyanmite_crate", DyanmitePos, 10),
+    OVL_ACTOR_BY_POS("shy_guy_rider", Rider1Pos, 9),
+    OVL_ACTOR_BY_POS("shy_guy_rider", Rider2Pos, 10),
 };
 
-Formation A(Formation_04) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_A, 10),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 9),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_C, 8),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_D, 7),
+Formation Formation_RedPhase = {
+    OVL_ACTOR_BY_POS("red_bandit_koopa", RedPos, 10),
+    OVL_ACTOR_BY_POS("red_pyro_guy", PyroGuyPos, 9),
 };
 
-Formation A(Formation_05) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_B, 10),
-    OVL_ACTOR_BY_IDX("spiked_goomba", BTL_POS_GROUND_C, 9),
+Formation Formation_BowserPhase = {
+    OVL_ACTOR_BY_POS("koopa_the_kid", KoopaTheKidPos, 9),
+    OVL_ACTOR_BY_POS("koopa_gang", KoopaGangPos, 10),
+    OVL_ACTOR_BY_POS("tower_green_bandit", GreenTowerPos, 10),
+    OVL_ACTOR_BY_POS("tower_yellow_bandit", YellowTowerPos, 10),
+    OVL_ACTOR_BY_POS("tower_black_bandit", BlackTowerPos, 10),
+    OVL_ACTOR_BY_POS("tower_red_bandit", RedTowerPos, 10),
+    // ACTOR_BY_POS(GreenHammerBro, GreenHammerBroPos, 10),
 };
 
-Formation A(Formation_06) = {
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_A, 10),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_B, 9),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_C, 8),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_D, 7),
+Formation Formation_CalamityKammy = {
+    OVL_ACTOR_BY_POS("calamity_kammy", CalamityKammyPos, 10),
 };
 
-Formation A(Formation_07) = {
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_B, 10),
-};
-
-Formation A(Formation_08) = {
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_B, 10),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_C, 9),
-};
-
-Formation A(Formation_09) = {
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_A, 10),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_B, 9),
-    OVL_ACTOR_BY_IDX("paragoomba", BTL_POS_AIR_C, 8),
-};
-
-Formation A(Formation_0A) = {
-    OVL_ACTOR_BY_IDX("spiked_goomba", BTL_POS_GROUND_B, 10),
-};
-
-Formation A(Formation_0B) = {
-    OVL_ACTOR_BY_IDX("spiked_goomba", BTL_POS_GROUND_B, 10),
-    OVL_ACTOR_BY_IDX("goomba", BTL_POS_GROUND_C, 9),
-};
-
-BattleList A(Formations) = {
-    BATTLE(A(Formation_00), A(kmr_04), "クリボー"),
-    BATTLE(A(Formation_01), A(kmr_04), "クリボーx２"),
-    BATTLE(A(Formation_02), A(kmr_04), "クリボーx３"),
-    BATTLE(A(Formation_03), A(kmr_04), "クリボー、パタクリボー"),
-    BATTLE(A(Formation_04), A(kmr_04), "クリボーx４"),
-    BATTLE(A(Formation_05), A(kmr_04), "クリボー,トゲクリボー"),
-    BATTLE(A(Formation_06), A(kmr_04), "クリボー,パタクリボー,クリボー,パタクリボー"),
-    BATTLE(A(Formation_07), A(kmr_04), "パタクリボー"),
-    BATTLE(A(Formation_08), A(kmr_04), "パタクリボーx２"),
-    BATTLE(A(Formation_09), A(kmr_04), "パタクリボーx３"),
-    BATTLE(A(Formation_0A), A(kmr_04), "トゲクリボー"),
-    BATTLE(A(Formation_0B), A(kmr_04), "トゲクリボー、クリボー"),
+BattleList trn_00_Formations = {
+    BATTLE(Formation_TrainHeist, trn_00_TrainHeist, "Train Heist"), // Battle 0
+    BATTLE(Formation_GreenPhase, trn_00_TrainHeist, "Train Heist Green Phase"), // Battle 1
+    BATTLE(Formation_YellowPhase, trn_00_TrainHeist, "Train Heist Yellow Phase"), // Battle 2
+    BATTLE(Formation_BlackPhase, trn_00_TrainHeist, "Train Heist Black Phase"), // Battle 3
+    BATTLE(Formation_RedPhase, trn_00_TrainHeist, "Train Heist Red Phase"), // Battle 4
+    BATTLE(Formation_BowserPhase, trn_00_TrainHeist, "Train Heist Bowser Phase"), // Battle 5
+    BATTLE(Formation_CalamityKammy, trn_00_TrainHeist, "Calamity Kammy"), // Battle 6
     {},
 };
 
-StageList A(Stages) = {
-    STAGE("kmr_02", A(kmr_02)),
-    STAGE("kmr_03", A(kmr_03)),
-    STAGE("kmr_04", A(kmr_04)),
-    STAGE("kmr_05", A(kmr_05)),
-    STAGE("kmr_06", A(kmr_06)),
+StageList trn_00_Stages = {
+    STAGE("Train Heist", trn_00_TrainHeist), // Stage 0
     {},
 };

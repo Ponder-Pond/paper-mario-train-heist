@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="1">
+	<PaletteList>
+		<Palette id="0" name="Default" src="Default.png"/>
+		<Palette id="1" name="Dino" src="Dino.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="IdleRide1" palette="0" src="IdleRide1.png"/>
+		<Raster id="1" name="IdleRide2" palette="0" src="IdleRide2.png"/>
+		<Raster id="2" name="IdleRide3" palette="0" src="IdleRide3.png"/>
+		<Raster id="3" name="IdleRide4" palette="0" src="IdleRide4.png"/>
+		<Raster id="4" name="Panic1" palette="0" src="Panic1.png"/>
+		<Raster id="5" name="Panic2" palette="0" src="Panic2.png"/>
+		<Raster id="6" name="Panic3" palette="0" src="Panic3.png"/>
+		<Raster id="7" name="Panic4" palette="0" src="Panic4.png"/>
+		<Raster id="8" name="ShootArrow1" palette="0" src="ShootArrow1.png"/>
+		<Raster id="9" name="ShootArrow2" palette="0" src="ShootArrow2.png"/>
+		<Raster id="A" name="ShootArrow3" palette="0" src="ShootArrow3.png"/>
+		<Raster id="B" name="ShootArrow4" palette="0" src="ShootArrow4.png"/>
+		<Raster id="C" name="ShootArrow5" palette="0" src="ShootArrow5.png"/>
+		<Raster id="D" name="Arrow1" palette="0" src="Arrow1.png"/>
+		<Raster id="E" name="Arrow2" palette="0" src="Arrow2.png"/>
+		<Raster id="F" name="Run1" palette="1" src="Run1.png"/>
+		<Raster id="10" name="Run2" palette="1" src="Run2.png"/>
+		<Raster id="11" name="Run3" palette="1" src="Run3.png"/>
+		<Raster id="12" name="Run4" palette="1" src="Run4.png"/>
+		<Raster id="13" name="Pain1" palette="1" src="Pain1.png"/>
+		<Raster id="14" name="Pain2" palette="1" src="Pain2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Idle">
+			<Component name="Dino" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rider" xyz="0,59,-2">
+				<Label name="Start"/>
+				<SetRaster index="1"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="2"/>
+				<Wait duration="4"/>
+				<SetRaster index="3"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="ShootArrow">
+			<Component name="Movement" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Dino" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rider" xyz="0,59,-2">
+				<SetParent index="0"/>
+				<SetRaster index="8"/>
+				<Wait duration="8"/>
+				<SetRaster index="9"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="A"/>
+				<Wait duration="6"/>
+				<SetRaster index="B"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="24"/>
+				<Label name="End"/>
+				<SetRaster index="C"/>
+				<Wait duration="8"/>
+				<Goto dest="End"/>
+			</Component>
+			<Component name="Arrow" xyz="-24,63,-2">
+				<SetRaster index="D"/>
+				<SetRot xyz="0,0,45"/>
+				<SetPos flag="0" xyz="32,0,0"/>
+				<SetScale mode="uniform" percent="80"/>
+				<Wait duration="8"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="7,-1,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="6"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="7,0,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="24"/>
+				<SetRaster index="D"/>
+				<SetPos flag="0" xyz="2,0,0"/>
+				<SetRot xyz="0,0,-15"/>
+				<Wait duration="2"/>
+				<Label name="End"/>
+				<SetRaster index="FFFFFFFF"/>
+				<Wait duration="8"/>
+				<Goto dest="End"/>
+			</Component>
+		</Animation>
+		<Animation name="Arrow">
+			<Component name="Movement" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,1,0"/>
+				<Wait duration="2"/>
+				<SetPos flag="0" xyz="0,0,0"/>
+				<Wait duration="2"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Arrow" xyz="0,-15,0">
+				<SetParent index="0"/>
+				<Label name="Start"/>
+				<SetRaster index="D"/>
+				<Wait duration="4"/>
+				<SetRaster index="E"/>
+				<Wait duration="6"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="Panic">
+			<Component name="Dino" xyz="2,0,0">
+				<Label name="Start"/>
+				<SetRaster index="13"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<Wait duration="4"/>
+				<SetRaster index="13"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="6"/>
+				<SetRaster index="14"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rider" xyz="-1,57,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="5"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="4"/>
+				<SetRaster index="6"/>
+				<SetRot xyz="0,0,-10"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetRot xyz="0,0,-10"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+		<Animation name="RunAway">
+			<Component name="Dino" xyz="0,0,0">
+				<Label name="Start"/>
+				<SetRaster index="F"/>
+				<Wait duration="4"/>
+				<SetRaster index="10"/>
+				<Wait duration="4"/>
+				<SetRaster index="11"/>
+				<Wait duration="4"/>
+				<SetRaster index="12"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+			<Component name="Rider" xyz="11,54,-2">
+				<Label name="Start"/>
+				<SetRaster index="4"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="-1,0,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="5"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="0,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="6"/>
+				<SetRot xyz="0,0,5"/>
+				<SetPos flag="0" xyz="1,-1,0"/>
+				<Wait duration="4"/>
+				<SetRaster index="7"/>
+				<SetRot xyz="0,0,5"/>
+				<Wait duration="4"/>
+				<Goto dest="Start"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>
