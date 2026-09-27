@@ -3837,6 +3837,49 @@ API_CALLABLE(ExecOnActor_impl) {
     return ApiStatus_DONE2;
 }
 
+API_CALLABLE(ExecGetIDOnActor_impl) {
+    Bytecode* args = script->ptrReadPos;
+    s32 actorID = evt_get_variable(script, *args++);
+    if (actorID == ACTOR_SELF) actorID = script->owner1.actorID;
+    const char* scriptName = (const char*)evt_get_variable(script, *args++);
+    Bytecode outVar = *args++;
+
+    Actor* actor = get_actor(actorID);
+    if (actor == nullptr) {
+        debug_printf("ExecGetIDOnActor: no such actor %d\n", actorID);
+        return ApiStatus_DONE2;
+    }
+    if (actor->overlay == nullptr) {
+        debug_printf("ExecGetIDOnActor: actor %d has no overlay\n", actorID);
+        return ApiStatus_DONE2;
+    }
+    EvtScript* data = ovl_import(actor->overlay, scriptName);
+    if (data == nullptr) {
+        debug_printf("ExecGetIDOnActor: overlay does not export '%s'\n", scriptName);
+        return ApiStatus_DONE2;
+    }
+
+    Evt* newScript = start_script_in_group(data, script->priority, 0, script->groupFlags);
+
+    newScript->owner1.actorID = actorID;
+    newScript->owner2 = script->owner2;
+
+    for (s32 i = 0; i < ARRAY_COUNT(script->varTable); i++) {
+        newScript->varTable[i] = script->varTable[i];
+    }
+
+    for (s32 i = 0; i < ARRAY_COUNT(script->varFlags); i++) {
+        newScript->varFlags[i] = script->varFlags[i];
+    }
+
+    newScript->array = script->array;
+    newScript->flagArray = script->flagArray;
+
+    evt_set_variable(script, outVar, newScript->id);
+
+    return ApiStatus_DONE2;
+}
+
 API_CALLABLE(ExecWaitOnActor_impl) {
     Bytecode* args = script->ptrReadPos;
     s32 actorID = evt_get_variable(script, *args++);

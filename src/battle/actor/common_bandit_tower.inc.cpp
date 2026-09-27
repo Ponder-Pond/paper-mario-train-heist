@@ -320,7 +320,7 @@ API_CALLABLE((GetLastActorEventType)) {
 
 // respond to commands issued from BOSS_ACTOR
 // (in) LVarA : event
-EvtScript EVS_HandleCommand = {
+export EvtScript EVS_HandleCommand = {
     Call(SetOwnerID, THIS_ACTOR_ID)
     Call(GetStatusFlags, ACTOR_SELF, LVar0)
     IfNe(LVar0, 0)

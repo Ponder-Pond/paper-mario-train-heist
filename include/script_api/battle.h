@@ -1628,6 +1628,11 @@ API_CALLABLE(ExecOnActor_impl);
 #define ExecWaitOnActor(actor, scriptName) Call(ExecWaitOnActor_impl, actor, (Bytecode)(scriptName))
 API_CALLABLE(ExecWaitOnActor_impl);
 
+// Runs an EVT script exported by the given actor's overlay, as that actor,
+/// without waiting for it to finish, and stores the new script's ID in outVar.
+#define ExecGetIDOnActor(actor, scriptName, outVar) Call(ExecGetIDOnActor_impl, actor, (Bytecode)(scriptName), outVar)
+API_CALLABLE(ExecGetIDOnActor_impl);
+
 extern EvtScript EVS_Mario_HandlePhase;
 extern EvtScript EVS_Peach_HandlePhase;
 extern EvtScript EVS_ExecuteMarioAction;

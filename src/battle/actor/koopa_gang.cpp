@@ -435,10 +435,10 @@ EvtScript EVS_MoveKoopaGangOffscreen = {
 
 // (in) LVarA : event
 EvtScript EVS_BroadcastToKoopaBandits = {
-    Exec(green_bandit_tower::EVS_HandleCommand)
-    Exec(yellow_bandit_tower::EVS_HandleCommand)
-    Exec(black_bandit_tower::EVS_HandleCommand)
-    ExecGetTID(red_bandit_tower::EVS_HandleCommand, LVar1)
+    ExecGetIDOnActor(GREEN_ACTOR, "EVS_HandleCommand", LVar1)
+    ExecGetIDOnActor(YELLOW_ACTOR, "EVS_HandleCommand", LVar1)
+    ExecGetIDOnActor(BLACK_ACTOR, "EVS_HandleCommand", LVar1)
+    ExecGetIDOnActor(RED_ACTOR, "EVS_HandleCommand", LVar1)
     Label(0)
         IsThreadRunning(LVar1, LVar0)
         IfEq(LVar0, true)
