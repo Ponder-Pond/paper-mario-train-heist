@@ -954,7 +954,7 @@ EvtScript EVS_Player_Hit_Impl = {
     End
 };
 
-EvtScript EVS_Player_Crushed_Impl = {
+export EvtScript EVS_Player_Crushed_Impl = {
     Call(StartRumble, BTL_RUMBLE_HIT_MAX)
     SetF(LVar0, Float(1.0))
     SetF(LVar1, Float(1.0))

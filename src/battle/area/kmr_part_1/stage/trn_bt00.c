@@ -28,60 +28,58 @@
     TEX_PAN_PARAMS_INIT(     0,     0,     0,     0)
 
 
-#include "world/common/atomic/TexturePan.inc.c"
-
 EvtScript trn_00_EVS_PreBattle = {
     Call(SetSpriteShading, SHADING_NONE)
     Call(SetCamBGColor, CAM_BATTLE, 0, 0, 0)
     Call(SetTexPanner, MODEL_Cactus, TEX_PANNER_0)
     Thread
         GEN_TEX_PANNER_0
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_MountainsShade, TEX_PANNER_0)
     Thread
         GEN_TEX_PANNER_0
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_GravelTop, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_GravelMiddle, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_GravelFront, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_TrainTracksTop, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_TrainTracksFront, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_BrushBig, TEX_PANNER_1)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_Hill, TEX_PANNER_2)
     Thread
         GEN_TEX_PANNER_2
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(SetTexPanner, MODEL_BrushSmall, TEX_PANNER_3)
     Thread
         GEN_TEX_PANNER_3
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Call(EnableModel, MODEL_Tunnel, false)
     Call(EnableModel, MODEL_SnipingCrate, false)

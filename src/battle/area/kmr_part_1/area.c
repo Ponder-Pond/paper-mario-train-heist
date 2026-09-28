@@ -117,7 +117,7 @@ Formation Formation_CalamityKammy = {
     OVL_ACTOR_BY_POS("calamity_kammy", CalamityKammyPos, 10),
 };
 
-BattleList trn_00_Formations = {
+BattleList b_area_kmr_part_1_Formations = {
     BATTLE(Formation_TrainHeist, trn_00_TrainHeist, "Train Heist"), // Battle 0
     BATTLE(Formation_GreenPhase, trn_00_TrainHeist, "Train Heist Green Phase"), // Battle 1
     BATTLE(Formation_YellowPhase, trn_00_TrainHeist, "Train Heist Yellow Phase"), // Battle 2
@@ -128,7 +128,7 @@ BattleList trn_00_Formations = {
     {},
 };
 
-StageList trn_00_Stages = {
+StageList b_area_kmr_part_1_Stages = {
     STAGE("Train Heist", trn_00_TrainHeist), // Stage 0
     {},
 };

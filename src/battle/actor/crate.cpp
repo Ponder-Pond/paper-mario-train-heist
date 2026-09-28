@@ -87,13 +87,13 @@ ActorPartBlueprint ActorParts[] = {
 
 extern "C" export ActorBlueprint blueprint = {
     .flags = ACTOR_FLAG_NO_HEALTH_BAR,
-    .maxHP = crate::hp,
+    .maxHP = hp,
     .type = ACTOR_TYPE_CRATE,
     .level = ACTOR_LEVEL_CRATE,
-    .partCount = ARRAY_COUNT(crate::ActorParts),
-    .partsData = crate::ActorParts,
-    .initScript = &crate::EVS_Init,
-    .statusTable = crate::StatusTable,
+    .partCount = ARRAY_COUNT(ActorParts),
+    .partsData = ActorParts,
+    .initScript = &EVS_Init,
+    .statusTable = StatusTable,
     .escapeChance = 0,
     .airLiftChance = 0,
     .hurricaneChance = 0,
@@ -124,7 +124,7 @@ EvtScript EVS_Init = {
     End
 };
 
-#include "common/battle/SetAbsoluteStatusOffsets.inc.c"
+#include "battle/common/SetAbsoluteStatusOffsets.inc.c"
 
 EvtScript EVS_Idle = {
     Return

@@ -7,6 +7,7 @@
 #include "sprite/npc/PyroGuy.h"
 #include "sprite/npc/Bobomb.h"
 #include "boss.hpp"
+#include "koopa_gang_tower.hpp"
 #include "dx/debug_menu.h"
 
 enum ThisBanditsParams {
@@ -257,7 +258,7 @@ EvtScript EVS_Defeat = {
                 Call(HideHealthBar, ACTOR_PYRO_GUY)
                 Call(EnableIdleScript, ACTOR_PYRO_GUY, IDLE_SCRIPT_DISABLE)
                 Call(UseIdleAnimation, ACTOR_PYRO_GUY, false)
-                Call(SetAnimation, ACTOR_PYRO_GUY, PRT_MAIN, ANIM_PyroGuy_Anim06)
+                Call(SetAnimation, ACTOR_PYRO_GUY, PRT_MAIN, ANIM_PyroGuy_Hurt)
                 Wait(10)
                 Set(LVar2, 0)
                 Loop(24)
@@ -451,7 +452,7 @@ EvtScript EVS_FifthPhaseTransition = {
     EndLoop
     Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
     Call(EnableModel, MODEL_Tunnel, false)
-    ExecWaitOnActor(ACTOR_KOOPA_GANG, koopa_gang::EVS_TakeTurn)
+    ExecWaitOnActor(ACTOR_KOOPA_GANG, "EVS_KoopaGang_TakeTurn")
     Label(0)
     Call(GetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_TowerState, LVar0)
     IfNe(LVar0, AVAL_Boss_TowerState_Stable)
@@ -762,7 +763,7 @@ EvtScript EVS_Attack_UnlitBomb = {
 Vec3i SummonedBobOmbPos = { 0.0f, -1000.0f, 0.0f };
 
 Formation SummonedBobOmb = {
-    ACTOR_BY_POS(BobOmb, SummonedBobOmbPos, 100),
+    OVL_ACTOR_BY_POS("red_bob_omb", SummonedBobOmbPos, 100),
 };
 
 EvtScript EVS_Summon_LitBobomb = {

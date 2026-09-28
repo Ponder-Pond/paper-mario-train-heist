@@ -313,7 +313,7 @@ EvtScript EVS_Defeat = {
                 Call(HideHealthBar, ACTOR_BUZZY_BEETLE)
                 Call(EnableIdleScript, ACTOR_BUZZY_BEETLE, IDLE_SCRIPT_DISABLE)
                 Call(UseIdleAnimation, ACTOR_BUZZY_BEETLE, false)
-                Call(SetAnimation, ACTOR_BUZZY_BEETLE, PRT_MAIN, ANIM_BuzzyBeetle_Anim07)
+                Call(SetAnimation, ACTOR_BUZZY_BEETLE, PRT_MAIN, ANIM_BuzzyBeetle_Hurt)
                 Wait(10)
                 Set(LVar2, 0)
                 Loop(24)

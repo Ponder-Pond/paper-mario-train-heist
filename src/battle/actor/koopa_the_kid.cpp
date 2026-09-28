@@ -602,8 +602,8 @@ EvtScript EVS_SetupInhale = {
     Set(LVar3, GREEN_ACTOR)
     ExecWait(EVS_SetupInhale_Subscript_SendKoopaToCar)
     // update tower state
-    Call(SetActorVar, BOSS_ACTOR, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Toppled)
-    Call(SetPartFlagBits, BOSS_ACTOR, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, true)
+    Call(SetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_TowerState, AVAL_Boss_TowerState_Toppled)
+    Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_TOWER, ACTOR_PART_FLAG_NO_TARGET, true)
     // update koopa count
     Call(SetActorVar, ACTOR_SELF, AVAR_BowserPhase_CountKoopaGang, 4)
     // DebugPrintf("Exit:BOWSER:EVS_SetupInhale\n")

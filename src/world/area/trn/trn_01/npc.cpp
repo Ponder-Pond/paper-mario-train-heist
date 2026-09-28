@@ -3,9 +3,13 @@
 
 extern IconHudScriptPair gItemHudScripts[];
 
-namespace trn_01 {
+#include "world/common/npc/Toadsworth/idle.inc.c"
 
-#include "world/common/npc/Toad_Stationary.inc.c"
+#include "world/common/npc/ToadMinister/idle.inc.c"
+
+#include "world/common/npc/Toad/idle.inc.c"
+
+#include "world/common/npc/TayceT/idle.inc.c"
 
 EvtScript EVS_NpcInteract_Toadsworth = {
     Call(SpeakToPlayer, NPC_Toadsworth, ANIM_Toadsworth_Talk, ANIM_Toadsworth_Idle, 0, MSG_TrainLobby_ToadsworthInteract)
@@ -31,7 +35,7 @@ EvtScript EVS_NpcInit_ToadMinister = {
     End
 };
 
-#include "world/common/npc/Bubba.inc.c"
+#include "world/common/npc/Bubba/idle.inc.c"
 
 EvtScript EVS_NpcInteract_Bubba = {
     Call(SpeakToPlayer, NPC_Bubba, ANIM_BigBubba_Talk, ANIM_BigBubba_Idle, 0, MSG_TrainLobby_BubbaInteract)
@@ -45,7 +49,7 @@ EvtScript EVS_NpcInit_Bubba = {
     End
 };
 
-#include "world/common/npc/Luigi.inc.c"
+#include "world/common/npc/Luigi/idle.inc.c"
 
 EvtScript EVS_NpcInteract_Luigi = {
     Call(DisablePlayerInput, true)
@@ -62,7 +66,7 @@ EvtScript EVS_NpcInit_Luigi = {
     End
 };
 
-#include "world/common/npc/Peach.inc.c"
+#include "world/common/npc/Peach/idle.inc.c"
 
 EvtScript EVS_NpcInteract_Peach = {
     Call(SpeakToPlayer, NPC_Peach, ANIM_ParadePeach_Talk, ANIM_ParadePeach_IdleRaisedArms, 0, MSG_TrainLobby_PeachInteract)
@@ -448,7 +452,7 @@ EvtScript EVS_NpcInit_Toad = {
 NpcData NpcData_Characters[] = {
     {
         .id = NPC_Toadsworth,
-        .settings = &N(NpcSettings_Toad_Stationary),
+        .settings = &N(NpcSettings_Toadsworth),
         .pos = { GEN_TOADSWORTH_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Toadsworth,
@@ -459,7 +463,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_ToadMinister,
-        .settings = &N(NpcSettings_Toad_Stationary),
+        .settings = &N(NpcSettings_ToadMinister),
         .pos = { GEN_TOAD_MINISTER_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_ToadMinister,
@@ -503,7 +507,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_TayceT,
-        .settings = &N(NpcSettings_Toad_Stationary),
+        .settings = &N(NpcSettings_TayceT),
         .pos = { GEN_TAYCE_T_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_TayceT,
@@ -514,7 +518,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_Toad,
-        .settings = &N(NpcSettings_Toad_Stationary),
+        .settings = &N(NpcSettings_Toad),
         .pos = { GEN_TOAD_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Toad,
@@ -525,7 +529,7 @@ NpcData NpcData_Characters[] = {
     },
 };
 
-#include "world/common/enemy/Kammy.inc.c"
+#include "world/common/enemy/Kammy/idle.inc.c"
 
 EvtScript EVS_NpcInteract_Kammy = {
     Call(SpeakToPlayer, NPC_CalamityKammy, ANIM_CalamityKammy_Talk, ANIM_CalamityKammy_Idle, 0, MSG_TrainLobby_KammyInteract)
@@ -568,5 +572,3 @@ EvtScript EVS_Scene_BeginGame = {
     Return
     End
 };
-
-} // namespace trn_01

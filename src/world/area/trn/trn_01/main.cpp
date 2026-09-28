@@ -1,17 +1,13 @@
 #include "trn_01.h"
-namespace trn_01 {
 
 EntryList Entrances = { GEN_ENTRY_LIST };
-
-
-#include "world/common/atomic/TexturePan.inc.c"
 
 EvtScript EVS_TexPan = {
     Call(SetTexPanner, MODEL_Outside, TEX_PANNER_1)
     Call(EnableTexPanning, MODEL_Outside, true)
     Thread
         GEN_TEX_PANNER_1
-        Exec(N(EVS_UpdateTexturePan))
+        Exec(EVS_UpdateTexturePan)
     EndThread
     Return
     End
@@ -65,12 +61,10 @@ EvtScript EVS_TrainBounce = {
     End
 };
 
-} // namespace trn_01
-
 extern "C" export MapSettings trn_01_settings = {
-    .main = &trn_01::EVS_Main,
-    .entryList = &trn_01::Entrances,
-    .entryCount = ENTRY_COUNT(trn_01::Entrances),
+    .main = &EVS_Main,
+    .entryList = &Entrances,
+    .entryCount = ENTRY_COUNT(Entrances),
     .bgName = "trn_bg",
     .tattle = { MSG_TrainLobby_MapTattle },
 };

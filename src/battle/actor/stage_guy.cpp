@@ -15,7 +15,7 @@ enum ActorPartIDs {
 };
 
 // Actor Stats
-constexpr hp = 50;
+constexpr s32 hp = 50;
 
 s32 DefenseTable[] = {
     ELEMENT_NORMAL,   0,

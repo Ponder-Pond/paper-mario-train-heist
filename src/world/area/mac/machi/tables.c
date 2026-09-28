@@ -40,7 +40,7 @@ GameVarRange N(GameByteTable)[] = {
     VAR_RANGE_BYTE("GSW BTL",   GB_Tattles_00,                    GB_Unused_FBTL_00,                GB_Unused_BTL_1E),
     VAR_RANGE_BYTE("GSW FBTL",  GB_Unused_FBTL_00,                GB_Unused_DOKAN_00,               GB_Unused_FBTL_00),
     VAR_RANGE_BYTE("GSW DOKAN", GB_Unused_DOKAN_00,               GB_WorldLocation,                 GB_Unused_DOKAN_00),
-    VAR_RANGE_BYTE("GSW MAP",   GB_WorldLocation,                 GB_Unused_1B4,                    GB_Unused_MAP_01),
+    // VAR_RANGE_BYTE("GSW MAP",   GB_WorldLocation,                 GB_Unused_1B4,                    GB_Unused_MAP_01),
     {}
 };
 
@@ -84,6 +84,6 @@ GameVarRange N(GameFlagTable)[] = {
     VAR_RANGE_FLAG("GSWF BTL",   GF_SpawnedItemDrop_00,           GF_FBTL_00,                      GF_Unused_BTL_07),
     VAR_RANGE_FLAG("GSWF FBTL",  GF_FBTL_00,                      GF_TIK01_WarpPipes,              GF_Unused_FBTL_4B),
     VAR_RANGE_FLAG("GSWF DOKAN", GF_TIK01_WarpPipes,              GF_MAP_ToadTown,                 GF_Unused_DOKAN_09),
-    VAR_RANGE_FLAG("GSWF MAP",   GF_MAP_ToadTown,                 GF_Unused_7E0,                   GF_Unused_MAP_22),
+    // VAR_RANGE_FLAG("GSWF MAP",   GF_MAP_ToadTown,                 GF_Unused_7E0,                   GF_Unused_MAP_22),
     {}
 };

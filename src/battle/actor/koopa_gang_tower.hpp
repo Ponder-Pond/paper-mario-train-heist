@@ -27,11 +27,6 @@
 */
 
 enum KoopaGangActorIDs {
-    GREEN_ACTOR         = ACTOR_ENEMY2,
-    YELLOW_ACTOR        = ACTOR_ENEMY3,
-    BLACK_ACTOR         = ACTOR_ENEMY4,
-    RED_ACTOR           = ACTOR_ENEMY5,
-    BOSS_ACTOR          = ACTOR_ENEMY6,
     FIRST_KOOPA_ACTOR   = ACTOR_ENEMY2,
 };
 

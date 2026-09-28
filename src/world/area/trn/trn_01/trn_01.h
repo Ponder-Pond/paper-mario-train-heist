@@ -23,8 +23,6 @@
 
 #define TAYCE_T_ITEM_COUNT 6 // Item Shop
 
-namespace trn_01 {
-
 enum {
     MF_PurchasedBadge   = MapFlag(0),
     MF_PurchasedItem    = MapFlag(1),
@@ -41,7 +39,7 @@ enum {
     NPC_Toad            = 7,
 };
 
-
+#define NAMESPACE trn_01
 
 extern EvtScript EVS_Main;
 extern EvtScript EVS_StartTexPanners;
@@ -52,5 +50,3 @@ extern EvtScript EVS_NpcInteract_Toad;
 extern EvtScript EVS_NpcInit_TayceT;
 extern EvtScript EVS_NpcInteract_TayceT;
 extern EvtScript EVS_Scene_BeginGame;
-
-} // namespace trn_01

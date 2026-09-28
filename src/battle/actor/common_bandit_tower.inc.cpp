@@ -189,7 +189,7 @@ API_CALLABLE(GetTowerFallPosition) {
     Vec3f* jVec;
     s32 i, j;
 
-    height = get_actor(BOSS_ACTOR)->state.varTable[AVAR_Boss_TowerHeight];
+    height = get_actor(ACTOR_KOOPA_GANG)->state.varTable[AVAR_Boss_TowerHeight];
     switch (height) {
         case 2:
             enemy = (GetKoopaBrosWithState(AVAL_Koopa_State_PosA));
@@ -247,7 +247,7 @@ API_CALLABLE(GetTowerFallPosition) {
         }
     }
 
-    ownerState = get_actor(script->owner1.enemyID)->state.varTable[AVAR_Koopa_State];
+    ownerState = get_actor(script->owner1.actorID)->state.varTable[AVAR_Koopa_State];
     switch (height) {
         case 2:
             switch (ownerState) {
@@ -318,7 +318,7 @@ API_CALLABLE((GetLastActorEventType)) {
     return ApiStatus_DONE2;
 }
 
-// respond to commands issued from BOSS_ACTOR
+// respond to commands issued from ACTOR_KOOPA_GANG
 // (in) LVarA : event
 export EvtScript EVS_HandleCommand = {
     Call(SetOwnerID, THIS_ACTOR_ID)
@@ -369,7 +369,7 @@ export EvtScript EVS_HandleCommand = {
                     SetConst(LVar0, PRT_MAIN)
                     SetConst(LVar1, THIS_ANIM_HURT)
                     ExecWait(EVS_Enemy_Hit)
-                    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                    Call(GetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_Flags, LVar0)
                     BitwiseAndConst(LVar0, AFLAG_Boss_PlayerHitTower | AFLAG_Boss_PartnerHitTower)
                     IfNe(LVar0, AFLAG_Boss_PlayerHitTower | AFLAG_Boss_PartnerHitTower)
                         Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TippingAnims))
@@ -392,7 +392,7 @@ export EvtScript EVS_HandleCommand = {
                     SetConst(LVar1, THIS_ANIM_BURN)
                     SetConst(LVar2, -1)
                     ExecWait(EVS_Enemy_BurnHit)
-                    Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
+                    Call(GetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_Flags, LVar0)
                     BitwiseAndConst(LVar0, AFLAG_Boss_PlayerHitTower | AFLAG_Boss_PartnerHitTower)
                     IfNe(LVar0, AFLAG_Boss_PlayerHitTower | AFLAG_Boss_PartnerHitTower)
                         Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(TippingAnims))

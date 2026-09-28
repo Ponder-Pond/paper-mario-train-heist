@@ -437,7 +437,7 @@ EvtScript EVS_Attack_DropBlock = {
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetDamageSource, DMG_SRC_CRUSH)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_MAGIC | DAMAGE_TYPE_UNBLOCKABLE | DAMAGE_TYPE_NO_CONTACT, SUPPRESS_EVENT_ALL, 0, dmgBlockDrop, BS_FLAGS1_TRIGGER_EVENTS)
-    ExecWaitOnActor(ACTOR_PLAYER, EVS_Player_Crushed_Impl)
+    ExecWaitOnActor(ACTOR_PLAYER, "EVS_Player_Crushed_Impl")
     Set(LVarF, LVar0)
     Switch(LVarF)
         CaseOrEq(HIT_RESULT_HIT)

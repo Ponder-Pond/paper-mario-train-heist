@@ -2,7 +2,7 @@
 #include "star_rod_macros.h"
 
 // type: MapProperties
-#define GEN_MAP_LOCATION LOCATION_TRAIN
+#define GEN_MAP_LOCATION LOCATION_TESTING
 
 // type: EntryList
 #define GEN_ENTRY_LIST \
@@ -143,4 +143,3 @@
 #define GEN_TOAD_POS_Z -84
 #define GEN_TOAD_POS_DIR 0
 #define GEN_TOAD_POS_VEC 68,0,-84
-

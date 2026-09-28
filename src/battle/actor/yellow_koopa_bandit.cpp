@@ -262,7 +262,7 @@ EvtScript EVS_Defeat = {
                 Call(HideHealthBar, ACTOR_YELLOW_HAMMER_BRO)
                 Call(EnableIdleScript, ACTOR_YELLOW_HAMMER_BRO, IDLE_SCRIPT_DISABLE)
                 Call(UseIdleAnimation, ACTOR_YELLOW_HAMMER_BRO, false)
-                Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_0E)
+                Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Yellow_Hurt)
                 Wait(10)
                 Set(LVar2, 0)
                 Loop(24)
@@ -314,7 +314,7 @@ EvtScript EVS_Defeat = {
 Vec3i BlackBanditSpawnPos = { 115, 10, 20 };
 
 Formation SpawnBlackBandit = {
-    ACTOR_BY_POS(BlackBanditKoopa, BlackBanditSpawnPos, 50),
+    OVL_ACTOR_BY_POS("black_bandit_koopa", BlackBanditSpawnPos, 50),
 };
 
 Vec3i CrateSpawnPos = { 15, 0, 20 };
@@ -526,7 +526,7 @@ API_CALLABLE(SpawnHeartRecoveryFX) {
 EvtScript UseItemWithEffectYellowBro = {
     Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
     Call(PlaySoundAtActor, ACTOR_YELLOW_HAMMER_BRO, SOUND_USE_ITEM)
-    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_1A)
+    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Yellow_GotItem)
     Wait(4)
     Add(LVar1, 45)
     Set(LVar3, LVar1)
@@ -569,7 +569,7 @@ EvtScript EVS_YellowBro_UseItem = {
     Add(LVar2, 5)
     Call(ShowRecoveryShimmer, LVar0, LVar1, LVar2, 1)
     Wait(20)
-    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_02)
+    Call(SetAnimation, ACTOR_YELLOW_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Yellow_Idle)
     Return
     End
 };
