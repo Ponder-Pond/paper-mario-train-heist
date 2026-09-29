@@ -636,6 +636,8 @@ EvtScript EVS_HandleEvent = {
                 Call(GetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_Flags, LVar0)
                 BitwiseOrConst(LVar0, AFLAG_Boss_PartnerHitTower)
                 Call(SetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_Flags, LVar0)
+            EndIf
+            Call(GetActorVar, ACTOR_KOOPA_GANG, AVAR_Boss_Flags, LVar0)
             IfFlag(LVar0, AFLAG_Boss_PlayerHitTower)
                 IfFlag(LVar0, AFLAG_Boss_PartnerHitTower)
                     ExecWait(EVS_Broadcast_ToppleHit)
@@ -647,10 +649,6 @@ EvtScript EVS_HandleEvent = {
             // this was the first hit
             Set(LVarA, BOSS_CMD_NO_DAMAGE_HIT)
             ExecWait(EVS_BroadcastToKoopaBandits)
-        CaseOrEq(EVENT_DEATH)
-        CaseOrEq(EVENT_BURN_DEATH)
-        EndCaseGroup
-        CaseDefault
     EndSwitch
     Call(UseIdleAnimation, ACTOR_SELF, true)
     Return

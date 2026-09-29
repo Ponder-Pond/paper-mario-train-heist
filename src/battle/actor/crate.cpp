@@ -171,6 +171,7 @@ EvtScript EVS_HandleEvent = {
             ExecWait(EVS_Enemy_NoDamageHit)
             Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(OpenAnims))
             Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(OpenDefense))
+        EndCaseGroup
         CaseEq(EVENT_DEATH)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Crate_IdleOpenEmpty)
