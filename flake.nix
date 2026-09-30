@@ -11,7 +11,7 @@
     # jar using its own pinned nixpkgs/Gradle, since its offline dependency
     # resolution (gradle/verification-metadata.xml) is pinned to that exact
     # Gradle version.
-    star-rod.url = "github:z64a/star-rod/9339cb4e867514267ff8ab404b00b53e5a5e67dd";
+    star-rod.url = "git+https://tangled.org/starhaven.dev/star-rod?rev=1fdda44171b6deb5e4b12cbd936315d2989da340";
   };
   nixConfig = {
     extra-substituters = [
@@ -81,6 +81,11 @@
 
         sccachePkg = pkgs.callPackage ./tools/sccache.nix { };
         evtValidatePkg = pkgs.callPackage ./tools/evt_validate.nix { };
+        # The jar's entry point only checks for Java 17 and then starts
+        # Star Rod in a second JVM, so this starts Star Rod directly.
+        starRodPkg = pkgs.writeShellScriptBin "star-rod" ''
+          exec ${pkgs.jdk17}/bin/java -cp ${starRodJar}/share/java/StarRod.jar app.StarRodMain "$@"
+        '';
 
         unixToolchain = import ./tools/unix {
           inherit pkgs nixpkgs-binutils-2_39 mipsGdb starRodJar llvmTools;
@@ -101,6 +106,7 @@
             (pkgs.callPackage ./tools/pigment64.nix {})
             (pkgs.callPackage ./tools/crunch64.nix {})
             evtValidatePkg
+            starRodPkg
           ] ++ pkgs.lib.optional pkgs.stdenv.isLinux pkgs.flips;
           # Disable nixpkgs hardening flags (zerocallusedregs, fortify, etc.)
           # that the cross-compiler wrapper injects. The build system manages
@@ -148,6 +154,7 @@
             (pkgs.callPackage ./tools/pigment64.nix {})
             (pkgs.callPackage ./tools/crunch64.nix {})
             evtValidatePkg
+            starRodPkg
             clangdIndexingTools
           ];
           NIX_HARDENING_ENABLE = "";
@@ -225,9 +232,7 @@
             (callPackage ./tools/pigment64.nix {})
             (callPackage ./tools/crunch64.nix {})
             evtValidatePkg
-            (writeShellScriptBin "star-rod" ''
-              exec ${jdk17}/bin/java -jar ${starRodJar}/share/java/StarRod.jar "$@"
-            '')
+            starRodPkg
             llvmTools
             treefmt
           ] ++ [ mipsGdb ] ++ (if pkgs.stdenv.isLinux then [ pkgs.flips ] else []); # https://github.com/NixOS/nixpkgs/issues/373508
@@ -238,6 +243,7 @@
             export SCCACHE_CONF="$PWD/.dx/sccache-config.toml"
             export AWS_SHARED_CREDENTIALS_FILE="$PWD/.dx/sccache-credentials"
             export SCCACHE_BASEDIRS="$PWD"
+            export SCCACHE_SKIP_CACHE_CHECK=1
 
             virtualenv venv --quiet
             source venv/bin/activate
