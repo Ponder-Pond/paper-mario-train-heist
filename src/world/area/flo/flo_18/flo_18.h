@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../flo.h"
-#include "mapfs/flo_18_shape.h"
-#include "mapfs/flo_18_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldLakilester.h"
 
@@ -31,12 +30,10 @@ enum {
     MV_ReactingNpc          = MapVar(10),
 };
 
-#define NAMESPACE flo_18
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_SetupMachine);
-extern EvtScript N(EVS_SetupMachineDamageReactions);
-extern EvtScript N(EVS_Scene_LakilesterLikesBeingGood);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_SetupMachine;
+extern EvtScript EVS_SetupMachineDamageReactions;
+extern EvtScript EVS_Scene_LakilesterLikesBeingGood;
+extern NpcGroupList DefaultNPCs;

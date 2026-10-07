@@ -8,18 +8,15 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_03_shape.h"
-#include "mapfs/mim_03_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Oaklie                  = 0,
 };
 
-#define NAMESPACE mim_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupExitHint);
-extern EvtScript N(EVS_SetupGates);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupExitHint;
+extern EvtScript EVS_SetupGates;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../nok.h"
-#include "mapfs/nok_14_shape.h"
-#include "mapfs/nok_14_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_KoopaTroopa_01          = 0,
@@ -22,10 +21,8 @@ enum {
     MV_Item_ThunderBolt         = MapVar(0),
 };
 
-#define NAMESPACE nok_14
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupBridge);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupBridge;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

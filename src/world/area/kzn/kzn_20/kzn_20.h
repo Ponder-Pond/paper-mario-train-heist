@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_20_shape.h"
-#include "mapfs/kzn_20_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Kolorado                = 0,
@@ -23,9 +22,7 @@ enum {
     MV_SceneState               = MapVar(13),
 };
 
-#define NAMESPACE kzn_20
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_ShakingWorld);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_ShakingWorld;
+extern NpcGroupList DefaultNPCs;

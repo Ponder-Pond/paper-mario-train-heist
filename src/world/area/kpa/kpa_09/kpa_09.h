@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_09_shape.h"
-#include "mapfs/kpa_09_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/DryBones.h"
 #include "sprite/npc/ThrownBone.h"
@@ -21,9 +20,7 @@ enum {
     NPC_DryBones_Bone3          = 3,
 };
 
-#define NAMESPACE kpa_09
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

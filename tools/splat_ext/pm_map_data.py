@@ -1,5 +1,6 @@
 from math import ceil
 import os
+import shutil
 import struct
 from pathlib import Path
 
@@ -106,10 +107,15 @@ class N64SegPm_map_data(Segment):
                     name = file
                     self.files[name] = {"name": name}
 
+    def cache(self):
+        return (*super().cache(), self.files)
+
     def split(self, rom_bytes):
         assert isinstance(self.rom_start, int)
 
         fs_dir = options.opts.asset_path / self.dir / self.name
+        # An earlier split may have written files under names mapfs.yaml no longer gives them
+        shutil.rmtree(fs_dir, ignore_errors=True)
         (fs_dir / "title").mkdir(parents=True, exist_ok=True)
         (fs_dir / "party").mkdir(parents=True, exist_ok=True)
         (fs_dir / "bg").mkdir(parents=True, exist_ok=True)
@@ -139,10 +145,12 @@ class N64SegPm_map_data(Segment):
                 asset_idx += 1
                 continue
 
+            out_name = self.files[name].get("out_name", name)
+
             if offset == 0:
                 path = None
             else:
-                path = fs_dir / add_file_ext(name)
+                path = fs_dir / add_file_ext(out_name)
 
             bytes_start = self.rom_start + 0x20 + offset
             bytes = rom_bytes[bytes_start : bytes_start + size]
@@ -219,7 +227,7 @@ class N64SegPm_map_data(Segment):
                         w.write_array(f, bytes[raster_offset:])
 
             elif name.endswith("_tex"):
-                TexArchive.extract(bytes, fs_dir / "tex" / name)
+                TexArchive.extract(bytes, fs_dir / "tex" / out_name)
             else:
                 assert path is not None
                 with open(path, "wb") as f:
@@ -238,7 +246,7 @@ class N64SegPm_map_data(Segment):
 
         src_paths = []
         for name, file in self.files.items():
-            src_paths.append(fs_dir / add_file_ext(name, linker=True))
+            src_paths.append(fs_dir / add_file_ext(file.get("out_name", name), linker=True))
             if file.get("dump_raw", False):
                 src_paths.append(fs_dir / f"{name}.raw.dat")
 

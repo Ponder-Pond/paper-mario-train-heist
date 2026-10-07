@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../trd.h"
-#include "mapfs/trd_08_shape.h"
-#include "mapfs/trd_08_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Fire.h"
 
@@ -23,5 +22,3 @@ enum {
     NPC_FireBar_2C              = 7,
     NPC_FireBar_2D              = 8,
 };
-
-#define NAMESPACE trd_08

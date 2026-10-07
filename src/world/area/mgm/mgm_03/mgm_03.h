@@ -8,9 +8,6 @@
 #include "map.h"
 
 #include "../mgm.h"
-#include "mapfs/mgm_03_shape.h"
-#include "mapfs/mgm_03_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE mgm_03
-
-extern EvtScript N(EVS_Main);
+extern EvtScript EVS_Main;

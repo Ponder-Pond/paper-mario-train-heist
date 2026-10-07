@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../omo.h"
-#include "mapfs/omo_14_shape.h"
-#include "mapfs/omo_14_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/ShyGuy.h"
 
@@ -31,8 +30,6 @@ enum {
     MV_ActingPartner    = MapVar(10),
 };
 
-#define NAMESPACE omo_14
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

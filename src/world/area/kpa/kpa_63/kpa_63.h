@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_63_shape.h"
-#include "mapfs/kpa_63_hit.h"
+#include "map.xml.h"
 
 enum {
     MV_Starship_PosY    = MapVar(10),
@@ -18,11 +17,9 @@ enum {
     MV_PartnerOnBoard   = MapVar(13),
 };
 
-#define NAMESPACE kpa_63
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Starship_Arrive);
-extern EvtScript N(EVS_Starship_Depart);
-extern EvtScript N(EVS_SetupStarship);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Starship_Arrive;
+extern EvtScript EVS_Starship_Depart;
+extern EvtScript EVS_SetupStarship;
+extern EvtScript EVS_MakeEntities;

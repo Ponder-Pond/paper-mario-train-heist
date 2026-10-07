@@ -8,11 +8,8 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_18_shape.h"
-#include "mapfs/jan_18_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE jan_18
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;

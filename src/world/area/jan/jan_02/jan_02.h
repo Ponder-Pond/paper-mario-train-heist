@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_02_shape.h"
-#include "mapfs/jan_02_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldSushie.h"
 
@@ -22,10 +21,8 @@ enum {
     NPC_ChuckQuizmo         = 5,
 };
 
-#define NAMESPACE jan_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupFoliage);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupFoliage;
+extern NpcGroupList DefaultNPCs;

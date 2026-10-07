@@ -1,4 +1,5 @@
 #include "common.h"
+#include "dx/boot.h"
 #include "ld_addrs.h"
 #include "npc.h"
 #include "hud_element.h"
@@ -12,24 +13,23 @@
 #define ASSET_TABLE_HEADER_SIZE 0x20
 #define ASSET_TABLE_FIRST_ENTRY (mapfs_ROM_START + ASSET_TABLE_HEADER_SIZE)
 
-BSS const char* gMapId;
+BSS const char* wMapName;
 BSS MapSettings gMapSettings;
 
-char wMapHitName[0x18];
-char wMapShapeName[0x18];
-char wMapTexName[0x18];
-char wMapBgName[0x14];
+char wMapHitName[ASSET_NAME_MAX];
+char wMapShapeName[ASSET_NAME_MAX];
+char wMapTexName[ASSET_NAME_MAX];
+char wMapBgName[ASSET_NAME_MAX];
 
 s32 WorldReverbModeMapping[] = { 0, 1, 2, 3 };
 
 typedef struct {
-    /* 0x00 */ char name[16];
-    /* 0x10 */ u32 offset;
-    /* 0x14 */ u32 compressedLength;
-    /* 0x18 */ u32 decompressedLength;
-} AssetHeader; // size = 0x1C
+    /* 0x00 */ char name[ASSET_NAME_MAX];
+    /* 0x20 */ u32 offset;
+    /* 0x24 */ u32 compressedLength;
+    /* 0x28 */ u32 decompressedLength;
+} AssetHeader; // size = 0x2C
 
-void fio_deserialize_state(void);
 void load_map_hit_asset(void);
 
 #if defined(SHIFT) || VERSION_IQUE
@@ -44,7 +44,7 @@ void load_map_script_lib(void) {
 
 void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     s32 skipLoadingAssets = 0;
-    const char* mapId;
+    const char* mapName;
     u32 decompressedSize;
 
     ovl_unload_type(OVL_MAP);
@@ -77,10 +77,14 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
             break;
         case LOAD_FROM_FILE_SELECT:
             fio_deserialize_state();
+            gGameStatusPtr->loadType = LOAD_FROM_FILE_SELECT;
+            if (dx_boot_use_entrance()) {
+                // the map's scripts place the player at the entrance as for any other map change
+                gGameStatusPtr->loadType = LOAD_FROM_MAP;
+            }
             areaID = gGameStatusPtr->areaID;
             mapID = gGameStatusPtr->mapID;
             gGameStatusPtr->prevArea = areaID;
-            gGameStatusPtr->loadType = LOAD_FROM_FILE_SELECT;
             break;
     }
 
@@ -88,26 +92,20 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
 
     ASSERT_MSG(gAreas[areaID].maps != nullptr, "Invalid area ID %d", areaID);
     ASSERT_MSG(mapID < gAreas[areaID].mapCount, "Invalid map ID %d in %s", mapID, gAreas[areaID].id);
-    mapId = gAreas[areaID].maps[mapID];
+    mapName = gAreas[areaID].maps[mapID];
 
     #if DX_DEBUG_MENU
-    dx_debug_set_map_info(mapId, gGameStatus.entryID);
+    dx_debug_set_map_info(mapName, gGameStatus.entryID);
     #endif
 
-    sprintf(wMapShapeName, "%s_shape", mapId);
-    sprintf(wMapHitName, "%s_hit", mapId);
+    use_map_geometry(mapName);
 
-    gMapId = mapId;
+    wMapName = mapName;
     load_map_script_lib();
 
-    Overlay* ovl = ovl_load(mapId, OVL_MAP);
+    Overlay* ovl = ovl_load(mapName, OVL_MAP);
     MapSettings* settings = ovl_import(ovl, "settings");
-    if (settings == nullptr) { // TODO: don't use NAMESPACE in maps
-        char symSettings[32];
-        sprintf(symSettings, "%s_settings", mapId);
-        settings = ovl_import(ovl, symSettings);
-    }
-    ASSERT_MSG(settings != nullptr, "Map '%s' does not export 'settings'", mapId);
+    ASSERT_MSG(settings != nullptr, "Map '%s' does not export 'settings'", mapName);
     gMapSettings = *settings;
 
     if (gMapSettings.textureArchive != nullptr) {
@@ -121,11 +119,6 @@ void load_map_by_IDs(s16 areaID, s16 mapID, s16 loadType) {
     }
 
     s32 (*init)(void) = ovl_import(ovl, "map_init");
-    if (init == nullptr) { // TODO: don't use NAMESPACE in maps
-        char symInit[32];
-        sprintf(symInit, "%s_map_init", mapId);
-        init = ovl_import(ovl, symInit);
-    }
     if (init != nullptr) {
         skipLoadingAssets = init();
     }
@@ -263,6 +256,13 @@ NODISCARD b32 get_map_IDs_by_hash(u32 hash, s16* areaID, s16* mapID) {
     return false;
 }
 
+// named as tools/build/configure.py names a map's geometry
+void use_map_geometry(const char* mapName) {
+    ASSERT_MSG(strlen("w__shape") + strlen(mapName) < ASSET_NAME_MAX, "Map name '%.64s' is too long", mapName);
+    sprintf(wMapShapeName, "w_%s_shape", mapName);
+    sprintf(wMapHitName, "w_%s_hit", mapName);
+}
+
 void get_map_IDs_by_name_checked(const char* mapName, s16* areaID, s16* mapID) {
     ASSERT_MSG(get_map_IDs_by_name(mapName, areaID, mapID), "Map not found: %s", mapName);
 }
@@ -289,7 +289,7 @@ void* load_asset_by_name(const char* assetName, u32* decompressedSize) {
     return ret;
 }
 
-s32 get_asset_offset(char* assetName, u32* compressedSize) {
+s32 get_asset_offset(const char* assetName, u32* compressedSize) {
     AssetHeader firstHeader;
     AssetHeader* assetTableBuffer;
     AssetHeader* curAsset;

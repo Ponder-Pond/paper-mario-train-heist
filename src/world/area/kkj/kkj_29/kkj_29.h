@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_29_shape.h"
-#include "mapfs/kkj_29_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldKoopatrol.h"
 #include "sprite/npc/WorldBowser.h"
@@ -23,11 +22,9 @@ enum {
     NPC_HammerBros      = 3,
 };
 
-#define NAMESPACE kkj_29
+extern EvtScript EVS_Main;
+extern EvtScript EVS_ManageStageEffects;
+extern EvtScript EVS_ManageQuizGame;
+extern EvtScript EVS_EndPeachChapter5;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_ManageStageEffects);
-extern EvtScript N(EVS_ManageQuizGame);
-extern EvtScript N(EVS_EndPeachChapter5);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

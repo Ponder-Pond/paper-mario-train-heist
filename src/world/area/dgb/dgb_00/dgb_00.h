@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../dgb.h"
-#include "mapfs/arn_20_shape.h"
-#include "mapfs/arn_20_hit.h"
+#include "world/area/arn/arn_20/map.xml.h"
 
 #include "sprite/npc/WorldGoombario.h"
 #include "sprite/npc/WorldKooper.h"
@@ -31,15 +30,13 @@ enum {
     MV_PreventTaunting  = MapVar(0),
 };
 
-#define NAMESPACE dgb_00
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_ThrownOutBySentinel);
-extern EvtScript N(EVS_Scene_BoosApproachManor);
-extern EvtScript N(EVS_Scene_EscapeFromTubba);
-extern EvtScript N(EVS_SetBoosBracingDoor);
-extern EvtScript N(EVS_TubbaTaunting);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
-extern NpcGroupList N(BooNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_ThrownOutBySentinel;
+extern EvtScript EVS_Scene_BoosApproachManor;
+extern EvtScript EVS_Scene_EscapeFromTubba;
+extern EvtScript EVS_SetBoosBracingDoor;
+extern EvtScript EVS_TubbaTaunting;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;
+extern NpcGroupList BooNPCs;

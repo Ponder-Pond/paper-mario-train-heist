@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_00_shape.h"
-#include "mapfs/kmr_00_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldKalmar.h"
 #include "sprite/npc/WorldMamar.h"
@@ -36,10 +35,8 @@ enum {
     MV_SpiritArrivalCount       = MapVar(2),
 };
 
-#define NAMESPACE kmr_00
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_Scene_MarioRevived);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_Scene_MarioRevived;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_50_shape.h"
-#include "mapfs/kpa_50_hit.h"
+#include "world/area/kpa/kpa_50/map.xml.h"
 
 #include "sprite/npc/Duplighost.h"
 
@@ -19,10 +18,8 @@ enum {
     NPC_Duplighost      = 2,
 };
 
-#define NAMESPACE kpa_53
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_ExitDoors_kpa_83_0);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_ExitDoors_kpa_83_0;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

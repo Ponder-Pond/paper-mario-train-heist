@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../flo.h"
-#include "mapfs/flo_15_shape.h"
-#include "mapfs/flo_15_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Sun.h"
 
@@ -18,11 +17,9 @@ enum {
     NPC_Sun_02                  = 11,
 };
 
-#define NAMESPACE flo_15
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_MonitorFallingStairs);
-extern EvtScript N(EVS_Scene_SunReturns);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_MonitorFallingStairs;
+extern EvtScript EVS_Scene_SunReturns;
+extern NpcGroupList DefaultNPCs;

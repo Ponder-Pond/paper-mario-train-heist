@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_14_shape.h"
-#include "mapfs/jan_14_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_JungleFuzzy_01  = 0,
@@ -21,9 +20,7 @@ enum {
     MV_BushOffsetR      = MapVar(1),
 };
 
-#define NAMESPACE jan_14
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupVines);
-extern EvtScript N(EVS_SetupTrees);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupVines;
+extern EvtScript EVS_SetupTrees;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../end.h"
-#include "mapfs/end_01_shape.h"
-#include "mapfs/end_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/BattleEldstar.h"
 #include "sprite/npc/BattleMamar.h"
@@ -126,10 +125,8 @@ enum {
     PARADE_PHASE_EXIT           = -330,
 };
 
-#define NAMESPACE end_01
+extern EvtScript EVS_Main;
+extern EvtScript EVS_ManageParade;
+extern EvtScript EVS_OffsetNpcScroll;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_ManageParade);
-extern EvtScript N(EVS_OffsetNpcScroll);
-
-API_CALLABLE(N(AddScrollToNpcPos));
+API_CALLABLE(AddScrollToNpcPos);

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_03_shape.h"
-#include "mapfs/kpa_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/BuzzyBeetle.h"
 #include "sprite/npc/Magikoopa.h"
@@ -29,9 +28,7 @@ enum {
     MV_PlayerHeightLevel    = MapVar(0),
 };
 
-#define NAMESPACE kpa_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_01_shape.h"
-#include "mapfs/jan_01_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Kolorado        = 0,
@@ -23,10 +22,8 @@ enum {
     AF_JAN01_TreeDrop_StarPiece = MapFlag(10),
 };
 
-#define NAMESPACE jan_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupFoliage);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupFoliage;
+extern NpcGroupList DefaultNPCs;

@@ -1,106 +1,66 @@
 #include "common.h"
 #include "ld_addrs.h"
 #include "battle/battle.h"
-#include "battle/battle_tables.h"
 #include "hud_element.h"
 #include "sprite.h"
 #include "game_modes.h"
 #include "battle/states/states.h"
+#include "dx/overlay.h"
+#include "dx/boot.h"
 
-BSS StageListRow* gCurrentStagePtr;
 BSS s32 gBattleState;
 BSS BattleStatus gBattleStatus;
 BSS s32 gLastDrawBattleState;
 BSS s32 gDefeatedBattleSubstate;
 BSS s32 gBattleSubState;
 BSS s32 gDefeatedBattleState;
-BSS s32 gCurrentBattleID;
-BSS s32 gCurrentStageID;
+// Own these strings across world teardown and temporary debug previews.
+char gCurrentBattleName[BATTLE_REF_MAX];
+char gCurrentStageName[BATTLE_KEY_MAX];
 BSS Battle* gOverrideBattlePtr;
 BSS Battle* gCurrentBattlePtr;
 
-// standard battle area table entry
-#define BTL_AREA(id, debugName) { \
-    .name = debugName, \
-    .dmaStart = battle_area_##id##_ROM_START, \
-    .dmaEnd = battle_area_##id##_ROM_END, \
-    .dmaDest = battle_area_##id##_VRAM, \
-    .battles = &b_area_##id##_Formations, \
-    .stages = &b_area_##id##_Stages, \
-} \
+// Kept in resident code: the battle segment's BSS is not cleared on DMA load.
+static Overlay* LoadedBattleStageOverlay;
+static Overlay* LoadedBattleAreaOverlay;
+static const BattleArea* LoadedBattleArea;
 
-// extended battle area with a dmaTable, used by kzn2 for lava piranha animations
-#define BTL_AREA_DMA(id, jpName) { \
-    .name = jpName, \
-    .dmaStart = battle_area_##id##_ROM_START, \
-    .dmaEnd = battle_area_##id##_ROM_END, \
-    .dmaDest = battle_area_##id##_VRAM, \
-    .battles = &b_area_##id##_Formations, \
-    .stages = &b_area_##id##_Stages, \
-    .dmaTable = b_area_##id##_dmaTable, \
-} \
+char gBattleStageShapeName[ASSET_NAME_MAX];
+char gBattleStageHitName[ASSET_NAME_MAX];
 
-// auxiliary battle area for omo which contains only additional enemy data
-#define BTL_AREA_AUX(id, jpName) { \
-    .name = jpName, \
-    .dmaStart = battle_area_##id##_ROM_START, \
-    .dmaEnd = battle_area_##id##_ROM_END, \
-    .dmaDest = battle_area_##id##_VRAM, \
-} \
+Stage* load_battle_stage(const char* ref) {
+    char overlayName[ACTOR_KEY_MAX];
+    char exportName[sizeof(BATTLE_STAGE_EXPORT_NAME) + ACTOR_KEY_MAX];
+    const char* variant;
+    Stage* stage;
 
-/// When updating this, make sure you also update:
-/// - the length of gBattleAreas in battle.h
-/// - BattleAreaIDs in battle_names.h
-/// - FormationNames in battle_names.h
-/// - battle_tables.h
-BattleArea gBattleAreas[] = {
-    [BTL_AREA_KMR_1]    BTL_AREA(kmr_part_1, "KMR Part 1"),
-    [BTL_AREA_KMR_2]    BTL_AREA(kmr_part_2, "エリア ＫＭＲ その２"),
-    [BTL_AREA_KMR_3]    BTL_AREA(kmr_part_3, "エリア ＫＭＲ その３"),
-    [BTL_AREA_MAC]      BTL_AREA(mac, "エリア ＭＡＣ"),
-    [BTL_AREA_HOS]      BTL_AREA(hos, "エリア ＨＯＳ"),
-    [BTL_AREA_NOK]      BTL_AREA(nok, "エリア ＮＯＫ"),
-    [BTL_AREA_TRD_1]    BTL_AREA(trd_part_1, "エリア ＴＲＤ その１"),
-    [BTL_AREA_TRD_2]    BTL_AREA(trd_part_2, "エリア ＴＲＤ その２"),
-    [BTL_AREA_TRD_3]    BTL_AREA(trd_part_3, "エリア ＴＲＤ その３"),
-    [BTL_AREA_IWA]      BTL_AREA(iwa, "エリア ＩＷＡ"),
-    [BTL_AREA_SBK]      BTL_AREA(sbk, "エリア ＳＢＫ"),
-    [BTL_AREA_ISK_1]    BTL_AREA(isk_part_1, "エリア ＩＳＫ その１"),
-    [BTL_AREA_ISK_2]    BTL_AREA(isk_part_2, "エリア ＩＳＫ その２"),
-    [BTL_AREA_MIM]      BTL_AREA(mim, "エリア ＭＩＭ"),
-    [BTL_AREA_ARN]      BTL_AREA(arn, "エリア ＡＲＮ"),
-    [BTL_AREA_DGB]      BTL_AREA(dgb, "エリア ＤＧＢ"),
-    [BTL_AREA_OMO]      BTL_AREA(omo, "エリア ＯＭＯ"),
-    [BTL_AREA_OMO2]     BTL_AREA(omo2, "エリア ＯＭＯ２"),
-    [BTL_AREA_OMO3]     BTL_AREA(omo3, "エリア ＯＭＯ３"),
-    [BTL_AREA_KGR]      BTL_AREA(kgr, "エリア ＫＧＲ"),
-    [BTL_AREA_JAN]      BTL_AREA(jan, "エリア ＪＡＮ"),
-    [BTL_AREA_JAN2]     BTL_AREA(jan2, "エリア ＪＡＮ２"),
-    [BTL_AREA_KZN]      BTL_AREA(kzn, "エリア ＫＺＮ"),
-    [BTL_AREA_KZN2]     BTL_AREA_DMA(kzn2, "エリア ＫＺＮ２"),
-    [BTL_AREA_FLO]      BTL_AREA(flo, "エリア ＦＬＯ"),
-    [BTL_AREA_FLO2]     BTL_AREA(flo2, "エリア ＦＬＯ２"),
-    [BTL_AREA_TIK]      BTL_AREA(tik, "エリア ＴＩＫ"),
-    [BTL_AREA_TIK2]     BTL_AREA(tik2, "エリア ＴＩＫ２"),
-    [BTL_AREA_TIK3]     BTL_AREA(tik3, "エリア ＴＩＫ３"),
-    [BTL_AREA_SAM]      BTL_AREA(sam, "エリア ＳＡＭ"),
-    [BTL_AREA_SAM2]     BTL_AREA(sam2, "エリア ＳＡＭ２"),
-    [BTL_AREA_PRA]      BTL_AREA(pra, "エリア ＰＲＡ"),
-    [BTL_AREA_PRA2]     BTL_AREA(pra2, "エリア ＰＲＡ２"),
-    [BTL_AREA_PRA3]     BTL_AREA(pra3, "エリア ＰＲＡ３"),
-    [BTL_AREA_KPA]      BTL_AREA(kpa, "エリア ＫＰＡ"),
-    [BTL_AREA_KPA2]     BTL_AREA(kpa2, "エリア ＫＰＡ２"),
-    [BTL_AREA_KPA3]     BTL_AREA(kpa3, "エリア ＫＰＡ３"),
-    [BTL_AREA_KPA4]     BTL_AREA(kpa4, "エリア ＫＰＡ４"),
-    [BTL_AREA_KKJ]      BTL_AREA(kkj, "エリア ＫＫＪ"),
-    [BTL_AREA_DIG]      BTL_AREA(dig, "エリア ＤＩＧ"),
-    [BTL_AREA_OMO2_1]   BTL_AREA_AUX(omo2_1, "エリア ＯＭＯ２＿１"),
-    [BTL_AREA_OMO2_2]   BTL_AREA_AUX(omo2_2, "エリア ＯＭＯ２＿２"),
-    [BTL_AREA_OMO2_3]   BTL_AREA_AUX(omo2_3, "エリア ＯＭＯ２＿３"),
-    [BTL_AREA_OMO2_4]   BTL_AREA_AUX(omo2_4, "エリア ＯＭＯ２＿４"),
-    [BTL_AREA_OMO2_5]   BTL_AREA_AUX(omo2_5, "エリア ＯＭＯ２＿５"),
-    [BTL_AREA_OMO2_6]   BTL_AREA_AUX(omo2_6, "エリア ＯＭＯ２＿６"),
-};
+    ASSERT_MSG(ref != nullptr, "Battle has no stage overlay");
+    variant = split_actor_ref(ref, overlayName);
+    ASSERT_MSG(variant != nullptr, "Invalid stage reference '%s'", ref);
+    ASSERT_MSG(LoadedBattleStageOverlay == nullptr, "Previous battle stage was not unloaded");
+    LoadedBattleStageOverlay = ovl_load(overlayName, OVL_STAGE);
+    if (variant[0] == '\0') {
+        strcpy(exportName, BATTLE_STAGE_EXPORT_NAME);
+    } else {
+        sprintf(exportName, "%s_%s", BATTLE_STAGE_EXPORT_NAME, variant);
+    }
+    stage = ovl_import(LoadedBattleStageOverlay, exportName);
+    ASSERT_MSG(stage != nullptr, "Stage overlay '%s' has no %s export", overlayName, exportName);
+    // named as tools/build/configure.py names a stage's geometry
+    ASSERT_MSG(strlen("b__shape") + strlen(overlayName) < ASSET_NAME_MAX, "Stage name '%s' is too long", overlayName);
+    sprintf(gBattleStageShapeName, "b_%s_shape", overlayName);
+    sprintf(gBattleStageHitName, "b_%s_hit", overlayName);
+    gBattleStatus.curStage = stage;
+    return stage;
+}
+
+void unload_battle_stage(void) {
+    // Stages can also own model graphics callbacks, not just scripts and actors.
+    // Callers wait until the renderer has switched away from battle models.
+    gBattleStatus.curStage = nullptr;
+    ovl_unload(LoadedBattleStageOverlay);
+    LoadedBattleStageOverlay = nullptr;
+}
 
 void reset_battle_status(void) {
     gGameStatusPtr->demoBattleFlags = 0;
@@ -108,40 +68,130 @@ void reset_battle_status(void) {
     gBattleSubState = BTL_SUBSTATE_INIT;
     gLastDrawBattleState = BATTLE_STATE_NONE;
     gCurrentBattlePtr = nullptr;
-    gCurrentBattleID = 0;
-    gCurrentStagePtr = nullptr;
-    gCurrentStageID = 0;
+    gCurrentBattleName[0] = '\0';
+    gCurrentStageName[0] = '\0';
     gOverrideBattlePtr = nullptr;
 }
 
-void load_battle_section(void) {
-    BattleArea* battleArea = &gBattleAreas[UNPACK_BTL_AREA(gCurrentBattleID)];
-    s32 battleIdx = UNPACK_BTL_INDEX(gCurrentBattleID);
+const char* split_actor_ref(const char* ref, char overlay[ACTOR_KEY_MAX]) {
+    const char* separator;
+    const char* variant;
+    const char* p;
+    s32 overlayLength;
 
-    dma_copy(battleArea->dmaStart, battleArea->dmaEnd, battleArea->dmaDest);
-
-    gCurrentBattlePtr = &(*battleArea->battles)[battleIdx];
-
-    if (gCurrentStageID < 0) {
-        gCurrentStagePtr = nullptr;
-    } else {
-        gCurrentStagePtr = &(*battleArea->stages)[gCurrentStageID];
+    if (ref == nullptr) {
+        return nullptr;
     }
+    separator = strchr(ref, ':');
+    overlayLength = separator != nullptr ? separator - ref : strlen(ref);
+    if (overlayLength == 0 || overlayLength >= ACTOR_KEY_MAX) {
+        return nullptr;
+    }
+    for (p = ref; p < ref + overlayLength; p++) {
+        if (!((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z')
+            || (*p >= '0' && *p <= '9') || *p == '_')) {
+            return nullptr;
+        }
+    }
+    variant = ref + overlayLength;
+    if (separator != nullptr) {
+        variant = separator + 1;
+        if (variant[0] == '\0' || strlen(variant) >= ACTOR_KEY_MAX
+            || (variant[0] >= '0' && variant[0] <= '9')) {
+            return nullptr;
+        }
+        for (p = variant; *p != '\0'; p++) {
+            if (!((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z')
+                || (*p >= '0' && *p <= '9') || *p == '_')) {
+                return nullptr;
+            }
+        }
+    }
+    memcpy(overlay, ref, overlayLength);
+    overlay[overlayLength] = '\0';
+    return variant;
+}
+
+const char* split_battle_ref(const char* ref, char area[BATTLE_KEY_MAX]) {
+    const char* separator;
+    const char* p;
+    s32 areaLength;
+
+    if (ref == nullptr || (separator = strchr(ref, ':')) == nullptr) {
+        return nullptr;
+    }
+    areaLength = separator - ref;
+    if (areaLength == 0 || areaLength >= BATTLE_KEY_MAX
+        || separator[1] == '\0' || strlen(separator + 1) >= BATTLE_KEY_MAX) {
+        return nullptr;
+    }
+    for (p = ref; *p != '\0'; p++) {
+        if (p != separator && !((*p >= 'a' && *p <= 'z')
+            || (*p >= '0' && *p <= '9') || *p == '_')) {
+            return nullptr;
+        }
+    }
+    memcpy(area, ref, areaLength);
+    area[areaLength] = '\0';
+    return separator + 1;
+}
+
+void load_battle_section(void) {
+    char areaName[BATTLE_KEY_MAX];
+    const char* formation = split_battle_ref(gCurrentBattleName, areaName);
+    const BattleArea* battleArea;
+    s32 i;
+
+    ASSERT_MSG(formation != nullptr, "Invalid battle reference '%s'", gCurrentBattleName);
+    ASSERT_MSG(LoadedBattleAreaOverlay == nullptr, "Previous battle area was not unloaded");
+    LoadedBattleAreaOverlay = ovl_load(areaName, OVL_BATTLE_AREA);
+    battleArea = ovl_import(LoadedBattleAreaOverlay, BATTLE_AREA_EXPORT_NAME);
+    ASSERT_MSG(battleArea != nullptr, "Area overlay '%s' has no %s export", areaName, BATTLE_AREA_EXPORT_NAME);
+    LoadedBattleArea = battleArea;
+    formation = dx_boot_resolve_battle(battleArea, formation);
+    gCurrentBattlePtr = nullptr;
+    for (i = 0; i < battleArea->battleCount; i++) {
+        Battle* battle = &(*battleArea->battles)[i];
+        if (strcmp(battle->name, formation) == 0) {
+            ASSERT_MSG(gCurrentBattlePtr == nullptr, "Duplicate battle '%s'", gCurrentBattleName);
+            gCurrentBattlePtr = battle;
+        }
+    }
+    ASSERT_MSG(gCurrentBattlePtr != nullptr, "Unknown battle '%s'", gCurrentBattleName);
 
     btl_set_state(BATTLE_STATE_START);
     gLastDrawBattleState = BATTLE_STATE_NONE;
 }
 
-void load_battle(s32 battleID) {
-    gCurrentBattleID = battleID;
+const BattleArea* get_loaded_battle_area(void) {
+    return LoadedBattleArea;
+}
+
+void unload_battle_area(void) {
+    gCurrentBattlePtr = nullptr;
+    gOverrideBattlePtr = nullptr;
+    LoadedBattleArea = nullptr;
+    ovl_unload(LoadedBattleAreaOverlay);
+    LoadedBattleAreaOverlay = nullptr;
+}
+
+void load_battle(const char* battle, const char* stage) {
+    char area[BATTLE_KEY_MAX];
+
+    ASSERT_MSG(split_battle_ref(battle, area) != nullptr, "Invalid battle reference");
+    ASSERT_MSG(stage == nullptr || (stage[0] != '\0' && strlen(stage) < BATTLE_KEY_MAX),
+               "Invalid stage override");
+    // memmove also permits restarting the current battle using these buffers.
+    memmove(gCurrentBattleName, battle, strlen(battle) + 1);
+    if (stage != nullptr) {
+        memmove(gCurrentStageName, stage, strlen(stage) + 1);
+    } else {
+        gCurrentStageName[0] = '\0';
+    }
     set_game_mode(GAME_MODE_BATTLE);
     gBattleState = BATTLE_STATE_NONE;
     gLastDrawBattleState = BATTLE_STATE_NONE;
     gBattleSubState = BTL_SUBSTATE_INIT;
-}
-
-void set_battle_stage(s32 stageID) {
-    gCurrentStageID = stageID;
 }
 
 void set_battle_formation(Battle* battle) {
@@ -196,7 +246,7 @@ void setup_demo_player(void) {
 void load_demo_battle(u32 index) {
     PlayerData* playerData = &gPlayerData;
     u32 mode;
-    s32 battleID;
+    const char* battle;
 
     gGameStatusPtr->demoBattleFlags = 0;
     gGameStatusPtr->areaID = 0;
@@ -234,38 +284,38 @@ void load_demo_battle(u32 index) {
             setup_demo_player();
             mode = 0;
             playerData->hasActionCommands = false;
-            battleID = BTL_DIG_FORMATION_00;
+            battle = "dig:demo_01";
             break;
         case 1: // jump on Monty Mole
             setup_demo_player();
             mode = 0;
             playerData->curPartner = PARTNER_BOW;
-            battleID = BTL_DIG_FORMATION_01;
+            battle = "dig:demo_02";
             break;
         case 2: // Parakarry shell shot against Pokey
             setup_demo_player();
             mode = 0;
             playerData->curPartner = PARTNER_PARAKARRY;
             gGameStatusPtr->demoBattleFlags |= DEMO_BTL_FLAG_PARTNER_ACTING;
-            battleID = BTL_DIG_FORMATION_02;
+            battle = "dig:demo_03";
             break;
         case 3: // Thunder Rage on Shy Guys at the slot machine
             setup_demo_player();
             mode = 0;
             playerData->curPartner = PARTNER_WATT;
-            battleID = BTL_DIG_FORMATION_03;
+            battle = "dig:demo_04";
             break;
         case 4: // stomped by Tubba Blubba
             setup_demo_player();
             mode = 0;
             playerData->curPartner = PARTNER_KOOPER;
             gGameStatusPtr->demoBattleFlags |= DEMO_BTL_FLAG_ENEMY_ACTING;
-            battleID = BTL_DIG_FORMATION_04;
+            battle = "dig:demo_05";
             break;
         default:
             setup_demo_player();
             mode = 2;
-            battleID = BTL_DIG_FORMATION_00;
+            battle = "dig:demo_01";
     }
 
     gGameStatusPtr->debugEnemyContact = DEBUG_CONTACT_NONE;
@@ -308,8 +358,7 @@ void load_demo_battle(u32 index) {
     evt_set_variable(nullptr, GF_Tutorial_SwapTurnOrder, true);
     gCurrentEncounter.unk_07 = 0;
     gCurrentEncounter.instigatorValue = 0;
-    set_battle_stage(BTL_STAGE_DEFAULT);
     gGameStatusPtr->demoBattleFlags |= DEMO_BTL_FLAG_ENABLED;
     gOverrideFlags &= ~GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME;
-    load_battle(battleID);
+    load_battle(battle, nullptr);
 }

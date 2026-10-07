@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../pra.h"
-#include "mapfs/pra_01_shape.h"
-#include "mapfs/pra_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldKalmar.h"
 
@@ -17,9 +16,7 @@ enum {
     NPC_Kalmar      = 0,
 };
 
-#define NAMESPACE pra_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

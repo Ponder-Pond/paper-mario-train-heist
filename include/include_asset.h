@@ -15,15 +15,16 @@
     extern unsigned char SYMBOLNAME[]; \
     __asm__( \
         ".globl " #SYMBOLNAME"\n" \
+        ".hidden " #SYMBOLNAME"\n" \
         PUSHSECTION(".data") \
         ".align 3\n" \
         ".type " #SYMBOLNAME", @object\n" \
         #SYMBOLNAME":\n" \
-        ".incbin \"ver/"ASTRINGIFY(VERSION)"/build/" FILENAME ".bin\"\n" \
+        ".incbin \"ver/" ASTRINGIFY(VERSION) "/build/" FILENAME ".bin\"\n" \
         POPSECTION \
     )
 
-// two macros are needed for N() usage
+// Expand macro arguments before stringifying the symbol name.
 #define INCLUDE_IMG(FILENAME, SYMBOLNAME) \
     _INCLUDE_IMG(FILENAME, SYMBOLNAME)
 
@@ -31,11 +32,12 @@
     extern unsigned short SYMBOLNAME[]; \
     __asm__( \
         ".globl " #SYMBOLNAME"\n" \
+        ".hidden " #SYMBOLNAME"\n" \
         PUSHSECTION(".data") \
         ".align 3\n" \
         ".type " #SYMBOLNAME", @object\n" \
         #SYMBOLNAME":\n" \
-        ".incbin \"ver/"ASTRINGIFY(VERSION)"/build/" FILENAME ".bin\"\n" \
+        ".incbin \"ver/" ASTRINGIFY(VERSION) "/build/" FILENAME ".bin\"\n" \
         POPSECTION \
     )
 
@@ -43,10 +45,11 @@
     extern unsigned char SYMBOLNAME[]; \
     __asm__( \
         ".globl " #SYMBOLNAME"\n" \
+        ".hidden " #SYMBOLNAME"\n" \
         PUSHSECTION(".data") \
         ".align 3\n" \
         ".type " #SYMBOLNAME", @object\n" \
         #SYMBOLNAME":\n" \
-        ".incbin \"ver/"ASTRINGIFY(VERSION)"/build/assets/"ASTRINGIFY(VERSION)"/" FILENAME "\"\n" \
+        ".incbin \"ver/" ASTRINGIFY(VERSION) "/build/assets/" ASTRINGIFY(VERSION) "/" FILENAME "\"\n" \
         POPSECTION \
     )

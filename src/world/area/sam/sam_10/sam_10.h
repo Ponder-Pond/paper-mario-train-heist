@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_10_shape.h"
-#include "mapfs/sam_10_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_FrostClubba         = 0,
@@ -20,10 +19,8 @@ enum {
     MV_StarStoneItemID  = MapVar(0),
 };
 
-#define NAMESPACE sam_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupStairs);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupStairs;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

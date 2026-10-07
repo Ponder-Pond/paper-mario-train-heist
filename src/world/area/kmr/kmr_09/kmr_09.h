@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_09_shape.h"
-#include "mapfs/kmr_09_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Goomba_01               = 0,
@@ -18,10 +17,8 @@ enum {
     NPC_Paragoomba              = 3,
 };
 
-#define NAMESPACE kmr_09
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_OnReadBillboard);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_OnReadBillboard;
+extern NpcGroupList DefaultNPCs;

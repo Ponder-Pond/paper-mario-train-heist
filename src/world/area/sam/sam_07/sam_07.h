@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_07_shape.h"
-#include "mapfs/sam_07_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Gulpit.h"
 #include "sprite/npc/LargePiranha.h"
@@ -27,11 +26,9 @@ enum {
     MV_SwitchEntityID       = MapVar(0),
 };
 
-#define NAMESPACE sam_07
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupPit);
-extern EvtScript N(EVS_UseGreenSwitch);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupPit;
+extern EvtScript EVS_UseGreenSwitch;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

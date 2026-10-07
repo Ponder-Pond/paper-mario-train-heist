@@ -30,16 +30,6 @@
 #define EXTERN_C extern
 #endif
 
-#define NAME_PREFIX
-#ifdef _LANGUAGE_C_PLUS_PLUS
-// use C++ namespaces instead of these macros!
-#define A(sym) sym
-#define N(sym) sym
-#else
-#define A(sym) NS(AREA, NAME_PREFIX, sym, )
-#define N(sym) NS(NAMESPACE, NAME_PREFIX, sym, )
-#endif
-
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 
 #define _PAD_CONCAT_INNER(a, b) a ## b
@@ -168,9 +158,6 @@ typedef s32 Difficulty2D[AC_DIFFICULTY_LEN][2];
 #define BATTLE_NPC_ID_BIT 0x800
 #define BATTLE_ENTITY_ID_BIT 0x800
 
-#define UNPACK_BTL_AREA(battleID) (((battleID) >> 8) & 0xFF)
-#define UNPACK_BTL_INDEX(battleID) ((battleID) & 0xFF)
-
 #define COLLISION_WITH_NPC_BIT 0x2000
 #define COLLISION_WITH_ENTITY_BIT 0x4000
 
@@ -196,8 +183,6 @@ typedef s32 Difficulty2D[AC_DIFFICULTY_LEN][2];
 /// X.10 fixed-point literal
 #define X10(f) (s32)(f * 1024.0f)
 
-#define _NS(w, x, y, z) w ## _ ## x ## y ## z
-#define NS(w, x, y, z) _NS(w, x, y, z)
 
 #define ASCII_TO_U32(a, b, c, d) ((u32)((a << 24) | (b << 16) | (c << 8) | (d << 0)))
 
@@ -534,7 +519,8 @@ typedef s32 Difficulty2D[AC_DIFFICULTY_LEN][2];
 #define NODISCARD
 #endif
 
-// Mark a symbol as exported from an overlay, making it visible to ovl_import.
+/// Marks a symbol as exported from an overlay, making it visible to ovl_import by its unqualified name,
+/// without any C++ namespaces.
 #define export __attribute__((visibility("default")))
 
 // Avoid compiler warnings for unused variables.

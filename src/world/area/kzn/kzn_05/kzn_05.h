@@ -8,9 +8,6 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_05_shape.h"
-#include "mapfs/kzn_05_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE kzn_05
-
-extern EvtScript N(EVS_Main);
+extern EvtScript EVS_Main;

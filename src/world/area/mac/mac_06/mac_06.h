@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mac.h"
-#include "mapfs/mac_06_shape.h"
-#include "mapfs/mac_06_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Kolorado.h"
 #include "sprite/npc/JrTroopa.h"
@@ -20,10 +19,8 @@ enum {
     NPC_JrTroopa        = 3,
 };
 
-#define NAMESPACE mac_06
+extern EvtScript EVS_Main;
+extern EvtScript EVS_FlyingGull;
+extern EvtScript EVS_SetupWhale;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_FlyingGull);
-extern EvtScript N(EVS_SetupWhale);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

@@ -8,15 +8,12 @@
 #include "map.h"
 
 #include "../flo.h"
-#include "mapfs/flo_24_shape.h"
-#include "mapfs/flo_24_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE flo_24
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_SetupWater);
-extern EvtScript N(EVS_Scene_FillWithWater);
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_SetupWater;
+extern EvtScript EVS_Scene_FillWithWater;

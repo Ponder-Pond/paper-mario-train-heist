@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_06_shape.h"
-#include "mapfs/jan_06_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_JungleFuzzy         = 0,
@@ -29,13 +28,11 @@ enum {
     MF_KillLogShadow    = MapFlag(11),
 };
 
-#define NAMESPACE jan_06
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupStatue;
+extern EvtScript EVS_SetupTrees;
+extern EvtScript EVS_SetupBushes;
+extern EvtScript EVS_SetupLogs;
+extern EvtScript EVS_MakeEntities;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupStatue);
-extern EvtScript N(EVS_SetupTrees);
-extern EvtScript N(EVS_SetupBushes);
-extern EvtScript N(EVS_SetupLogs);
-extern EvtScript N(EVS_MakeEntities);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

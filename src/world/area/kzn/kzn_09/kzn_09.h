@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_09_shape.h"
-#include "mapfs/kzn_09_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Kolorado                = 0,
@@ -28,10 +27,8 @@ enum {
     MF_Zipline_GoingUp          = MapFlag(11),
 };
 
-#define NAMESPACE kzn_09
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupZipline);
-extern EvtScript N(EVS_SyncZiplineDummyNPC);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupZipline;
+extern EvtScript EVS_SyncZiplineDummyNPC;
+extern NpcGroupList DefaultNPCs;

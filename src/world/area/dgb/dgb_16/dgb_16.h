@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../dgb.h"
-#include "mapfs/dgb_16_shape.h"
-#include "mapfs/dgb_16_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Clubba_01               = 0,
@@ -26,9 +25,7 @@ enum {
     NPC_Clubba_06_Hitbox        = 26,
 };
 
-#define NAMESPACE dgb_16
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

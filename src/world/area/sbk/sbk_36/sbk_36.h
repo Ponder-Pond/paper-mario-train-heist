@@ -8,11 +8,8 @@
 #include "map.h"
 
 #include "../sbk.h"
-#include "mapfs/sbk_36_shape.h"
-#include "mapfs/sbk_36_hit.h"
+#include "map.xml.h"
 
 enum {
     MF_TreeDrop_Letter  = MapFlag(10),
 };
-
-#define NAMESPACE sbk_36

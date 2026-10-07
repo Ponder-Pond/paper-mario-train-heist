@@ -11,8 +11,6 @@ BSS ActorPart* gSpeakingActorPart;
 
 #define ACTOR_TYPE_LIST_END 0xFF
 
-u8* gBattleDmaDest = nullptr;
-
 u8 ActorTypesGhost[] = {
     ACTOR_TYPE_DUPLIGHOST,
     ACTOR_TYPE_GHOST_GOOMBARIO,
@@ -301,29 +299,6 @@ API_CALLABLE(EnableBattleStatusBar) {
     } else {
         increment_status_bar_disabled();
     }
-    return ApiStatus_DONE2;
-}
-
-API_CALLABLE(OverrideBattleDmaDest) {
-    gBattleDmaDest = (u8*) evt_get_variable(script, *script->ptrReadPos);
-    return ApiStatus_DONE2;
-}
-
-API_CALLABLE(LoadBattleDmaData) {
-    s32 dmaIndex = evt_get_variable(script, *script->ptrReadPos);
-    BattleArea* battleArea = &gBattleAreas[UNPACK_BTL_AREA(gCurrentBattleID)];
-    DmaTable* dmaEntry = &battleArea->dmaTable[dmaIndex];
-
-    if (dmaEntry == nullptr) {
-        return ApiStatus_DONE2;
-    }
-
-    if (gBattleDmaDest == nullptr) {
-        dma_copy(dmaEntry->start, dmaEntry->end, dmaEntry->dest);
-    } else {
-        dma_copy(dmaEntry->start, dmaEntry->end, gBattleDmaDest);
-    }
-
     return ApiStatus_DONE2;
 }
 

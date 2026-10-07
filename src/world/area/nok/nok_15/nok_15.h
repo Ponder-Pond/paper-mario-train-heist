@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../nok.h"
-#include "mapfs/nok_15_shape.h"
-#include "mapfs/nok_15_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_KoopaTroopa             = 0,
@@ -20,10 +19,8 @@ enum {
     MF_TreeDrop_StarPiece   = MapFlag(10),
 };
 
-#define NAMESPACE nok_15
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

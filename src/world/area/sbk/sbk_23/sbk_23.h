@@ -8,7 +8,4 @@
 #include "map.h"
 
 #include "../sbk.h"
-#include "mapfs/sbk_23_shape.h"
-#include "mapfs/sbk_23_hit.h"
-
-#define NAMESPACE sbk_23
+#include "map.xml.h"

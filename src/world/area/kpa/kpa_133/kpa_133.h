@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_133_shape.h"
-#include "mapfs/kpa_133_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Dummy   = 0,
@@ -20,11 +19,9 @@ enum {
     MV_RevealHiddenSpring   = MapVar(1),
 };
 
-#define NAMESPACE kpa_133
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetWaterLevel);
-extern EvtScript N(EVS_OnHitSwitch);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetWaterLevel;
+extern EvtScript EVS_OnHitSwitch;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

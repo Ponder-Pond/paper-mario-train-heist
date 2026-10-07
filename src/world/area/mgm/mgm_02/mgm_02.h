@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mgm.h"
-#include "mapfs/mgm_02_shape.h"
-#include "mapfs/mgm_02_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toad.h"
 #include "sprite/npc/Fuzzy.h"
@@ -40,13 +39,11 @@ enum {
     NPC_Luigi_10                = 109,
 };
 
-#define NAMESPACE mgm_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_Dummy);
-extern EvtScript N(EVS_InitializeMinigame);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_Dummy;
+extern EvtScript EVS_InitializeMinigame;
+extern NpcGroupList DefaultNPCs;
 
 #if VERSION_PAL
-extern s32 N(pal_variable);
+extern s32 pal_variable;
 #endif

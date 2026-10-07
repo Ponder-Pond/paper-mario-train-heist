@@ -8,18 +8,15 @@
 #include "map.h"
 
 #include "../tik.h"
-#include "mapfs/tik_18_shape.h"
-#include "mapfs/tik_18_hit.h"
+#include "world/area/tik/tik_18/map.xml.h"
 
 enum {
     NPC_DarkTroopa_01       = 0,
     NPC_DarkTroopa_02       = 1,
 };
 
-#define NAMESPACE tik_24
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupDrips);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupDrips;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

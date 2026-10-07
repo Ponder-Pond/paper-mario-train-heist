@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../arn.h"
-#include "mapfs/arn_03_shape.h"
-#include "mapfs/arn_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Boo.h"
 #include "sprite/npc/WorldBow.h"
@@ -32,10 +31,8 @@ enum {
     MV_PrankDone        = MapVar(2),
 };
 
-#define NAMESPACE arn_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(BeforeNPCs);
-extern NpcGroupList N(AfterNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList BeforeNPCs;
+extern NpcGroupList AfterNPCs;

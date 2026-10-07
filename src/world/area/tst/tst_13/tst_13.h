@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../tst.h"
-#include "mapfs/tst_13_shape.h"
-#include "mapfs/tst_13_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldBombette.h"
 #include "sprite/npc/WorldParakarry.h"
@@ -20,8 +19,6 @@
 #include "sprite/npc/WorldGoombario.h"
 #include "sprite/npc/WorldKooper.h"
 #include "sprite/npc/Koopa.h"
-
-#define NAMESPACE tst_13
 
 enum {
     NPC_00                      = 0,

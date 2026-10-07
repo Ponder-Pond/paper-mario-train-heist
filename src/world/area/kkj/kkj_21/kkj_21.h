@@ -8,10 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_21_shape.h"
-#include "mapfs/kkj_21_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE kkj_21
-
-extern EvtScript N(EVS_Main);
+extern EvtScript EVS_Main;
 

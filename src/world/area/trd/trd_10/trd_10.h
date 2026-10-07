@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../trd.h"
-#include "mapfs/trd_10_shape.h"
-#include "mapfs/trd_10_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/KoopaBros.h"
 
@@ -23,5 +22,3 @@ enum {
 enum {
     MV_SpiritCardData           = MapVar(1),
 };
-
-#define NAMESPACE trd_10

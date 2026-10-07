@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_23_shape.h"
-#include "mapfs/kkj_23_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldBowser.h"
 #include "sprite/npc/WorldKoopatrol.h"
@@ -26,13 +25,11 @@ enum {
     NPC_Peach           = 2,
 };
 
-#define NAMESPACE kkj_23
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_KammyUnmasksPeach;
+extern EvtScript EVS_BowserTauntMario;
+extern EvtScript EVS_EndPeachChapter6;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_KammyUnmasksPeach);
-extern EvtScript N(EVS_BowserTauntMario);
-extern EvtScript N(EVS_EndPeachChapter6);
-
-extern NpcGroupList N(PeachNPCs);
-extern NpcGroupList N(FinaleNPCs);
+extern NpcGroupList PeachNPCs;
+extern NpcGroupList FinaleNPCs;

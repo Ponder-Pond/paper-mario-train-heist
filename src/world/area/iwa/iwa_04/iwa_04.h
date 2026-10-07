@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_04_shape.h"
-#include "mapfs/iwa_04_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Buzzar.h"
 
@@ -22,9 +21,7 @@ enum {
     MV_PlayerCliffLevel     = MapVar(9),
 };
 
-#define NAMESPACE iwa_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

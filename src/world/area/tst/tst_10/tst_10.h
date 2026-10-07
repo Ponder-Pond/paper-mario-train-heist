@@ -8,7 +8,4 @@
 #include "map.h"
 
 #include "../tst.h"
-#include "mapfs/tst_10_shape.h"
-#include "mapfs/tst_10_hit.h"
-
-#define NAMESPACE tst_10
+#include "map.xml.h"

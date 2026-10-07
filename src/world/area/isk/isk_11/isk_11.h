@@ -8,10 +8,7 @@
 #include "map.h"
 
 #include "../isk.h"
-#include "mapfs/isk_11_shape.h"
-#include "mapfs/isk_11_hit.h"
-
-#define NAMESPACE isk_11
+#include "map.xml.h"
 
 enum {
     MV_LockEntityID             = MapVar(0),
@@ -24,9 +21,9 @@ enum {
     MV_ItemEntity_Socket5       = MapVar(14),
 };
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupPuzzle);
-extern EvtScript N(EVS_ManageSecretPassage);
-extern EvtScript N(EVS_SetupLock);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupPuzzle;
+extern EvtScript EVS_ManageSecretPassage;
+extern EvtScript EVS_SetupLock;
+extern EvtScript EVS_MakeEntities;

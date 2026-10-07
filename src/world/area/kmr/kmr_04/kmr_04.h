@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_04_shape.h"
-#include "mapfs/kmr_04_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Goompa.h"
 #include "sprite/npc/JrTroopa.h"
@@ -29,12 +28,10 @@ enum {
     MF_GotHammerDone    = MapFlag(18),
 };
 
-#define NAMESPACE kmr_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetNormalMusic);
-extern EvtScript N(EVS_SetJrTroopaMusic);
-extern EvtScript N(EVS_PlayUpgradeSong);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetNormalMusic;
+extern EvtScript EVS_SetJrTroopaMusic;
+extern EvtScript EVS_PlayUpgradeSong;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

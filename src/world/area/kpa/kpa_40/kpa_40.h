@@ -8,10 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_40_shape.h"
-#include "mapfs/kpa_40_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE kpa_40
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;

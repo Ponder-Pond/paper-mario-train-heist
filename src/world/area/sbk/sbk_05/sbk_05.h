@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sbk.h"
-#include "mapfs/sbk_05_shape.h"
-#include "mapfs/sbk_05_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Pokey.h"
 
@@ -25,5 +24,3 @@ enum {
     NPC_Pokey_09                = 8,
     NPC_Pokey_10                = 9,
 };
-
-#define NAMESPACE sbk_05

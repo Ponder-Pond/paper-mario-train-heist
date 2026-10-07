@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../osr.h"
-#include "mapfs/osr_00_shape.h"
-#include "mapfs/osr_00_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Luigi                   = 0,
@@ -29,11 +28,9 @@ enum {
     NPC_ToadGuard_02            = 14,
 };
 
-#define NAMESPACE osr_00
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_ShowInvitation);
-extern EvtScript N(EVS_Scene_ApproachParty);
-extern NpcGroupList N(IntroNPCs);
-extern NpcGroupList N(EpilogueNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_ShowInvitation;
+extern EvtScript EVS_Scene_ApproachParty;
+extern NpcGroupList IntroNPCs;
+extern NpcGroupList EpilogueNPCs;

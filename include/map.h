@@ -40,6 +40,9 @@ typedef struct MapSettings {
     /* 0x46 */ PAD(2);
 } MapSettings; // size = 0x48
 
+/// Define the descriptor exported by a map overlay.
+#define OVL_DEF_MAP() export MapSettings settings
+
 typedef struct AreaConfig {
     s32 mapCount;
     const char* const* maps;
@@ -48,10 +51,19 @@ typedef struct AreaConfig {
 
 MapSettings* get_current_map_settings(void);
 
-extern char wMapTexName[];
-extern char wMapHitName[];
-extern char wMapShapeName[];
-extern char wMapBgName[];
+/// The size of a name in the map filesystem, with its terminator, such as w_kmr_02_shape. tools/build/mapfs/combine.py
+/// writes names this size.
+#define ASSET_NAME_MAX 32
+
+extern char wMapTexName[ASSET_NAME_MAX];
+extern char wMapHitName[ASSET_NAME_MAX];
+extern char wMapShapeName[ASSET_NAME_MAX];
+extern char wMapBgName[ASSET_NAME_MAX];
+extern const char* wMapName;
+
+/// Loads the geometry of the map named mapName, such as kmr_02. A map that shares another's geometry calls this
+/// from its map_init.
+void use_map_geometry(const char* mapName);
 
 /// Zero-terminated.
 extern AreaConfig gAreas[];

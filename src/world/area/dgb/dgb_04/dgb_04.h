@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../dgb.h"
-#include "mapfs/dgb_04_shape.h"
-#include "mapfs/dgb_04_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Sentinel    = 0,
@@ -19,9 +18,7 @@ enum {
     MV_SuperBlock   = MapVar(0),
 };
 
-#define NAMESPACE dgb_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

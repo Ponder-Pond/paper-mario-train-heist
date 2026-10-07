@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import hashlib
 import json
 import os
 import re
@@ -20,8 +21,9 @@ if sys.platform == 'win32':
 
 import assets
 from common import layer_relative, star_rod
-import effect_table
 import linker
+from action_data import actions_from_yaml
+from effect_data import effects_from_yaml
 from layout import Layout
 from segments import SegmentMap
 
@@ -30,12 +32,19 @@ from segments import SegmentMap
 # here would leave build.ninja stale after an edit to it.
 CONFIGURE_MODULES = [
     "configure.py",
+    "action_data.py",
     "assets.py",
-    "effect_table.py",
+    "effect_data.py",
     "layout.py",
     "linker.py",
     "raster.py",
     "segments.py",
+]
+
+# These extractors emit C included by multiple independently linked maps.
+COMMON_GRAPHICS_GENERATORS = [
+    Path("tools/splat_ext/gfx_common.py"),
+    Path("tools/splat_ext/vtx_common.py"),
 ]
 
 # Configuration:
@@ -54,6 +63,40 @@ else:
     CRC_TOOL = f"{BUILD_TOOLS}/rom/n64crc"
 
 SOURCE_DIRS = ["src", "include", "assets"]
+
+# Serialized overlay type indices. These must match OverlayType in
+# src/dx/overlay.h.
+OVL_TYPE_EFFECT = 0
+OVL_TYPE_MAP = 1
+OVL_TYPE_ACTION = 2
+OVL_TYPE_PARTNER = 3
+OVL_TYPE_BATTLE_AREA = 4
+OVL_TYPE_STAGE = 5
+OVL_TYPE_ACTOR = 6
+OVL_TYPE_BATTLE_PARTNER = 7
+OVL_TYPE_ACTION_CMD = 8
+OVL_TYPE_BATTLE_SCRIPT = 9
+OVL_TYPE_BATTLE_MENU = 10
+OVL_TYPE_ENTITY = 11
+
+# The size of a name, with its terminator: an overlay's (OVL_NAME_MAX in
+# src/dx/overlay.h) and one in the map filesystem (ASSET_NAME_MAX in
+# include/map.h). A map's or a stage's name has to fit the second as its
+# geometry's, as in w_kmr_02_shape.
+OVL_NAME_MAX = 64
+ASSET_NAME_MAX = 32
+MAP_NAME_MAX = ASSET_NAME_MAX - 1 - len("w__shape")
+
+BATTLE_MENU_SOURCES = (
+    "battle/menus/btl_states_menus.c",
+    "battle/menus/menu_moves.c",
+    "battle/menus/menu_strats.c",
+    "battle/states/menu_player.c",
+    "battle/states/menu_partner.c",
+    "battle/states/menu_peach.c",
+    "battle/states/menu_twink.c",
+    "battle/states/select_target.c",
+)
 
 # Serves the shared sccache bucket's config and credentials. Overridable for
 # self-hosted caches.
@@ -141,7 +184,6 @@ def migrate_mod_assets() -> None:
         plural = "" if len(files) == 1 else "s"
         print(f"configure: moved {len(files)} file{plural} from assets/mod into src")
 
-
 def _walk_source_file_list():
     """Returns a sorted list of all files and directories under SOURCE_DIRS."""
     file_list = []
@@ -212,12 +254,29 @@ def _repo_paths(entries) -> List[str]:
     return paths
 
 
+def splat_extension_paths() -> List[Path]:
+    """Every file of the splat extensions that split the baserom's assets."""
+    return [
+        path.relative_to(ROOT)
+        for path in sorted((ROOT / "tools/splat_ext").rglob("*"))
+        if path.is_file() and "__pycache__" not in path.parts
+    ]
+
+
 def configure_input_paths(versions: List[str]) -> List[str]:
     """Every file configure reads to decide what build.ninja should contain."""
     paths = [posix(BUILD_TOOLS / module) for module in CONFIGURE_MODULES]
+    paths.extend(posix(path) for path in COMMON_GRAPHICS_GENERATORS)
+    paths.extend(posix(path) for path in splat_extension_paths())
     for version in versions:
         paths.append(f"ver/{version}/layout.yaml")
         paths.append(f"ver/{version}/splat.yaml")
+    paths.extend(
+        [
+            "src/registry/actions.yaml",
+            "src/registry/effects.yaml",
+        ]
+    )
     return paths
 
 
@@ -276,19 +335,36 @@ class NinjaWriter(ninja_syntax.Writer):
         )
 
 
-def map_source_dir(name: str) -> Path:
-    """Where Star Rod keeps a map's source within a layer: the path of the map's code under src.
+def map_geometry_name(source: Path) -> str:
+    """The name of the geometry built from a map source, in the map filesystem and to Star Rod.
 
-    Stages are named like kzn_bt05. A map is found in whichever area holds its
+    It is the source's directory with a prefix: w_kmr_02 for
+    world/area/kmr/kmr_02/map.xml, and b_kmr_04 for
+    battle/stage/kmr_04/stage.xml. The prefixes keep a world map and a stage
+    of the same name apart, as their geometry shares the map filesystem.
+    """
+    return ("b_" if source.name == "stage.xml" else "w_") + source.parent.name
+
+
+def old_map_source_dir(name: str) -> Path:
+    """Where a map source with the game's own name, such as kmr_02 or kzn_bt05, is kept within a layer.
+
+    A stage's geometry, named like kzn_bt05, is in its stage's directory,
+    battle/stage/kzn_05. A world map is found in whichever area holds its
     code, else in the area its name begins with.
     """
     area = name[:3].rstrip("_")
     if "_bt" in name:
-        return Path("battle/common/stage") / f"area_{area}" / name
+        return Path("battle/stage") / name.replace("_bt", "_", 1)
     for code in (ROOT / "src/world/area").glob(f"*/{name}"):
         if code.is_dir():
             return code.relative_to(ROOT / "src")
     return Path("world/area") / area / name
+
+
+def old_map_source_file(name: str) -> str:
+    """The name of the source, in its directory, of a map with the game's own name."""
+    return "stage.xml" if "_bt" in name else "map.xml"
 
 
 def star_rod_version() -> str:
@@ -428,7 +504,7 @@ def write_ninja_rules(
     ninja.rule(
         "cc_modern",
         description="Compiling $in",
-        command=f"${{sccache}}{cc_modern} {cflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include $pch_header -D_LANGUAGE_C -Werror=implicit -Werror=old-style-declaration -Werror=missing-parameter-type -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -MD -MF $out.d $in -o $out",
+        command=f"${{sccache}}{cc_modern} {cflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags $iquote -include $pch_header -D_LANGUAGE_C -Werror=implicit -Werror=old-style-declaration -Werror=missing-parameter-type -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -MD -MF $out.d $in -o $out",
         depfile="$out.d",
         deps="gcc",
     )
@@ -436,7 +512,7 @@ def write_ninja_rules(
     ninja.rule(
         "cxx_modern",
         description="Compiling $in",
-        command=f"${{sccache}}{cxx_modern} {cxxflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags -include $pch_header -std=c++20 -D_LANGUAGE_C_PLUS_PLUS -MD -MF $out.d $in -o $out",
+        command=f"${{sccache}}{cxx_modern} {cxxflags_modern} $cflags {CPPFLAGS} {extra_cppflags} $cppflags $iquote -include $pch_header -std=c++20 -D_LANGUAGE_C_PLUS_PLUS -MD -MF $out.d $in -o $out",
         depfile="$out.d",
         deps="gcc",
     )
@@ -444,7 +520,7 @@ def write_ninja_rules(
     ninja.rule(
         "evt_validate",
         description="Validating scripts in $evt_target",
-        command="evt_validate --object-list $out.rsp --out $out",
+        command="evt_validate --effects-yaml src/registry/effects.yaml --object-list $out.rsp --out $out",
         rspfile="$out.rsp",
         rspfile_content="$in_newline",
     )
@@ -459,6 +535,12 @@ def write_ninja_rules(
         "bin",
         description="Extracting binary data from $in",
         command=f"{cross}objcopy -I binary -O {BFDNAME} --set-section-alignment .data=8 $in $out",
+    )
+
+    ninja.rule(
+        "map_source_header",
+        description="Generating $out",
+        command=f"$python {BUILD_TOOLS}/mapfs/source_header.py $out $name",
     )
 
     ninja.rule(
@@ -543,6 +625,15 @@ def write_ninja_rules(
         "item_data",
         description="Generating item data",
         command=f"$python {BUILD_TOOLS}/item_data.py $out $in $asset_stack",
+    )
+
+    ninja.rule(
+        "action_data",
+        description="Generating player action data",
+        command=(
+            f"$python {BUILD_TOOLS}/action_data.py "
+            "$out_data $out_enum $actions_yaml"
+        ),
     )
 
     ninja.rule(
@@ -665,14 +756,14 @@ def write_ninja_rules(
     ninja.rule(
         "syms",
         description="Reading engine symbols for overlays",
-        command=f"$python {BUILD_TOOLS}/overlay_cli.py gen-syms $in $out",
+        command=f"$python {BUILD_TOOLS}/overlay_cli.py gen-syms $elf $syms $syms_script $symbol_files",
         restat=True,
     )
 
     ninja.rule(
         "ovl_link_convert",
         description="Linking overlay $ovl_src",
-        command=f"$python {BUILD_TOOLS}/overlay_cli.py link $syms $out $link_addr $in",
+        command=f"$python {BUILD_TOOLS}/overlay_cli.py link $syms $out $link_addr $force_export $max_loaded_size $require_resolved $in",
     )
 
     # A debugger loads this alongside the engine's ELF, offset to wherever the
@@ -714,18 +805,40 @@ class Configure:
     def maps_dump_stamp(self) -> Path:
         return self.build_path() / "maps_dumped.stamp"
 
+    def splat_hash(self) -> str:
+        """A hash of splat.yaml and splat_ext, which the dump stamp records."""
+        digest = hashlib.sha256()
+        for path in [*splat_extension_paths(), self.version_path.relative_to(ROOT) / "splat.yaml"]:
+            digest.update(posix(path).encode())
+            digest.update((ROOT / path).read_bytes())
+        return digest.hexdigest()
+
+    def dump_is_stale(self) -> bool:
+        """Whether the assets on disk were split with a different splat.yaml or splat_ext, or not at all."""
+        stamp = self.dump_stamp()
+        return not stamp.exists() or stamp.read_text() != self.splat_hash()
+
     def load(self) -> None:
         """Read the version's configuration and scan what it points at."""
-        self.layout = Layout(self.version_path / "layout.yaml")
+        self.layout = Layout(self.version_path / "layout.yaml", ROOT)
         self.asset_stack: List[str] = self.layout.asset_stack
         self.sources_config = SegmentMap(self.layout, ROOT / "src")
-        self.sources = self.sources_config.scan()
+        self.all_sources = self.sources_config.scan()
+        self.sources = {
+            segment: [
+                source
+                for source in sources
+                if not self.is_overlay_source_path(source)
+            ]
+            for segment, sources in self.all_sources.items()
+        }
 
     def dump(self, assets: bool, code: bool) -> None:
         """Split the assets out of the baserom.
 
         This is all splat is needed for, and only until the assets are on disk,
-        so configure skips it once they have been dumped.
+        so configure skips it once they have been dumped, until splat.yaml or
+        splat_ext changes.
         """
         import splat.scripts.split as split
 
@@ -749,7 +862,6 @@ class Configure:
                     "pm_charset",
                     "pm_charset_palettes",
                     "pm_effect_loads",
-                    "pm_effect_shims",
                     "pm_sprite_shading_profiles",
                     "pm_imgfx_data",
                     "pm_sbn",
@@ -766,7 +878,7 @@ class Configure:
             verbose=False,
         )
         self.dump_stamp().parent.mkdir(parents=True, exist_ok=True)
-        self.dump_stamp().write_text("")
+        self.dump_stamp().write_text(self.splat_hash())
         if assets:
             self.dump_maps()
 
@@ -774,10 +886,101 @@ class Configure:
         """Decompile the dumped map binaries into map sources, replacing any earlier dump.
 
         Star Rod does the decompiling, so this is redone whenever its version
-        changes.
+        changes. The earlier dump's sources are deleted first, since a new
+        Star Rod might not write them all, or not in the same places.
         """
+        dumped = ROOT / self.asset_stack[-1]
+        for source in [*dumped.glob("world/area/*/*/map.xml"), *dumped.glob("battle/stage/*/stage.xml")]:
+            source.unlink()
+        shutil.rmtree(dumped / "battle" / "common" / "stage", ignore_errors=True)
         subprocess.run([star_rod(), "-DumpMaps"], check=True, cwd=ROOT)
         self.maps_dump_stamp().write_text(star_rod_version())
+
+    def refresh_common_graphics(self) -> None:
+        """Refresh extracted common graphics when their C generator changes."""
+        stamp = self.build_path() / "common_graphics_dumped.stamp"
+        generators = [ROOT / path for path in COMMON_GRAPHICS_GENERATORS]
+        if stamp.exists() and all(
+            path.stat().st_mtime_ns <= stamp.stat().st_mtime_ns for path in generators
+        ):
+            return
+        import splat.scripts.split as split
+
+        # Only the common subclasses should be re-extracted. Splat's cache
+        # checks their generator version; scanning needs the parent modes too.
+        split.main(
+            [self.version_path / "splat.yaml"],
+            ["gfx", "vtx", "gfx_common", "vtx_common"],
+            verbose=False,
+        )
+        stamp.touch()
+
+    @staticmethod
+    def source_relative_path(path: Path) -> Union[Path, None]:
+        try:
+            return Path(path).resolve().relative_to((ROOT / "src").resolve())
+        except ValueError:
+            return None
+
+    @classmethod
+    def is_effect_source_path(cls, path: Path) -> bool:
+        relative = cls.source_relative_path(path)
+        return (
+            relative is not None
+            and relative.parent == Path("effects")
+            and relative.suffix in (".c", ".cpp")
+        )
+
+    @classmethod
+    def is_world_action_source_path(cls, path: Path) -> bool:
+        relative = cls.source_relative_path(path)
+        return (
+            relative is not None
+            and relative.parent == Path("world/action")
+            and relative.suffix in (".c", ".cpp")
+        )
+
+    @classmethod
+    def is_battle_menu_source_path(cls, path: Path) -> bool:
+        relative = cls.source_relative_path(path)
+        return relative is not None and posix(relative) in BATTLE_MENU_SOURCES
+
+    @classmethod
+    def is_entity_overlay_source_path(cls, path: Path) -> bool:
+        relative = cls.source_relative_path(path)
+        if relative is None or relative.parts[:1] != ("entity",):
+            return False
+        entity_relative = Path(*relative.parts[1:])
+        return (
+            relative.suffix in (".c", ".cpp")
+            and "model" not in entity_relative.parts
+            and entity_relative.parts[:1] != ("anim",)
+            and entity_relative.name not in ("Shadow.c", "blueprints.inc.c")
+        )
+
+    @classmethod
+    def is_overlay_source_path(cls, path: Path) -> bool:
+        """Whether a source is linked into an overlay instead of the main ELF."""
+        relative = cls.source_relative_path(path)
+        if relative is None:
+            return False
+        parts = relative.parts
+        return (
+            cls.is_effect_source_path(path)
+            or cls.is_world_action_source_path(path)
+            or cls.is_battle_menu_source_path(path)
+            or cls.is_entity_overlay_source_path(path)
+            or parts[:2] in (
+                ("world", "partner"),
+                ("battle", "partner"),
+                ("battle", "action_cmd"),
+                ("battle", "move"),
+                ("battle", "actor"),
+                ("battle", "stage"),
+                ("battle", "area"),
+            )
+            or parts[:2] == ("world", "area") and len(parts) >= 5
+        )
 
     def textures(self) -> Dict[Path, Path]:
         """Every standalone texture, keyed by its path relative to the assets root.
@@ -817,34 +1020,36 @@ class Configure:
             self.asset_objects.setdefault(segment, []).append(object_path)
 
     def write_effect_stub_rules(self, build) -> None:
-        """Generate the trampolines that reach effects and their shims."""
-        import yaml
-
-        effects = effect_table.effects_from_yaml(ROOT / "src/effects.yaml")
-        shims = yaml.safe_load((ROOT / "src/effect_shims.yaml").read_text())
-
-        stubs = [
-            ("load", "asm/effects", effect.name, index)
+        """Generate the resident dispatcher and trampolines for effect overlays."""
+        effects_yaml = Path("src/registry/effects.yaml")
+        effects = effects_from_yaml(ROOT / effects_yaml)
+        stubs = [("dispatch", "dispatch", 0)] + [
+            ("load", effect.name, index)
             for index, effect in enumerate(effects)
-        ] + [("shim", "asm/effect_shims", name, index) for index, name in enumerate(shims)]
+            if not effect.empty
+        ]
 
         stub_tool = Path(BUILD_TOOLS / "effect_stub.py")
-        for kind, directory, name, index in stubs:
-            source = self.build_path() / directory / (name + ".s")
+        for kind, name, index in stubs:
+            source = self.build_path() / "asm/effects" / (name + ".s")
             build(
                 source,
-                [Path("src/effects.yaml" if kind == "load" else "src/effect_shims.yaml")],
+                [effects_yaml],
                 "effect_stub",
                 variables={
                     "kind": kind,
                     "stub_name": name,
                     "stub_index": str(index),
                 },
-                implicit_deps=[stub_tool],
+                implicit_deps=[stub_tool, BUILD_TOOLS / "effect_data.py"],
             )
-            obj = self.build_path() / directory / (name + ".s.o")
-            build(obj, [source], "as",
-                  variables={"cppflags": f"-DVERSION_{self.version.upper()}"})
+            obj = self.build_path() / "asm/effects" / (name + ".s.o")
+            build(
+                obj,
+                [source],
+                "as",
+                variables={"cppflags": f"-DVERSION_{self.version.upper()}"},
+            )
             self.register_asset(obj)
 
     def write_blob_rules(self, build) -> None:
@@ -1052,34 +1257,56 @@ class Configure:
         """Every map's source, keyed by map name, from the highest layer holding it.
 
         A map's source sits at the path of its code under src, as in
-        world/area/kmr/kmr_02/map.xml.
+        world/area/kmr/kmr_02/map.xml, and a stage's geometry beside its code,
+        as in battle/stage/kmr_04/stage.xml.
         """
         found: Dict[str, Path] = {}
         for layer in self.asset_stack:
-            for pattern in ["world/area/*/*/map.xml", "battle/common/stage/*/*/map.xml"]:
-                for path in (ROOT / layer).glob(pattern):
-                    name = path.parent.name
-                    if name not in found and not assets.is_deleted(path, self.asset_stack):
-                        found[name] = path.relative_to(ROOT)
+            sources = list((ROOT / layer).glob("world/area/*/*/map.xml"))
+            sources += (ROOT / layer).glob("battle/stage/*/stage.xml")
+            for path in sources:
+                name = map_geometry_name(path)
+                if name not in found and not assets.is_deleted(path, self.asset_stack):
+                    found[name] = path.relative_to(ROOT)
         return dict(sorted(found.items()))
 
     def move_old_map_sources(self) -> None:
-        """Move map sources from mapfs/geom/<map>.xml to where Star Rod keeps them.
+        """Move map sources from where they used to be to where Star Rod keeps them.
 
-        Only hand-authored layers are moved; the dumped layer is redumped
-        instead. Star Rod's crash and backup copies, <map>.crash.xml and
-        <map>.backup.xml, move with the map as map.crash.xml and map.backup.xml.
+        Maps were in mapfs/geom/<map>.xml, and stage geometry in
+        battle/common/stage/area_<area>/<geometry>/map.xml. Only hand-authored
+        layers are moved; the dumped layer is redumped instead. Star Rod's crash
+        and backup copies, such as <map>.crash.xml, move with the source.
         """
         for layer in self.asset_stack[:-1]:
-            for old in sorted((ROOT / layer / "mapfs" / "geom").glob("*.xml")):
-                name, _, copy = old.stem.partition(".")
-                new = ROOT / layer / map_source_dir(name) / ".".join(["map", copy, "xml"] if copy else ["map", "xml"])
+            old_sources = [
+                (old, *old.stem.partition(".")[::2]) for old in sorted((ROOT / layer / "mapfs" / "geom").glob("*.xml"))
+            ]
+            old_sources += [
+                (old, old.parent.name, old.stem.partition(".")[2])
+                for old in sorted((ROOT / layer / "battle" / "common" / "stage").glob("area_*/*/map*.xml"))
+            ]
+            for old, name, copy in old_sources:
+                base = old_map_source_file(name).removesuffix(".xml")
+                new = ROOT / layer / old_map_source_dir(name) / ".".join([base, copy, "xml"] if copy else [base, "xml"])
                 if new.exists():
                     print(f"warning: not moving {posix(old.relative_to(ROOT))}: {posix(new.relative_to(ROOT))} exists")
                     continue
                 new.parent.mkdir(parents=True, exist_ok=True)
                 old.rename(new)
                 print(f"Moved {posix(old.relative_to(ROOT))} to {posix(new.relative_to(ROOT))}")
+
+    def layer_relative(self, path: Path) -> Path:
+        """A path within its asset layer, such as world/area/kmr/kmr_02/main.c for src/world/area/kmr/kmr_02/main.c."""
+        absolute = path if path.is_absolute() else ROOT / path
+        for layer in self.asset_stack:
+            if absolute.is_relative_to(ROOT / layer):
+                return absolute.relative_to(ROOT / layer)
+        return absolute.relative_to(ROOT)
+
+    def source_iquote(self, source: Path) -> str:
+        """Lets a source include the headers generated for its directory by name, as map.xml.h."""
+        return "-iquote " + posix(self.build_path() / "include" / self.layer_relative(source).parent)
 
     def map_build_dir(self) -> Path:
         """Where compiled maps and their headers go, on the include path as mapfs/."""
@@ -1096,7 +1323,22 @@ class Configure:
             implicit_outputs=[
                 posix(self.map_build_dir() / f"{name}_{part}.h") for name in sources for part in ["shape", "hit"]
             ],
+            # Star Rod checks battle stages against SHAPE_SIZE_LIMIT in model.h.
+            implicit_deps=[Path("include/model.h")],
         )
+
+        # The code includes a map's IDs as map.xml.h and a stage's as
+        # stage.xml.h, generated at the path of the source, as
+        # world/area/kmr/kmr_02/map.xml.h, so code elsewhere can include it by
+        # that path.
+        for name, source in sources.items():
+            build(
+                self.build_path() / "include" / self.layer_relative(source).with_suffix(".xml.h"),
+                [],
+                "map_source_header",
+                implicit_deps=[self.map_build_dir() / f"{name}_{part}.h" for part in ["shape", "hit"]],
+                variables={"name": name},
+            )
 
         src_paths = self.mapfs_contents()
 
@@ -1402,6 +1644,13 @@ class Configure:
                     seg.vram_class and seg.vram_class.name,
                 )
             )
+        empty = [segment.name for segment in segments if not segment.objects]
+        if empty:
+            raise SystemExit(
+                f"configure: {self.version}/layout.yaml declares empty segments: "
+                + ", ".join(empty)
+                + "; runtime overlays must not be listed as resident segments"
+            )
         return segments
 
     def source_cflags(self, src: Path, segment: str, non_matching: bool) -> str:
@@ -1686,6 +1935,8 @@ class Configure:
                         variables = {**variables, "sccache": ""}
 
                 inputs = self.resolve_src_paths(src_paths)
+                if task in ["cc_modern", "cxx_modern"]:
+                    variables = {**variables, "iquote": self.source_iquote(Path(inputs[0]))}
                 for dir in asset_deps:
                     inputs.extend(self.get_asset_list(dir))
 
@@ -1717,19 +1968,23 @@ class Configure:
                         evt_validation_stamp,
                         "evt_validate",
                         [posix(object_path)],
+                        implicit=["src/registry/effects.yaml"],
                         variables={"evt_target": evt_target},
                     )
 
         # Effect data includes
-        effect_yaml = ROOT / "src/effects.yaml"
+        effect_yaml = ROOT / "src/registry/effects.yaml"
         effect_data_outdir = self.build_path() / "include" / "effects"
-        effect_macros_path = effect_data_outdir / "effect_macros.h"
         effect_defs_path = effect_data_outdir / "effect_defs.h"
         effect_table_path = effect_data_outdir / "effect_table.c"
 
         build(
-            [effect_macros_path, effect_defs_path, effect_table_path],
-            [effect_yaml],
+            [effect_defs_path, effect_table_path],
+            [
+                effect_yaml,
+                BUILD_TOOLS / "effects.py",
+                BUILD_TOOLS / "effect_data.py",
+            ],
             "effect_data",
             variables={
                 "in_yaml": posix(effect_yaml),
@@ -1779,13 +2034,13 @@ class Configure:
         if self.version == "jp":
             build(
                 self.build_path() / "include/recipes.inc.c",
-                [Path("src/recipes_jp.yaml")],
+                [Path("src/registry/recipes_jp.yaml")],
                 "recipes",
             )
         else:
             build(
                 self.build_path() / "include/recipes.inc.c",
-                [Path("src/recipes.yaml")],
+                [Path("src/registry/recipes.yaml")],
                 "recipes",
             )
 
@@ -1794,7 +2049,7 @@ class Configure:
                 self.build_path() / "include/move_data.inc.c",
                 self.build_path() / "include/move_enum.h",
             ],
-            [Path("src/move_table.yaml")],
+            [Path("src/registry/moves.yaml")],
             "move_data",
         )
 
@@ -1803,10 +2058,26 @@ class Configure:
                 self.build_path() / "include/item_data.inc.c",
                 self.build_path() / "include/item_enum.h",
             ],
-            [Path("src/item_table.yaml")],
+            [Path("src/registry/items.yaml")],
             "item_data",
             variables={
                 "asset_stack": ",".join(self.asset_stack),
+            },
+        )
+
+        action_data_path = self.build_path() / "include/action_data.inc.c"
+        action_enum_path = self.build_path() / "include/action_state_enum.h"
+        build(
+            [action_data_path, action_enum_path],
+            [
+                Path("src/registry/actions.yaml"),
+                BUILD_TOOLS / "action_data.py",
+            ],
+            "action_data",
+            variables={
+                "out_data": posix(action_data_path),
+                "out_enum": posix(action_enum_path),
+                "actions_yaml": "src/registry/actions.yaml",
             },
         )
 
@@ -1817,7 +2088,7 @@ class Configure:
                     self.build_path() / "include/battle/actor_types.h",
                 ],
                 [
-                    Path("src/battle/actors_jp.yaml"),
+                    Path("src/registry/actors_jp.yaml"),
                 ],
                 "actor_types",
             )
@@ -1828,7 +2099,7 @@ class Configure:
                     self.build_path() / "include/battle/actor_types.h",
                 ],
                 [
-                    Path("src/battle/actors.yaml"),
+                    Path("src/registry/actors.yaml"),
                 ],
                 "actor_types",
             )
@@ -1855,7 +2126,10 @@ class Configure:
         # Every asset object is registered by now, so the segments are complete.
         segments = self.build_segments()
         linker.write_script(
-            ROOT / self.linker_script_path(), segments, self.layout.follows
+            ROOT / self.linker_script_path(),
+            segments,
+            self.layout.follows,
+            self.layout.class_vrams,
         )
         linker.write_symbol_header(
             ROOT / self.build_path() / "include/ld_addrs.h", segments
@@ -1879,6 +2153,7 @@ class Configure:
                     variables={
                         "cflags": self.source_cflags(src, segment, non_matching),
                         "cppflags": f"-DVERSION_{self.version.upper()} -DMODERN_COMPILER",
+                        "iquote": self.source_iquote(src),
                     },
                 )
 
@@ -1948,6 +2223,17 @@ class Configure:
             [posix(self.syms_path()), posix(self.syms_script_path())],
             "syms",
             posix(self.elf_path()),
+            implicit=[
+                posix(self.version_path / "symbol_addrs.txt"),
+                posix(BUILD_TOOLS / "overlay_cli.py"),
+                posix(BUILD_TOOLS / "overlay_impl.py"),
+            ],
+            variables={
+                "elf": posix(self.elf_path()),
+                "syms": posix(self.syms_path()),
+                "syms_script": posix(self.syms_script_path()),
+                "symbol_files": posix(self.version_path / "symbol_addrs.txt"),
+            },
         )
 
         ninja.build("generated_code_" + self.version, "phony", generated_code)
@@ -1961,16 +2247,49 @@ class Configure:
             if seg.max_size is not None
         }
 
-    def find_overlays(self) -> List[Tuple[Path, int]]:
+    def check_names(self) -> None:
+        """Stops if a map, stage, or overlay has a name too long for the game, naming its directory or file."""
+        errors = {}
+        for name, path, _, type_index in self.find_overlays():
+            kind = {OVL_TYPE_MAP: "map", OVL_TYPE_STAGE: "stage"}.get(type_index, "overlay")
+            limit = MAP_NAME_MAX if kind != "overlay" else OVL_NAME_MAX - 1
+            if len(name) > limit:
+                errors[(kind, name)] = (path, limit)
+        for source in self.map_sources().values():
+            kind = "stage" if source.name == "stage.xml" else "map"
+            name = source.parent.name
+            if len(name) > MAP_NAME_MAX:
+                errors.setdefault((kind, name), (ROOT / source.parent, MAP_NAME_MAX))
+        for (kind, name), (path, limit) in sorted(errors.items()):
+            print(
+                f"{posix(path.relative_to(ROOT))}: error: {kind} names can be at most {limit} characters, "
+                f"and {name} is {len(name)}",
+                file=sys.stderr,
+            )
+        if errors:
+            sys.exit(1)
+
+    def find_overlays(self) -> List[Tuple[str, Path, List[Path], int]]:
         overlay_types = [
-            "battle/actor/*",
-            "world/area/*/*/",
+            (OVL_TYPE_EFFECT, "effects/*.c", ""),
+            (OVL_TYPE_MAP, "world/area/*/*/", ""),
+            (OVL_TYPE_ACTION, "world/action/*.c", ""),
+            (OVL_TYPE_PARTNER, "world/partner/*.c", "world_partner_"),
+            (OVL_TYPE_BATTLE_AREA, "battle/area/*", ""),
+            (OVL_TYPE_STAGE, "battle/stage/*", ""),
+            (OVL_TYPE_ACTOR, "battle/actor/*", ""),
+            (OVL_TYPE_BATTLE_PARTNER, "battle/partner/*.c", ""),
+            (OVL_TYPE_ACTION_CMD, "battle/action_cmd/*.c", ""),
+            (OVL_TYPE_BATTLE_SCRIPT, "battle/move/hammer/*.c", "battle_move_"),
+            (OVL_TYPE_BATTLE_SCRIPT, "battle/move/item/*.c", ""),
+            (OVL_TYPE_BATTLE_SCRIPT, "battle/move/jump/*.c", "battle_move_"),
+            (OVL_TYPE_BATTLE_SCRIPT, "battle/move/star_power/*.c", "battle_move_"),
+            (OVL_TYPE_ENTITY, "entity/**/*.c", ""),
         ]
 
-        # Collect overlays keyed by (type_index, name), each layer of the asset
-        # stack overriding the ones below it. src/ holds overlays even when the
-        # stack doesn't list it, beneath every layer.
-        found: Dict[Tuple[int, str], Tuple[Path, int]] = {}
+        # Collect overlays keyed by (type_index, name). Later entries in the
+        # asset stack override earlier ones.
+        found: Dict[Tuple[int, str], Tuple[str, Path, List[Path], int]] = {}
 
         def is_source(path: Path) -> bool:
             return path.suffix in (".c", ".cpp") and not path.name.endswith(
@@ -1982,25 +2301,80 @@ class Configure:
         for search_dir in search_dirs:
             if not search_dir.exists():
                 continue
-            for type_index, glob_str in enumerate(overlay_types):
+            for type_index, glob_str, name_prefix in overlay_types:
                 for match in sorted(
                     search_dir.glob(glob_str, case_sensitive=True),
                     key=lambda p: p.as_posix(),
                 ):
-                    # Skip headers beside an overlay, and asset directories that
-                    # contain no compilable source files (only .inc.c/.inc.cpp), so
-                    # they don't shadow src/ overlays
+                    # Skip headers beside an overlay, and directories that contain
+                    # no compilable source files, so they don't shadow lower layers.
                     if match.is_dir():
                         if not any(is_source(f) for f in match.iterdir()):
                             continue
                     elif not is_source(match):
                         continue
-                    if assets.is_deleted(match, self.asset_stack):
-                        found.pop((type_index, match.stem), None)
+                    if type_index == OVL_TYPE_EFFECT and match.name == "effect_table.c":
                         continue
-                    found[(type_index, match.stem)] = (match, type_index)
+                    if type_index == OVL_TYPE_ENTITY and not self.is_entity_overlay_source_path(match):
+                        continue
+                    if type_index == OVL_TYPE_ENTITY and match.name == "ShatteringBlock_common.c":
+                        continue
+                    if (
+                        type_index == OVL_TYPE_BATTLE_SCRIPT
+                        and match.name == "attack.c"
+                        and match.parent.name in ("hammer", "jump")
+                    ):
+                        name = f"battle_move_{match.parent.name}_attack"
+                    else:
+                        name = name_prefix + match.stem
+                    key = (type_index, name)
+                    if assets.is_deleted(match, self.asset_stack):
+                        found.pop(key, None)
+                        continue
+                    if match.is_dir():
+                        sources = [
+                            path for path in sorted(match.iterdir()) if is_source(path)
+                        ]
+                    else:
+                        sources = [match]
+                    found[key] = (
+                        name,
+                        match,
+                        sources,
+                        type_index,
+                    )
 
-        return sorted(found.values(), key=lambda x: x[0].stem)
+        shattering_key = (OVL_TYPE_ENTITY, "ShatteringBlock")
+        if shattering_key in found:
+            name, source, sources, type_index = found[shattering_key]
+            sources.append(ROOT / "src/entity/ShatteringBlock_common.c")
+
+        # The battle menu is one cohesive overlay assembled from sources that
+        # historically straddled the btl_states_menus segment and resident battle
+        # code. Resolve each file independently so a higher-priority asset layer
+        # can override only the files it supplies.
+        menu_sources = []
+        for relative_path in BATTLE_MENU_SOURCES:
+            source = ROOT / self.find_asset(relative_path)
+            if not source.is_file():
+                raise FileNotFoundError(
+                    f"missing battle-menu overlay source: {relative_path}"
+                )
+            menu_sources.append(source)
+
+        found[(OVL_TYPE_BATTLE_MENU, "battle_menu")] = (
+            "battle_menu",
+            menu_sources[0],
+            menu_sources,
+            OVL_TYPE_BATTLE_MENU,
+        )
+
+        return sorted(found.values(), key=lambda x: (x[3], x[0]))
+
+    def effect_cflags(self, src_path: Path) -> str:
+        """Return the cflags attached to an effect in layout.yaml."""
+        cflags = self.sources_config.cflags(Path(src_path)) or "-fforce-addr"
+        return cflags.replace("gcc_modern", "").replace("gcc_272", "").strip()
 
     def write_overlays(
         self, ninja: NinjaWriter, evt_validation: bool = True
@@ -2009,8 +2383,47 @@ class Configure:
         import json
 
         overlays = self.find_overlays()
+        effects = effects_from_yaml(ROOT / "src/registry/effects.yaml")
+        actions = actions_from_yaml(ROOT / "src/registry/actions.yaml")
+        effect_names = [effect.name for effect in effects if not effect.empty]
+        duplicate_effects = sorted(
+            name for name in set(effect_names) if effect_names.count(name) > 1
+        )
+        effect_sources = {
+            name for name, _, _, type_index in overlays
+            if type_index == OVL_TYPE_EFFECT
+        }
+        missing_effects = sorted(set(effect_names) - effect_sources)
+        orphan_effects = sorted(effect_sources - set(effect_names))
+        action_sources = {
+            name for name, _, _, type_index in overlays
+            if type_index == OVL_TYPE_ACTION
+        }
+        action_overlays = {action.overlay for action in actions}
+        missing_action_overlays = sorted(action_overlays - action_sources)
+        orphan_action_overlays = sorted(action_sources - action_overlays)
+
+        errors = []
+        if duplicate_effects:
+            errors.append("duplicate effect names: " + ", ".join(duplicate_effects))
+        if missing_effects:
+            errors.append("effects without source overlays: " + ", ".join(missing_effects))
+        if orphan_effects:
+            errors.append("effect overlays missing from effects.yaml: " + ", ".join(orphan_effects))
+        if missing_action_overlays:
+            errors.append(
+                "actions referencing missing overlays: "
+                + ", ".join(missing_action_overlays)
+            )
+        if orphan_action_overlays:
+            errors.append(
+                "action overlays missing from actions.yaml: "
+                + ", ".join(orphan_action_overlays)
+            )
+        if errors:
+            raise ValueError("invalid overlay configuration\n  " + "\n  ".join(errors))
+
         c_precompiled_header_path = self.build_path() / "pch" / "common.h.gch"
-        cxx_precompiled_header_path = self.build_path() / "pch" / "common.hpp.gch"
 
         manifest_entries = []
         evt_validation_stamps = []
@@ -2018,40 +2431,40 @@ class Configure:
         if CRC_TOOL != "n64crc":
             implicit_deps.append(CRC_TOOL)
 
-        for src_path, type_index in overlays:
-            name = src_path.stem
+        for name, src_path, c_files, type_index in overlays:
             build_dir = self.build_path() / "ovl" / str(type_index) / name
             ovl_path = build_dir / f"{name}.ovl"
             debug_syms_path = build_dir / f"{name}.ovl.debug_syms"
             debug_script_path = build_dir / f"{name}.ovl.ld"
             debug_elf_path = build_dir / f"{name}.ovl.elf"
             objects = []
-
-            c_files = []
-            if src_path.is_dir():
-                for c_file in sorted(src_path.glob("*.c"), key=lambda p: p.name):
-                    if not c_file.name.endswith(".inc.c"):
-                        c_files.append(c_file)
-                for c_file in sorted(src_path.glob("*.cpp"), key=lambda p: p.name):
-                    if not c_file.name.endswith(".inc.cpp"):
-                        c_files.append(c_file)
-            else:
-                c_files.append(src_path)
-
+            overlay_evt_validation_stamps = []
             for c_file in c_files:
                 if c_file.suffix == ".cpp":
                     task = "cxx_modern"
-                    pch = cxx_precompiled_header_path
+                    # The C++ precompiled header is built without -fvisibility=hidden,
+                    # so the types it declares would be more visible than the overlay's
+                    # own, which GCC warns about in C++. Include the header as text.
+                    pch_header = Path("include") / "common.hpp"
+                    pch_deps = []
                 else:
                     task = "cc_modern"
-                    pch = c_precompiled_header_path
-                obj_path = build_dir / (c_file.name + ".o")
+                    pch_header = c_precompiled_header_path.with_suffix("")
+                    pch_deps = [posix(c_precompiled_header_path)]
+                # Preserve nested source paths within a directory module so an
+                # area's actor/main.c cannot collide with its own main.c.
+                source_name = (
+                    c_file.relative_to(src_path)
+                    if src_path.is_dir() and c_file.is_relative_to(src_path)
+                    else c_file.name
+                )
+                obj_path = build_dir / (str(source_name) + ".o")
                 embedded = self.embedded_asset_deps(c_file)
                 variables = {
                     "version": self.version,
-                    "pch_header": posix(pch.with_suffix("")),
-                    "cflags": "-fno-common -fvisibility=hidden",
+                    "pch_header": posix(pch_header),
                     "cppflags": f"-DVERSION_{self.version.upper()} -DMODERN_COMPILER",
+                    "iquote": self.source_iquote(c_file),
                 }
                 if embedded:
                     variables["sccache"] = ""
@@ -2059,11 +2472,18 @@ class Configure:
                     [evt_validation_stamp_path(obj_path)] if evt_validation else []
                 )
                 evt_validation_stamps.extend(evt_stamps)
+                overlay_evt_validation_stamps.extend(evt_stamps)
+                cflags = "-fno-common -fvisibility=hidden"
+                if type_index == OVL_TYPE_EFFECT:
+                    effect_cflags = self.effect_cflags(c_file)
+                    if effect_cflags:
+                        cflags = f"{effect_cflags} {cflags}"
+                variables["cflags"] = cflags
                 ninja.build(
                     posix(obj_path),
                     task,
                     posix(c_file),
-                    implicit=[posix(pch)] + embedded,
+                    implicit=pch_deps + embedded,
                     order_only=[
                         "generated_code_" + self.version,
                         "inc_img_bins_" + self.version,
@@ -2076,6 +2496,7 @@ class Configure:
                         evt_validation_stamp,
                         "evt_validate",
                         [posix(obj_path)],
+                        implicit=["src/registry/effects.yaml"],
                         variables={"evt_target": posix(c_file)},
                     )
                 objects.append(posix(obj_path))
@@ -2084,23 +2505,69 @@ class Configure:
                 continue
 
             link_addr = "0x80000000"
-            if type_index == 1:  # maps
+            if type_index == OVL_TYPE_MAP:
                 link_addr = "0x80240000"
 
+            force_export = ""
+            max_loaded_size = ""
+            require_resolved = ""
+            if type_index == OVL_TYPE_EFFECT:
+                force_export = f"--force-export {name}_main"
+                max_loaded_size = "--max-loaded-size 0x1000"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_MAP:
+                max_loaded_size = "--max-loaded-size 0x27FF0"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_ACTION:
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_PARTNER:
+                force_export = "--force-export gWorldPartner"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_BATTLE_PARTNER:
+                force_export = "--force-export gBattlePartner"
+                max_loaded_size = "--max-loaded-size 0x5000"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_ACTION_CMD:
+                force_export = "--force-export gActionCommand"
+                max_loaded_size = "--max-loaded-size 0x3000"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_BATTLE_SCRIPT:
+                force_export = "--force-export gBattleScriptModule"
+                max_loaded_size = "--max-loaded-size 0x4000"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_BATTLE_MENU:
+                force_export = "--force-export gBattleMenu"
+                max_loaded_size = "--max-loaded-size 0x10000"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_ENTITY:
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_ACTOR:
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_STAGE:
+                force_export = "--force-export gBattleStage"
+                require_resolved = "--require-resolved"
+            elif type_index == OVL_TYPE_BATTLE_AREA:
+                force_export = "--force-export gBattleArea"
+                require_resolved = "--require-resolved"
+
+            overlay_link_deps = [
+                posix(self.syms_path()),
+                posix(BUILD_TOOLS / "overlay_cli.py"),
+                posix(BUILD_TOOLS / "overlay_impl.py"),
+            ] + overlay_evt_validation_stamps
             ninja.build(
                 posix(ovl_path),
                 "ovl_link_convert",
                 objects,
-                implicit=[
-                    posix(self.syms_path()),
-                    posix(BUILD_TOOLS / "overlay_cli.py"),
-                    posix(BUILD_TOOLS / "overlay_impl.py"),
-                ],
+                implicit=overlay_link_deps,
                 implicit_outputs=[posix(debug_syms_path), posix(debug_script_path)],
                 variables={
                     "syms": posix(self.syms_path()),
                     "link_addr": link_addr,
                     "ovl_src": posix(src_path.relative_to(ROOT)),
+                    "force_export": force_export,
+                    "max_loaded_size": max_loaded_size,
+                    "require_resolved": require_resolved,
                 },
             )
 
@@ -2244,9 +2711,7 @@ if __name__ == "__main__":
         new_content = "\n".join(file_list) + "\n"
         if stamp.exists() and stamp.read_text() == new_content:
             build_ninja = ROOT / "build.ninja"
-            configure_inputs = [
-                ROOT / p for p in configure_input_paths(VERSIONS)
-            ]
+            configure_inputs = [ROOT / p for p in configure_input_paths(VERSIONS)]
             newest_config_input = max(
                 p.stat().st_mtime_ns for p in configure_inputs if p.exists()
             )
@@ -2377,7 +2842,7 @@ if __name__ == "__main__":
     write_ninja_for_tools(ninja)
 
     skip_files: Set[str] = set()
-    all: List[str] = []
+    all_targets: List[str] = []
     evt_validation_stamps: List[str] = []
     first_configure = None
 
@@ -2400,13 +2865,16 @@ if __name__ == "__main__":
 
         configure.load()
         configure.move_old_map_sources()
-        if args.dump or not configure.dump_stamp().exists():
+        if args.dump or configure.dump_is_stale():
             configure.dump(not args.no_split_assets, args.split_code)
         elif not args.no_split_assets and (
             not configure.maps_dump_stamp().exists()
             or configure.maps_dump_stamp().read_text() != star_rod_version()
         ):
             configure.dump_maps()
+        if not args.no_split_assets:
+            configure.refresh_common_graphics()
+        configure.check_names()
         evt_validation_stamps.extend(
             configure.write_ninja(
                 ninja, skip_files, non_matching, args.evt_validation
@@ -2418,9 +2886,9 @@ if __name__ == "__main__":
         )
         evt_validation_stamps.extend(overlay_evt_validation_stamps)
 
-        all.append(posix(configure.rom_ok_path()))
-        all.append(posix(configure.syms_path()))
-        all.append(overlay_rom)
+        all_targets.append(posix(configure.rom_ok_path()))
+        all_targets.append(posix(configure.syms_path()))
+        all_targets.append(overlay_rom)
 
     assert first_configure, "no versions configured"
     first_configure.make_current(ninja)
@@ -2444,8 +2912,8 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
     ninja.build("evt_script_validation", "phony", evt_validation_stamps)
-    all.append("evt_script_validation")
-    ninja.build("all", "phony", all)
+    all_targets.append("evt_script_validation")
+    ninja.build("all", "phony", all_targets)
     ninja.default("all")
 
     # Download the pre-built clangd index that .clangd points at.

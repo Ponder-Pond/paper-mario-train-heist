@@ -8,11 +8,8 @@
 #include "map.h"
 
 #include "../dgb.h"
-#include "mapfs/dgb_14_shape.h"
-#include "mapfs/dgb_14_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE dgb_14
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;

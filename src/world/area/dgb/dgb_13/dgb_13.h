@@ -8,16 +8,13 @@
 #include "map.h"
 
 #include "../dgb.h"
-#include "mapfs/dgb_13_shape.h"
-#include "mapfs/dgb_13_hit.h"
+#include "map.xml.h"
 
 enum {
     MV_LowerDrawerOpen       = MapVar(0),
 };
 
-#define NAMESPACE dgb_13
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupDrawers);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupDrawers;
+extern EvtScript EVS_MakeEntities;

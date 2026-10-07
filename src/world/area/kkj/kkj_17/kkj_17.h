@@ -8,13 +8,10 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_17_shape.h"
-#include "mapfs/kkj_17_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Twink.h"
 
-#define NAMESPACE kkj_17
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupMagicChest);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupMagicChest;

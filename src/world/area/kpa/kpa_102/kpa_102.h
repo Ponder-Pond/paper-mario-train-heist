@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_102_shape.h"
-#include "mapfs/kpa_102_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/HammerBros.h"
 #include "sprite/npc/FlyingMagikoopa.h"
@@ -28,8 +27,6 @@ enum {
     NPC_HammerBros_Hammer6      = 56,
 };
 
-#define NAMESPACE kpa_102
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

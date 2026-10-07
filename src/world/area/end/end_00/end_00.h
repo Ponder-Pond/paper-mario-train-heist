@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../end.h"
-#include "mapfs/end_00_shape.h"
-#include "mapfs/end_00_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/ParadeLuigi.h"
 #include "sprite/npc/ParadePartner.h"
@@ -162,10 +161,8 @@ enum {
     PARADE_PHASE_DONE           = 2580,
 };
 
-#define NAMESPACE end_00
+extern EvtScript EVS_Main;
+extern EvtScript EVS_ManageParade;
+extern EvtScript EVS_OffsetNpcScroll;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_ManageParade);
-extern EvtScript N(EVS_OffsetNpcScroll);
-
-API_CALLABLE(N(AddScrollToNpcPos));
+API_CALLABLE(AddScrollToNpcPos);

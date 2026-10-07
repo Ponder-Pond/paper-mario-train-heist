@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../omo.h"
-#include "mapfs/omo_15_shape.h"
-#include "mapfs/omo_15_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/GeneralGuy.h"
 
@@ -30,9 +29,7 @@ enum {
     MV_SpiritCardData   = MapVar(1),
 };
 
-#define NAMESPACE omo_15
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_TrySpawningStarCard);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_TrySpawningStarCard;
+extern NpcGroupList DefaultNPCs;

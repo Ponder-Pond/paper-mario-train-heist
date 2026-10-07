@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../obk.h"
-#include "mapfs/obk_03_shape.h"
-#include "mapfs/obk_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldParakarry.h"
 #include "sprite/npc/Boo.h"
@@ -18,13 +17,11 @@ enum {
     NPC_Igor    = 0,
 };
 
-#define NAMESPACE obk_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupShop);
-extern EvtScript N(EVS_SetupStairs);
-extern EvtScript N(EVS_SetupRockingChair);
-extern EvtScript N(EVS_Scene_DropSteps);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupShop;
+extern EvtScript EVS_SetupStairs;
+extern EvtScript EVS_SetupRockingChair;
+extern EvtScript EVS_Scene_DropSteps;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

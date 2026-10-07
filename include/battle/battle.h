@@ -8,56 +8,6 @@
 // Terminates foreground model lists
 #define STAGE_MODEL_LIST_END 0
 
-enum BattleAreaIDs {
-    BTL_AREA_KMR_1         = 0x00,
-    BTL_AREA_KMR_2         = 0x01,
-    BTL_AREA_KMR_3         = 0x02,
-    BTL_AREA_MAC           = 0x03,
-    BTL_AREA_HOS           = 0x04,
-    BTL_AREA_NOK           = 0x05,
-    BTL_AREA_TRD_1         = 0x06,
-    BTL_AREA_TRD_2         = 0x07,
-    BTL_AREA_TRD_3         = 0x08,
-    BTL_AREA_IWA           = 0x09,
-    BTL_AREA_SBK           = 0x0A,
-    BTL_AREA_ISK_1         = 0x0B,
-    BTL_AREA_ISK_2         = 0x0C,
-    BTL_AREA_MIM           = 0x0D,
-    BTL_AREA_ARN           = 0x0E,
-    BTL_AREA_DGB           = 0x0F,
-    BTL_AREA_OMO           = 0x10,
-    BTL_AREA_OMO2          = 0x11,
-    BTL_AREA_OMO3          = 0x12,
-    BTL_AREA_KGR           = 0x13,
-    BTL_AREA_JAN           = 0x14,
-    BTL_AREA_JAN2          = 0x15,
-    BTL_AREA_KZN           = 0x16,
-    BTL_AREA_KZN2          = 0x17,
-    BTL_AREA_FLO           = 0x18,
-    BTL_AREA_FLO2          = 0x19,
-    BTL_AREA_TIK           = 0x1A,
-    BTL_AREA_TIK2          = 0x1B,
-    BTL_AREA_TIK3          = 0x1C,
-    BTL_AREA_SAM           = 0x1D,
-    BTL_AREA_SAM2          = 0x1E,
-    BTL_AREA_PRA           = 0x1F,
-    BTL_AREA_PRA2          = 0x20,
-    BTL_AREA_PRA3          = 0x21,
-    BTL_AREA_KPA           = 0x22,
-    BTL_AREA_KPA2          = 0x23,
-    BTL_AREA_KPA3          = 0x24,
-    BTL_AREA_KPA4          = 0x25,
-    BTL_AREA_KKJ           = 0x26,
-    BTL_AREA_DIG           = 0x27,
-    BTL_AREA_UNUSED_28     = 0x28,
-    BTL_AREA_OMO2_1        = 0x29,
-    BTL_AREA_OMO2_2        = 0x2A,
-    BTL_AREA_OMO2_3        = 0x2B,
-    BTL_AREA_OMO2_4        = 0x2C,
-    BTL_AREA_OMO2_5        = 0x2D,
-    BTL_AREA_OMO2_6        = 0x2E,
-};
-
 enum BattlePositions {
     BTL_POS_GROUND_A  = 0,
     BTL_POS_GROUND_B  = 1,
@@ -105,29 +55,6 @@ enum CommonActorVars {
 
 EXTERN_C s32 bActorNames[];
 
-typedef struct BattleMoveEntry {
-    /* 0x00 */ u8* romStart;
-    /* 0x04 */ u8* romEnd;
-    /* 0x08 */ u8* vramStart;
-    /* 0x0C */ EvtScript* mainScript;
-} BattleMoveEntry; // size = 0x10
-
-#define BTL_MOVE(name, script) \
-{ \
-    .romStart   = battle_move_##name##_ROM_START, \
-    .romEnd     = battle_move_##name##_ROM_END, \
-    .vramStart  = battle_move_##name##_VRAM, \
-    .mainScript = &battle_move_##name##_##script \
-}
-
-#define BTL_ITEM(name) \
-{ \
-    .romStart   = name##_ROM_START, \
-    .romEnd     = name##_ROM_END, \
-    .vramStart  = name##_VRAM, \
-    .mainScript = &battle_item_##name##_##EVS_UseItem \
-}
-
 typedef struct ActorBlueprint {
     /* 0x00 */ s32 flags;
     /* 0x04 */ s16 maxHP;
@@ -152,9 +79,20 @@ typedef struct ActorBlueprint {
     /* 0x26 */ Vec2b statusTextOffset;
 } ActorBlueprint; // size = 0x28
 
+/// Define public actor-overlay descriptors. Internal blueprints remain ordinary ActorBlueprint variables.
+/// OVL_DEF_ACTOR() selects the default; OVL_DEF_ACTOR(name) takes an identifier token.
+#define OVL_DEF_ACTOR(...) export ActorBlueprint _OVL_DEF_ACTOR_SYMBOL(__VA_ARGS__)
+#define _OVL_DEF_ACTOR_SYMBOL(...) blueprint ## __VA_OPT__(_) ## __VA_ARGS__
+
+#define ACTOR_BLUEPRINT_EXPORT_NAME "blueprint"
+#define ACTOR_KEY_MAX 64
+
+/// Split overlay[:variant], returning the variant (empty for the default) or nullptr if malformed.
+const char* split_actor_ref(const char* ref, char overlay[ACTOR_KEY_MAX]);
+
 typedef struct FormationRow {
-    /* 0x00 */ ActorBlueprint* actor;
-    /* 0x04 */ const char* overlay; ///< Overlay name, if `actor` is to be loaded dynamically.
+    /* 0x00 */ ActorBlueprint* actor; ///< Direct blueprint when `overlay` is nullptr.
+    /* 0x04 */ const char* overlay; ///< Actor reference: overlay or overlay:variant; nullptr selects a direct blueprint.
     /* 0x08 */ union {
     /*      */     s32    index;
     /*      */     Vec3i* vec;
@@ -168,61 +106,84 @@ typedef struct FormationRow {
 
 typedef FormationRow Formation[];
 
+/// A battle stage. Its geometry is the stage.xml in its directory.
 typedef struct Stage {
-    /* 0x00 */ char* texture;
-    /* 0x04 */ const char* shape;
-    /* 0x08 */ const char* hit;
-    /* 0x0C */ EvtScript* preBattle;        // sets BattleStatus::controlScript on battle start
-    /* 0x10 */ EvtScript* postBattle;       // sets BattleStatus::controlScript on battle end
-    /* 0x14 */ char* bg;
-    /* 0x18 */ s32* foregroundModelList;
-    /* 0x1C */ s32 stageEnemyCount;         // number of enemies in the stageFormation
-    /* 0x20 */ Formation* stageFormation;   // extra enemies native to this stage
-    /* 0x24 */ s32 stageEnemyChance;        // 1/(N+1) chance for stageFormation enemies to spawn
-} Stage; // size = 0x28
+    /* 0x00 */ const char* texture;
+    /* 0x04 */ EvtScript* preBattle;        // sets BattleStatus::controlScript on battle start
+    /* 0x08 */ EvtScript* postBattle;       // sets BattleStatus::controlScript on battle end
+    /* 0x0C */ const char* bg;
+    /* 0x10 */ s32* foregroundModelList;
+    /* 0x14 */ s32 stageEnemyCount;         // number of enemies in the stageFormation
+    /* 0x18 */ Formation* stageFormation;   // extra enemies native to this stage
+    /* 0x1C */ s32 stageEnemyChance;        // 1/(N+1) chance for stageFormation enemies to spawn
+} Stage; // size = 0x20
 
-/// Zero-terminated.
+#define BATTLE_STAGE_EXPORT_NAME "gBattleStage"
+
+/// Define the descriptors exported by a battle-stage overlay, one per variant of the stage.
+/// OVL_DEF_STAGE() is the default, and OVL_DEF_STAGE(name) the variant overlay:name.
+#define OVL_DEF_STAGE(...) export Stage _OVL_DEF_STAGE_SYMBOL(__VA_ARGS__)
+#define _OVL_DEF_STAGE_SYMBOL(...) gBattleStage ## __VA_OPT__(_) ## __VA_ARGS__
+
+/// Load a stage by reference, such as "trd_05" or the variant "trd_05:b".
+Stage* load_battle_stage(const char* ref);
+
+/// The loaded stage's model data in the map filesystem, such as b_trd_05_shape.
+extern char gBattleStageShapeName[];
+/// The loaded stage's collision data in the map filesystem, such as b_trd_05_hit.
+extern char gBattleStageHitName[];
+
+/// Release only after battle scripts/actors are gone and the renderer has switched to the world.
+void unload_battle_stage(void);
+
+/// A named formation and its default stage within a battle-area overlay.
 typedef struct Battle {
-    /* 0x00 */ const char* name; ///< Debug SJIS name.
+    /* 0x00 */ const char* name; ///< Stable formation key, unique within its area.
     /* 0x04 */ s32 formationSize;
     /* 0x08 */ Formation* formation;
-    /* 0x0C */ Stage* stage;
+    /* 0x0C */ const char* stage;         // stage overlay name
     /* 0x10 */ EvtScript* onBattleStart;    // sets BattleStatus::controlScript on battle start, overrides Stage::preBattle
 } Battle; // size = 0x14
 
 typedef Battle BattleList[];
 
-/// Zero-terminated.
-typedef struct StageListRow {
-    /* 0x00 */ const char* name; ///< Map ID.
-    /* 0x04 */ Stage* stage;
-} StageListRow; // size = 0x08
-
-typedef StageListRow StageList[];
-
+/// Descriptor exported by a battle-area overlay. Tables use explicit counts, not terminators.
 typedef struct BattleArea {
-    /* 0x00 */ char* name; ///< JP debug name.
-    /* 0x04 */ void* dmaStart;
-    /* 0x08 */ void* dmaEnd;
-    /* 0x0C */ void* dmaDest;
-    /* 0x10 */ BattleList* battles;
-    /* 0x14 */ StageList* stages;
-    /* 0x18 */ s32 unused_18;
-    /* 0x1C */ DmaTable* dmaTable;
-} BattleArea; // size = 0x20
+    /* 0x00 */ BattleList* battles;
+    /* 0x04 */ s32 battleCount;
+} BattleArea; // size = 0x08
 
-EXTERN_C BattleArea gBattleAreas[0x30];
+#define BATTLE_AREA_EXPORT_NAME "gBattleArea"
 
-#define BATTLE(formation, stage, name) { name, ARRAY_COUNT(formation), (Formation*) formation, &stage }
-#define BATTLE_WITH_SCRIPT(formation, stage, script, name) { name, ARRAY_COUNT(formation), (Formation*) formation, &stage, &script }
+/// Define a battle-area descriptor from its BattleList, without a terminator.
+#define OVL_DEF_BATTLE_AREA(battleList) \
+    export const BattleArea gBattleArea = { \
+        .battles = &(battleList), \
+        .battleCount = ARRAY_COUNT(battleList), \
+    }
 
-#define ACTOR_BY_IDX(_name, _idx, _priority, args...) { .actor = &_name, .home = { .index = _idx }, .priority = _priority, args }
-#define ACTOR_BY_POS(_name, _pos, _priority, args...) { .actor = &_name, .home = { .vec = &_pos }, .priority = _priority, args }
+#define BATTLE_REF_MAX 128
+#define BATTLE_KEY_MAX 64
 
-#define OVL_ACTOR_BY_IDX(_name, _idx, _priority, args...) { .overlay = _name, .home = { .index = _idx }, .priority = _priority, args }
-#define OVL_ACTOR_BY_POS(_name, _pos, _priority, args...) { .overlay = _name, .home = { .vec = &_pos }, .priority = _priority, args }
+// Returns the area/key split, or nullptr for a malformed reference.
+const char* split_battle_ref(const char* ref, char area[BATTLE_KEY_MAX]);
 
-#define STAGE(_name, _stage) { .name = _name, .stage = &_stage }
+const BattleArea* get_loaded_battle_area(void);
+
+// Like the stage, the area must outlive all battle scripts, actors, and rendering.
+void unload_battle_area(void);
+
+#define BATTLE(formation, stage) { #formation, ARRAY_COUNT(formation), (Formation*) formation, stage }
+#define BATTLE_WITH_SCRIPT(formation, stage, script) { #formation, ARRAY_COUNT(formation), (Formation*) formation, stage, &script }
+
+/// Formation entry for an actor located in an overlay
+/// Select OVL_DEF_ACTOR() with "overlay", or OVL_DEF_ACTOR(name) with "overlay:name"
+#define OVL_ACTOR_BY_IDX(_ref, _idx, _priority, args...) { .overlay = _ref, .home = { .index = _idx }, .priority = _priority, args }
+#define OVL_ACTOR_BY_POS(_ref, _pos, _priority, args...) { .overlay = _ref, .home = { .vec = &_pos }, .priority = _priority, args }
+
+/// Formation entry for an internal actor in the current overlay (e.g., "hole" in monty_mole)
+#define RAW_ACTOR_BY_IDX(_name, _idx, _priority, args...) { .actor = &_name, .home = { .index = _idx }, .priority = _priority, args }
+#define RAW_ACTOR_BY_POS(_name, _pos, _priority, args...) { .actor = &_name, .home = { .vec = &_pos }, .priority = _priority, args }
 
 typedef struct ActorSounds {
     /* 0x00 */ s32 walk[2];

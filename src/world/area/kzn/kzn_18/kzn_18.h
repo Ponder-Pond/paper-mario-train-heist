@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_18_shape.h"
-#include "mapfs/kzn_18_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Kolorado                = 0,
@@ -19,5 +18,3 @@ enum {
 enum {
     MV_KoloradoJumpDone         = MapVar(10),
 };
-
-#define NAMESPACE kzn_18

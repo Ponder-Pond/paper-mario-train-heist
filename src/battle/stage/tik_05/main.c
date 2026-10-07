@@ -1,0 +1,45 @@
+#include "battle/battle.h"
+#include "script_api/battle.h"
+#include "stage.xml.h"
+
+EvtScript EVS_PreBattle = {
+    Call(SetSpriteShading, SHADING_NONE)
+    Call(SetCamBGColor, CAM_BATTLE, 0, 0, 0)
+    Call(SetTexPanner, MODEL_taki1, TEX_PANNER_1)
+    Call(EnableTexPanning, MODEL_taki1, true)
+    Thread
+        TEX_PAN_PARAMS_ID(TEX_PANNER_1)
+        TEX_PAN_PARAMS_STEP(   0, -2700,   0, -3000)
+        TEX_PAN_PARAMS_FREQ(   1,     1,   1,     1)
+        TEX_PAN_PARAMS_INIT(   0,     0,   0,     0)
+        Exec(EVS_UpdateTexturePan)
+    EndThread
+    Call(SetTexPanner, MODEL_taki2, TEX_PANNER_2)
+    Call(EnableTexPanning, MODEL_taki2, true)
+    Thread
+        TEX_PAN_PARAMS_ID(TEX_PANNER_2)
+        TEX_PAN_PARAMS_STEP(   50, -200,  110, -500)
+        TEX_PAN_PARAMS_FREQ(    1,    1,    1,    1)
+        TEX_PAN_PARAMS_INIT(    0,    0,    0,    0)
+        Exec(EVS_UpdateTexturePan)
+    EndThread
+    Return
+    End
+};
+
+EvtScript EVS_PostBattle = {
+    Return
+    End
+};
+
+s32 ForegroundModels[] = {
+    MODEL_taki1,
+    STAGE_MODEL_LIST_END
+};
+
+OVL_DEF_STAGE() = {
+    .texture = "tik_tex",
+    .preBattle = &EVS_PreBattle,
+    .postBattle = &EVS_PostBattle,
+    .foregroundModelList = ForegroundModels,
+};

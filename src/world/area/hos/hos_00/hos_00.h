@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../hos.h"
-#include "mapfs/hos_00_shape.h"
-#include "mapfs/hos_00_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/ToadKid.h"
 #include "sprite/npc/Toadette.h"
@@ -28,15 +27,13 @@ enum {
     MV_LuckyStarItem        = MapVar(10),
 };
 
-#define NAMESPACE hos_00
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_PlayKammyKoopaSong);
-extern EvtScript N(EVS_Scene_MeetingTwink);
-extern EvtScript N(EVS_Scene_TwinkDeparts);
-extern EvtScript N(EVS_Scene_Wishing);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupBackgroundShade);
-extern NpcGroupList N(DefaultNPCs);
-extern NpcGroupList N(WishingNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_PlayKammyKoopaSong;
+extern EvtScript EVS_Scene_MeetingTwink;
+extern EvtScript EVS_Scene_TwinkDeparts;
+extern EvtScript EVS_Scene_Wishing;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupBackgroundShade;
+extern NpcGroupList DefaultNPCs;
+extern NpcGroupList WishingNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../trd.h"
-#include "mapfs/trd_05_shape.h"
-#include "mapfs/trd_05_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/KoopaBros.h"
 
@@ -17,5 +16,3 @@ enum {
     NPC_KoopaBros_01            = 0,
     NPC_KoopaBros_02            = 1,
 };
-
-#define NAMESPACE trd_05

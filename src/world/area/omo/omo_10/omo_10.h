@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../omo.h"
-#include "mapfs/omo_10_shape.h"
-#include "mapfs/omo_10_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/TrainToad.h"
 
@@ -33,12 +32,10 @@ enum {
     MF_EitherSwitchPressed  = MapFlag(1),
 };
 
-#define NAMESPACE omo_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupGizmos);
-extern EvtScript N(EVS_SetupTrain);
-extern EvtScript N(EVS_Conductor_ChooseRoute);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupGizmos;
+extern EvtScript EVS_SetupTrain;
+extern EvtScript EVS_Conductor_ChooseRoute;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

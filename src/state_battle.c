@@ -7,6 +7,8 @@
 #include "model.h"
 #include "game_modes.h"
 #include "dx/overlay.h"
+#include "world/actions.h"
+#include "dx/boot.h"
 
 extern u16 gFrameBuf0[];
 extern u16 gFrameBuf1[];
@@ -28,12 +30,12 @@ extern ShapeFile gMapShapeData;
 
 void state_init_battle(void) {
     BattleTransitionDelay = 5;
+#if DX_DEBUG_MENU
+    dx_boot_on_battle_start();
+#endif
 }
 
 void state_step_battle(void) {
-    u32 currentBattleArea;
-    u32 currentBattleIndex;
-
     if (BattleTransitionDelay == 5) {
         if (nuGfxCfb[1] != nuGfxCfb_ptr) {
             return;
@@ -64,11 +66,8 @@ void state_step_battle(void) {
 
         sfx_clear_env_sounds(0);
 
-        currentBattleArea = UNPACK_BTL_AREA(gCurrentBattleID);
-        currentBattleIndex = UNPACK_BTL_INDEX(gCurrentBattleID);
-
         if (gGameStatusPtr->peachFlags & PEACH_FLAG_IS_PEACH ||
-            (currentBattleArea == BTL_AREA_KKJ && currentBattleIndex == 0)) {
+            strcmp(gCurrentBattleName, "kkj:kammy_koopa") == 0) {
             gGameStatusPtr->peachFlags |= PEACH_FLAG_IS_PEACH;
             spr_init_sprites(PLAYER_SPRITES_PEACH_BATTLE);
         } else {
@@ -89,6 +88,7 @@ void state_step_battle(void) {
         clear_npcs();
         clear_entity_data(true);
         clear_trigger_data();
+        unload_player_action();
         DMA_COPY_SEGMENT(battle);
         initialize_battle();
         btl_save_world_cameras();
@@ -159,6 +159,8 @@ void state_step_end_battle(void) {
             init_trigger_list();
 
             ovl_unload_type(OVL_ACTOR);
+            unload_battle_stage();
+            unload_battle_area();
             remove_all_effects();
 
             if (gGameStatusPtr->demoBattleFlags & DEMO_BTL_FLAG_ENABLED) {
@@ -177,6 +179,8 @@ void state_step_end_battle(void) {
                 initialize_collision();
                 restore_map_collision_data();
 
+                ovl_restore_type(OVL_MAP);
+
                 if (mapSettings->bgName != nullptr) {
                     load_map_bg(wMapBgName);
                     set_background(&gBackgroundImage);
@@ -194,6 +198,7 @@ void state_step_end_battle(void) {
                     set_time_freeze_mode(SavedWorldFreezeMode);
                 }
                 set_game_mode(GAME_MODE_WORLD);
+                dx_boot_on_battle_end();
             }
         }
     }

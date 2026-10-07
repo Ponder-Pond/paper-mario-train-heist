@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_08_shape.h"
-#include "mapfs/mim_08_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Bzzap.h"
 #include "sprite/npc/SmallPiranha.h"
@@ -26,10 +25,8 @@ enum {
     MV_HitHiveTree      = MapVar(0),
 };
 
-#define NAMESPACE mim_08
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupGates);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupGates;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

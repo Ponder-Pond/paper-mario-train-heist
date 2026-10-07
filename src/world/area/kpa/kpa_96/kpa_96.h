@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_96_shape.h"
-#include "mapfs/kpa_96_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/SpikedGoomba.h"
 
@@ -21,9 +20,7 @@ enum {
     MV_MetShopkeeper    = MapVar(0),
 };
 
-#define NAMESPACE kpa_96
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupShop);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupShop;
+extern NpcGroupList DefaultNPCs;

@@ -1,6 +1,8 @@
 #include "common.h"
 #include "nu/nusys.h"
 #include "game_modes.h"
+#include "battle/battle.h"
+#include "dx/boot.h"
 
 BSS s16 gMapTransitionAlpha;
 BSS s16 gMapTransitionFadeRate;
@@ -27,6 +29,10 @@ void state_init_enter_world(void) {
     gLoadedFromFileSelect = true;
     set_map_transition_effect(TRANSITION_ENTER_WORLD);
     init_enter_world_shared();
+    // the fade finishes at once, so the battle starts as soon as the world loads
+    if (dx_boot_enters_battle()) {
+        gMapTransitionAlpha = 0;
+    }
 }
 
 void init_enter_world_shared(void) {
@@ -39,7 +45,6 @@ void init_enter_world_shared(void) {
 
     gOverrideFlags |= GLOBAL_OVERRIDES_DISABLE_DRAW_FRAME;
 
-    evt_set_variable(nullptr, GB_Unused_EVT_01, gGameStatusPtr->unk_A9);
     gTimeFreezeMode = TIME_FREEZE_NONE;
 }
 
@@ -233,6 +238,8 @@ void state_step_game_over(void) {
                 gGameStatusPtr->context = CONTEXT_WORLD;
                 gGameStatusPtr->debugScripts = DEBUG_SCRIPTS_NONE;
                 load_map_by_IDs(gGameStatusPtr->areaID, gGameStatusPtr->mapID, LOAD_FROM_MAP);
+                unload_battle_stage();
+                unload_battle_area();
                 nuContRmbForceStopEnd();
                 gMapTransitionState++;
             }

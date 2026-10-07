@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../flo.h"
-#include "mapfs/flo_09_shape.h"
-#include "mapfs/flo_09_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Dayzee.h"
 #include "sprite/npc/Bzzap.h"
@@ -21,10 +20,8 @@ enum {
     NPC_Bzzap_02                = 3,
 };
 
-#define NAMESPACE flo_09
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_SetupVines);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_SetupVines;
+extern NpcGroupList DefaultNPCs;

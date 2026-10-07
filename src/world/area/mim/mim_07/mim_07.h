@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_07_shape.h"
-#include "mapfs/mim_07_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/JrTroopa.h"
 #include "sprite/npc/WorldGoombario.h"
@@ -25,12 +24,10 @@ enum {
     NPC_JrTroopa                = 2,
 };
 
-#define NAMESPACE mim_07
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_PlayForestMusic);
-extern EvtScript N(EVS_JrTroopaMusic);
-extern EvtScript N(EVS_SetupGates);
-extern EvtScript N(EVS_SetupExitHint);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_PlayForestMusic;
+extern EvtScript EVS_JrTroopaMusic;
+extern EvtScript EVS_SetupGates;
+extern EvtScript EVS_SetupExitHint;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

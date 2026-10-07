@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_80_shape.h"
-#include "mapfs/kpa_80_hit.h"
+#include "world/area/kpa/kpa_80/map.xml.h"
 
 #include "sprite/npc/KoopaBros.h"
 #include "sprite/npc/Toad.h"
@@ -36,8 +35,6 @@ enum {
     MF_DoneIntroMessage = MapFlag(0),
 };
 
-#define NAMESPACE kpa_83
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

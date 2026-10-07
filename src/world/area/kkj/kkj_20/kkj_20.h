@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_20_shape.h"
-#include "mapfs/kkj_20_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toad.h"
 #include "sprite/npc/Twink.h"
@@ -18,11 +17,9 @@ enum {
     NPC_Toad    = 0,
 };
 
-#define NAMESPACE kkj_20
+extern EvtScript EVS_Main;
+extern EvtScript EVS_PlayBowserSong;
+extern EvtScript EVS_PlayRestingSong;
+extern EvtScript EVS_MakeEntities;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_PlayBowserSong);
-extern EvtScript N(EVS_PlayRestingSong);
-extern EvtScript N(EVS_MakeEntities);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_04_shape.h"
-#include "mapfs/sam_04_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toad.h"
 #include "sprite/npc/Penguin.h"
@@ -30,11 +29,9 @@ enum {
     MV_TreeHitCount     = MapVar(2),
 };
 
-#define NAMESPACE sam_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupSnowmen);
-extern EvtScript N(EVS_Scene_SnowmenSpeak);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupSnowmen;
+extern EvtScript EVS_Scene_SnowmenSpeak;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

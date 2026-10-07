@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_11_shape.h"
-#include "mapfs/mim_11_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldGoombario.h"
 #include "sprite/npc/WorldKooper.h"
@@ -27,12 +26,10 @@ enum {
     MF_Drop_Bush1       = MapFlag(10),
 };
 
-#define NAMESPACE mim_11
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupMansionGate;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_SetupMusic;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupMansionGate);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_SetupMusic);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

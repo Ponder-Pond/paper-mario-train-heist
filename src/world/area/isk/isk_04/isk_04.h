@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../isk.h"
-#include "mapfs/isk_04_shape.h"
-#include "mapfs/isk_04_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/BuzzyBeetle.h"
 
@@ -22,11 +21,9 @@ enum {
     MV_RuinsLockEntityID        = MapVar(0),
 };
 
-#define NAMESPACE isk_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupObstructions);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupDemo);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupObstructions;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupDemo;
+extern NpcGroupList DefaultNPCs;

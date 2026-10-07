@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sbk.h"
-#include "mapfs/sbk_56_shape.h"
-#include "mapfs/sbk_56_hit.h"
+#include "map.xml.h"
 
 enum {
     MV_SuperBlock   = MapVar(0),
@@ -19,5 +18,3 @@ enum {
     MF_TreeDrop_Lemon   = MapFlag(10),
     MF_TreeDrop_Lime    = MapFlag(12),
 };
-
-#define NAMESPACE sbk_56

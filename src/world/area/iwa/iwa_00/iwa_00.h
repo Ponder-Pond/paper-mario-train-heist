@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_00_shape.h"
-#include "mapfs/iwa_00_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_MontyMole_01            = 0,
@@ -20,9 +19,7 @@ enum {
     NPC_Whacka_02               = 5,
 };
 
-#define NAMESPACE iwa_00
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_BindSlideTriggers);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_BindSlideTriggers;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../trd.h"
-#include "mapfs/trd_07_shape.h"
-#include "mapfs/trd_07_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/KoopaTroopa.h"
 #include "sprite/npc/ParaTroopa.h"
@@ -25,5 +24,3 @@ enum {
     MV_DoorScaleZ               = MapVar(0), // reusing
     MV_DoorScaleY               = MapVar(1),
 };
-
-#define NAMESPACE trd_07

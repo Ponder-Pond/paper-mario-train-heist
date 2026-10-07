@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_130_shape.h"
-#include "mapfs/kpa_130_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/BillBlaster.h"
 #include "sprite/npc/BulletBill.h"
@@ -45,8 +44,6 @@ enum {
     NPC_BombshellBill_20        = 69,
 };
 
-#define NAMESPACE kpa_130
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

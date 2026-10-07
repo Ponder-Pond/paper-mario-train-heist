@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_11_shape.h"
-#include "mapfs/iwa_11_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_TrainToad        = 0,
@@ -29,12 +28,10 @@ enum {
     MF_TrainReverseDir              = MapFlag(5),
 };
 
-#define NAMESPACE iwa_11
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_InitializeTrainScene);
-extern EvtScript N(EVS_TravelToMtRugged);
-extern EvtScript N(EVS_TravelToToadTown);
-extern EvtScript N(EVS_UpdateSceneryPos);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_InitializeTrainScene;
+extern EvtScript EVS_TravelToMtRugged;
+extern EvtScript EVS_TravelToToadTown;
+extern EvtScript EVS_UpdateSceneryPos;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

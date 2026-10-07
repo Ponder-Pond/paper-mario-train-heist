@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../flo.h"
-#include "mapfs/flo_13_shape.h"
-#include "mapfs/flo_13_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldLakilester.h"
 #include "sprite/npc/Lakitu.h"
@@ -33,11 +32,9 @@ enum {
     MV_LakiluluSpinySceneState  = MapVar(10),
 };
 
-#define NAMESPACE flo_13
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_PushPartnerSong);
-extern EvtScript N(EVS_PopSong);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_PushPartnerSong;
+extern EvtScript EVS_PopSong;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

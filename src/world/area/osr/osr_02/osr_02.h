@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../osr.h"
-#include "mapfs/osr_02_shape.h"
-#include "mapfs/osr_02_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Twink.h"
 #include "sprite/npc/WorldEldstar.h"
@@ -35,10 +34,8 @@ enum {
     NPC_StarRod                 = 9,
 };
 
-#define NAMESPACE osr_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_Scene_ReturnStarRod);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(PeachNPCs);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_Scene_ReturnStarRod;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList PeachNPCs;
+extern NpcGroupList DefaultNPCs;

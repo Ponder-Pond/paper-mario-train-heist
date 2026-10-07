@@ -8,9 +8,6 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_24_shape.h"
-#include "mapfs/kmr_24_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE kmr_24
-
-extern EvtScript N(EVS_Main);
+extern EvtScript EVS_Main;

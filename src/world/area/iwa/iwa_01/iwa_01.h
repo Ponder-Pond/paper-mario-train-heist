@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_01_shape.h"
-#include "mapfs/iwa_01_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_MontyMole_01            = 0,
@@ -27,11 +26,9 @@ enum {
     MV_SplashState              = MapVar(15),
 };
 
-#define NAMESPACE iwa_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeSplashes);
-extern EvtScript N(EVS_BindSlideTriggers1);
-extern EvtScript N(EVS_BindSlideTriggers2);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeSplashes;
+extern EvtScript EVS_BindSlideTriggers1;
+extern EvtScript EVS_BindSlideTriggers2;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

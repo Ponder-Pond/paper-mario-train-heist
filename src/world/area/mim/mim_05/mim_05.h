@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_05_shape.h"
-#include "mapfs/mim_05_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/SmallPiranha.h"
 
@@ -20,10 +19,8 @@ enum {
     NPC_PiranhaPlant_02_Hitbox  = 3,
 };
 
-#define NAMESPACE mim_05
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupGates);
-extern EvtScript N(EVS_SetupExitHint);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupGates;
+extern EvtScript EVS_SetupExitHint;
+extern NpcGroupList DefaultNPCs;

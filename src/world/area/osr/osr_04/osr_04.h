@@ -8,15 +8,12 @@
 #include "map.h"
 
 #include "../osr.h"
-#include "mapfs/osr_03_shape.h"
-#include "mapfs/osr_03_hit.h"
+#include "world/area/osr/osr_03/map.xml.h"
 
 enum {
     MV_SmokeVelY        = MapVar(1),
     MV_CastleLiftDist   = MapVar(14),
 };
 
-#define NAMESPACE osr_04
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_Scene_BowsersAssault);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_Scene_BowsersAssault;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_00_shape.h"
-#include "mapfs/jan_00_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Whale                   = 0,
@@ -22,6 +21,4 @@ enum {
     NPC_HeartPlant_05           = 7,
 };
 
-#define NAMESPACE jan_00
-
-extern EvtScript N(EVS_MakeFlowerCoins);
+extern EvtScript EVS_MakeFlowerCoins;

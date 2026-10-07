@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../mim.h"
-#include "mapfs/mim_10_shape.h"
-#include "mapfs/mim_10_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Bootler.h"
 #include "sprite/npc/JrTroopa.h"
@@ -23,10 +22,8 @@ enum {
     MV_ScenePlaying     = MapVar(0), // may be unread
 };
 
-#define NAMESPACE mim_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupBootlerTrigger);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupBootlerTrigger;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

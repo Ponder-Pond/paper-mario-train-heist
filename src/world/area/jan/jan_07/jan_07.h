@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_07_shape.h"
-#include "mapfs/jan_07_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_YoshiKid                = 0,
@@ -19,10 +18,8 @@ enum {
     NPC_SpearGuy_Hitbox         = 11,
 };
 
-#define NAMESPACE jan_07
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupTrees);
-extern EvtScript N(EVS_SetupBushes);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupTrees;
+extern EvtScript EVS_SetupBushes;
+extern NpcGroupList DefaultNPCs;

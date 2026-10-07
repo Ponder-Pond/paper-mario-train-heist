@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../nok.h"
-#include "mapfs/nok_03_shape.h"
-#include "mapfs/nok_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldKooper.h"
 
@@ -20,9 +19,7 @@ enum {
     NPC_KoopersShell    = 5,
 };
 
-#define NAMESPACE nok_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

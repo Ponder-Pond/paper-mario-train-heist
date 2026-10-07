@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../arn.h"
-#include "mapfs/arn_02_shape.h"
-#include "mapfs/arn_02_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Cleft.h"
 #include "sprite/npc/Goomba.h"
@@ -20,9 +19,7 @@ enum {
     NPC_HyperGoomba         = 2,
 };
 
-#define NAMESPACE arn_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

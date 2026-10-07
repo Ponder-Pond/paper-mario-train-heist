@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_12_shape.h"
-#include "mapfs/kkj_12_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Koopatrol_01    = 0,
@@ -17,9 +16,7 @@ enum {
     NPC_Clubba          = 2,
 };
 
-#define NAMESPACE kkj_12
+extern EvtScript EVS_Main;
+extern EvtScript EVS_ExitDoors_kkj_13_0;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_ExitDoors_kkj_13_0);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

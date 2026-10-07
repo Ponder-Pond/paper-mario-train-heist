@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_50_shape.h"
-#include "mapfs/kpa_50_hit.h"
+#include "world/area/kpa/kpa_50/map.xml.h"
 
 #include "sprite/npc/Magikoopa.h"
 #include "sprite/npc/WorldKoopatrol.h"
@@ -22,8 +21,6 @@ enum {
     NPC_Koopatrol               = 4,
 };
 
-#define NAMESPACE kpa_51
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

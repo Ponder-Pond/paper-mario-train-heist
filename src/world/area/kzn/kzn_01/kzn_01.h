@@ -8,14 +8,11 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_01_shape.h"
-#include "mapfs/kzn_01_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_PutridPiranha   = 0,
 };
 
-#define NAMESPACE kzn_01
-
-extern EvtScript N(EVS_Main);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern NpcGroupList DefaultNPCs;

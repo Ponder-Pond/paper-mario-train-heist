@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_11_shape.h"
-#include "mapfs/kzn_11_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_FireBar_1A              = 0,
@@ -28,9 +27,7 @@ enum {
     NPC_Bubble_02               = 101,
 };
 
-#define NAMESPACE kzn_11
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_UpdateLeftPlatform);
-extern EvtScript N(EVS_UpdateRightPlatform);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_UpdateLeftPlatform;
+extern EvtScript EVS_UpdateRightPlatform;
+extern NpcGroupList DefaultNPCs;

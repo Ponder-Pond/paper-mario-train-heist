@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../obk.h"
-#include "mapfs/obk_08_shape.h"
-#include "mapfs/obk_08_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Boo.h"
 
@@ -52,13 +51,11 @@ enum KeepAwayResult {
     KEEP_AWAY_WRONG     = 2,
 };
 
-#define NAMESPACE obk_08
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_ManageWindows);
-extern EvtScript N(EVS_SetupCabinets);
-extern EvtScript N(EVS_BindCabinetTriggers);
-extern EvtScript N(EVS_Scene_BoosUnleashed);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_ManageWindows;
+extern EvtScript EVS_SetupCabinets;
+extern EvtScript EVS_BindCabinetTriggers;
+extern EvtScript EVS_Scene_BoosUnleashed;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

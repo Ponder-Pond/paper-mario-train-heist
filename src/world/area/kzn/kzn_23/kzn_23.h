@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kzn.h"
-#include "mapfs/kzn_23_shape.h"
-#include "mapfs/kzn_23_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Kolorado    = 0,
@@ -20,8 +19,6 @@ enum {
     MV_LavaLevel    = MapVar(10),
 };
 
-#define NAMESPACE kzn_23
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_01_shape.h"
-#include "mapfs/kkj_01_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_ToadMinister        = 0,
@@ -25,10 +24,8 @@ enum {
     NPC_Koopa               = 10,
 };
 
-#define NAMESPACE kkj_01
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_ExitDoors_kkj_14_0;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_ExitDoors_kkj_14_0);
-
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList DefaultNPCs;

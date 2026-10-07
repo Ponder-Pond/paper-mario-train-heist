@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_12_shape.h"
-#include "mapfs/sam_12_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Merlar.h"
 
@@ -25,10 +24,8 @@ enum {
     MF_DoneFadingIn     = MapFlag(0),
 };
 
-#define NAMESPACE sam_12
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_MeetMerlar);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_MeetMerlar;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

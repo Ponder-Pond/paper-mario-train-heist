@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_03_shape.h"
-#include "mapfs/iwa_03_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Cleft_01                = 0,
@@ -23,9 +22,7 @@ enum {
     MV_PlayerCliffLevel     = MapVar(9),
 };
 
-#define NAMESPACE iwa_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_BindSlideTriggers);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_BindSlideTriggers;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

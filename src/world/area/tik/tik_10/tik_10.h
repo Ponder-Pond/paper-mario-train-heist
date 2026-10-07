@@ -8,16 +8,13 @@
 #include "map.h"
 
 #include "../tik.h"
-#include "mapfs/tik_10_shape.h"
-#include "mapfs/tik_10_hit.h"
+#include "map.xml.h"
 
 enum {
     MV_SuperBlock       = MapVar(0),
 };
 
-#define NAMESPACE tik_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_SetupDrips);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_SetupDrips;

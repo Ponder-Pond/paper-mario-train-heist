@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sbk.h"
-#include "mapfs/sbk_20_shape.h"
-#include "mapfs/sbk_20_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Bandit.h"
 
@@ -21,5 +20,3 @@ enum {
 enum {
     MV_BlockHitCounter  = MapVar(0),
 };
-
-#define NAMESPACE sbk_20

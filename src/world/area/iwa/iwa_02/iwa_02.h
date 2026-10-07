@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../iwa.h"
-#include "mapfs/iwa_02_shape.h"
-#include "mapfs/iwa_02_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Cleft_01                = 0,
@@ -20,8 +19,6 @@ enum {
     NPC_Bubulb                  = 5,
 };
 
-#define NAMESPACE iwa_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

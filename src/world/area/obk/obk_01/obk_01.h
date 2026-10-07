@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../obk.h"
-#include "mapfs/obk_01_shape.h"
-#include "mapfs/obk_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldParakarry.h"
 #include "sprite/npc/Boo.h"
@@ -27,12 +26,10 @@ enum {
     MV_CabinetPosOffset     = MapVar(11),
 };
 
-#define NAMESPACE obk_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupChandelier);
-extern EvtScript N(EVS_SetupPortrait);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_JumpScareBoo);
-extern NpcGroupList N(DefaultNPCs);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupChandelier;
+extern EvtScript EVS_SetupPortrait;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_JumpScareBoo;
+extern NpcGroupList DefaultNPCs;
+extern EvtScript EVS_MakeEntities;

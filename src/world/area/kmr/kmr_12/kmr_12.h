@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_12_shape.h"
-#include "mapfs/kmr_12_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Goomba.h"
 
@@ -17,10 +16,8 @@ enum {
     NPC_Goomba_Ambush   = 0,
 };
 
-#define NAMESPACE kmr_12
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_OnReadBillboard);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_OnReadBillboard;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

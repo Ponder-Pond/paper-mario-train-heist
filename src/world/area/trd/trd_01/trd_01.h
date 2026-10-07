@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../trd.h"
-#include "mapfs/trd_01_shape.h"
-#include "mapfs/trd_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/KoopaTroopa.h"
 #include "sprite/npc/Bobomb.h"
@@ -29,5 +28,3 @@ enum {
     NPC_KoopaTroopa_02_DonePanic    = MapFlag(10),
     NPC_KoopaTroopa_03_DonePanic    = MapFlag(11),
 };
-
-#define NAMESPACE trd_01

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../obk.h"
-#include "mapfs/obk_05_shape.h"
-#include "mapfs/obk_05_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Boo.h"
 
@@ -22,11 +21,9 @@ enum {
     MF_IsRetroMario     = MapFlag(10),
 };
 
-#define NAMESPACE obk_05
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupRockingChairs);
-extern EvtScript N(EVS_ManageHole);
-extern NpcGroupList N(DefaultNPCs);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupRockingChairs;
+extern EvtScript EVS_ManageHole;
+extern NpcGroupList DefaultNPCs;
+extern EvtScript EVS_MakeEntities;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../arn.h"
-#include "mapfs/arn_11_shape.h"
-#include "mapfs/arn_11_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/TubbasHeart.h"
 
@@ -17,8 +16,6 @@ enum {
     NPC_TubbasHeart             = 0,
 };
 
-#define NAMESPACE arn_11
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;

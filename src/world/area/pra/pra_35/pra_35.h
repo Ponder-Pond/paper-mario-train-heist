@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../pra.h"
-#include "mapfs/pra_35_shape.h"
-#include "mapfs/pra_35_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Clubba          = 0,
@@ -17,9 +16,7 @@ enum {
     NPC_Duplighost      = 4,
 };
 
-#define NAMESPACE pra_35
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

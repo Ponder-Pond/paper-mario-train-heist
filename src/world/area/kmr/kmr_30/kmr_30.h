@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_30_shape.h"
-#include "mapfs/kmr_30_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/ParadePeach.h"
 
@@ -17,8 +16,6 @@ enum {
     NPC_ParadePeach             = 0,
 };
 
-#define NAMESPACE kmr_30
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_Scene_TheEnd);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_Scene_TheEnd;
+extern NpcGroupList DefaultNPCs;

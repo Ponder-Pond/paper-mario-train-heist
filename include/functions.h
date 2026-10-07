@@ -147,8 +147,7 @@ s32 general_heap_free(void* data);
 
 s32 integer_log(s32 number, u32 base);
 
-void set_battle_stage(s32);
-void load_battle(s32);
+void load_battle(const char* battle, const char* stage);
 
 void entity_Shadow_init(Shadow* entity);
 void entity_SaveBlock_idle(Entity* entity);
@@ -176,6 +175,10 @@ void entity_base_switch_init(Entity* entity);
 void entity_block_hit_init_scale(Entity* entity);
 void entity_block_hit_animate_scale(Entity* entity);
 s32 entity_block_handle_collision(Entity* entity);
+void entity_inactive_block_hit_init(Entity* entity);
+void entity_inactive_block_hit_anim(Entity* entity);
+void entity_inactive_block_recoil_anim(Entity* entity);
+void entity_MulticoinBlock_update_timer(Entity* entity);
 void entity_BlueSwitch_init(Entity* entity);
 void entity_HugeBlueSwitch_init(Entity* entity);
 
@@ -547,6 +550,8 @@ s32 add_star_points(s32 amt);
 s32 add_star_pieces(s32 amt);
 s32 make_item_entity_at_player(s32 itemID, s32 arg1, s32 pickupMsgFlags);
 
+b32 action_is_locomotion(s32 actionState);
+b32 action_8bit_supported(s32 actionState);
 void set_action_state(s32 actionState);
 s32 get_collider_flags(s32 colliderID);
 void suggest_player_anim_always_forward(AnimID anim);
@@ -896,7 +901,7 @@ void render_entities(void);
 void render_player(void);
 void render_workers_scene(void);
 void render_effects_scene(void);
-s32 get_asset_offset(char*, u32*);
+s32 get_asset_offset(const char*, u32*);
 void initialize_status_bar(void);
 void status_bar_start_blinking_fp(void);
 s32 is_status_bar_visible(void);
@@ -926,7 +931,7 @@ void update_encounters_neutral(void);
 void update_encounters_pre_battle(void);
 void update_encounters_conversation(void);
 void update_encounters_post_battle(void);
-void load_map_bg(char* optAssetName);
+void load_map_bg(const char* optAssetName);
 void reset_background_settings(void);
 void reset_back_screen_overlay_progress(void);
 void cancel_action_rating_combo(Actor*);

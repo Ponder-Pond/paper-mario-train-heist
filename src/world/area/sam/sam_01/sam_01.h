@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_01_shape.h"
-#include "mapfs/sam_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Herringway.h"
 #include "sprite/npc/Penguin.h"
@@ -57,16 +56,14 @@ enum {
     MF_ContinueScene            = MapFlag(0),
 };
 
-#define NAMESPACE sam_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_NpcInteract_Herringway);
-extern EvtScript N(EVS_SetupMayorRooms);
-extern EvtScript N(EVS_SetupRooms);
-extern EvtScript N(EVS_Scene_MysteryBegins);
-extern EvtScript N(EVS_Scene_MysterySolved);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(BeforeNPCs);
-extern NpcGroupList N(MysteryNPCs);
-extern NpcGroupList N(AfterNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_NpcInteract_Herringway;
+extern EvtScript EVS_SetupMayorRooms;
+extern EvtScript EVS_SetupRooms;
+extern EvtScript EVS_Scene_MysteryBegins;
+extern EvtScript EVS_Scene_MysterySolved;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList BeforeNPCs;
+extern NpcGroupList MysteryNPCs;
+extern NpcGroupList AfterNPCs;

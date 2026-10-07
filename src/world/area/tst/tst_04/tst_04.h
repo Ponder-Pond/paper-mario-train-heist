@@ -8,13 +8,10 @@
 #include "map.h"
 
 #include "../tst.h"
-#include "mapfs/tst_04_shape.h"
-#include "mapfs/tst_04_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Goompa.h"
 
 enum {
     NPC_Goompa              = 0,
 };
-
-#define NAMESPACE tst_04

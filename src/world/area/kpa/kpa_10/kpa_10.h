@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_10_shape.h"
-#include "mapfs/kpa_10_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toad.h"
 #include "sprite/npc/ToadGuard.h"
@@ -20,9 +19,7 @@ enum {
     NPC_ToadGuard               = 2,
 };
 
-#define NAMESPACE kpa_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
-extern EvtScript N(EVS_MakeEntities);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;
+extern EvtScript EVS_MakeEntities;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../sam.h"
-#include "mapfs/sam_03_shape.h"
-#include "mapfs/sam_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/JrTroopa.h"
 #include "sprite/npc/Gulpit.h"
@@ -23,9 +22,7 @@ enum {
     NPC_Gulpit_02_Hitbox    = 3,
 };
 
-#define NAMESPACE sam_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(BeforeNPCs);
-extern NpcGroupList N(AfterNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList BeforeNPCs;
+extern NpcGroupList AfterNPCs;

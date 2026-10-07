@@ -8,17 +8,14 @@
 #include "map.h"
 
 #include "../kpa.h"
-#include "mapfs/kpa_01_shape.h"
-#include "mapfs/kpa_01_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_BonyBeetle_01           = 0,
     NPC_BonyBeetle_02           = 1,
 };
 
-#define NAMESPACE kpa_01
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;

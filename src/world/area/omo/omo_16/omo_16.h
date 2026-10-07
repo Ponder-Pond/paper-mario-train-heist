@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../omo.h"
-#include "mapfs/omo_16_shape.h"
-#include "mapfs/omo_16_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/TrainToad.h"
 
@@ -30,8 +29,6 @@ enum {
     MF_TrainRideActive      = MapFlag(0),
 };
 
-#define NAMESPACE omo_16
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_Scene_TrainTraveling);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_Scene_TrainTraveling;
+extern NpcGroupList DefaultNPCs;

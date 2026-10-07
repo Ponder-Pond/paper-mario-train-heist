@@ -3,7 +3,6 @@
 #include "script_api/battle.h"
 
 extern ShapeFile gMapShapeData;
-extern StageListRow* gCurrentStagePtr;
 extern s32 bActorsIgnoreDuringCount[];
 
 extern EvtScript EVS_OnBattleInit;
@@ -28,7 +27,7 @@ void load_stage_assets(Stage* stage) {
     s32 texturesOffset;
     u32 size;
 
-    compressedAsset = load_asset_by_name(stage->shape, &size);
+    compressedAsset = load_asset_by_name(gBattleStageShapeName, &size);
     decode_yay0(compressedAsset, &gMapShapeData);
     general_heap_free(compressedAsset);
 
@@ -39,7 +38,7 @@ void load_stage_assets(Stage* stage) {
     if (rootModel != nullptr) {
         load_data_for_models(rootModel, texturesOffset, size);
     }
-    load_battle_hit_asset(stage->hit);
+    load_battle_hit_asset(gBattleStageHitName);
 
     if (stage->bg != nullptr) {
         load_map_bg(stage->bg);
@@ -66,17 +65,12 @@ void btl_state_update_normal_start(void) {
         battle = gOverrideBattlePtr;
     }
 
-    if (gCurrentStagePtr == nullptr) {
-        stage = battle->stage;
-    } else {
-        stage = gCurrentStagePtr->stage;
-    }
-
-    battleStatus->curStage = stage;
+    stage = battleStatus->curStage;
     switch (gBattleSubState) {
         case BTL_SUBSTATE_INIT:
+            stage = load_battle_stage(gCurrentStageName[0] == '\0' ? battle->stage : gCurrentStageName);
             #if DX_DEBUG_MENU
-            dx_debug_set_battle_info(gCurrentBattleID << 16 | (gCurrentStageID & 0xFFFF), stage->shape);
+            dx_debug_set_battle_info(gCurrentBattleName, gBattleStageShapeName);
             #endif
 
             BattleEnemiesCreated = battle->formationSize;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../osr.h"
-#include "mapfs/osr_03_shape.h"
-#include "mapfs/osr_03_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldKammy.h"
 
@@ -25,15 +24,13 @@ enum {
     MV_CastleLiftDist   = MapVar(14),
 };
 
-#define NAMESPACE osr_03
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_AnimateSwingingChains);
-extern EvtScript N(EVS_AnimateSpinningRing);
-extern EvtScript N(MV_Scene_CastleAscending);
-extern EvtScript N(MV_Scene_PlayerTossedOut);
-extern EvtScript N(EVS_Scene_UnusedTossOut);
-extern EvtScript N(EVS_Scene_BeginInterlude);
-extern EvtScript N(EVS_Scene_Starship);
-extern EvtScript N(EVS_Scene_CastleDestruction);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_AnimateSwingingChains;
+extern EvtScript EVS_AnimateSpinningRing;
+extern EvtScript MV_Scene_CastleAscending;
+extern EvtScript MV_Scene_PlayerTossedOut;
+extern EvtScript EVS_Scene_UnusedTossOut;
+extern EvtScript EVS_Scene_BeginInterlude;
+extern EvtScript EVS_Scene_Starship;
+extern EvtScript EVS_Scene_CastleDestruction;
+extern NpcGroupList DefaultNPCs;

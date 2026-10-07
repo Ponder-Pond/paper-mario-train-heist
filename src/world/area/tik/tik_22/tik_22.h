@@ -8,10 +8,7 @@
 #include "map.h"
 
 #include "../tik.h"
-#include "mapfs/tik_22_shape.h"
-#include "mapfs/tik_22_hit.h"
+#include "map.xml.h"
 
-#define NAMESPACE tik_22
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;

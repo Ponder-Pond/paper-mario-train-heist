@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_00_shape.h"
-#include "mapfs/kkj_00_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Luigi.h"
 #include "sprite/npc/Toad.h"
@@ -95,15 +94,13 @@ enum {
     NPC_ToadGuard_07        = 46,
 };
 
-#define NAMESPACE kkj_00
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_Scene_Intro;
+extern EvtScript EVS_Scene_Ending;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_Scene_Intro);
-extern EvtScript N(EVS_Scene_Ending);
-
-extern NpcGroupList N(IntroNPCs);
-extern NpcGroupList N(EndingNPCs);
+extern NpcGroupList IntroNPCs;
+extern NpcGroupList EndingNPCs;
 
 #include "world/common/npc/ToadGuard/idle.h"
 #include "world/common/npc/ToadMinister/idle.h"

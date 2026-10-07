@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../jan.h"
-#include "mapfs/jan_03_shape.h"
-#include "mapfs/jan_03_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Toad                = 0,
@@ -32,17 +31,15 @@ enum {
     NPC_ChuckQuizmo         = 17,
 };
 
-#define NAMESPACE jan_03
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_PlayRestingSong;
+extern EvtScript EVS_SetupRooms;
+extern EvtScript EVS_SetupShop;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_MakeEntities;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_PlayRestingSong);
-extern EvtScript N(EVS_SetupRooms);
-extern EvtScript N(EVS_SetupShop);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_MakeEntities);
-
-extern NpcGroupList N(CrisisNPCs);
-extern NpcGroupList N(ChapterNPCs);
-extern NpcGroupList N(AfterNPCs);
-extern NpcGroupList N(DefaultNPCs);
+extern NpcGroupList CrisisNPCs;
+extern NpcGroupList ChapterNPCs;
+extern NpcGroupList AfterNPCs;
+extern NpcGroupList DefaultNPCs;

@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../kmr.h"
-#include "mapfs/kmr_10_shape.h"
-#include "mapfs/kmr_10_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toad.h"
 
@@ -21,11 +20,9 @@ enum {
     MV_EntityID_Spring      = MapVar(0),
 };
 
-#define NAMESPACE kmr_10
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_SetupFoliage);
-extern EvtScript N(EVS_MakeEntities);
-extern EvtScript N(EVS_OnShakeTree1);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_SetupFoliage;
+extern EvtScript EVS_MakeEntities;
+extern EvtScript EVS_OnShakeTree1;
+extern NpcGroupList DefaultNPCs;

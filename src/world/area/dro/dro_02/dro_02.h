@@ -8,8 +8,7 @@
 #include "map.h"
 
 #include "../dro.h"
-#include "mapfs/dro_02_shape.h"
-#include "mapfs/dro_02_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/WorldMerlee.h"
 #include "sprite/npc/Toad.h"
@@ -38,15 +37,13 @@ enum {
     MF_SheekTauntPending        = MapFlag(0),
 };
 
-#define NAMESPACE dro_02
+extern EvtScript EVS_Main;
+extern EvtScript EVS_MakeEntities;
+extern NpcGroupList DefaultNPCs;
 
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_MakeEntities);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_SetupMusic;
+extern EvtScript EVS_PlayRestMusic;
+extern EvtScript EVS_PlayMoustafaMusic;
 
-extern EvtScript N(EVS_SetupMusic);
-extern EvtScript N(EVS_PlayRestMusic);
-extern EvtScript N(EVS_PlayMoustafaMusic);
-
-extern EvtScript N(EVS_SetupRooms);
-extern EvtScript N(EVS_NpcInteract_Merlee);
+extern EvtScript EVS_SetupRooms;
+extern EvtScript EVS_NpcInteract_Merlee;

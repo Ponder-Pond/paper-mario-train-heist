@@ -8,16 +8,13 @@
 #include "map.h"
 
 #include "../kkj.h"
-#include "mapfs/kkj_02_shape.h"
-#include "mapfs/kkj_02_hit.h"
+#include "map.xml.h"
 
 enum {
     NPC_Toad            = 0,
     NPC_ToadGuard       = 1,
 };
 
-#define NAMESPACE kkj_02
-
-extern EvtScript N(EVS_Main);
-extern EvtScript N(EVS_SetupMusic);
-extern NpcGroupList N(DefaultNPCs);
+extern EvtScript EVS_Main;
+extern EvtScript EVS_SetupMusic;
+extern NpcGroupList DefaultNPCs;
