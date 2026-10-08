@@ -125,8 +125,6 @@ EvtScript EVS_Init = {
     End
 };
 
-#include "battle/common/SetAbsoluteStatusOffsets.inc.c"
-
 EvtScript EVS_Idle = {
     Return
     End
@@ -192,14 +190,14 @@ EvtScript EVS_CrateExplode = {
     Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar2, 2)
-    PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2, 0)
+    PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2)
     Add(LVar1, 16)
     Add(LVar2, 2)
     Call(StartRumble, BTL_RUMBLE_PLAYER_MAX)
     Thread
         Call(ShakeCam, CAM_BATTLE, 0, 30, Float(6.0))
     EndThread
-    PlayEffect(EFFECT_BLAST, 0, LVar0, LVar1, LVar2, Float(6.0), 30, 0)
+    PlayEffect(EFFECT_BLAST, 0, LVar0, LVar1, LVar2, Float(6.0), 30)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_BULLET_BILL_EXPLODE_A)
     Thread
         Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Crate_BreakDynamite)

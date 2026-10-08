@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "boss.hpp"
 #include "train_heist_actors.hpp"
@@ -100,8 +100,6 @@ s32 DefaultAnims[] = {
     STATUS_KEY_NORMAL,     ANIM_KoopaGang_Green_ShellSpin,
     STATUS_END,
 };
-
-#include "common/StartRumbleWithParams.inc.c"
 
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
@@ -242,7 +240,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     //Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KingBoo_Idle)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(10)
     Call(RemoveActor, ACTOR_SELF)
     Return
@@ -437,8 +435,6 @@ s32 BasicYellowHurtAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -578,7 +574,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     //Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KingBoo_Idle)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(10)
     Call(RemoveActor, ACTOR_SELF)
     Return
@@ -773,8 +769,6 @@ s32 BasicBlackHurtAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -914,7 +908,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     //Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KingBoo_Idle)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(10)
     Call(RemoveActor, ACTOR_SELF)
     Return
@@ -1110,8 +1104,6 @@ s32 BasicRedHurtAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -1251,7 +1243,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     //Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KingBoo_Idle)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(10)
     Call(RemoveActor, ACTOR_SELF)
     Return

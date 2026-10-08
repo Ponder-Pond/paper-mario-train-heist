@@ -152,8 +152,6 @@ s32 ShellSpinAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 Actor* (GetKoopaBrosWithState)(s32 state) {
     Actor* actor = get_actor(GREEN_ACTOR);
     if (actor != NULL && actor->state.varTable[AVAR_Koopa_State] == state) {
@@ -310,7 +308,7 @@ API_CALLABLE(GetTowerFallPosition) {
     return ApiStatus_DONE2;
 }
 
-API_CALLABLE((GetLastActorEventType)) {
+API_CALLABLE(GetLastActorEventType) {
     Bytecode* args = script->ptrReadPos;
     Actor* actor = get_actor(script->owner1.actorID);
 
@@ -387,7 +385,7 @@ export EvtScript EVS_HandleCommand = {
                 CaseOrEq(AVAL_Koopa_State_PosD)
                 CaseOrEq(AVAL_Koopa_State_PosC)
                 CaseOrEq(AVAL_Koopa_State_PosB)
-                    Call((GetLastActorEventType), EVENT_BURN_HIT)
+                    Call(GetLastActorEventType, EVENT_BURN_HIT)
                     SetConst(LVar0, PRT_MAIN)
                     SetConst(LVar1, THIS_ANIM_BURN)
                     SetConst(LVar2, -1)
@@ -439,7 +437,7 @@ export EvtScript EVS_HandleCommand = {
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))
                     Call(JumpToGoal, ACTOR_SELF, 20, false, true, false)
                     IfEq(LFlag0, true)
-                        Call(N(StartRumbleWithParams), 256, 5)
+                        Call(StartRumbleWithParams, 256, 5)
                         Thread
                             Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.8))
                         EndThread
@@ -475,7 +473,7 @@ export EvtScript EVS_HandleCommand = {
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))
                     Call(JumpToGoal, ACTOR_SELF, 20, false, true, false)
                     IfEq(LFlag0, true)
-                        Call(N(StartRumbleWithParams), 256, 5)
+                        Call(StartRumbleWithParams, 256, 5)
                         Thread
                             Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.8))
                         EndThread
@@ -486,7 +484,7 @@ export EvtScript EVS_HandleCommand = {
                     AddF(LVar1, LVar3)
                     AddF(LVar2, Float(5.0))
                     DivF(LVar3, Float(10.0))
-                    PlayEffect(EFFECT_SMOKE_BURST, 0, LVar0, LVar1, LVar2, LVar3, 10, 0)
+                    PlayEffect(EFFECT_SMOKE_BURST, 0, LVar0, LVar1, LVar2, LVar3, 10)
                     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOPPLE_IDLE)
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicToppledAnims))
                     Call(JumpToGoal, ACTOR_SELF, 10, false, true, false)

@@ -129,8 +129,6 @@ s32 ShellSpinAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 Actor* (GetKoopaBrosWithState)(s32 state) {
     Actor* actor = get_actor(GREEN_ACTOR);
     if (actor != NULL && actor->state.varTable[AVAR_Koopa_State] == state) {
@@ -416,7 +414,7 @@ EvtScript EVS_HandleCommand = {
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))
                     Call(JumpToGoal, ACTOR_SELF, 20, false, true, false)
                     IfEq(LFlag0, true)
-                        Call(N(StartRumbleWithParams), 256, 5)
+                        Call(StartRumbleWithParams, 256, 5)
                         Thread
                             Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.8))
                         EndThread
@@ -452,7 +450,7 @@ EvtScript EVS_HandleCommand = {
                     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(BasicHurtAnims))
                     Call(JumpToGoal, ACTOR_SELF, 20, false, true, false)
                     IfEq(LFlag0, true)
-                        Call(N(StartRumbleWithParams), 256, 5)
+                        Call(StartRumbleWithParams, 256, 5)
                         Thread
                             Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.8))
                         EndThread

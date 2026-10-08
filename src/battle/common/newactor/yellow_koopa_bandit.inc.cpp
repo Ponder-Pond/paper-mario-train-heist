@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/ChainChomp.h"
 #include "sprite/npc/HammerBrosSMB3.h"
@@ -114,9 +114,6 @@ s32 DefaultAnims[] = {
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
     STATUS_END,
 };
-
-
-#include "common/StartRumbleWithParams.inc.c"
 
 BSS PlayerStatus DummyPlayerStatus;
 

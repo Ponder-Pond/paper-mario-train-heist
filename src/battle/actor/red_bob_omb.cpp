@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/Bobomb.h"
 #include "boss.hpp"
 #include "dx/debug_menu.h"
@@ -201,7 +201,7 @@ EvtScript EVS_Defuse = {
     Call(SetStatusTable, ACTOR_SELF, Ref(StatusTable))
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar2, 2)
-    PlayEffect(EFFECT_LANDING_DUST, 3, LVar0, LVar1, LVar2, 0, 0)
+    PlayEffect(EFFECT_LANDING_DUST, 3, LVar0, LVar1, LVar2, 0)
     Call(StopLoopingSoundAtActor, ACTOR_SELF, 0)
     Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, false)
     Return
@@ -229,10 +229,10 @@ export EvtScript EVS_Explode = {
     EndThread
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar2, 2)
-    PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2, 0)
+    PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2)
     Add(LVar1, 20)
     Add(LVar2, 2)
-    PlayEffect(EFFECT_EXPLOSION, 0, LVar0, LVar1, LVar2, 0)
+    PlayEffect(EFFECT_EXPLOSION, 0, LVar0, LVar1, LVar2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_BOMB_BLAST)
     Return
     End

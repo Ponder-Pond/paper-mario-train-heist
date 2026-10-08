@@ -150,8 +150,6 @@ s32 CannonSlowAnims[] = {
     STATUS_END,
 };
 
-#include "battle/common/SetAbsoluteStatusOffsets.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
     Call(SetActorVar, ACTOR_SELF, AVAR_ToppleState, AVAL_State_Ground)
@@ -333,7 +331,7 @@ EvtScript EVS_HandleEvent = {
             Else
                 Add(LVar1, 24)
             EndIf
-            PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 20, 0)
+            PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 20)
             Wait(20)
         CaseEq(EVENT_DEATH)
             SetConst(LVar0, PRT_BUZZY)

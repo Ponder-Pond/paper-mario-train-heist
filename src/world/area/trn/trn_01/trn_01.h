@@ -7,8 +7,7 @@
 #include "map.h"
 
 #include "../trn.h"
-#include "mapfs/trn_01_shape.h"
-#include "mapfs/trn_01_hit.h"
+#include "map.xml.h"
 
 #include "sprite/npc/Toadsworth.h"
 #include "sprite/npc/ToadMinister.h"

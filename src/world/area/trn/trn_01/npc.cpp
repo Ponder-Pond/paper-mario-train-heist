@@ -452,7 +452,7 @@ EvtScript EVS_NpcInit_Toad = {
 NpcData NpcData_Characters[] = {
     {
         .id = NPC_Toadsworth,
-        .settings = &N(NpcSettings_Toadsworth),
+        .settings = &NpcSettings_Toadsworth,
         .pos = { GEN_TOADSWORTH_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Toadsworth,
@@ -463,7 +463,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_ToadMinister,
-        .settings = &N(NpcSettings_ToadMinister),
+        .settings = &NpcSettings_ToadMinister,
         .pos = { GEN_TOAD_MINISTER_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_ToadMinister,
@@ -474,7 +474,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_Bubba,
-        .settings = &N(NpcSettings_Bubba),
+        .settings = &NpcSettings_Bubba,
         .pos = { GEN_BUBBA_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Bubba,
@@ -485,7 +485,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_Luigi,
-        .settings = &N(NpcSettings_Luigi),
+        .settings = &NpcSettings_Luigi,
         .pos = { GEN_LUIGI_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Luigi,
@@ -496,7 +496,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_Peach,
-        .settings = &N(NpcSettings_Peach),
+        .settings = &NpcSettings_Peach,
         .pos = { GEN_PEACH_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Peach,
@@ -507,7 +507,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_TayceT,
-        .settings = &N(NpcSettings_TayceT),
+        .settings = &NpcSettings_TayceT,
         .pos = { GEN_TAYCE_T_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_TayceT,
@@ -518,7 +518,7 @@ NpcData NpcData_Characters[] = {
     },
     {
         .id = NPC_Toad,
-        .settings = &N(NpcSettings_Toad),
+        .settings = &NpcSettings_Toad,
         .pos = { GEN_TOAD_VEC },
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .init = &EVS_NpcInit_Toad,
@@ -545,7 +545,7 @@ EvtScript EVS_NpcInit_Kammy = {
 
 NpcData NpcData_CalamityKammy = {
     .id = NPC_CalamityKammy,
-    .settings = &N(NpcSettings_Kammy),
+    .settings = &NpcSettings_Kammy,
     .pos = { GEN_CALAMITY_KAMMY_VEC },
     .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
     .init = &EVS_NpcInit_Kammy,

@@ -22,7 +22,7 @@ enum ActorPartIDs {
     // PRT_BROOM       = 2,
 };
 
-enum N(ActorVars) {
+enum ActorVars {
     AVAR_PlayerTurnCount    = 0,
     AVAR_Speaking           = 1,
 };
@@ -297,7 +297,7 @@ API_CALLABLE(DropBlock) {
     playerStatus->flags |= PS_FLAG_HAMMER_CHECK;
     entity->collisionFlags = ENTITY_COLLISION_PLAYER_HAMMER;
     playerStatus->actionState = ACTION_STATE_HAMMER;
-    entity->blueprint->fpHandleCollision(entity);
+    entity->implementation->fpHandleCollision(entity);
     entity->collisionTimer = 10;
     entity->flags |= ENTITY_FLAG_DETECTED_COLLISION;
     collisionStatus->lastWallHammered = -1;
@@ -354,7 +354,7 @@ EvtScript EVS_Attack_DropBlock = {
         Call(PlaySoundAtActor, ACTOR_PLAYER, SOUND_EMOTE_QUESTION)
         Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
         Add(LVar1, 20)
-        PlayEffect(EFFECT_EMOTE, EMOTE_QUESTION, 0, LVar0, LVar1, LVar2, 20, 315, 30, 0, 0)
+        PlayEffect(EFFECT_EMOTE, EMOTE_QUESTION, 0, LVar0, LVar1, LVar2, 20, 315, 30, 0)
         Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KAMMY_RAISE_OBJECT)
         Wait(20)
         DebugPrintf("Mario Animation EndThread\n")

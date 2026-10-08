@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/ChainChomp.h"
 #include "sprite/npc/HammerBrosSMB3.h"
@@ -132,9 +132,6 @@ s32 DefaultAnims[] = {
     STATUS_END,
 };
 
-
-#include "common/StartRumbleWithParams.inc.c"
-
 BSS PlayerStatus DummyPlayerStatus;
 
 API_CALLABLE(SpawnSpinEffect) {
@@ -242,7 +239,7 @@ EvtScript EVS_Defeat = {
                 Call(SetActorYaw, ACTOR_GIANT_CHOMP, 0)
                 Call(GetActorPos, ACTOR_GIANT_CHOMP, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, ACTOR_GIANT_CHOMP, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -273,7 +270,7 @@ EvtScript EVS_Defeat = {
                 Call(SetActorYaw, ACTOR_YELLOW_HAMMER_BRO, 0)
                 Call(GetActorPos, ACTOR_YELLOW_HAMMER_BRO, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, ACTOR_YELLOW_HAMMER_BRO, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -293,7 +290,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_YELLOW_BANDIT, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
@@ -487,7 +484,7 @@ EvtScript EVS_Move_Cheer = {
     Add(LVar0, 7)
     Add(LVar1, 28)
     Add(LVar2, 5)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
     Wait(30)
     Thread
@@ -588,7 +585,7 @@ EvtScript EVS_Move_Heal_YellowBro = {
     Sub(LVar0, 22)
     Add(LVar1, 19)
     Add(LVar2, 2)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
     Wait(30)
     ExecWait(EVS_YellowBro_UseItem)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
@@ -663,7 +660,7 @@ EvtScript EVS_Move_Heal_Self = {
     Add(LVar0, 7)
     Add(LVar1, 28)
     Add(LVar2, 5)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
     Wait(30)
     ExecWait(EVS_Self_UseItem)
@@ -686,7 +683,7 @@ EvtScript EVS_Attack_ShellToss = {
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Sub(LVar0, 22)
     Add(LVar1, 19)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
     Wait(30)
     Call(GetHomePos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Set(LVar2, 15)
@@ -758,7 +755,7 @@ EvtScript EVS_Attack_ShellToss = {
     Add(LVar0, 7)
     Add(LVar1, 28)
     Add(LVar2, 5)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
     Wait(30)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_RUN)

@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/PyroGuy.h"
 #include "sprite/npc/Bobomb.h"
@@ -167,8 +167,6 @@ s32 PokeyAnims[] = {
     STATUS_END,
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -269,7 +267,7 @@ EvtScript EVS_Defeat = {
                 Call(SetActorYaw, ACTOR_PYRO_GUY, 0)
                 Call(GetActorPos, ACTOR_PYRO_GUY, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, ACTOR_PYRO_GUY, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -333,7 +331,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_PYRO_GUY, LVar0)
@@ -625,7 +623,7 @@ EvtScript EVS_Attack_LitBomb = {
     Call(SetPartJumpGravity, ACTOR_SELF, PRT_BOMB, Float(0.1))
     Call(FlyPartTo, ACTOR_SELF, PRT_BOMB, LVar0, LVar1, LVar2, 0, 15, EASING_LINEAR)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
     Call(PlaySoundAtPart, ACTOR_SELF, PRT_BOMB, SOUND_BOMB_BLAST)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_BOMB, ACTOR_PART_FLAG_INVISIBLE, true)
     Wait(2)
@@ -938,7 +936,7 @@ EvtScript EVS_Attack_Pokey = {
     Add(LVar1, 20)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 15, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 15, 0)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Red_RedPickupPokey)
     Wait(15)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)

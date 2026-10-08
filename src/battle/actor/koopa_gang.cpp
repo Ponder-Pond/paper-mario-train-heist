@@ -28,8 +28,6 @@ enum ActorPartIDs {
     PRT_MAIN            = 1, // For readability
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 // Actor Stats
 constexpr s32 hp = 1;
 
@@ -187,7 +185,7 @@ EvtScript EVS_BuildTowerWithKoopa = {
             Call(GetActorPos, RED_ACTOR, LVar0, LVar1, LVar2)
             Sub(LVar0, 22)
             Add(LVar1, 19)
-            PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
+            PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30)
             Wait(20)
             Wait(10)
             Call(SetAnimation, RED_ACTOR, PRT_MAIN, ANIM_KoopaGang2_Red_Idle)
@@ -734,7 +732,7 @@ EvtScript EVS_ResetFormation_Subscript_PlayThumbsUpFX = {
     Add(LVarA, 7)
     Add(LVarB, 28)
     Add(LVarC, 5)
-    PlayEffect(EFFECT_LENS_FLARE, 0, LVarA, LVarB, LVarC, 30, 0)
+    PlayEffect(EFFECT_LENS_FLARE, 0, LVarA, LVarB, LVarC, 30)
     Call(PlaySoundAtActor, LVar0, SOUND_SMALL_LENS_FLARE)
     // DebugPrintf("Exit:BOSS:EVS_ResetFormation_Subscript_PlayThumbsUpFX\n")
     Return

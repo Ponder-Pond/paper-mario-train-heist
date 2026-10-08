@@ -140,8 +140,6 @@ extern "C" export ActorBlueprint blueprint = {
     .statusTextOffset = { 10, 60 },
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
@@ -286,7 +284,7 @@ EvtScript EVS_Bowser_Defeat = {
                 Call(SetActorYaw, GREEN_ACTOR, 0)
                 Call(GetActorPos, GREEN_ACTOR, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, GREEN_ACTOR, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -317,7 +315,7 @@ EvtScript EVS_Bowser_Defeat = {
                 Call(SetActorYaw, YELLOW_ACTOR, 0)
                 Call(GetActorPos, YELLOW_ACTOR, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, YELLOW_ACTOR, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -348,7 +346,7 @@ EvtScript EVS_Bowser_Defeat = {
                 Call(SetActorYaw, BLACK_ACTOR, 0)
                 Call(GetActorPos, BLACK_ACTOR, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, BLACK_ACTOR, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -379,7 +377,7 @@ EvtScript EVS_Bowser_Defeat = {
                 Call(SetActorYaw, RED_ACTOR, 0)
                 Call(GetActorPos, RED_ACTOR, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, RED_ACTOR, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)

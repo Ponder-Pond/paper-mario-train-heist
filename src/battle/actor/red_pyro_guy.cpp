@@ -122,8 +122,6 @@ EvtScript EVS_Init = {
     End
 };
 
-#include "battle/common/SetAbsoluteStatusOffsets.inc.c"
-
 EvtScript EVS_Idle = {
     Return
     End
@@ -257,7 +255,7 @@ EvtScript EVS_TakeTurn = {
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar0, 20)
     Add(LVar1, 15)
-    PlayEffect(EFFECT_RECOVER, 2, LVar0, LVar1, LVar2, 0, 0)
+    PlayEffect(EFFECT_RECOVER, 2, LVar0, LVar1, LVar2, 0)
     Wait(30)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_PyroGuy_Run)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)

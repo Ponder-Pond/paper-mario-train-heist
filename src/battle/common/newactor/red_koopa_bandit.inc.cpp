@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/PyroGuy.h"
 #include "sprite/npc/Bobomb.h"
@@ -759,8 +759,6 @@ s32 PokeyAnims[] = {
     STATUS_KEY_NORMAL,    ANIM_KoopaGang_Red_Pokey,
     STATUS_END,
 };
-
-#include "common/StartRumbleWithParams.inc.c"
 
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))

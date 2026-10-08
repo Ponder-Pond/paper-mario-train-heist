@@ -114,13 +114,13 @@ static Formation calamity_kammy = {
 };
 
 static BattleList Formations = {
-    BATTLE(train_heist, "trn_00", "Train Heist"), // Battle 0
-    BATTLE(green_phase, "trn_00", "Train Heist Green Phase"), // Battle 1
-    BATTLE(yellow_phase, "trn_00", "Train Heist Yellow Phase"), // Battle 2
-    BATTLE(black_phase, "trn_00", "Train Heist Black Phase"), // Battle 3
-    BATTLE(red_phase, "trn_00", "Train Heist Red Phase"), // Battle 4
-    BATTLE(bowser_phase, "trn_00", "Train Heist Bowser Phase"), // Battle 5
-    BATTLE(calamity_kammy, "trn_00", "Calamity Kammy"), // Battle 6
+    BATTLE(train_heist, "trn_00"), // Battle 0
+    BATTLE(green_phase, "trn_00"), // Battle 1
+    BATTLE(yellow_phase, "trn_00"), // Battle 2
+    BATTLE(black_phase, "trn_00"), // Battle 3
+    BATTLE(red_phase, "trn_00"), // Battle 4
+    BATTLE(bowser_phase, "trn_00"), // Battle 5
+    BATTLE(calamity_kammy, "trn_00"), // Battle 6
     {},
 };
 

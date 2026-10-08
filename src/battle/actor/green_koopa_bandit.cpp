@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/BuzzyBeetle.h"
 #include "sprite/npc/BrigaderBones.h"
@@ -176,9 +176,6 @@ s32 BulletAnims[] = {
     STATUS_END,
 };
 
-
-#include "common/StartRumbleWithParams.inc.c"
-
 BSS PlayerStatus DummyPlayerStatus;
 
 API_CALLABLE(SpawnSpinEffect) {
@@ -324,7 +321,7 @@ EvtScript EVS_Defeat = {
                 Call(SetActorYaw, ACTOR_BUZZY_BEETLE, 0)
                 Call(GetActorPos, ACTOR_BUZZY_BEETLE, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, ACTOR_BUZZY_BEETLE, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -355,7 +352,7 @@ EvtScript EVS_Defeat = {
                 Call(SetActorYaw, ACTOR_BRIGADER_BONES, 0)
                 Call(GetActorPos, ACTOR_BRIGADER_BONES, LVar0, LVar1, LVar2)
                 Add(LVar1, 10)
-                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
                 Call(PlaySoundAtActor, ACTOR_BRIGADER_BONES, SOUND_ACTOR_DEATH)
                 Set(LVar3, 0)
                 Loop(12)
@@ -375,7 +372,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 60)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_BUZZY_BEETLE, LVar0)
@@ -500,8 +497,8 @@ EvtScript EVS_Attack_BulletBiff_Slow = {
     Sub(LVar0, 33)
     Add(LVar1, 35)
     Add(LVar2, 3)
-    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 0, 2, 0)
-    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 2, 2, 0)
+    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
+    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
     Call(SetAnimation, ACTOR_SELF, PRT_BIFF, ANIM_KoopaGang_Green_BulletBiff)
     Call(GetPartPos, ACTOR_SELF, PRT_CANNON, LVar0, LVar1, LVar2)
     Add(LVar0, -55)
@@ -590,8 +587,8 @@ EvtScript EVS_Attack_BulletBiff_Fast = {
     Sub(LVar0, 33)
     Add(LVar1, 35)
     Add(LVar2, 3)
-    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 0, 2, 0)
-    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 2, 2, 0)
+    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
+    PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2)
     Call(SetAnimation, ACTOR_SELF, PRT_BIFF, ANIM_KoopaGang_Green_BulletBiff)
     Call(GetPartPos, ACTOR_SELF, PRT_CANNON, LVar0, LVar1, LVar2)
     Add(LVar0, -55)

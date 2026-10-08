@@ -2,7 +2,7 @@
 #include "effects.h"
 #include "battle/battle.h"
 #include "script_api/battle.h"
-#include "mapfs/trn_bt00_shape.h"
+#include "battle/stage/trn_00/stage.xml.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/ShyGuyRider.h"
 #include "boss.hpp"
@@ -143,8 +143,6 @@ s32 ParaBeetleAnims[] = {
     STATUS_KEY_NORMAL,    ANIM_KoopaGang_Black_ParaBeetle,
     STATUS_END,
 };
-
-#include "common/StartRumbleWithParams.inc.c"
 
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
@@ -295,7 +293,7 @@ EvtScript EVS_Defeat = {
     Add(LVar1, 20)
     Add(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0)
     Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar0)
@@ -409,7 +407,7 @@ EvtScript EVS_Attack_SniperShot = {
     Add(LVar1, 28)
     Add(LVar2, 5)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaGang_Black_BlackFire)
-    PlayEffect(EFFECT_BLAST, 0, LVar0, LVar1, LVar2, Float(0.75), 30, 0)
+    PlayEffect(EFFECT_BLAST, 0, LVar0, LVar1, LVar2, Float(0.75), 30)
     Call(PlaySoundAtPart, ACTOR_SELF, PRT_PARABEETLE, SOUND_BOMB_BLAST)
     // Wait(3)
     Call(SetPartPos, ACTOR_SELF, PRT_PARABEETLE, LVar0, LVar1, LVar2)

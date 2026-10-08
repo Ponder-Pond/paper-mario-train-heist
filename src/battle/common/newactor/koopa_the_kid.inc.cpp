@@ -121,8 +121,6 @@ ActorPartBlueprint ActorParts[] = {
     },
 };
 
-#include "common/StartRumbleWithParams.inc.c"
-
 EvtScript EVS_Init = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(EVS_TakeTurn))
     Call(BindIdle, ACTOR_SELF, Ref(EVS_Idle))
